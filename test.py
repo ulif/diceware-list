@@ -4,6 +4,17 @@ import pytest
 from wordlist_gen import get_cmdline_args
 
 
+@pytest.fixture
+def dictfile(request, tmpdir):
+    """py.test fixture providing a dictfile.
+
+    The returned file is a py.local instance.
+    """
+    dictfile = tmpdir / "dictfile.txt"
+    dictfile.write("foo\nbar\n")
+    return dictfile
+
+
 class TestArgParser(object):
 
     def test_sys_argv_as_fallback(self, monkeypatch, capfd):
