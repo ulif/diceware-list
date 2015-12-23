@@ -31,3 +31,12 @@ class TestArgParser(object):
             sys, "argv", ["scriptname", str(dictfile)])
         result = get_cmdline_args()
         assert result.verbose is False
+
+    def test_opt_verbose_settable(self, monkeypatch, tmpdir):
+        # we can set the verbose option
+        dictfile = tmpdir / "dictfile.txt"
+        dictfile.write("foo\nbar\n")
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "-v", str(dictfile)])
+        result = get_cmdline_args()
+        assert result.verbose is True
