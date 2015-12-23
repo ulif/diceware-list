@@ -22,3 +22,12 @@ class TestArgParser(object):
             get_cmdline_args()
         out, err = capfd.readouterr()
         assert "No such file or directory: 'foobar'" in err
+
+    def test_opt_verbose_default(self, monkeypatch, capfd, tmpdir):
+        # verbose option is unset by default.
+        dictfile = tmpdir / "dictfile.txt"
+        dictfile.write("foo\nbar\n")
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", str(dictfile)])
+        result = get_cmdline_args()
+        assert result.verbose is False
