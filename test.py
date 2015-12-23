@@ -49,3 +49,8 @@ class TestArgParser(object):
         # we can set the verbose option
         result = get_cmdline_args(["-v", str(dictfile)])
         assert result.verbose is True
+
+    def test_opt_len_settable(self, dictfile):
+        # we can set the len option
+        result = get_cmdline_args(["-l 1024", str(dictfile)])
+        assert result.len == 1024
