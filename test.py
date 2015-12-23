@@ -26,17 +26,13 @@ class TestArgParser(object):
     def test_opt_verbose_default(self, monkeypatch, capfd, tmpdir):
         # verbose option is unset by default.
         dictfile = tmpdir / "dictfile.txt"
-        dictfile.write("foo\nbar\n")
-        monkeypatch.setattr(
-            sys, "argv", ["scriptname", str(dictfile)])
-        result = get_cmdline_args()
+        dictfile.write("foo")
+        result = get_cmdline_args(str(dictfile))
         assert result.verbose is False
 
-    def test_opt_verbose_settable(self, monkeypatch, tmpdir):
+    def test_opt_verbose_settable(self, tmpdir):
         # we can set the verbose option
         dictfile = tmpdir / "dictfile.txt"
-        dictfile.write("foo\nbar\n")
-        monkeypatch.setattr(
-            sys, "argv", ["scriptname", "-v", str(dictfile)])
-        result = get_cmdline_args()
+        dictfile.write("foo")
+        result = get_cmdline_args(["-v", str(dictfile)])
         assert result.verbose is True
