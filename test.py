@@ -6,6 +6,15 @@ from wordlist_gen import get_cmdline_args
 
 class TestArgParser(object):
 
+    def test_sys_argv_as_fallback(self, monkeypatch, capfd):
+        # if we deliver no args, `sys.argv` is used.
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "rare_filename"])
+        with pytest.raises(SystemExit):
+            get_cmdline_args()
+        out, err = capfd.readouterr()
+        assert "rare_filename" in err
+
     def test_dict_file_required(self, monkeypatch, capfd):
         # we require at least one argument, a dictionary file
         monkeypatch.setattr(sys, "argv", ["scriptname", ])
