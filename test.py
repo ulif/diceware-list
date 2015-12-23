@@ -17,14 +17,12 @@ def dictfile(request, tmpdir):
 
 class TestArgParser(object):
 
-    def test_sys_argv_as_fallback(self, monkeypatch, capfd):
+    def test_sys_argv_as_fallback(self, monkeypatch, capfd, dictfile):
         # if we deliver no args, `sys.argv` is used.
-        monkeypatch.setattr(
-            sys, "argv", ["scriptname", "rare_filename"])
-        with pytest.raises(SystemExit):
-            get_cmdline_args()
+        monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
+        get_cmdline_args()
         out, err = capfd.readouterr()
-        assert "rare_filename" in err
+        assert err == ""
 
     def test_dict_file_required(self, monkeypatch, capfd):
         # we require at least one argument, a dictionary file
@@ -43,16 +41,12 @@ class TestArgParser(object):
         out, err = capfd.readouterr()
         assert "No such file or directory: 'foobar'" in err
 
-    def test_opt_verbose_default(self, monkeypatch, capfd, tmpdir):
+    def test_opt_verbose_default(self, dictfile):
         # verbose option is unset by default.
-        dictfile = tmpdir / "dictfile.txt"
-        dictfile.write("foo")
         result = get_cmdline_args([str(dictfile), ])
         assert result.verbose is False
 
-    def test_opt_verbose_settable(self, tmpdir):
+    def test_opt_verbose_settable(self, dictfile):
         # we can set the verbose option
-        dictfile = tmpdir / "dictfile.txt"
-        dictfile.write("foo")
         result = get_cmdline_args(["-v", str(dictfile)])
         assert result.verbose is True
