@@ -27,7 +27,7 @@ class TestArgParser(object):
         # verbose option is unset by default.
         dictfile = tmpdir / "dictfile.txt"
         dictfile.write("foo")
-        result = get_cmdline_args(str(dictfile))
+        result = get_cmdline_args([str(dictfile), ])
         assert result.verbose is False
 
     def test_opt_verbose_settable(self, tmpdir):
