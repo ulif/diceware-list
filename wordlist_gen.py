@@ -20,8 +20,8 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
-def filter_list():
-    with open(INFILE, "r") as fd:
+def filter_list(file_path):
+    with open(file_path, "r") as fd:
         for line in fd.readlines():
             print(line)
 
