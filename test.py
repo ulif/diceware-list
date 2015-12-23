@@ -39,10 +39,11 @@ class TestArgParser(object):
         out, err = capfd.readouterr()
         assert "No such file or directory: 'foobar'" in err
 
-    def test_opt_verbose_default(self, dictfile):
-        # verbose option is unset by default.
+    def test_options_defaults(self, dictfile):
+        # options provide sensible defaults.
         result = get_cmdline_args([str(dictfile), ])
         assert result.verbose is False
+        assert result.len == 8192
 
     def test_opt_verbose_settable(self, dictfile):
         # we can set the verbose option
