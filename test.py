@@ -1,7 +1,7 @@
 import sys
 import pytest
-
-from wordlist_gen import get_cmdline_args
+from io import StringIO
+from wordlist_gen import get_cmdline_args, filtered_by_len
 
 
 @pytest.fixture
@@ -68,3 +68,16 @@ class TestArgParser(object):
         # we can set the len option
         result = get_cmdline_args(["-l 1024", str(dictfile)])
         assert result.len == 1024
+
+
+def test_filtered_by_len():
+    buf = StringIO(u"Line1\nLine12\n")
+    result = list(filtered_by_len(buf))
+    assert result == ["Line1", "Line12"]
+
+def test_filtered_by_len_min_len():
+    # we can set minimal length of accepted terms
+    buf = StringIO(u"\n".join(["1", "12", "123", "1234"]))
+    assert list(filtered_by_len(buf)) == ["123", "1234"]
+    assert list(filtered_by_len(buf, min_len=2)) == ["12", "123", "1234"]
+    assert list(filtered_by_len(buf, min_len=4)) == ["1234", ]
