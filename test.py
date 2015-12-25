@@ -44,6 +44,17 @@ class TestArgParser(object):
         result = get_cmdline_args([str(dictfile), ])
         assert result.verbose is False
         assert result.len == 8192
+        assert isinstance(result.dictfile, list)
+
+    def test_arg_dictfile_gives_file_objs(self, tmpdir):
+        path1 = tmpdir / "foo.txt"
+        path2 = tmpdir / "bar.txt"
+        path1.write("foo")
+        path2.write("bar")
+        result = get_cmdline_args([str(path1), str(path2)])
+        assert len(result.dictfile) == 2
+        assert result.dictfile[0].read() == b"foo"
+        assert result.dictfile[1].read() == b"bar"
 
     def test_opt_verbose_settable(self, dictfile):
         # we can set the verbose option
