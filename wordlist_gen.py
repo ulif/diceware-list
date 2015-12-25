@@ -20,6 +20,21 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
+def filtered_by_len(file_descr, min_len=3, max_len=None):
+    """Get a list of words from file_descr.
+
+    Only words of len `min_len`..`max_len` are included.
+    """
+    file_descr.seek(0)
+    for line in file_descr:
+        line = line.strip()
+        if len(line) < min_len:
+            continue
+        elif max_len and len(line) > max_len:
+            continue
+        yield line
+
+
 if __name__ == "__main__":
     args = get_cmdline_args()
     print(args)
