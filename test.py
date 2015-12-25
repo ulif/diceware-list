@@ -30,7 +30,10 @@ class TestArgParser(object):
             get_cmdline_args(None)
         assert why.value.args[0] == 2
         out, err = capfd.readouterr()
-        assert "the following arguments are required" in err
+        if sys.version_info < (3,0):
+            assert "too few arguments" in err
+        else:
+            assert "the following arguments are required" in err
 
     def test_dict_file_must_exist(self, monkeypatch, capfd):
         # we require at least one argument, a dictionary file
