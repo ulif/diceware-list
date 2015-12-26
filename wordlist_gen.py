@@ -32,9 +32,7 @@ def filtered_by_len(file_descr, min_len=3, max_len=None):
     file_descr.seek(0)
     for line in file_descr:
         line = line.strip()
-        if len(line) < min_len:
-            continue
-        elif max_len and len(line) > max_len:
+        if (len(line) < min_len) or (max_len and len(line) > max_len):
             continue
         yield line
 
