@@ -23,7 +23,11 @@ def get_cmdline_args(args=None):
 def filtered_by_len(file_descr, min_len=3, max_len=None):
     """Get a list of words from file_descr.
 
-    Only words of len `min_len`..`max_len` are included.
+    Only words of len `min_len`..`max_len` are included. The file
+    descriptor given should be open for reading. It must support `seek`
+    and iterating over it (yielding lines).
+
+    The lines we find (and that meet our requirements) are also yielded.
     """
     file_descr.seek(0)
     for line in file_descr:
