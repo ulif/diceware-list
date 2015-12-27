@@ -56,6 +56,10 @@ def term_iterator(file_descriptors):
             yield term.strip()
 
 
-if __name__ == "__main__":
+def main():
     args = get_cmdline_args()
     print(args)
+
+
+if __name__ == "__main__":
+    main()
