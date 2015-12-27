@@ -96,5 +96,8 @@ class TestGenerateWordlist(object):
 
     def test_arg_length_is_respected(self):
         # we respect the "length" parameter
-        assert list(generate_wordlist(["foo", "bar"], length=1)) == ["foo", ]
-
+        assert list(generate_wordlist(["a", "b", "c"], length=0)) == []
+        assert list(generate_wordlist(["a", "b", "c"], length=1)) == ["a", ]
+        assert list(generate_wordlist(["a", "b", "c"], length=2)) == ["a", "b"]
+        assert list(generate_wordlist(["a", "b", "c"], length=3)) == ["a", "b", "c"]
+        assert list(generate_wordlist(["a", "b", "c"], length=4)) == ["a", "b", "c"]
