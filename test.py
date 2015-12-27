@@ -100,7 +100,8 @@ class TestTermIterator(object):
         wlist = tmpdir.join("wlist.txt")
         wlist.write(b"\n".join([b"a", b"b", b"c"]))
         with open(str(wlist), "rb") as fd:
-            assert list(term_iterator([fd, ]))
+            result = list(term_iterator([fd, ]))
+        assert result == ["a", "b", "c"]
 
     def test_term_iterator_multiple_files(self, tmpdir):
         wlist1 = tmpdir.join("wlist1.txt")
