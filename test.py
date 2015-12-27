@@ -1,7 +1,9 @@
 import sys
 import pytest
 from io import StringIO
-from wordlist_gen import get_cmdline_args, filtered_by_len, generate_wordlist
+from wordlist_gen import (
+    get_cmdline_args, filtered_by_len, generate_wordlist, term_iterator
+    )
 
 
 @pytest.fixture
@@ -90,6 +92,15 @@ class TestFilteredByLen(object):
         assert list(filtered_by_len(buf)) == ["123", "1234", "12345"]
         assert list(filtered_by_len(buf, max_len=3)) == ["123", ]
         assert list(filtered_by_len(buf, max_len=4)) == ["123", "1234"]
+
+
+class TestTermIterator(object):
+
+    def test_term_iterator(self, tmpdir):
+        wlist = tmpdir.join("wlist.txt")
+        wlist.write(b"\n".join([b"a", b"b", b"c"]))
+        with open(str(wlist), "rb") as fd:
+            assert list(term_iterator([fd, ]))
 
 
 class TestGenerateWordlist(object):

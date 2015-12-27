@@ -46,6 +46,16 @@ def generate_wordlist(input_list, length=8192):
         yield term
 
 
+def term_iterator(file_descriptors):
+    """Yield terms from files in `file_descriptors`.
+
+    `file_descriptors` must be open for reading.
+    """
+    for fd in file_descriptors:
+        for term in fd:
+            yield term.strip()
+
+
 if __name__ == "__main__":
     args = get_cmdline_args()
     print(args)
