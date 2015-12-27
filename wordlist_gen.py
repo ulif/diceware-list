@@ -37,6 +37,15 @@ def filtered_by_len(file_descr, min_len=3, max_len=None):
         yield line
 
 
+def generate_wordlist(input_list, length=8192):
+    """Generate a diceware wordlist from dictionary list.
+    """
+    for num, term in enumerate(input_list):
+        if num >= length:
+            break
+        yield term
+
+
 if __name__ == "__main__":
     args = get_cmdline_args()
     print(args)

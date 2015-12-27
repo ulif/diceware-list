@@ -1,7 +1,7 @@
 import sys
 import pytest
 from io import StringIO
-from wordlist_gen import get_cmdline_args, filtered_by_len
+from wordlist_gen import get_cmdline_args, filtered_by_len, generate_wordlist
 
 
 @pytest.fixture
@@ -90,3 +90,11 @@ class TestFilteredByLen(object):
         assert list(filtered_by_len(buf)) == ["123", "1234", "12345"]
         assert list(filtered_by_len(buf, max_len=3)) == ["123", ]
         assert list(filtered_by_len(buf, max_len=4)) == ["123", "1234"]
+
+
+class TestGenerateWordlist(object):
+
+    def test_arg_length_is_respected(self):
+        # we respect the "length" parameter
+        assert list(generate_wordlist(["foo", "bar"], length=1)) == ["foo", ]
+
