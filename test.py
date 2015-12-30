@@ -134,7 +134,7 @@ class TestMain(object):
         with pytest.raises(SystemExit) as why:
             main()
 
-    def test_main(self, monkeypatch, capfd):
+    def test_main_help(self, monkeypatch, capfd):
         # we can get --help
         monkeypatch.setattr(sys, "argv", ["scriptname", "--help"])
         with pytest.raises(SystemExit):
