@@ -131,5 +131,13 @@ class TestMain(object):
     def test_main(self, monkeypatch):
         # we can call the main function (although it will require extra args)
         monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        with pytest.raises(SystemExit) as why:
+            main()
+
+    def test_main(self, monkeypatch, capfd):
+        # we can get --help
+        monkeypatch.setattr(sys, "argv", ["scriptname", "--help"])
         with pytest.raises(SystemExit):
             main()
+        out, err = capfd.readouterr()
+        assert "positional arguments" in out
