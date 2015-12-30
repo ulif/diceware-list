@@ -128,7 +128,8 @@ class TestGenerateWordlist(object):
 
 class TestMain(object):
 
-    def test_main(self):
+    def test_main(self, monkeypatch):
         # we can call the main function (although it will require extra args)
+        monkeypatch.setattr(sys, "argv", ["scriptname", ])
         with pytest.raises(SystemExit):
             main()
