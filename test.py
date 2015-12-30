@@ -101,7 +101,7 @@ class TestTermIterator(object):
         wlist.write(b"\n".join([b"a", b"b", b"c"]))
         with open(str(wlist), "rb") as fd:
             result = list(term_iterator([fd, ]))
-        assert result == ["a", "b", "c"]
+        assert result == [b"a", b"b", b"c"]
 
     def test_term_iterator_multiple_files(self, tmpdir):
         wlist1 = tmpdir.join("wlist1.txt")
@@ -111,7 +111,7 @@ class TestTermIterator(object):
         with open(str(wlist1), "rb") as fd1:
             with open(str(wlist2), "rb") as fd2:
                 result = list(term_iterator([fd1, fd2]))
-        assert result == ["a1", "b1", "c1", "a2", "b2", "c2"]
+        assert result == [b"a1", b"b1", b"c1", b"a2", b"b2", b"c2"]
 
 
 class TestGenerateWordlist(object):
