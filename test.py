@@ -2,7 +2,7 @@ import sys
 import pytest
 from io import StringIO
 from wordlist_gen import (
-    get_cmdline_args, filtered_by_len, generate_wordlist, term_iterator
+    get_cmdline_args, filtered_by_len, generate_wordlist, term_iterator, main
     )
 
 
@@ -124,3 +124,11 @@ class TestGenerateWordlist(object):
         assert list(generate_wordlist(in_list, length=2)) == ["a", "b"]
         assert list(generate_wordlist(in_list, length=3)) == ["a", "b", "c"]
         assert list(generate_wordlist(in_list, length=4)) == ["a", "b", "c"]
+
+
+class TestMain(object):
+
+    def test_main(self):
+        # we can call the main function (although it will require extra args)
+        with pytest.raises(SystemExit):
+            main()
