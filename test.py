@@ -139,7 +139,7 @@ class TestMain(object):
     def test_main(self, monkeypatch):
         # we can call the main function (although it will require extra args)
         monkeypatch.setattr(sys, "argv", ["scriptname", ])
-        with pytest.raises(SystemExit) as why:
+        with pytest.raises(SystemExit):
             main()
 
     def test_main_help(self, monkeypatch, capfd):
