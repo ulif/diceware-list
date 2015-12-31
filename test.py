@@ -76,28 +76,28 @@ class TestArgParser(object):
 class TestFilteredByLen(object):
 
     def test_filtered_by_len(self):
-        buf = StringIO(u"Line1\nLine12\n")
-        result = list(filtered_by_len(buf))
+        terms = ["Line1", "Line12"]
+        result = list(filtered_by_len(terms))
         assert result == ["Line1", "Line12"]
 
     def test_filtered_by_len_min_len(self):
         # we can set minimal length of accepted terms
-        buf = StringIO(u"\n".join(["1", "12", "123", "1234"]))
-        assert list(filtered_by_len(buf)) == ["123", "1234"]
-        assert list(filtered_by_len(buf, min_len=2)) == ["12", "123", "1234"]
-        assert list(filtered_by_len(buf, min_len=4)) == ["1234", ]
+        terms = ["1", "12", "123", "1234"]
+        assert list(filtered_by_len(terms)) == ["123", "1234"]
+        assert list(filtered_by_len(terms, min_len=2)) == ["12", "123", "1234"]
+        assert list(filtered_by_len(terms, min_len=4)) == ["1234", ]
 
     def test_filtered_by_len_max_len(self):
         #  we can set maximum length of accepted terms
-        buf = StringIO(u"\n".join(["123", "1234", "12345"]))
-        assert list(filtered_by_len(buf)) == ["123", "1234", "12345"]
-        assert list(filtered_by_len(buf, max_len=3)) == ["123", ]
-        assert list(filtered_by_len(buf, max_len=4)) == ["123", "1234"]
+        terms = ["123", "1234", "12345"]
+        assert list(filtered_by_len(terms)) == ["123", "1234", "12345"]
+        assert list(filtered_by_len(terms, max_len=3)) == ["123", ]
+        assert list(filtered_by_len(terms, max_len=4)) == ["123", "1234"]
 
     def test_handle_umlauts(self):
         # we can handle umlauts
-        buf = StringIO(u"\n".join([u"törm", u"ümläut"]))
-        assert list(filtered_by_len(buf)) == [u"törm", u"ümläut"]
+        terms = [u"törm", u"ümläut"]
+        assert list(filtered_by_len(terms)) == [u"törm", u"ümläut"]
 
 
 class TestTermIterator(object):
