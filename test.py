@@ -103,6 +103,7 @@ class TestFilteredByLen(object):
 class TestTermIterator(object):
 
     def test_term_iterator(self, tmpdir):
+        # the term_iterator really returns iterators
         wlist = tmpdir.join("wlist.txt")
         wlist.write(b"\n".join([b"a", b"b", b"c"]))
         with open(str(wlist), "rb") as fd:
@@ -110,6 +111,7 @@ class TestTermIterator(object):
         assert result == [b"a", b"b", b"c"]
 
     def test_term_iterator_multiple_files(self, tmpdir):
+        # we can feed multiple input files to term_iterator
         wlist1 = tmpdir.join("wlist1.txt")
         wlist2 = tmpdir.join("wlist2.txt")
         wlist1.write(b"\n".join([b"a1", b"b1", b"c1"]))
