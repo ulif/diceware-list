@@ -20,17 +20,14 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
-def filtered_by_len(file_descr, min_len=3, max_len=None):
-    """Get a list of words from file_descr.
+def filtered_by_len(iterator, min_len=3, max_len=None):
+    """Get an iterator over words from `iterator`.
 
-    Only words of len `min_len`..`max_len` are included. The file
-    descriptor given should be open for reading. It must support `seek`
-    and iterating over it (yielding lines).
+    Only words of len `min_len`..`max_len` are included.
 
-    The lines we find (and that meet our requirements) are also yielded.
+    The lines we find (and that meet our requirements) are yielded.
     """
-    file_descr.seek(0)
-    for line in file_descr:
+    for line in iterator:
         line = line.strip()
         if (len(line) < min_len) or (max_len and len(line) > max_len):
             continue
