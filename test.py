@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import pytest
 from io import StringIO
@@ -92,6 +93,11 @@ class TestFilteredByLen(object):
         assert list(filtered_by_len(buf)) == ["123", "1234", "12345"]
         assert list(filtered_by_len(buf, max_len=3)) == ["123", ]
         assert list(filtered_by_len(buf, max_len=4)) == ["123", "1234"]
+
+    def test_handle_umlauts(self):
+        # we can handle umlauts
+        buf = StringIO(u"\n".join([u"törm", u"ümläut"]))
+        assert list(filtered_by_len(buf)) == [u"törm", u"ümläut"]
 
 
 class TestTermIterator(object):
