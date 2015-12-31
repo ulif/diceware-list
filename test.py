@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
 import pytest
-from io import StringIO
 from wordlist_gen import (
     get_cmdline_args, filtered_by_len, generate_wordlist, term_iterator, main
     )
