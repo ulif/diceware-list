@@ -29,6 +29,15 @@ Afterwards, you can run tests like so::
 
   (venv)$ py.test
 
+If you also install `tox`::
+
+  (venv)$ pip install tox
+
+then you can run all tests for all supported platforms at once::
+
+  (venv)$ tox
+
+
 
 .. _diceware: http://diceware.com/
 .. _pip: https://pip.pypa.io/en/latest/
