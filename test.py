@@ -120,6 +120,13 @@ class TestTermIterator(object):
                 result = list(term_iterator([fd1, fd2]))
         assert result == [b"a1", b"b1", b"c1", b"a2", b"b2", b"c2"]
 
+    def test_term_iterator_handles_umlauts(self, tmpdir):
+        # we can feed term iterators with umlauts
+        wlist = tmpdir.join("wlist.txt")
+        wlist.write_text(u"ä\nö\n", "utf-8")
+        with open(str(wlist), "r") as fd:
+            result = list(term_iterator([fd, ]))
+        assert result == ["ä", "ö"]
 
 class TestGenerateWordlist(object):
 
