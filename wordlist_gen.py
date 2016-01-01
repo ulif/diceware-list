@@ -36,6 +36,12 @@ def filtered_by_len(iterator, min_len=3, max_len=None):
 
 def generate_wordlist(input_list, length=8192):
     """Generate a diceware wordlist from dictionary list.
+
+    `input_list`: iterable over all strings to consider as wordlist item.
+
+    `length`: desired length of wordlist to generate.
+
+    Returns an iterator that yields at most `length` items.
     """
     for num, term in enumerate(input_list):
         if num >= length:
