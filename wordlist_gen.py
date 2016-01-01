@@ -60,6 +60,10 @@ def term_iterator(file_descriptors):
 
 
 def main():
+    """Main function of script.
+
+    Output the wordlist determined by commandline args.
+    """
     args = get_cmdline_args()
     all_terms = term_iterator(args.dictfile)
     for term in all_terms:
