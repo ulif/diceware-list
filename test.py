@@ -148,3 +148,12 @@ class TestMain(object):
             main()
         out, err = capfd.readouterr()
         assert "positional arguments" in out
+
+    def test_main_output(self, monkeypatch, tmpdir, capfd):
+        # we can output simple lists
+        wlist_path = tmpdir / "wlist.txt"
+        wlist_path.write("foo\nbar\n")
+        monkeypatch.setattr(sys, "argv", ["scriptname", str(wlist_path)])
+        main()
+        out, err = capfd.readouterr()
+        assert out == "foo\nbar\n"
