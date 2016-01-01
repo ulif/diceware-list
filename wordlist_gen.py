@@ -61,7 +61,9 @@ def term_iterator(file_descriptors):
 
 def main():
     args = get_cmdline_args()
-    print(args)
+    all_terms = term_iterator(args.dictfile)
+    for term in all_terms:
+        print(term.decode("utf-8"))
 
 
 if __name__ == "__main__":
