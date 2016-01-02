@@ -167,3 +167,12 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert out == "foo\nbar\n"
+
+    def test_main_length(self, monkeypatch, tmpdir, capfd):
+        # we do not output more terms than requested.
+        wlist_path = tmpdir / "wlist.txt"
+        wlist_path.write("1\n2\n3\n")
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-l", "2", str(wlist_path)])
+        main()
+        out, err = capfd.readouterr()
+        assert out == "1\n2\n"
