@@ -48,7 +48,7 @@ class TestArgParser(object):
         # options provide sensible defaults.
         result = get_cmdline_args([str(dictfile), ])
         assert result.verbose is False
-        assert result.len == 8192
+        assert result.length == 8192
         assert isinstance(result.dictfile, list)
 
     def test_arg_dictfile_gives_file_objs(self, tmpdir):
@@ -66,10 +66,10 @@ class TestArgParser(object):
         result = get_cmdline_args(["-v", str(dictfile)])
         assert result.verbose is True
 
-    def test_opt_len_settable(self, dictfile):
-        # we can set the len option
+    def test_opt_length_settable(self, dictfile):
+        # we can set the length option
         result = get_cmdline_args(["-l 1024", str(dictfile)])
-        assert result.len == 1024
+        assert result.length == 1024
 
 
 class TestFilteredByLen(object):
