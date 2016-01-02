@@ -128,6 +128,7 @@ class TestTermIterator(object):
             result = list(term_iterator([fd, ]))
         assert result == ["ä", "ö"]
 
+
 class TestGenerateWordlist(object):
 
     def test_arg_length_is_respected(self):
