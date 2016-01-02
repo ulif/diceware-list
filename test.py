@@ -70,6 +70,8 @@ class TestArgParser(object):
         # we can set the length option
         result = get_cmdline_args(["-l 1024", str(dictfile)])
         assert result.length == 1024
+        result = get_cmdline_args(["--length=2048", str(dictfile)])
+        assert result.length == 2048
 
 
 class TestFilteredByLen(object):

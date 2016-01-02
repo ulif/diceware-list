@@ -6,7 +6,7 @@ def get_cmdline_args(args=None):
     """
     parser = argparse.ArgumentParser(description="Create a wordlist")
     parser.add_argument(
-        '-l', '--len', default=8192, type=int, dest='length',
+        '-l', '--length', default=8192, type=int, dest='length',
         help='desired length of generated wordlist. Default: 8192')
     parser.add_argument(
         'dictfile', nargs='+', metavar='DICTFILE',
