@@ -66,7 +66,7 @@ def main():
     """
     args = get_cmdline_args()
     all_terms = term_iterator(args.dictfile)
-    for term in all_terms:
+    for term in generate_wordlist(all_terms, args.len):
         print(term.decode("utf-8"))
 
 
