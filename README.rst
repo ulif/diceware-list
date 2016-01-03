@@ -38,6 +38,17 @@ then you can run all tests for all supported platforms at once::
   (venv)$ tox
 
 
+Coverage
+--------
+
+To get a coverage report, you can use the respective py.test plugin::
+
+  (venv)$ pip install pytest-cov
+  (venv)$ py.test --cov=wordlist-gen --cov-report=html
+
+Skip the `--cov-report` option (or use `term` instead of `html`) to
+get a report on commandline.
+
 
 .. _diceware: http://diceware.com/
 .. _pip: https://pip.pypa.io/en/latest/
