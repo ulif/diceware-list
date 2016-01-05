@@ -43,7 +43,7 @@ def generate_wordlist(input_terms, length=8192):
 
     Returns an iterator that yields at most `length` items.
     """
-    for num, term in enumerate(input_terms):
+    for num, term in enumerate(sorted(input_terms)):
         if num >= length:
             break
         yield term

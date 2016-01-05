@@ -142,6 +142,12 @@ class TestGenerateWordlist(object):
         assert list(generate_wordlist(in_list, length=3)) == ["a", "b", "c"]
         assert list(generate_wordlist(in_list, length=4)) == ["a", "b", "c"]
 
+    def test_result_sorted(self):
+        # result iterators are sorted
+        in_list = ["c", "aa", "a", "b"]
+        assert list(
+            generate_wordlist(in_list, length=8192)) == ["a", "aa", "b", "c"]
+
 
 class TestMain(object):
 
@@ -162,11 +168,11 @@ class TestMain(object):
     def test_main_output(self, monkeypatch, tmpdir, capfd):
         # we can output simple lists
         wlist_path = tmpdir / "wlist.txt"
-        wlist_path.write("foo\nbar\n")
+        wlist_path.write("bar\nfoo\n")
         monkeypatch.setattr(sys, "argv", ["scriptname", str(wlist_path)])
         main()
         out, err = capfd.readouterr()
-        assert out == "foo\nbar\n"
+        assert out == "bar\nfoo\n"
 
     def test_main_length(self, monkeypatch, tmpdir, capfd):
         # we do not output more terms than requested.
