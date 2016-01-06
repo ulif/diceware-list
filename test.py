@@ -148,6 +148,11 @@ class TestGenerateWordlist(object):
         assert list(
             generate_wordlist(in_list, length=8192)) == ["a", "aa", "b", "c"]
 
+    def test_unique_entries_only(self):
+        # wordlists contain each entry only once
+        in_list = ["a", "a", "a", "b", "a"]
+        assert list(generate_wordlist(in_list, length=2)) == ["a", "b"]
+
 
 class TestMain(object):
 

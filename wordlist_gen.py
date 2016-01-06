@@ -41,11 +41,18 @@ def generate_wordlist(input_terms, length=8192):
 
     `length`: desired length of wordlist to generate.
 
-    Returns an iterator that yields at most `length` items.
+    Returns an iterator that yields at most `length` items. Double
+    entries are removed.
     """
-    for num, term in enumerate(sorted(input_terms)):
+    last = None
+    num = 0
+    for term in sorted(input_terms):
         if num >= length:
             break
+        if term == last:
+            continue
+        last = term
+        num += 1
         yield term
 
 
