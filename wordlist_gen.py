@@ -44,11 +44,7 @@ def generate_wordlist(input_terms, length=8192):
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
     """
-    num = 0
-    for term in sorted(list(set(input_terms))):
-        if num >= length:
-            break
-        num += 1
+    for term in sorted(list(set(input_terms)))[:length]:
         yield term
 
 
