@@ -75,7 +75,8 @@ class TestArgParser(object):
         assert result.length == 2048
 
 
-class TestFilteredByLen(object):
+class TestWordlistGen(object):
+    # Minor components are grouped here
 
     def test_filtered_by_len(self):
         terms = ["Line1", "Line12"]
@@ -96,13 +97,10 @@ class TestFilteredByLen(object):
         assert list(filtered_by_len(terms, max_len=3)) == ["123", ]
         assert list(filtered_by_len(terms, max_len=4)) == ["123", "1234"]
 
-    def test_handle_umlauts(self):
+    def test_filtered_by_len_handle_umlauts(self):
         # we can handle umlauts
         terms = [u"törm", u"ümläut"]
         assert list(filtered_by_len(terms)) == [u"törm", u"ümläut"]
-
-
-class TestTermIterator(object):
 
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators
