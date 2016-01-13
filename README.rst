@@ -1,6 +1,12 @@
 wordlist-gen
 ============
 
+|bdg-build| `sources <https://github.com/ulif/wordlist-gen>`_ | `issues <https://github.com/ulif/wordlist-gen/issues>`_
+
+.. |bdg-build| image:: https://travis-ci.org/ulif/wordlist-gen.svg?branch=master
+    :target: https://travis-ci.org/ulif/wordlist-gen
+    :alt: Build Status
+
 Create wordlists for `diceware`_ in a reproducable and easy manner.
 
 This project provides tools for easy generation of wordlists that can
