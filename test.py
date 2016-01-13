@@ -13,7 +13,8 @@ def dictfile(request, tmpdir):
     The returned file is a py.local instance.
     """
     dictfile = tmpdir / "dictfile.txt"
-    dictfile.write("foo\nbar\n")
+    contents = "\n".join(["zzz%s" % x for x in range(8192)])
+    dictfile.write("foo\nbar\n" + contents)
     return dictfile
 
 
