@@ -34,6 +34,27 @@ def filtered_by_len(iterator, min_len=3, max_len=None):
         yield line
 
 
+def min_width_iter(iterator, num):
+    """Get an iterable with `num` elements and minimal 'list width' from
+    items in `iterator`.
+
+    If 'list width' is the sum of length of all items contained in a
+    list or iterable, then `min_list_width` generates an iterator over
+    `num` elements in this list/iterable, which results in a list with
+    minimal 'list width'.
+
+    For instance, for a list ['a', 'bb', 'ccc'] the list width would be
+    1 + 2 + 3 = 6. For ['a', 'bbb'] this would be 1 + 3 = 4. If we want
+    to build a minimum width version from the former list with two
+    elements, these elements had to be 'a' and 'bb' (resulting in a list
+    width of 3). All other combinations of two elements of the list
+    would result in list widths > 3.
+    """
+    all_terms = sorted(iterator, key=lambda x: (len(x), x))
+    for term in all_terms[:num]:
+        yield term
+
+
 def generate_wordlist(input_terms, length=8192):
     """Generate a diceware wordlist from dictionary list.
 

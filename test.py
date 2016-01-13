@@ -2,7 +2,8 @@
 import sys
 import pytest
 from wordlist_gen import (
-    get_cmdline_args, filtered_by_len, generate_wordlist, term_iterator, main
+    get_cmdline_args, filtered_by_len, generate_wordlist, term_iterator, main,
+    min_width_iter
     )
 
 
@@ -128,6 +129,16 @@ class TestWordlistGen(object):
         with open(str(wlist), "r") as fd:
             result = list(term_iterator([fd, ]))
         assert result == ["ä", "ö"]
+
+    def test_min_width_iter(self):
+        # we can get iterators with minimal list width.
+        assert list(min_width_iter(["bb", "a", "ccc", "dd"], 3)) == [
+            "a", "bb", "dd"]
+        assert list(min_width_iter(["c", "a", "b"], 2)) == ["a", "b"]
+        assert list(min_width_iter(["c", "a", "b"], 3)) == ["a", "b", "c"]
+        assert list(min_width_iter(["a", "c", "bb"], 2)) == ["a", "c"]
+        assert list(min_width_iter(["a", "cc", "b"], 2)) == ["a", "b"]
+        assert list(min_width_iter(["aa", "c", "bb"], 2)) == ["c", "aa"]
 
 
 class TestGenerateWordlist(object):
