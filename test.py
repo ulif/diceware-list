@@ -141,18 +141,25 @@ class TestGenerateWordlist(object):
         assert list(generate_wordlist(in_list, length=1)) == ["a", ]
         assert list(generate_wordlist(in_list, length=2)) == ["a", "b"]
         assert list(generate_wordlist(in_list, length=3)) == ["a", "b", "c"]
-        assert list(generate_wordlist(in_list, length=4)) == ["a", "b", "c"]
+        with pytest.raises(ValueError):
+            list(generate_wordlist(in_list, length=4))
 
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
         assert list(
-            generate_wordlist(in_list, length=8192)) == ["a", "aa", "b", "c"]
+            generate_wordlist(in_list, length=4)) == ["a", "aa", "b", "c"]
 
     def test_unique_entries_only(self):
         # wordlists contain each entry only once
         in_list = ["a", "a", "a", "b", "a"]
         assert list(generate_wordlist(in_list, length=2)) == ["a", "b"]
+
+    def test_wordlist_too_short(self):
+        # wordlists that are too short raise a special exception
+        in_list = ["1", "2", "3"]
+        with pytest.raises(ValueError):
+            list(generate_wordlist(in_list, length=4))
 
 
 class TestMain(object):
@@ -171,14 +178,12 @@ class TestMain(object):
         out, err = capfd.readouterr()
         assert "positional arguments" in out
 
-    def test_main_output(self, monkeypatch, tmpdir, capfd):
+    def test_main_output(self, monkeypatch, capfd, dictfile):
         # we can output simple lists
-        wlist_path = tmpdir / "wlist.txt"
-        wlist_path.write("bar\nfoo\n")
-        monkeypatch.setattr(sys, "argv", ["scriptname", str(wlist_path)])
+        monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert out == "bar\nfoo\n"
+        assert out.startswith("bar\nfoo\n")
 
     def test_main_length(self, monkeypatch, tmpdir, capfd):
         # we do not output more terms than requested.
