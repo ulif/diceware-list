@@ -130,6 +130,14 @@ class TestWordlistGen(object):
             result = list(term_iterator([fd, ]))
         assert result == ["ä", "ö"]
 
+    def test_term_iterator_ignores_empty_lines(self, tmpdir):
+        # empty lines will be ignored
+        wlist = tmpdir.join("wlist.txt")
+        wlist.write("foo\n\nbar\n\n")
+        with open(str(wlist), "r") as fd:
+            result = list(term_iterator([fd, ]))
+        assert result == ["foo", "bar"]
+
     def test_min_width_iter(self):
         # we can get iterators with minimal list width.
         assert list(min_width_iter(["bb", "a", "ccc", "dd"], 3)) == [

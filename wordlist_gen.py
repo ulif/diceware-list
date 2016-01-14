@@ -49,6 +49,10 @@ def min_width_iter(iterator, num):
     elements, these elements had to be 'a' and 'bb' (resulting in a list
     width of 3). All other combinations of two elements of the list
     would result in list widths > 3.
+
+    Please note that the iterator returned, delivers elements sorted by
+    length first and terms of same length sorted alphabetically.
+
     """
     all_terms = sorted(iterator, key=lambda x: (len(x), x))
     for term in all_terms[:num]:
@@ -69,18 +73,22 @@ def generate_wordlist(input_terms, length=8192):
     if len(terms) < length:
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)
-    for term in terms[:length]:
+    for term in sorted(min_width_iter(terms, length)):
         yield term
 
 
 def term_iterator(file_descriptors):
     """Yield terms from files in `file_descriptors`.
 
+    Empty lines are ignored.
+
     `file_descriptors` must be open for reading.
     """
     for fd in file_descriptors:
         for term in fd:
-            yield term.strip()
+            term = term.strip()
+            if term:
+                yield term
 
 
 def main():
