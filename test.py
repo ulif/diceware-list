@@ -148,6 +148,18 @@ class TestWordlistGen(object):
         assert list(min_width_iter(["a", "cc", "b"], 2)) == ["a", "b"]
         assert list(min_width_iter(["aa", "c", "bb"], 2)) == ["c", "aa"]
 
+    def test_main_script_runnable(self, capfd):
+        # we can run the main script as simple python script.
+        import os
+        import sys
+        script_loc = os.path.join(
+            os.path.dirname(__file__), 'wordlist_gen.py')
+        python_exe = sys.executable
+        status = os.system("%s %s --help" % (python_exe, script_loc))
+        out, err = capfd.readouterr()
+        assert out.startswith("usage: wordlist_gen.py")
+        assert status == 0
+
 
 class TestGenerateWordlist(object):
 
