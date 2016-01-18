@@ -93,16 +93,23 @@ def term_iterator(file_descriptors):
                 yield term
 
 
-def base_terms_iterator():
+def base_terms_iterator(use_kit=True, use_416=True):
     """Iterator over all base terms.
 
     Base terms are those conained in the diceware416 and dicewarekit
     lists.
 
+    With `use_kit` and `use_416` you can tell whether these files should
+    be used for generating lists or not.
+
     Terms are delivered encoded. This way we make sure, they have the
     same binary format as oter terms read from files by `argparse`.
     """
-    names = ["dicewarekit.txt", "diceware416.txt"]
+    names =[]
+    if use_kit:
+        names += ["dicewarekit.txt", ]
+    if use_416:
+        names += ["diceware416.txt"]
     dir_path = os.path.join(os.path.dirname(__file__))
     fd_list = [open(os.path.join(dir_path, name), "rb") for name in names]
     for term in term_iterator(fd_list):
