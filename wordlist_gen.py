@@ -106,7 +106,7 @@ def base_terms_iterator(use_kit=True, use_416=True):
     Terms are delivered encoded. This way we make sure, they have the
     same binary format as oter terms read from files by `argparse`.
     """
-    names =[]
+    names = []
     if use_kit:
         names += ["dicewarekit.txt", ]
     if use_416:
