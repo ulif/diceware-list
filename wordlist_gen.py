@@ -70,7 +70,8 @@ def generate_wordlist(input_terms, length=8192):
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
     """
-    terms = list(set(input_terms))
+    base_terms = list(base_terms_iterator(use_kit=False, use_416=False))
+    terms = list(set(list(input_terms) + list(base_terms)))
     terms.sort()
     if len(terms) < length:
         raise ValueError(
