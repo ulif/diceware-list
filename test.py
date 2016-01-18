@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import sys
 import pytest
 from wordlist_gen import (
@@ -150,8 +151,6 @@ class TestWordlistGen(object):
 
     def test_main_script_runnable(self, capfd):
         # we can run the main script as simple python script.
-        import os
-        import sys
         script_loc = os.path.join(
             os.path.dirname(__file__), 'wordlist_gen.py')
         python_exe = sys.executable
