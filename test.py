@@ -4,7 +4,7 @@ import sys
 import pytest
 from wordlist_gen import (
     get_cmdline_args, filtered_by_len, generate_wordlist, term_iterator, main,
-    min_width_iter
+    min_width_iter, base_terms_iterator
     )
 
 
@@ -158,6 +158,15 @@ class TestWordlistGen(object):
         out, err = capfd.readouterr()
         assert out.startswith("usage: wordlist_gen.py")
         assert status == 0
+
+    def test_base_terms_iterator(self):
+        # we can get an iterator over base terms
+        base_iter = base_terms_iterator()
+        base_list = list(base_iter)
+        assert "a2" in base_list
+        assert "9z" in base_list
+        assert "0" in base_list
+        assert "zzzz" in base_list
 
 
 class TestGenerateWordlist(object):

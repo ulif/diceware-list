@@ -1,4 +1,5 @@
 import argparse
+import os
 
 
 def get_cmdline_args(args=None):
@@ -90,6 +91,19 @@ def term_iterator(file_descriptors):
             term = term.strip()
             if term:
                 yield term
+
+
+def base_terms_iterator():
+    """Iterator over all base terms.
+
+    Base terms are those conained in the diceware416 and dicewarekit
+    lists.
+    """
+    names = ["dicewarekit.txt", "diceware416.txt"]
+    dir_path = os.path.join(os.path.dirname(__file__))
+    fd_list = [open(os.path.join(dir_path, name)) for name in names]
+    for term in term_iterator(fd_list):
+        yield term
 
 
 def main():
