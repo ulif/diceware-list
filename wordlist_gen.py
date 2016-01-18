@@ -98,10 +98,13 @@ def base_terms_iterator():
 
     Base terms are those conained in the diceware416 and dicewarekit
     lists.
+
+    Terms are delivered encoded. This way we make sure, they have the
+    same binary format as oter terms read from files by `argparse`.
     """
     names = ["dicewarekit.txt", "diceware416.txt"]
     dir_path = os.path.join(os.path.dirname(__file__))
-    fd_list = [open(os.path.join(dir_path, name)) for name in names]
+    fd_list = [open(os.path.join(dir_path, name), "rb") for name in names]
     for term in term_iterator(fd_list):
         yield term
 

@@ -163,10 +163,10 @@ class TestWordlistGen(object):
         # we can get an iterator over base terms
         base_iter = base_terms_iterator()
         base_list = list(base_iter)
-        assert "a2" in base_list
-        assert "9z" in base_list
-        assert "0" in base_list
-        assert "zzzz" in base_list
+        assert b"a2" in base_list
+        assert b"9z" in base_list
+        assert b"0" in base_list
+        assert b"zzzz" in base_list
 
 
 class TestGenerateWordlist(object):
