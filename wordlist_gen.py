@@ -60,12 +60,14 @@ def min_width_iter(iterator, num):
         yield term
 
 
-def generate_wordlist(input_terms, length=8192):
+def generate_wordlist(input_terms, length=8192, lowercase=True):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
 
     `length`: desired length of wordlist to generate.
+
+    `lowercase`: yield terms lowercase if set.
 
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
@@ -77,6 +79,8 @@ def generate_wordlist(input_terms, length=8192):
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)
     for term in sorted(min_width_iter(terms, length)):
+        if lowercase:
+            term = term.lower()
         yield term
 
 

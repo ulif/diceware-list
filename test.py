@@ -186,6 +186,19 @@ class TestGenerateWordlist(object):
         with pytest.raises(ValueError):
             list(generate_wordlist(in_list, length=4))
 
+    def test_arg_lowercase_is_respected(self):
+        # we respect the "lowercase" parameter
+        in_list = ["a", "B", "C"]
+        mixed = list(generate_wordlist(in_list, length=3, lowercase=False))
+        lower = list(generate_wordlist(in_list, length=3, lowercase=True))
+        default = list(generate_wordlist(in_list, length=3))
+        assert "a" in mixed
+        assert "B" in mixed
+        assert "a" in lower
+        assert "b" in lower
+        assert "a" in default
+        assert "b" in default
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
