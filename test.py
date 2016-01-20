@@ -169,7 +169,7 @@ class TestWordlistGen(object):
         assert b"zzzz" in base_list
 
     def test_base_terms_iterator_option_use_kit(self):
-        # we can tell whether to use dicewarekit, dieceware416 lists.
+        # we can tell whether to use dicewarekit, diceware416 lists.
         assert b"yyyy" not in list(base_terms_iterator(use_kit=False))
         assert b"a2" in list(base_terms_iterator(use_kit=False))
 
