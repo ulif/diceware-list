@@ -50,10 +50,10 @@ Coverage
 To get a coverage report, you can use the respective py.test plugin::
 
   (venv)$ pip install pytest-cov
-  (venv)$ py.test --cov=wordlist_gen --cov-report=html
+  (venv)$ py.test --cov=wordlist_gen.py --cov-report=html
 
-Skip the `--cov-report` option (or use `term` instead of `html`) to
-get a report on commandline.
+Skip the `--cov-report` option (or use `term` or `term-missing`
+instead of `html`) to get a report on commandline.
 
 
 .. _diceware: http://diceware.com/
