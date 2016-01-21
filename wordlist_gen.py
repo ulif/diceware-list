@@ -77,7 +77,9 @@ def min_width_iter(iterator, num):
         yield term
 
 
-def generate_wordlist(input_terms, length=8192, lowercase=True):
+def generate_wordlist(
+        input_terms, length=8192, lowercase=True,
+        use_kit=False, use_416=False):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -86,10 +88,17 @@ def generate_wordlist(input_terms, length=8192, lowercase=True):
 
     `lowercase`: yield terms lowercase if set.
 
+    `use_kit`: add terms from "dicewarekit", a wordlist with basic terms
+               provided by Arnold G. Reinhold for self-baked diceware
+               wordlists.
+
+    `use_416`: add terms from another wordlist of Mr Reinhold,
+               containing 416 terms.
+
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
     """
-    base_terms = list(base_terms_iterator(use_kit=False, use_416=False))
+    base_terms = list(base_terms_iterator(use_kit=use_kit, use_416=use_416))
     terms = list(set(list(input_terms) + list(base_terms)))
     terms.sort()
     if len(terms) < length:
