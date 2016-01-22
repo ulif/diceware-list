@@ -216,6 +216,15 @@ class TestGenerateWordlist(object):
         assert "a" in default
         assert "b" in default
 
+    def test_arg_use_kit_is_respected(self):
+        # we respect the "use_kit" parameter
+        result1 = list(generate_wordlist(["a", "b"], length=3, use_kit=True))
+        result2 = list(generate_wordlist(["a", "b"], length=2, use_kit=False))
+        result_default = list(generate_wordlist(["a", "b"], length=2))
+        assert "!" in result1
+        assert "!" not in result2
+        assert "!" not in result_default
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
