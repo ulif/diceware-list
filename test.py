@@ -78,8 +78,8 @@ class TestArgParser(object):
         path2.write("bar")
         result = get_cmdline_args([str(path1), str(path2)])
         assert len(result.dictfile) == 2
-        assert result.dictfile[0].read() == b"foo"
-        assert result.dictfile[1].read() == b"bar"
+        assert result.dictfile[0].read() == "foo"
+        assert result.dictfile[1].read() == "bar"
 
     def test_opt_verbose_settable(self, dictfile):
         # we can set the verbose option
@@ -180,15 +180,15 @@ class TestWordlistGen(object):
         # we can get an iterator over base terms
         base_iter = base_terms_iterator()
         base_list = list(base_iter)
-        assert b"a2" in base_list
-        assert b"9z" in base_list
-        assert b"0" in base_list
-        assert b"zzzz" in base_list
+        assert "a2" in base_list
+        assert "9z" in base_list
+        assert "0" in base_list
+        assert "zzzz" in base_list
 
     def test_base_terms_iterator_option_use_kit(self):
         # we can tell whether to use dicewarekit, diceware416 lists.
-        assert b"yyyy" not in list(base_terms_iterator(use_kit=False))
-        assert b"a2" in list(base_terms_iterator(use_kit=False))
+        assert "yyyy" not in list(base_terms_iterator(use_kit=False))
+        assert "a2" in list(base_terms_iterator(use_kit=False))
 
 
 class TestGenerateWordlist(object):

@@ -28,7 +28,7 @@ def get_cmdline_args(args=None):
         help='desired length of generated wordlist. Default: 8192')
     parser.add_argument(
         'dictfile', nargs='+', metavar='DICTFILE',
-        type=argparse.FileType('rb'),
+        type=argparse.FileType('r'),
         help=("Dictionary file to read possible terms from. "
               "Multiple allowed. `-' will read from stdin."),
     )
@@ -142,7 +142,7 @@ def base_terms_iterator(use_kit=True, use_416=True):
     if use_416:
         names += ["diceware416.txt"]
     dir_path = os.path.join(os.path.dirname(__file__))
-    fd_list = [open(os.path.join(dir_path, name), "rb") for name in names]
+    fd_list = [open(os.path.join(dir_path, name), "r") for name in names]
     for term in term_iterator(fd_list):
         yield term
 
@@ -155,7 +155,7 @@ def main():
     args = get_cmdline_args()
     all_terms = term_iterator(args.dictfile)
     for term in generate_wordlist(all_terms, args.length):
-        print(term.decode("utf-8"))
+        print(term)
 
 
 if __name__ == "__main__":
