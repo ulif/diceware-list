@@ -225,6 +225,15 @@ class TestGenerateWordlist(object):
         assert "!" not in result2
         assert "!" not in result_default
 
+    def test_arg_use_416_is_respected(self):
+        # we respect the "use_416" parameter
+        result1 = list(generate_wordlist(["a", "b"], length=3, use_416=True))
+        result2 = list(generate_wordlist(["a", "b"], length=2, use_416=False))
+        result_default = list(generate_wordlist(["a", "b"], length=2))
+        assert "2a" in result1
+        assert "2a" not in result2
+        assert "2a" not in result_default
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
