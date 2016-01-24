@@ -199,18 +199,28 @@ class TestGenerateWordlist(object):
         # we respect the "length" parameter
         in_list = ["a", "b", "c"]
         assert list(generate_wordlist(in_list, length=0)) == []
-        assert list(generate_wordlist(in_list, length=1)) == ["a", ]
-        assert list(generate_wordlist(in_list, length=2)) == ["a", "b"]
-        assert list(generate_wordlist(in_list, length=3)) == ["a", "b", "c"]
+        assert list(
+            generate_wordlist(
+                in_list, length=1, use_kit=False)) == ["a", ]
+        assert list(
+            generate_wordlist(
+                in_list, length=2, use_kit=False)) == ["a", "b"]
+        assert list(
+            generate_wordlist(
+                in_list, length=3, use_kit=False)) == ["a", "b", "c"]
         with pytest.raises(ValueError):
-            list(generate_wordlist(in_list, length=4))
+            list(generate_wordlist(in_list, length=4, use_kit=False))
 
     def test_arg_lowercase_is_respected(self):
         # we respect the "lowercase" parameter
         in_list = ["a", "B", "C"]
-        mixed = list(generate_wordlist(in_list, length=3, lowercase=False))
-        lower = list(generate_wordlist(in_list, length=3, lowercase=True))
-        default = list(generate_wordlist(in_list, length=3))
+        mixed = list(
+            generate_wordlist(
+                in_list, length=3, lowercase=False, use_kit=False))
+        lower = list(
+            generate_wordlist(
+                in_list, length=3, lowercase=True, use_kit=False))
+        default = list(generate_wordlist(in_list, length=3, use_kit=False))
         assert "a" in mixed
         assert "B" in mixed
         assert "a" in lower
@@ -225,13 +235,18 @@ class TestGenerateWordlist(object):
         result_default = list(generate_wordlist(["a", "b"], length=2))
         assert "!" in result1
         assert "!" not in result2
-        assert "!" not in result_default
+        assert "!" in result_default
 
     def test_arg_use_416_is_respected(self):
         # we respect the "use_416" parameter
-        result1 = list(generate_wordlist(["a", "b"], length=3, use_416=True))
-        result2 = list(generate_wordlist(["a", "b"], length=2, use_416=False))
-        result_default = list(generate_wordlist(["a", "b"], length=2))
+        result1 = list(
+            generate_wordlist(
+                ["a", "b"], length=3, use_kit=False, use_416=True))
+        result2 = list(
+            generate_wordlist(
+                ["a", "b"], length=2, use_kit=False, use_416=False))
+        result_default = list(
+            generate_wordlist(["a", "b"], length=2, use_kit=False))
         assert "2a" in result1
         assert "2a" not in result2
         assert "2a" not in result_default
@@ -240,18 +255,21 @@ class TestGenerateWordlist(object):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
         assert list(
-            generate_wordlist(in_list, length=4)) == ["a", "aa", "b", "c"]
+            generate_wordlist(in_list, length=4, use_kit=False)
+            ) == ["a", "aa", "b", "c"]
 
     def test_unique_entries_only(self):
         # wordlists contain each entry only once
         in_list = ["a", "a", "a", "b", "a"]
-        assert list(generate_wordlist(in_list, length=2)) == ["a", "b"]
+        assert list(
+            generate_wordlist(in_list, length=2, use_kit=False)
+            ) == ["a", "b"]
 
     def test_wordlist_too_short(self):
         # wordlists that are too short raise a special exception
         in_list = ["1", "2", "3"]
         with pytest.raises(ValueError):
-            list(generate_wordlist(in_list, length=4))
+            list(generate_wordlist(in_list, length=4, use_kit=False))
 
 
 class TestMain(object):
@@ -275,7 +293,8 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert out.startswith("bar\nfoo\n")
+        assert "\nbar\n" in out
+        assert "\nfoo\n" in out
 
     def test_main_length(self, monkeypatch, tmpdir, capfd):
         # we do not output more terms than requested.
@@ -285,4 +304,4 @@ class TestMain(object):
             sys, "argv", ["scriptname", "-l", "2", str(wlist_path)])
         main()
         out, err = capfd.readouterr()
-        assert out == "1\n2\n"
+        assert out.count("\n") == 2

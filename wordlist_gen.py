@@ -79,7 +79,7 @@ def min_width_iter(iterator, num):
 
 def generate_wordlist(
         input_terms, length=8192, lowercase=True,
-        use_kit=False, use_416=False):
+        use_kit=True, use_416=False):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
