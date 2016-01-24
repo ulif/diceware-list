@@ -27,6 +27,9 @@ def get_cmdline_args(args=None):
         '-l', '--length', default=8192, type=int, dest='length',
         help='desired length of generated wordlist. Default: 8192')
     parser.add_argument(
+        '-k', '--no-kit', action='store_false', dest='use_kit',
+        help='do not include the "dicewarekit" list from diceware.com.')
+    parser.add_argument(
         'dictfile', nargs='+', metavar='DICTFILE',
         type=argparse.FileType('r'),
         help=("Dictionary file to read possible terms from. "
@@ -154,7 +157,8 @@ def main():
     """
     args = get_cmdline_args()
     all_terms = term_iterator(args.dictfile)
-    for term in generate_wordlist(all_terms, args.length):
+    for term in generate_wordlist(
+            all_terms, args.length, use_kit=args.use_kit):
         print(term)
 
 

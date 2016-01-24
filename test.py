@@ -69,6 +69,7 @@ class TestArgParser(object):
         result = get_cmdline_args([str(dictfile), ])
         assert result.verbose is False
         assert result.length == 8192
+        assert result.use_kit is True
         assert isinstance(result.dictfile, list)
 
     def test_arg_dictfile_gives_file_objs(self, tmpdir):
@@ -92,6 +93,13 @@ class TestArgParser(object):
         assert result.length == 1024
         result = get_cmdline_args(["--length=2048", str(dictfile)])
         assert result.length == 2048
+
+    def test_opt_no_kit_settable(self, dictfile):
+        # we can tell whether we want the diceware kit included
+        result = get_cmdline_args(["-k", str(dictfile)])
+        assert result.use_kit is False
+        result = get_cmdline_args(["--no-kit", str(dictfile)])
+        assert result.use_kit is False
 
 
 class TestWordlistGen(object):
@@ -305,3 +313,16 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert out.count("\n") == 2
+
+    def test_main_no_kit(self, monkeypatch, dictfile, capfd):
+        # we do not include the diceware kit if told so.
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", str(dictfile)])  # no '-k'
+        main()
+        out, err = capfd.readouterr()
+        assert "!" in out
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "-k", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert "!" not in out
