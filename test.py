@@ -189,6 +189,8 @@ class TestWordlistGen(object):
         # we can tell whether to use dicewarekit, diceware416 lists.
         assert "yyyy" not in list(base_terms_iterator(use_kit=False))
         assert "a2" in list(base_terms_iterator(use_kit=False))
+        assert "yyyy" in list(base_terms_iterator(use_kit=True))
+        assert "a2" in list(base_terms_iterator(use_kit=True))
 
 
 class TestGenerateWordlist(object):
