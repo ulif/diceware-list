@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #  wordlist_gen -- generate wordlists for diceware
 #  Copyright (C) 2016  Uli Fouquet
 #
