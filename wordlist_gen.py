@@ -161,7 +161,8 @@ def main():
     args = get_cmdline_args()
     all_terms = term_iterator(args.dictfile)
     for term in generate_wordlist(
-            all_terms, args.length, use_kit=args.use_kit):
+            all_terms, args.length, use_kit=args.use_kit,
+            use_416=args.use_416):
         print(term)
 
 

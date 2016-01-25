@@ -332,3 +332,16 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert "!" not in out
+
+    def test_main_use_416(self, monkeypatch, dictfile, capfd):
+        # we include the dieceware416.txt list if told.
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", str(dictfile)])  # no '--use-416'
+        main()
+        out, err = capfd.readouterr()
+        assert "9z" not in out
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "--use-416", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert "9z" in out
