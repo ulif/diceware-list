@@ -70,6 +70,7 @@ class TestArgParser(object):
         assert result.verbose is False
         assert result.length == 8192
         assert result.use_kit is True
+        assert result.use_416 is False
         assert isinstance(result.dictfile, list)
 
     def test_arg_dictfile_gives_file_objs(self, tmpdir):
@@ -100,6 +101,11 @@ class TestArgParser(object):
         assert result.use_kit is False
         result = get_cmdline_args(["--no-kit", str(dictfile)])
         assert result.use_kit is False
+
+    def test_opt_use_416_settable(self, dictfile):
+        # we can tell to use the diceware416.txt list.
+        result = get_cmdline_args(["--use-416", str(dictfile)])
+        assert result.use_416 is True
 
 
 class TestWordlistGen(object):

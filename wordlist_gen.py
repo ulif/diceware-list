@@ -30,6 +30,9 @@ def get_cmdline_args(args=None):
         '-k', '--no-kit', action='store_false', dest='use_kit',
         help='do not include the "dicewarekit" list from diceware.com.')
     parser.add_argument(
+        '--use-416', action='store_true',
+        help='use terms from diceware416.txt list.')
+    parser.add_argument(
         'dictfile', nargs='+', metavar='DICTFILE',
         type=argparse.FileType('r'),
         help=("Dictionary file to read possible terms from. "
