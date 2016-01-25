@@ -45,20 +45,6 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
-def filtered_by_len(iterator, min_len=3, max_len=None):
-    """Get an iterator over words from `iterator`.
-
-    Only words of len `min_len`..`max_len` are included.
-
-    The lines we find (and that meet our requirements) are yielded.
-    """
-    for line in iterator:
-        line = line.strip()
-        if (len(line) < min_len) or (max_len and len(line) > max_len):
-            continue
-        yield line
-
-
 def min_width_iter(iterator, num):
     """Get an iterable with `num` elements and minimal 'list width' from
     items in `iterator`.

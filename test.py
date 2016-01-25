@@ -20,8 +20,8 @@ import os
 import sys
 import pytest
 from wordlist_gen import (
-    get_cmdline_args, filtered_by_len, generate_wordlist, term_iterator, main,
-    min_width_iter, base_terms_iterator
+    get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
+    base_terms_iterator
     )
 
 
@@ -110,30 +110,6 @@ class TestArgParser(object):
 
 class TestWordlistGen(object):
     # Minor components are grouped here
-
-    def test_filtered_by_len(self):
-        terms = ["Line1", "Line12"]
-        result = list(filtered_by_len(terms))
-        assert result == ["Line1", "Line12"]
-
-    def test_filtered_by_len_min_len(self):
-        # we can set minimal length of accepted terms
-        terms = ["1", "12", "123", "1234"]
-        assert list(filtered_by_len(terms)) == ["123", "1234"]
-        assert list(filtered_by_len(terms, min_len=2)) == ["12", "123", "1234"]
-        assert list(filtered_by_len(terms, min_len=4)) == ["1234", ]
-
-    def test_filtered_by_len_max_len(self):
-        #  we can set maximum length of accepted terms
-        terms = ["123", "1234", "12345"]
-        assert list(filtered_by_len(terms)) == ["123", "1234", "12345"]
-        assert list(filtered_by_len(terms, max_len=3)) == ["123", ]
-        assert list(filtered_by_len(terms, max_len=4)) == ["123", "1234"]
-
-    def test_filtered_by_len_handle_umlauts(self):
-        # we can handle umlauts
-        terms = [u"törm", u"ümläut"]
-        assert list(filtered_by_len(terms)) == [u"törm", u"ümläut"]
 
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators
