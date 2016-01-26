@@ -22,6 +22,48 @@ Clone repository from github::
 
 Please consider using `virtualenv`_ for deployment.
 
+In an active virtualenv you can install an executable script of
+`wordlist-gen` running::
+
+  (venv) $ python setup.py install
+  (venv) $ wordlist_gen --help
+  usage: wordlist_gen [-h] [-l LENGTH] [-k] [--use-416] [-v] DICTFILE
+
+But you can also run the one and only script directly::
+
+  $ python wordlist_gen.py --help
+  usage: wordlist_gen [-h] [-l LENGTH] [-k] [--use-416] [-v] DICTFILE
+
+
+Usage
+-----
+
+First, you need a file with words as "dictionary". On typical Debian
+systems such files can be found in ``/usr/share/dicts/``.
+
+This file can then be fed to `wordlist-gen` to create a wordlist
+suitable for use with diceware.::
+
+  $ python wordlist_gen.py /usr/share/dict/words
+  !
+  !!
+  !!!
+  ...
+  alan
+  alana
+  alar
+  ...
+  zzz
+  zzzz
+
+By default lists of 8192 words are created. This value can be changed
+with the `-l` option.
+
+See `--help` for other options.
+
+`wordlist_gen` follows loosely the recommendations given on
+http://diceware.com/ by Mr. Reinhold.
+
 
 Testing
 -------
