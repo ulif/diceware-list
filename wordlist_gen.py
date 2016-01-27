@@ -45,6 +45,20 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
+def base10_to_n(num, base):
+    """Turn base-10 integer `num` into base-`base` form.
+
+    Returns a list of numbers representing digits in `base`.
+    """
+    result = []
+    curr = num
+    while curr >= base:
+        curr, digit = divmod(curr, base)
+        result.append(digit)
+    result.append(curr)
+    result.reverse()
+    return result
+
 def min_width_iter(iterator, num):
     """Get an iterable with `num` elements and minimal 'list width' from
     items in `iterator`.

@@ -21,7 +21,7 @@ import sys
 import pytest
 from wordlist_gen import (
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
-    base_terms_iterator
+    base_terms_iterator, base10_to_n
     )
 
 
@@ -110,6 +110,21 @@ class TestArgParser(object):
 
 class TestWordlistGen(object):
     # Minor components are grouped here
+
+    def test_base10_to_n(self):
+        # we can turn integers into n-based numbers
+        assert base10_to_n(0, 2) == [0]
+        assert base10_to_n(1, 2) == [1]
+        assert base10_to_n(2, 2) == [1, 0]
+        assert base10_to_n(3, 2) == [1, 1]
+        assert base10_to_n(7775, 6) == [5, 5, 5, 5, 5]
+        assert base10_to_n(0, 6) == [0, ]
+        assert base10_to_n(1, 6) == [1, ]
+        assert base10_to_n(6, 6) == [1, 0]
+        assert base10_to_n(34, 6) == [5, 4]
+        assert base10_to_n(35, 6) == [5, 5]
+        assert base10_to_n(37, 6) == [1, 0, 1]
+        assert base10_to_n(38, 6) == [1, 0, 2]
 
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators
