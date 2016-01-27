@@ -59,6 +59,7 @@ def base10_to_n(num, base):
     result.reverse()
     return result
 
+
 def min_width_iter(iterator, num):
     """Get an iterable with `num` elements and minimal 'list width' from
     items in `iterator`.
