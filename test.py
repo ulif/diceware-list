@@ -21,7 +21,7 @@ import sys
 import pytest
 from wordlist_gen import (
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
-    base_terms_iterator, base10_to_n
+    base_terms_iterator, base10_to_n, idx_to_dicenums,
     )
 
 
@@ -125,6 +125,13 @@ class TestWordlistGen(object):
         assert base10_to_n(35, 6) == [5, 5]
         assert base10_to_n(37, 6) == [1, 0, 1]
         assert base10_to_n(38, 6) == [1, 0, 2]
+
+    def test_dicenums(self):
+        # we can get dice numbers from list indexes
+        assert idx_to_dicenums(0, 5) == (1, 1, 1, 1, 1)
+        assert idx_to_dicenums(1, 5) == (1, 1, 1, 1, 2)
+        assert idx_to_dicenums(7774, 5) == (6, 6, 6, 6, 5)
+        assert idx_to_dicenums(7775, 5) == (6, 6, 6, 6, 6)
 
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators

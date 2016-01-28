@@ -60,6 +60,28 @@ def base10_to_n(num, base):
     return result
 
 
+def idx_to_dicenums(item_index, dice_num):
+    """Get a set of dicenums for list item numbers.
+
+    Turn an index number of a list item into a number of dice numbers
+    representing this index.
+
+    `item_index` is the index number of some item.
+
+    `dice_num` is the number of (six-sided) dice used.
+
+    Example: we have two dice resulting in 36 possible combinations. If
+    first possible combination is "1-1", second one "1-2" and so on,
+    then we have a mapping from indexes 1..36 to dice combinations (from
+    "1-1" up to "6-6").
+
+    For a reasonable result, we expect 0 >= `item_index` < `dice_num`**6.
+    """
+    nums = [x+1 for x in base10_to_n(item_index, 6)]
+    result = [1, ] * dice_num + nums
+    return tuple(result[-dice_num:])
+
+
 def min_width_iter(iterator, num):
     """Get an iterable with `num` elements and minimal 'list width' from
     items in `iterator`.
