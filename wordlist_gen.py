@@ -139,7 +139,7 @@ def generate_wordlist(
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)
     if length:
-        dicenum = math.ceil(math.log(length) / math.log(DICE_SIDES))
+        dicenum = int(math.ceil(math.log(length) / math.log(DICE_SIDES)))
     prefix = ""
     for num, term in enumerate(sorted(min_width_iter(terms, length))):
         if lowercase:
