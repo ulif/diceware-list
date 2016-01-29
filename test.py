@@ -69,6 +69,7 @@ class TestArgParser(object):
         result = get_cmdline_args([str(dictfile), ])
         assert result.verbose is False
         assert result.length == 8192
+        assert result.numbered is False
         assert result.use_kit is True
         assert result.use_416 is False
         assert isinstance(result.dictfile, list)
@@ -106,6 +107,13 @@ class TestArgParser(object):
         # we can tell to use the diceware416.txt list.
         result = get_cmdline_args(["--use-416", str(dictfile)])
         assert result.use_416 is True
+
+    def test_opt_numbered_settable(self, dictfile):
+        # we can tell if we want numbers in output.
+        result = get_cmdline_args(["-n", str(dictfile)])
+        assert result.numbered is True
+        result = get_cmdline_args(["--numbered", str(dictfile)])
+        assert result.numbered is True
 
 
 class TestWordlistGen(object):
