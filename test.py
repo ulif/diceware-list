@@ -128,10 +128,10 @@ class TestWordlistGen(object):
 
     def test_dicenums(self):
         # we can get dice numbers from list indexes
-        assert idx_to_dicenums(0, 5) == (1, 1, 1, 1, 1)
-        assert idx_to_dicenums(1, 5) == (1, 1, 1, 1, 2)
-        assert idx_to_dicenums(7774, 5) == (6, 6, 6, 6, 5)
-        assert idx_to_dicenums(7775, 5) == (6, 6, 6, 6, 6)
+        assert idx_to_dicenums(0, 5) == "11111"
+        assert idx_to_dicenums(1, 5) == "11112"
+        assert idx_to_dicenums(7774, 5) == "66665"
+        assert idx_to_dicenums(7775, 5) == "66666"
 
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators

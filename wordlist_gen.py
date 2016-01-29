@@ -66,7 +66,8 @@ def idx_to_dicenums(item_index, dice_num):
     """Get a set of dicenums for list item numbers.
 
     Turn an index number of a list item into a number of dice numbers
-    representing this index.
+    representing this index. The dicenums are returned as a string like
+    ``"122625"``.
 
     `item_index` is the index number of some item.
 
@@ -79,9 +80,9 @@ def idx_to_dicenums(item_index, dice_num):
 
     For a reasonable result, we expect 0 >= `item_index` < `dice_num`**6.
     """
-    nums = [x+1 for x in base10_to_n(item_index, 6)]
-    result = [1, ] * dice_num + nums
-    return tuple(result[-dice_num:])
+    nums = [x+1 for x in base10_to_n(item_index, DICE_SIDES)]
+    padded = [1, ] * dice_num + nums
+    return "".join(["%s" % x for x in padded[-dice_num:]])
 
 
 def min_width_iter(iterator, num):
