@@ -263,6 +263,19 @@ class TestGenerateWordlist(object):
         assert "2a" not in result2
         assert "2a" not in result_default
 
+    def test_arg_numbered_is_respected(self):
+        # we consider the 'numbered' parameter
+        terms = ["term%s" % x for x in range(7776)]
+        no_num_list = list(generate_wordlist(
+            terms, length=7776, use_kit=False, use_416=False, numbered=False))
+        numbered_list = list(generate_wordlist(
+            terms, length=7776, use_kit=False, use_416=False, numbered=True))
+        default_list = list(generate_wordlist(
+            terms, length=7776, use_kit=False, use_416=False))
+        assert len(no_num_list[0].split()) == 1
+        assert len(numbered_list[0].split()) == 2
+        assert len(default_list[0].split()) == 1
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]

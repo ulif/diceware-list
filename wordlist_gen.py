@@ -17,6 +17,7 @@
 """wordlist_gen -- wordlists for diceware.
 """
 import argparse
+import math
 import os
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
@@ -112,7 +113,7 @@ def min_width_iter(iterator, num):
 
 def generate_wordlist(
         input_terms, length=8192, lowercase=True,
-        use_kit=True, use_416=False):
+        use_kit=True, use_416=False, numbered=False):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -137,10 +138,15 @@ def generate_wordlist(
     if len(terms) < length:
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)
-    for term in sorted(min_width_iter(terms, length)):
+    if length:
+        dicenum = math.ceil(math.log(length) / math.log(DICE_SIDES))
+    prefix = ""
+    for num, term in enumerate(sorted(min_width_iter(terms, length))):
         if lowercase:
             term = term.lower()
-        yield term
+        if numbered:
+            prefix = idx_to_dicenums(num, dicenum) + " "
+        yield "%s%s" % (prefix, term)
 
 
 def term_iterator(file_descriptors):
