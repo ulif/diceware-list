@@ -364,3 +364,11 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert "9z" in out
+
+    def test_main_numbered(self, monkeypatch, dictfile, capfd):
+        # we can get dice numbers in output
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "-n", "-l", "7776", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert out.startswith("11111 ")
