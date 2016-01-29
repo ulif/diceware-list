@@ -31,6 +31,9 @@ def get_cmdline_args(args=None):
         '-l', '--length', default=8192, type=int, dest='length',
         help='desired length of generated wordlist. Default: 8192')
     parser.add_argument(
+        '-n', '--numbered', action='store_true',
+        help='show dicenumbers in output.')
+    parser.add_argument(
         '-k', '--no-kit', action='store_false', dest='use_kit',
         help='do not include the "dicewarekit" list from diceware.com.')
     parser.add_argument(
