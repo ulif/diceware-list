@@ -19,6 +19,8 @@
 import argparse
 import os
 
+DICE_SIDES = 6  # we normally handle 6-sided dice.
+
 
 def get_cmdline_args(args=None):
     """Handle commandline options.
