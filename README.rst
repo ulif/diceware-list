@@ -59,6 +59,21 @@ suitable for use with diceware.::
 By default lists of 8192 words are created. This value can be changed
 with the `-l` option.
 
+With `-n` you can tell `wordlist_gen` to put numbers into each line,
+representing dice throws [#]_ ::
+
+
+  $ python wordlist_gen.py -n -l 7776 /usr/share/dict/words
+  11111 !
+  11112 !!
+  ...
+  12353 alan
+  12354 alana
+  12355 alar
+  ...
+  66665 zzz
+  66666 zzzz
+
 See `--help` for other options.
 
 `wordlist_gen` follows loosely the recommendations given on
@@ -97,6 +112,10 @@ To get a coverage report, you can use the respective py.test plugin::
 Skip the `--cov-report` option (or use `term` or `term-missing`
 instead of `html`) to get a report on commandline.
 
+.. [#] The wordlist length in this case should be
+       ``(number-of-sides-per-dice)`` powered to
+       ``(number-of-dicethrows)``, for instance 6**5 = 7776 for five
+       six-sided dice or a single six-sided dice thrown five times.
 
 .. _diceware: http://diceware.com/
 .. _pip: https://pip.pypa.io/en/latest/
