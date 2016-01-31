@@ -56,8 +56,8 @@ suitable for use with diceware.::
   zzz
   zzzz
 
-By default lists of 8192 words are created. This value can be changed
-with the `-l` option.
+By default lists of 8192 (=2**13) words are created. This value can be
+changed with the `-l` option.
 
 With `-n` you can tell `wordlist_gen` to put numbers into each line,
 representing dice throws [#]_ ::
