@@ -19,8 +19,10 @@
 import argparse
 import math
 import os
+import string
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
+DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
 
 
 def get_cmdline_args(args=None):
@@ -112,6 +114,19 @@ def min_width_iter(iterator, num):
     all_terms = sorted(iterator, key=lambda x: (len(x), x))
     for term in all_terms[:num]:
         yield term
+
+
+def filter_chars(iter, allowed=None):
+    """Yield strings from `iter` that contain only chars from `allowed`.
+
+    If `allowed` is `None`, we use `DEFAULT_CHARS` as allowed charset.
+    """
+    if allowed is None:
+        allowed = DEFAULT_CHARS
+    for elem in iter:
+        stripped = [x for x in elem if x in allowed]
+        if len(stripped) == len(elem):
+            yield elem
 
 
 def generate_wordlist(
