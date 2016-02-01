@@ -21,7 +21,7 @@ import sys
 import pytest
 from wordlist_gen import (
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
-    base_terms_iterator, base10_to_n, idx_to_dicenums,
+    base_terms_iterator, base10_to_n, idx_to_dicenums, filter_chars,
     )
 
 
@@ -211,6 +211,15 @@ class TestWordlistGen(object):
         assert "a2" in list(base_terms_iterator(use_kit=False))
         assert "yyyy" in list(base_terms_iterator(use_kit=True))
         assert "a2" in list(base_terms_iterator(use_kit=True))
+
+    def test_filter_chars(self):
+        # we can detect words with unwanted chars
+        assert list(filter_chars([])) == []
+        assert list(filter_chars(["a", "b"])) == ["a", "b"]
+        assert list(filter_chars(["ä"])) == []
+        assert list(filter_chars(["a", "ä"])) == ["a"]
+        assert list(filter_chars(["ä", "a"])) == ["a"]
+        assert list(filter_chars(["a", "ä", "b"])) == ["a", "b"]
 
 
 class TestGenerateWordlist(object):
