@@ -220,6 +220,7 @@ class TestWordlistGen(object):
         assert list(filter_chars(["a", "ä"])) == ["a"]
         assert list(filter_chars(["ä", "a"])) == ["a"]
         assert list(filter_chars(["a", "ä", "b"])) == ["a", "b"]
+        assert list(filter_chars(["a", "aä", "bö"])) == ["a"]
 
 
 class TestGenerateWordlist(object):
