@@ -20,6 +20,7 @@ import os
 import sys
 import pytest
 from wordlist_gen import (
+    DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
     base_terms_iterator, base10_to_n, idx_to_dicenums, filter_chars,
     )
@@ -214,14 +215,14 @@ class TestWordlistGen(object):
 
     def test_filter_chars(self):
         # we can detect words with unwanted chars
-        assert list(filter_chars([])) == []
-        assert list(filter_chars(["a", "b"])) == ["a", "b"]
-        assert list(filter_chars(["ä"])) == []
-        assert list(filter_chars(["a", "ä"])) == ["a"]
-        assert list(filter_chars(["ä", "a"])) == ["a"]
-        assert list(filter_chars(["a", "ä", "b"])) == ["a", "b"]
-        assert list(filter_chars(["a", "aä", "bö"])) == ["a"]
-        assert list(filter_chars([u"a", u"ä"])) == [u"a"]
+        assert list(filter_chars([], DEFAULT_CHARS)) == []
+        assert list(filter_chars(["a", "b"], DEFAULT_CHARS)) == ["a", "b"]
+        assert list(filter_chars(["ä"], DEFAULT_CHARS)) == []
+        assert list(filter_chars(["a", "ä"], DEFAULT_CHARS)) == ["a"]
+        assert list(filter_chars(["ä", "a"], DEFAULT_CHARS)) == ["a"]
+        assert list(filter_chars(["a", "ä", "b"], DEFAULT_CHARS)) == ["a", "b"]
+        assert list(filter_chars(["a", "aä", "bö"], DEFAULT_CHARS)) == ["a"]
+        assert list(filter_chars([u"a", u"ä"], DEFAULT_CHARS)) == [u"a"]
 
 
 class TestGenerateWordlist(object):
