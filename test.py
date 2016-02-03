@@ -224,6 +224,10 @@ class TestWordlistGen(object):
         assert list(filter_chars(["a", "aä", "bö"], DEFAULT_CHARS)) == ["a"]
         assert list(filter_chars([u"a", u"ä"], DEFAULT_CHARS)) == [u"a"]
 
+    def test_filter_chars_all_allowed(self):
+        # if `allowed` is None, no filtering will be done
+        assert list(filter_chars(['ä'], None)) == ['ä']
+
 
 class TestGenerateWordlist(object):
 

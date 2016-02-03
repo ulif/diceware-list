@@ -119,14 +119,16 @@ def min_width_iter(iterator, num):
 def filter_chars(iter, allowed=None):
     """Yield strings from `iter` that contain only chars from `allowed`.
 
-    If `allowed` is `None`, we use `DEFAULT_CHARS` as allowed charset.
+    If `allowed` is `None`, no filtering is done at all.
     """
     if allowed is None:
-        allowed = DEFAULT_CHARS
-    for elem in iter:
-        stripped = [x for x in elem if x in allowed]
-        if len(stripped) == len(elem):
+        for elem in iter:
             yield elem
+    else:
+        for elem in iter:
+            stripped = [x for x in elem if x in allowed]
+            if len(stripped) == len(elem):
+                yield elem
 
 
 def generate_wordlist(
