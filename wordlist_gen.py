@@ -36,6 +36,9 @@ def get_cmdline_args(args=None):
         '-n', '--numbered', action='store_true',
         help='show dicenumbers in output.')
     parser.add_argument(
+        '--ascii', action='store_true', dest='ascii_only',
+        help='allow only words that contain only ASCII chars.')
+    parser.add_argument(
         '-k', '--no-kit', action='store_false', dest='use_kit',
         help='do not include the "dicewarekit" list from diceware.com.')
     parser.add_argument(

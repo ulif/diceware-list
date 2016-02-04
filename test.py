@@ -71,6 +71,7 @@ class TestArgParser(object):
         assert result.verbose is False
         assert result.length == 8192
         assert result.numbered is False
+        assert result.ascii_only is False
         assert result.use_kit is True
         assert result.use_416 is False
         assert isinstance(result.dictfile, list)
@@ -96,6 +97,11 @@ class TestArgParser(object):
         assert result.length == 1024
         result = get_cmdline_args(["--length=2048", str(dictfile)])
         assert result.length == 2048
+
+    def test_opt_ascii_settable(self, dictfile):
+        # we can set the ascii_only option
+        result = get_cmdline_args(["--ascii", str(dictfile)])
+        assert result.ascii_only is True
 
     def test_opt_no_kit_settable(self, dictfile):
         # we can tell whether we want the diceware kit included
