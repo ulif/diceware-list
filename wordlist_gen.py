@@ -135,8 +135,8 @@ def filter_chars(iter, allowed=None):
 
 
 def generate_wordlist(
-        input_terms, length=8192, lowercase=True,
-        use_kit=True, use_416=False, numbered=False):
+        input_terms, length=8192, lowercase=True, use_kit=True,
+        use_416=False, numbered=False, ascii_only=False):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -152,9 +152,13 @@ def generate_wordlist(
     `use_416`: add terms from another wordlist of Mr Reinhold,
                containing 416 terms.
 
+    `ascii_only`: only accept words, that exclusively contain ASCII.
+
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
     """
+    if ascii_only:
+        input_terms = filter_chars(input_terms, allowed=DEFAULT_CHARS)
     base_terms = list(base_terms_iterator(use_kit=use_kit, use_416=use_416))
     terms = list(set(list(input_terms) + list(base_terms)))
     terms.sort()

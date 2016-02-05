@@ -306,6 +306,19 @@ class TestGenerateWordlist(object):
         assert len(numbered_list[0].split()) == 2
         assert len(default_list[0].split()) == 1
 
+    def test_arg_ascii_only_is_respected(self):
+        # we respect ascii_only.
+        terms = [u"aa", u"aä", u"ba"]
+        unfiltered_list = list(generate_wordlist(
+            terms, length=2, use_kit=False, use_416=False, ascii_only=False))
+        filtered_list = list(generate_wordlist(
+            terms, length=2, use_kit=False, use_416=False, ascii_only=True))
+        default_list = list(generate_wordlist(
+            terms, length=2, use_kit=False, use_416=False))
+        assert unfiltered_list == [u"aa", u"aä"]
+        assert filtered_list == [u"aa", u"ba"]
+        assert default_list == unfiltered_list
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
