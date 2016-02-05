@@ -222,7 +222,8 @@ def main():
     all_terms = term_iterator(args.dictfile)
     for term in generate_wordlist(
             all_terms, args.length, use_kit=args.use_kit,
-            use_416=args.use_416, numbered=args.numbered):
+            use_416=args.use_416, numbered=args.numbered,
+            ascii_only=args.ascii_only):
         print(term)
 
 

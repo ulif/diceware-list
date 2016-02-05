@@ -407,3 +407,18 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert out.startswith("11111 ")
+
+    def test_main_ascii_only(self, monkeypatch, dictfile, capfd):
+        # we can tell to discard non-ASCII chars
+        dictfile.write_text(u"aa\naä\nba\n", "utf-8")
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "-l", "3", "-k", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert out == u"aa\naä\nba\n"
+        monkeypatch.setattr(
+            sys, "argv",
+            ["scriptname", "-l", "2", "-k", "--ascii", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert out == u"aa\nba\n"
