@@ -19,7 +19,7 @@ docs_require = [
     ]
 
 setup(
-    name="wordlist_gen",
+    name="diceware_list",
     version="0.1.dev0",
     author="Uli Fouquet",
     author_email="uli@gnufix.de",
@@ -27,8 +27,8 @@ setup(
         "Generate diceware wordlists."),
     license="GPL 3.0",
     keywords="diceware wordlist passphrase",
-    url="https://github.com/ulif/wordlist-gen",
-    py_modules=['wordlist_gen', ],
+    url="https://github.com/ulif/diceware-list",
+    py_modules=['diceware_list', ],
     packages=[],
     namespace_packages=[],
     long_description=read('README.rst') + '\n\n\n' + read('CHANGES.rst'),
@@ -59,7 +59,7 @@ setup(
         ),
     entry_points={
         'console_scripts': [
-            'wordlist_gen = wordlist_gen:main',
+            'diceware_list = diceware_list:main',
         ],
     },
 )
