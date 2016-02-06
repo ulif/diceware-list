@@ -1,16 +1,16 @@
-wordlist-gen
-============
+diceware-list
+=============
 
-|bdg-build| `sources <https://github.com/ulif/wordlist-gen>`_ | `issues <https://github.com/ulif/wordlist-gen/issues>`_
+|bdg-build| `sources <https://github.com/ulif/diceware-list>`_ | `issues <https://github.com/ulif/diceare-list/issues>`_
 
-.. |bdg-build| image:: https://travis-ci.org/ulif/wordlist-gen.svg?branch=master
-    :target: https://travis-ci.org/ulif/wordlist-gen
+.. |bdg-build| image:: https://travis-ci.org/ulif/diceare-list.svg?branch=master
+    :target: https://travis-ci.org/ulif/diceare-list
     :alt: Build Status
 
 Create wordlists for `diceware`_ in a reproducable and easy manner.
 
-This project provides tools for easy generation of wordlists that can
-be used with `diceware`_ .
+This is not a `diceware`_ implementationm, but only a helper to create
+appropriate wordlists.
 
 
 Install
@@ -18,21 +18,21 @@ Install
 
 Clone repository from github::
 
-  $ git clone https://github.com/ulif/wordlist-gen.git
+  $ git clone https://github.com/ulif/diceare-list.git
 
 Please consider using `virtualenv`_ for deployment.
 
 In an active virtualenv you can install an executable script of
-`wordlist-gen` running::
+`diceare-list` running::
 
   (venv) $ python setup.py install
-  (venv) $ wordlist_gen --help
-  usage: wordlist_gen [-h] [-l LENGTH] [-k] [--use-416] [-v] DICTFILE
+  (venv) $ diceware_list --help
+  usage: diceware_list [-h] [-l LENGTH] [-k] [--use-416] [-v] DICTFILE
 
 But you can also run the one and only script directly::
 
-  $ python wordlist_gen.py --help
-  usage: wordlist_gen [-h] [-l LENGTH] [-k] [--use-416] [-v] DICTFILE
+  $ python diceware_list.py --help
+  usage: diceware_list [-h] [-l LENGTH] [-k] [--use-416] [-v] DICTFILE
 
 
 Usage
@@ -41,10 +41,10 @@ Usage
 First, you need a file with words as "dictionary". On typical Debian
 systems such files can be found in ``/usr/share/dicts/``.
 
-This file can then be fed to `wordlist-gen` to create a wordlist
+This file can then be fed to `diceare-list` to create a wordlist
 suitable for use with diceware.::
 
-  $ python wordlist_gen.py /usr/share/dict/words
+  $ python diceware_list.py /usr/share/dict/words
   !
   !!
   !!!
@@ -59,11 +59,11 @@ suitable for use with diceware.::
 By default lists of 8192 (=2**13) words are created. This value can be
 changed with the `-l` option.
 
-With `-n` you can tell `wordlist_gen` to put numbers into each line,
+With `-n` you can tell `diceware_list` to put numbers into each line,
 representing dice throws [#]_ ::
 
 
-  $ python wordlist_gen.py -n -l 7776 /usr/share/dict/words
+  $ python diceware_list.py -n -l 7776 /usr/share/dict/words
   11111 !
   11112 !!
   ...
@@ -76,7 +76,7 @@ representing dice throws [#]_ ::
 
 See `--help` for other options.
 
-`wordlist_gen` follows loosely the recommendations given on
+`diceware_list` follows loosely the recommendations given on
 http://diceware.com/ by Mr. Reinhold.
 
 
@@ -107,7 +107,7 @@ Coverage
 To get a coverage report, you can use the respective py.test plugin::
 
   (venv)$ pip install pytest-cov
-  (venv)$ py.test --cov=wordlist_gen.py --cov-report=html
+  (venv)$ py.test --cov=diceware_list.py --cov-report=html
 
 Skip the `--cov-report` option (or use `term` or `term-missing`
 instead of `html`) to get a report on commandline.
