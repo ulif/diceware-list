@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#  wordlist_gen -- generate wordlists for diceware
+#  diceware_list -- generate wordlists for diceware
 #  Copyright (C) 2016  Uli Fouquet
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -14,12 +14,12 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""wordlist_gen -- wordlists for diceware.
+"""diceware_list -- wordlists for diceware.
 """
 import os
 import sys
 import pytest
-from wordlist_gen import (
+from diceware_list import (
     DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
     base_terms_iterator, base10_to_n, idx_to_dicenums, filter_chars,
@@ -196,11 +196,11 @@ class TestWordlistGen(object):
     def test_main_script_runnable(self, capfd):
         # we can run the main script as simple python script.
         script_loc = os.path.join(
-            os.path.dirname(__file__), 'wordlist_gen.py')
+            os.path.dirname(__file__), 'diceware_list.py')
         python_exe = sys.executable
         status = os.system("%s %s --help" % (python_exe, script_loc))
         out, err = capfd.readouterr()
-        assert out.startswith("usage: wordlist_gen.py")
+        assert out.startswith("usage: diceware_list.py")
         assert status == 0
 
     def test_base_terms_iterator(self):

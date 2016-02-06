@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#  wordlist_gen -- generate wordlists for diceware
+#  diceware_list -- generate wordlists for diceware
 #  Copyright (C) 2016  Uli Fouquet
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,7 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""wordlist_gen -- wordlists for diceware.
+"""diceware_list -- wordlists for diceware.
 """
 import argparse
 import math
