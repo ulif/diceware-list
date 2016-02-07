@@ -1,10 +1,10 @@
 diceware-list
 =============
 
-|bdg-build| `sources <https://github.com/ulif/diceware-list>`_ | `issues <https://github.com/ulif/diceare-list/issues>`_
+|bdg-build| `sources <https://github.com/ulif/diceware-list>`_ | `issues <https://github.com/ulif/diceware-list/issues>`_
 
-.. |bdg-build| image:: https://travis-ci.org/ulif/diceare-list.svg?branch=master
-    :target: https://travis-ci.org/ulif/diceare-list
+.. |bdg-build| image:: https://travis-ci.org/ulif/diceware-list.svg?branch=master
+    :target: https://travis-ci.org/ulif/diceware-list
     :alt: Build Status
 
 Create wordlists for `diceware`_ in a reproducable and easy manner.
@@ -40,12 +40,12 @@ Install
 
 Clone repository from github::
 
-  $ git clone https://github.com/ulif/diceare-list.git
+  $ git clone https://github.com/ulif/diceware-list.git
 
 Please consider using `virtualenv`_ for deployment.
 
 In an active virtualenv you can install an executable script of
-`diceare-list` running::
+`diceware-list` running::
 
   (venv) $ python setup.py install
   (venv) $ diceware_list --help
@@ -63,7 +63,7 @@ Usage
 First, you need a file with words as "dictionary". On typical Debian
 systems such files can be found in ``/usr/share/dicts/``.
 
-This file can then be fed to `diceare-list` to create a wordlist
+This file can then be fed to `diceware-list` to create a wordlist
 suitable for use with diceware.::
 
   $ python diceware_list.py /usr/share/dict/words
