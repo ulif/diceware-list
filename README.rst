@@ -7,7 +7,18 @@ diceware-list
     :target: https://travis-ci.org/ulif/diceware-list
     :alt: Build Status
 
-Create wordlists for `diceware`_ in a reproducable and easy manner.
+Create wordlists for `diceware`_ in a reproducable and easy manner::
+
+  $ python diceware_list.py -n -l 7776 /usr/share/dict/words
+  11111 !
+  11112 !!
+  ...
+  12353 alan
+  12354 alana
+  12355 alar
+  ...
+  66665 zzz
+  66666 zzzz
 
 This is not a `diceware`_ implementation, but only a helper to create
 appropriate wordlists.
@@ -38,7 +49,11 @@ extent by your source of randomness with `diceware`_).
 Install
 --------
 
-Clone repository from github::
+Install latest release from pypi_ ::
+
+  (venv) $ pip install diceware-list
+
+or clone repository from github::
 
   $ git clone https://github.com/ulif/diceware-list.git
 
@@ -142,4 +157,5 @@ instead of `html`) to get a report on commandline.
 .. _diceware: http://diceware.com/
 .. _pip: https://pip.pypa.io/en/latest/
 .. _py.test: https://pytest.org/
+.. _pypi: https://pypi.python.org/
 .. _virtualenv: https://virtualenv.pypa.io/
