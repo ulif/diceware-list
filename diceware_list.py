@@ -121,6 +121,25 @@ def min_width_iter(iterator, num):
 
 
 def shuffle_max_width_items(sorted_list):
+    """Shuffle entries of `sorted_list` that have max width.
+
+    Yields items in `sorted_list` in preserved order, but with maximum
+    width entries shuffled. This helps to create lists, that have only
+    entries with minimal width but a random set of maximum width
+    entries.
+
+    For instance::
+
+      ["a", "b", "aa", "bb", "aaa", "bbb", "ccc"]
+
+    could end up::
+
+      ["a", "b", "aa", "bb", "ccc", "aaa", "bbb"]
+
+
+    That means the three maximum-width elements at the end are returned
+    in different order.
+    """
     max_width = len(sorted_list[-1])
     for entry in filter(lambda x: len(x) != max_width, sorted_list):
         yield entry
