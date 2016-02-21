@@ -140,7 +140,7 @@ def shuffle_max_width_items(sorted_list):
     That means the three maximum-width elements at the end are returned
     in different order.
     """
-    max_width = len(sorted_list[-1])
+    max_width = len(max(sorted_list, key=len))
     for entry in filter(lambda x: len(x) != max_width, sorted_list):
         yield entry
     max_width_entries = list(
