@@ -19,8 +19,8 @@
 import argparse
 import math
 import os
+import random
 import string
-from random import shuffle
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
@@ -145,7 +145,7 @@ def shuffle_max_width_items(sorted_list):
         yield entry
     max_width_entries = list(
         filter(lambda x: len(x) == max_width, sorted_list))
-    shuffle(max_width_entries)
+    random.shuffle(max_width_entries)
     for entry in max_width_entries:
         yield entry
 
