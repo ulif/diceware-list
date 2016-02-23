@@ -19,6 +19,7 @@
 import os
 import sys
 import pytest
+import random
 from diceware_list import (
     DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
@@ -235,16 +236,14 @@ class TestWordlistGen(object):
         # if `allowed` is None, no filtering will be done
         assert list(filter_chars(['ä'], None)) == ['ä']
 
-    def test_shuffle_max_width_items(self):
+    def test_shuffle_max_width_items(self, monkeypatch):
         # we can shuffle the max width items of a list
+        # install a pseudo-shuffler that generates predictable orders
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
         in_list = ["a", "aa", "bb", "cc"]
         result = list(shuffle_max_width_items(in_list))
-        assert "a" in result
-        assert result[0] == "a"
-        # we cannot tell, on which position each of these will be
-        assert "aa" in result
-        assert "bb" in result
-        assert "cc" in result
+        # last elements are returned in reverse order.
+        assert result == ["a", "cc", "bb", "aa"]
 
 
 class TestGenerateWordlist(object):
