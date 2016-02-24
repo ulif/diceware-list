@@ -245,6 +245,15 @@ class TestWordlistGen(object):
         # last elements are returned in reverse order.
         assert result == ["a", "cc", "bb", "aa"]
 
+    def test_shuffle_max_width_items_unsorted_input(self, monkeypatch):
+        # we can shuffle the max width items of an unsorted list
+        # install a pseudo-shuffler that generates predictable orders
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
+        in_list = ["aa", "d", "bb", "a", "cc"]
+        result = list(shuffle_max_width_items(in_list))
+        # last elements are returned in reverse order.
+        assert result == ["d", "a", "cc", "bb", "aa"]
+
 
 class TestGenerateWordlist(object):
 
