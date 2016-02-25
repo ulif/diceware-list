@@ -120,10 +120,10 @@ def min_width_iter(iterator, num):
         yield term
 
 
-def shuffle_max_width_items(sorted_list):
-    """Shuffle entries of `sorted_list` that have max width.
+def shuffle_max_width_items(word_list):
+    """Shuffle entries of `word_list` that have max width.
 
-    Yields items in `sorted_list` in preserved order, but with maximum
+    Yields items in `word_list` in preserved order, but with maximum
     width entries shuffled. This helps to create lists, that have only
     entries with minimal width but a random set of maximum width
     entries.
@@ -140,11 +140,11 @@ def shuffle_max_width_items(sorted_list):
     That means the three maximum-width elements at the end are returned
     in different order.
     """
-    max_width = len(max(sorted_list, key=len))
-    for entry in filter(lambda x: len(x) != max_width, sorted_list):
+    max_width = len(max(word_list, key=len))
+    for entry in filter(lambda x: len(x) != max_width, word_list):
         yield entry
     max_width_entries = list(
-        filter(lambda x: len(x) == max_width, sorted_list))
+        filter(lambda x: len(x) == max_width, word_list))
     random.shuffle(max_width_entries)
     for entry in max_width_entries:
         yield entry
