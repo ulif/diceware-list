@@ -254,6 +254,13 @@ class TestWordlistGen(object):
         # last elements are returned in reverse order.
         assert result == ["d", "a", "cc", "bb", "aa"]
 
+    def test_shuffle_max_width_items_drop_over_max_width(self, monkeypatch):
+        # with a given max_width we drop words that are longer
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
+        in_list = ["eeee", "bb", "ccc", "aa", "ddd"]
+        result = list(shuffle_max_width_items(in_list, max_width=3))
+        assert "eeee" not in result
+
 
 class TestGenerateWordlist(object):
 

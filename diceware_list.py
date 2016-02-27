@@ -120,7 +120,7 @@ def min_width_iter(iterator, num):
         yield term
 
 
-def shuffle_max_width_items(word_list):
+def shuffle_max_width_items(word_list, max_width=None):
     """Shuffle entries of `word_list` that have max width.
 
     Yields items in `word_list` in preserved order, but with maximum
@@ -140,8 +140,9 @@ def shuffle_max_width_items(word_list):
     That means the three maximum-width elements at the end are returned
     in different order.
     """
-    max_width = len(max(word_list, key=len))
-    for entry in filter(lambda x: len(x) != max_width, word_list):
+    if max_width is None:
+        max_width = len(max(word_list, key=len))
+    for entry in filter(lambda x: len(x) < max_width, word_list):
         yield entry
     max_width_entries = list(
         filter(lambda x: len(x) == max_width, word_list))
