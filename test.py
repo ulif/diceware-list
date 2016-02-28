@@ -195,6 +195,12 @@ class TestWordlistGen(object):
         assert list(min_width_iter(["a", "cc", "b"], 2)) == ["a", "b"]
         assert list(min_width_iter(["aa", "c", "bb"], 2)) == ["c", "aa"]
 
+    def test_min_width_iter_shuffle_max_widths_values(self, monkeypatch):
+        # words with maximum width are shuffled
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
+        assert list(min_width_iter(
+            ["a", "aa", "bb"], 2, shuffle_max_width=True)) == ["a", "bb"]
+
     def test_main_script_runnable(self, capfd):
         # we can run the main script as simple python script.
         script_loc = os.path.join(

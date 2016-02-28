@@ -95,7 +95,7 @@ def idx_to_dicenums(item_index, dice_num):
     return "".join(["%s" % x for x in padded[-dice_num:]])
 
 
-def min_width_iter(iterator, num):
+def min_width_iter(iterator, num, shuffle_max_width=False):
     """Get an iterable with `num` elements and minimal 'list width' from
     items in `iterator`.
 
@@ -116,6 +116,9 @@ def min_width_iter(iterator, num):
 
     """
     all_terms = sorted(iterator, key=lambda x: (len(x), x))
+    if shuffle_max_width:
+        max_width = len(all_terms[num - 1])
+        all_terms = list(shuffle_max_width_items(all_terms, max_width))
     for term in all_terms[:num]:
         yield term
 
