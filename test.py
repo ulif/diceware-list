@@ -347,8 +347,9 @@ class TestGenerateWordlist(object):
         assert len(numbered_list[0].split()) == 2
         assert len(default_list[0].split()) == 1
 
-    def test_arg_ascii_only_is_respected(self):
+    def test_arg_ascii_only_is_respected(self, monkeypatch):
         # we respect ascii_only.
+        monkeypatch.setattr(random, "shuffle", lambda x: x)
         terms = [u"aa", u"aä", u"ba"]
         unfiltered_list = list(generate_wordlist(
             terms, length=2, use_kit=False, use_416=False, ascii_only=False))
