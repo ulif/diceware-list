@@ -320,8 +320,9 @@ class TestGenerateWordlist(object):
         assert "!" not in result2
         assert "!" in result_default
 
-    def test_arg_use_416_is_respected(self):
+    def test_arg_use_416_is_respected(self, monkeypatch):
         # we respect the "use_416" parameter
+        monkeypatch.setattr(random, "shuffle", lambda x: x)
         result1 = list(
             generate_wordlist(
                 ["a", "b"], length=3, use_kit=False, use_416=True))
