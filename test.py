@@ -185,8 +185,9 @@ class TestWordlistGen(object):
             result = list(term_iterator([fd, ]))
         assert result == ["foo", "bar"]
 
-    def test_min_width_iter(self):
+    def test_min_width_iter(self, monkeypatch):
         # we can get iterators with minimal list width.
+        monkeypatch.setattr(random, "shuffle", lambda x: x)
         assert list(min_width_iter(["bb", "a", "ccc", "dd"], 3)) == [
             "a", "bb", "dd"]
         assert list(min_width_iter(["c", "a", "b"], 2)) == ["a", "b"]
