@@ -279,16 +279,17 @@ class TestWordlistGen(object):
 
 class TestGenerateWordlist(object):
 
-    def test_arg_length_is_respected(self):
+    def test_arg_length_is_respected(self, monkeypatch):
         # we respect the "length" parameter
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
         in_list = ["a", "b", "c"]
         assert list(generate_wordlist(in_list, length=0)) == []
         assert list(
             generate_wordlist(
-                in_list, length=1, use_kit=False)) == ["a", ]
+                in_list, length=1, use_kit=False)) == ["c", ]
         assert list(
             generate_wordlist(
-                in_list, length=2, use_kit=False)) == ["a", "b"]
+                in_list, length=2, use_kit=False)) == ["b", "c"]
         assert list(
             generate_wordlist(
                 in_list, length=3, use_kit=False)) == ["a", "b", "c"]

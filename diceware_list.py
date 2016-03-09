@@ -95,7 +95,7 @@ def idx_to_dicenums(item_index, dice_num):
     return "".join(["%s" % x for x in padded[-dice_num:]])
 
 
-def min_width_iter(iterator, num, shuffle_max_width=False):
+def min_width_iter(iterator, num, shuffle_max_width=True):
     """Get an iterable with `num` elements and minimal 'list width' from
     items in `iterator`.
 
