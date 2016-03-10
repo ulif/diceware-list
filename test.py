@@ -365,6 +365,20 @@ class TestGenerateWordlist(object):
         assert filtered_list == [u"aa", u"ba"]
         assert default_list == unfiltered_list
 
+    def test_arg_shuffle_max_is_respected(self, monkeypatch):
+        # we can switch shuffling on or off.
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
+        terms = ['a', 'b', 'c']
+        unshuffled_list = list(generate_wordlist(
+            terms, length=2, use_kit=False, use_416=False, shuffle_max=False))
+        shuffled_list = list(generate_wordlist(
+            terms, length=2, use_kit=False, use_416=False, shuffle_max=True))
+        default_list = list(generate_wordlist(
+            terms, length=2, use_kit=False, use_416=False))
+        assert unshuffled_list == [u'a', u'b']
+        assert shuffled_list == [u'b', u'c']
+        assert default_list == shuffled_list
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]

@@ -171,7 +171,8 @@ def filter_chars(iter, allowed=None):
 
 def generate_wordlist(
         input_terms, length=8192, lowercase=True, use_kit=True,
-        use_416=False, numbered=False, ascii_only=False):
+        use_416=False, numbered=False, ascii_only=False,
+        shuffle_max=True):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -189,6 +190,14 @@ def generate_wordlist(
 
     `ascii_only`: only accept words, that exclusively contain ASCII.
 
+    `shuffle_max`: shuffle max width entries before cutting and sorting.
+               This way a random set of max width entries gets included
+               instead of the same fixed set at the beginning of all max width
+               entries. I.e. not only those max width entries starting with
+               ``a`` or ``b`` are included, but instead (randomly) also ``x``,
+               ``y``, ``z`` might appear. By default we shuffle entries. Set
+               to `False` to avoid this.
+
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
     """
@@ -203,7 +212,8 @@ def generate_wordlist(
     if length:
         dicenum = int(math.ceil(math.log(length) / math.log(DICE_SIDES)))
     prefix = ""
-    for num, term in enumerate(sorted(min_width_iter(terms, length))):
+    for num, term in enumerate(sorted(min_width_iter(
+            terms, length, shuffle_max))):
         if lowercase:
             term = term.lower()
         if numbered:
