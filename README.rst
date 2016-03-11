@@ -69,7 +69,8 @@ In an active virtualenv you can install an executable script of
 But you can also run the one and only script directly::
 
   $ python diceware_list.py --help
-  usage: diceware_list [-h] [-l LENGTH] [-k] [--use-416] [-v] DICTFILE
+  usage: diceware_list.py [-h] [-l LENGTH] [-n] [--ascii] [-k] [--use-416] [-v]
+                          DICTFILE [DICTFILE ...]
 
 
 Usage
@@ -110,6 +111,10 @@ representing dice throws [#]_ ::
   ...
   66665 zzz
   66666 zzzz
+
+The `--ascii` option filters terms out, that contain non-ASCII
+characters. This can help in generating non-english word lists that
+are usable with regular english keyboards.
 
 See `--help` for other options.
 
