@@ -43,7 +43,8 @@ In other words: Your passphrases will not be safe because of hiding
 your wordlist. They will be safe because there are so many possible
 combinations of words you can pick from your wordlist. That means:
 longer lists are more secure than shorter ones (if really used to full
-extent by your source of randomness with `diceware`_).
+extent by your source of randomness with `diceware`_), but hidden
+lists are *not* more secure than public ones.
 
 
 Install
@@ -116,6 +117,8 @@ representing dice throws [#]_ ::
 The `--ascii` option filters terms out, that contain non-ASCII
 characters. This can help in generating non-english word lists that
 are usable with regular english keyboards.
+
+The verbose option `--verbose` currently has no effect.
 
 See `--help` for other options.
 
