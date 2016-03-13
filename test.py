@@ -482,3 +482,10 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert out == u"aa\nba\n"
+
+    def test_main_verbose(self, monkeypatch, dictfile, capfd):
+        # we can require verbose output
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-v", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert "Creating wordlist" in err

@@ -17,6 +17,7 @@
 """diceware_list -- wordlists for diceware.
 """
 import argparse
+import logging
 import math
 import os
 import random
@@ -24,6 +25,10 @@ import string
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
+
+#: A logger for use with diceware-list related messages.
+logger = logging.getLogger("ulif.diceware-list")
+logger.addHandler(logging.NullHandler())
 
 
 def get_cmdline_args(args=None):
@@ -265,6 +270,10 @@ def main():
     """
     args = get_cmdline_args()
     all_terms = term_iterator(args.dictfile)
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+        logger.addHandler(logging.StreamHandler())
+        logger.debug("Creating wordlist...")
     for term in generate_wordlist(
             all_terms, args.length, use_kit=args.use_kit,
             use_416=args.use_416, numbered=args.numbered,
