@@ -254,8 +254,10 @@ def base_terms_iterator(use_kit=True, use_416=True):
     """
     names = []
     if use_kit:
+        logger.debug("Adding source list: dicewarekit.txt")
         names += ["dicewarekit.txt", ]
     if use_416:
+        logger.debug("Adding source list: diceware416.txt")
         names += ["diceware416.txt"]
     dir_path = os.path.join(os.path.dirname(__file__))
     fd_list = [open(os.path.join(dir_path, name), "r") for name in names]
@@ -273,7 +275,7 @@ def main():
     if args.verbose:
         logger.setLevel(logging.DEBUG)
         logger.addHandler(logging.StreamHandler())
-        logger.debug("Creating wordlist...")
+        logger.info("Creating wordlist...")
     for term in generate_wordlist(
             all_terms, args.length, use_kit=args.use_kit,
             use_416=args.use_416, numbered=args.numbered,
