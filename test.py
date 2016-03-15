@@ -70,7 +70,7 @@ class TestArgParser(object):
     def test_options_defaults(self, dictfile):
         # options provide sensible defaults.
         result = get_cmdline_args([str(dictfile), ])
-        assert result.verbose is False
+        assert result.verbose is None
         assert result.length == 8192
         assert result.numbered is False
         assert result.ascii_only is False
@@ -91,7 +91,9 @@ class TestArgParser(object):
     def test_opt_verbose_settable(self, dictfile):
         # we can set the verbose option
         result = get_cmdline_args(["-v", str(dictfile)])
-        assert result.verbose is True
+        assert result.verbose == 1
+        result = get_cmdline_args(["-vvv", str(dictfile)])
+        assert result.verbose == 3
 
     def test_opt_length_settable(self, dictfile):
         # we can set the length option
