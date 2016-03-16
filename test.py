@@ -491,3 +491,12 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert "Creating wordlist" in err
+        assert "Verbose logging" not in err
+
+    def test_main_verbose_verbose(self, monkeypatch, dictfile, capfd):
+        # we can require very verbose output
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-vv", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert "Creating wordlist" in err
+        assert "Verbose logging" in err
