@@ -168,10 +168,13 @@ def filter_chars(iter, allowed=None):
         for elem in iter:
             yield elem
     else:
+        logger.info("Filtering out chars not in: %s" % allowed)
         for elem in iter:
             stripped = [x for x in elem if x in allowed]
             if len(stripped) == len(elem):
                 yield elem
+            else:
+                logger.debug("  Contains not allowed chars: %s" % elem)
 
 
 def generate_wordlist(
