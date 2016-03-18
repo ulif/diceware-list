@@ -118,7 +118,8 @@ The `--ascii` option filters terms out, that contain non-ASCII
 characters. This can help in generating non-english word lists that
 are usable with regular english keyboards.
 
-The verbose option `--verbose` currently has no effect.
+The verbose option `--verbose` can be given multiple times to increase
+verbosity.
 
 See `--help` for other options.
 
