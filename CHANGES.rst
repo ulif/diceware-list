@@ -1,8 +1,8 @@
 Changes
 *******
 
-0.2.dev0 (unreleased)
-=======================
+0.2 (2016-03-18)
+================
 
 - Allow `-v` option multiple times for increased verbosity.
 
