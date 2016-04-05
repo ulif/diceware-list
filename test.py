@@ -24,7 +24,7 @@ from diceware_list import (
     DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
     base_terms_iterator, base10_to_n, idx_to_dicenums, filter_chars,
-    shuffle_max_width_items,
+    shuffle_max_width_items, normalize
     )
 
 
@@ -277,6 +277,16 @@ class TestWordlistGen(object):
         in_list = ["eeee", "bb", "ccc", "aa", "ddd"]
         result = list(shuffle_max_width_items(in_list, max_width=3))
         assert "eeee" not in result
+
+    def test_normalize(self):
+        assert normalize(u"ªºÀÁÂÃÄÅÆ") == "aoAAAAAEAAE"
+        assert normalize(u"ÇÈÉÊËÌÍÎÏ") == "CEEEEIIII"
+        assert normalize(u"ÒÓÔÕÖØÙÚÛÜ") == "OOOOOEOEUUUUE"
+        # "ÐÑÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüý"
+        # "þÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİ"
+        # "ıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţ"
+        # "ŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƀƁƂƃƄƅƆƇƈƉƊƋƌƍ"
+        assert normalize(u"mäßig") == u"maessig"
 
 
 class TestGenerateWordlist(object):
