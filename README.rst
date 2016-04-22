@@ -7,7 +7,7 @@ diceware-list
     :target: https://travis-ci.org/ulif/diceware-list
     :alt: Build Status
 
-Create wordlists for `diceware`_ in a reproducable and easy manner::
+Create wordlists for `diceware`_ in a reproducible and easy manner::
 
   $ python diceware_list.py -n -l 7776 /usr/share/dict/words
   11111 !
