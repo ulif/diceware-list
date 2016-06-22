@@ -4,7 +4,7 @@ Changes
 0.2.1.dev0 (unreleased)
 =======================
 
-- No changes yet.
+- Install script as `diceware-list` instead of `diceware_list`.
 
 
 0.2 (2016-03-18)
