@@ -60,7 +60,7 @@ setup(
         ),
     entry_points={
         'console_scripts': [
-            'diceware_list = diceware_list:main',
+            'diceware-list = diceware_list:main',
         ],
     },
 )
