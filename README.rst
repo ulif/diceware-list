@@ -64,8 +64,8 @@ In an active virtualenv you can install an executable script of
 `diceware-list` running::
 
   (venv) $ python setup.py install
-  (venv) $ diceware_list --help
-  usage: diceware_list [-h] [-l LENGTH] [-n] [--ascii] [-k] [--use-416] [-v]
+  (venv) $ diceware-list --help
+  usage: diceware-list [-h] [-l LENGTH] [-n] [--ascii] [-k] [--use-416] [-v]
                        DICTFILE [DICTFILE ...]
 
 But you can also run the one and only script directly::
@@ -99,7 +99,7 @@ suitable for use with diceware.::
 By default lists of 8192 (=2**13) words are created. This value can be
 changed with the `-l` option.
 
-With `-n` you can tell `diceware_list` to put numbers into each line,
+With `-n` you can tell `diceware-list` to put numbers into each line,
 representing dice throws [#]_ ::
 
 
@@ -123,7 +123,7 @@ verbosity.
 
 See `--help` for other options.
 
-`diceware_list` follows loosely the recommendations given on
+`diceware-list` follows loosely the recommendations given on
 http://diceware.com/ by Mr. Reinhold.
 
 
