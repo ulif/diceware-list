@@ -74,6 +74,7 @@ class TestArgParser(object):
         assert result.length == 8192
         assert result.numbered is False
         assert result.ascii_only is False
+        assert result.sides == 6
         assert result.use_kit is True
         assert result.use_416 is False
         assert isinstance(result.dictfile, list)
