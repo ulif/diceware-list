@@ -108,6 +108,13 @@ class TestArgParser(object):
         result = get_cmdline_args(["--ascii", str(dictfile)])
         assert result.ascii_only is True
 
+    def test_opt_sides_settable(self, dictfile):
+        # we can set the ``sides`` option
+        result = get_cmdline_args(["-s 3", str(dictfile)])
+        assert result.sides == 3
+        result = get_cmdline_args(["--sides=10", str(dictfile)])
+        assert result.sides == 10
+
     def test_opt_no_kit_settable(self, dictfile):
         # we can tell whether we want the diceware kit included
         result = get_cmdline_args(["-k", str(dictfile)])
