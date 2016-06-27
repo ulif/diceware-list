@@ -99,7 +99,7 @@ def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES):
     then we have a mapping from indexes 1..36 to dice combinations (from
     "1-1" up to "6-6").
 
-    For a reasonable result, we expect 0 >= `item_index` < `dice_num`**6.
+    For a reasonable result, we expect 0 <= `item_index` < `dice_num`**6.
     """
     nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
     padded = [1, ] * dice_num + nums
