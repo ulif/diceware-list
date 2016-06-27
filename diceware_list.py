@@ -81,7 +81,7 @@ def base10_to_n(num, base):
     return result
 
 
-def idx_to_dicenums(item_index, dice_num):
+def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES):
     """Get a set of dicenums for list item numbers.
 
     Turn an index number of a list item into a number of dice numbers
@@ -90,7 +90,9 @@ def idx_to_dicenums(item_index, dice_num):
 
     `item_index` is the index number of some item.
 
-    `dice_num` is the number of (six-sided) dice used.
+    `dice_num` is the number of (n-sided) dice used.
+
+    `dice_sides` is the number of sides per die.
 
     Example: we have two dice resulting in 36 possible combinations. If
     first possible combination is "1-1", second one "1-2" and so on,
@@ -99,7 +101,7 @@ def idx_to_dicenums(item_index, dice_num):
 
     For a reasonable result, we expect 0 >= `item_index` < `dice_num`**6.
     """
-    nums = [x+1 for x in base10_to_n(item_index, DICE_SIDES)]
+    nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
     padded = [1, ] * dice_num + nums
     return "".join(["%s" % x for x in padded[-dice_num:]])
 

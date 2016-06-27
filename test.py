@@ -159,6 +159,10 @@ class TestWordlistGen(object):
         assert idx_to_dicenums(1, 5) == "11112"
         assert idx_to_dicenums(7774, 5) == "66665"
         assert idx_to_dicenums(7775, 5) == "66666"
+        # different dice sides, different results
+        assert idx_to_dicenums(0, 4, 4) == "1111"
+        assert idx_to_dicenums(255, 4, 4) == "4444"
+        assert idx_to_dicenums(255, 4) == "2214"
 
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators
