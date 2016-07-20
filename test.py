@@ -403,6 +403,20 @@ class TestGenerateWordlist(object):
         assert shuffled_list == [u'b', u'c']
         assert default_list == shuffled_list
 
+    def test_arg_sides_is_respected(self, monkeypatch):
+        # we can choose how much sides the used dice have
+        monkeypatch.setattr(random, "shuffle", lambda x: x)
+        terms = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+        sides_2_list = list(generate_wordlist(
+            terms, length=6, use_kit=False, use_416=False, numbered=True, sides=2))
+        sides_3_list = list(generate_wordlist(
+            terms, length=6, use_kit=False, use_416=False, numbered=True, sides=3))
+        default_list = list(generate_wordlist(
+            terms, length=7, use_kit=False, use_416=False, numbered=True))
+        assert sides_2_list == ['111 a', '112 b', '121 c', '122 d', '211 e', '212 f']
+        assert sides_3_list == ['11 a', '12 b', '13 c', '21 d', '22 e', '23 f']
+        assert default_list == ['11 a', '12 b', '13 c', '14 d', '15 e', '16 f', '21 g']
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
