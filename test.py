@@ -409,10 +409,10 @@ class TestGenerateWordlist(object):
         terms = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
         sides_2_list = list(generate_wordlist(
             terms, length=5, use_kit=False, use_416=False, numbered=True,
-            sides=2))
+            dice_sides=2))
         sides_3_list = list(generate_wordlist(
             terms, length=6, use_kit=False, use_416=False, numbered=True,
-            sides=3))
+            dice_sides=3))
         default_list = list(generate_wordlist(
             terms, length=7, use_kit=False, use_416=False, numbered=True))
         assert sides_2_list == ['111 a', '112 b', '121 c', '122 d', '211 e']

@@ -203,7 +203,7 @@ def filter_chars(iter, allowed=None):
 def generate_wordlist(
         input_terms, length=8192, lowercase=True, use_kit=True,
         use_416=False, numbered=False, ascii_only=False,
-        shuffle_max=True, sides=DICE_SIDES):
+        shuffle_max=True, dice_sides=DICE_SIDES):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -241,14 +241,14 @@ def generate_wordlist(
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)
     if length:
-        dicenum = int(math.ceil(math.log(length) / math.log(sides)))
+        dicenum = int(math.ceil(math.log(length) / math.log(dice_sides)))
     prefix = ""
     for num, term in enumerate(sorted(min_width_iter(
             terms, length, shuffle_max))):
         if lowercase:
             term = term.lower()
         if numbered:
-            prefix = idx_to_dicenums(num, dicenum, dice_sides=sides) + " "
+            prefix = idx_to_dicenums(num, dicenum, dice_sides=dice_sides) + " "
         yield "%s%s" % (prefix, term)
 
 
@@ -308,7 +308,7 @@ def main():
     for term in generate_wordlist(
             all_terms, args.length, use_kit=args.use_kit,
             use_416=args.use_416, numbered=args.numbered,
-            ascii_only=args.ascii_only, sides=args.sides):
+            ascii_only=args.ascii_only, dice_sides=args.sides):
         print(term)
 
 
