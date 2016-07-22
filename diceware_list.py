@@ -308,7 +308,7 @@ def main():
     for term in generate_wordlist(
             all_terms, args.length, use_kit=args.use_kit,
             use_416=args.use_416, numbered=args.numbered,
-            ascii_only=args.ascii_only):
+            ascii_only=args.ascii_only, sides=args.sides):
         print(term)
 
 
