@@ -229,6 +229,10 @@ def generate_wordlist(
                ``y``, ``z`` might appear. By default we shuffle entries. Set
                to `False` to avoid this.
 
+    `dice_sides`: number of sides of dice exepected to be used with the
+               result list. This is important only if the output list is
+               numbered. By default we expect six sides.
+
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
     """
