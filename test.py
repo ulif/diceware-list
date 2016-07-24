@@ -542,14 +542,21 @@ class TestMain(object):
 
     def test_main_sides(self, monkeypatch, dictfile, capfd):
         # we support unusual dice
-        alphabet = "".join([u"%s\n" % x for x in u"ABCDEDFGHIJKLMNOPQRSTUVWXYZ"])
+        alphabet = "".join(
+            [u"%s\n" % x for x in u"ABCDEDFGHIJKLMNOPQRSTUVWXYZ"])
         dictfile.write_text(alphabet, "utf-8")
-        monkeypatch.setattr(sys, "argv", ["scriptname", "-n", "-l", "26", "-k", str(dictfile)]) # no "-s"
+        monkeypatch.setattr(
+            sys, "argv", [   # no "-s"
+                "scriptname", "-n", "-l", "26", "-k", str(dictfile)
+                ])
         main()
         out, err = capfd.readouterr()
         assert "52 z" in out
         assert "211 z" not in out
-        monkeypatch.setattr(sys, "argv", ["scriptname", "-n", "-s", "5", "-l", "26", "-k", str(dictfile)])
+        monkeypatch.setattr(
+            sys, "argv", [
+                "scriptname", "-n", "-s", "5", "-l", "26", "-k", str(dictfile)
+                ])
         main()
         out, err = capfd.readouterr()
         assert "52 z" not in out
