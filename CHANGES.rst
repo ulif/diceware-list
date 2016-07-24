@@ -6,6 +6,8 @@ Changes
 
 - Install script as `diceware-list` instead of `diceware_list`.
 
+- Allow `--sides` option to support dice that do not have six sides.
+
 
 0.2 (2016-03-18)
 ================
