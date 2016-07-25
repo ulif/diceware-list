@@ -20,7 +20,7 @@ docs_require = [
 
 setup(
     name="diceware_list",
-    version="0.3.dev0",
+    version="0.3",
     author="Uli Fouquet",
     author_email="uli@gnufix.de",
     description=(
