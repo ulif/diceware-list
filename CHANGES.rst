@@ -1,7 +1,7 @@
 Changes
 *******
 
-0.2.1.dev0 (unreleased)
+0.3.dev0 (unreleased)
 =======================
 
 - Install script as `diceware-list` instead of `diceware_list`.
