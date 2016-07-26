@@ -345,7 +345,7 @@ class TestGenerateWordlist(object):
         result_default = list(generate_wordlist(["a", "b"], length=2))
         assert "!" in result1
         assert "!" not in result2
-        assert "!" in result_default
+        assert "!" not in result_default
 
     def test_arg_use_416_is_respected(self, monkeypatch):
         # we respect the "use_416" parameter

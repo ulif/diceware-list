@@ -201,7 +201,7 @@ def filter_chars(iter, allowed=None):
 
 
 def generate_wordlist(
-        input_terms, length=8192, lowercase=True, use_kit=True,
+        input_terms, length=8192, lowercase=True, use_kit=False,
         use_416=False, numbered=False, ascii_only=False,
         shuffle_max=True, dice_sides=DICE_SIDES):
     """Generate a diceware wordlist from dictionary list.
