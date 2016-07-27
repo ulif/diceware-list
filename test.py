@@ -554,7 +554,7 @@ class TestMain(object):
         assert "211 z" not in out
         monkeypatch.setattr(
             sys, "argv", [
-                "scriptname", "-n", "-l", "26", "-s" , "5", str(dictfile)
+                "scriptname", "-n", "-l", "26", "-s", "5", str(dictfile)
                 ])
         main()
         out, err = capfd.readouterr()
