@@ -10,15 +10,17 @@ diceware-list
 Create wordlists for `diceware`_ in a reproducible and easy manner::
 
   $ python diceware_list.py -n -l 7776 /usr/share/dict/words
-  11111 !
-  11112 !!
+  11111 a
+  11112 a's
   ...
-  12353 alan
-  12354 alana
-  12355 alar
+  12353 capt
+  12354 cara
+  12355 carl
   ...
-  66665 zzz
-  66666 zzzz
+  66663 zoos
+  66664 éclat
+  66665 élan
+  66666 épée
 
 This is not a `diceware`_ implementation, but only a helper to create
 appropriate wordlists.
