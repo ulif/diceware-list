@@ -4,7 +4,9 @@ Changes
 0.3.1.dev0 (unreleased)
 =======================
 
-- No changes yet.
+- The ``dicewarekit.txt`` list is not included in generated lists by
+  default from now on. You can request inclusion with new option
+  `use-kit`.  The old option `no-kit` is not supported any more.
 
 
 0.3 (2016-07-25)
