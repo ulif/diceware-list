@@ -1,7 +1,7 @@
 Changes
 *******
 
-0.3.1.dev0 (unreleased)
+0.4.dev0 (unreleased)
 =======================
 
 - The ``dicewarekit.txt`` list is not included in generated lists by
