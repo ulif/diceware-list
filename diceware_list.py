@@ -49,7 +49,7 @@ def get_cmdline_args(args=None):
         '-s', '--sides', default=6, type=int,
         help='assume used dice have SIDES sides. Default: 6')
     parser.add_argument(
-        '-k', '--no-kit', action='store_false', dest='use_kit',
+        '-k', '--use-kit', action='store_true', dest='use_kit',
         help='do not include the "dicewarekit" list from diceware.com.')
     parser.add_argument(
         '--use-416', action='store_true',

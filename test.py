@@ -75,7 +75,7 @@ class TestArgParser(object):
         assert result.numbered is False
         assert result.ascii_only is False
         assert result.sides == 6
-        assert result.use_kit is True
+        assert result.use_kit is False
         assert result.use_416 is False
         assert isinstance(result.dictfile, list)
 
@@ -118,9 +118,9 @@ class TestArgParser(object):
     def test_opt_no_kit_settable(self, dictfile):
         # we can tell whether we want the diceware kit included
         result = get_cmdline_args(["-k", str(dictfile)])
-        assert result.use_kit is False
-        result = get_cmdline_args(["--no-kit", str(dictfile)])
-        assert result.use_kit is False
+        assert result.use_kit is True
+        result = get_cmdline_args(["--use-kit", str(dictfile)])
+        assert result.use_kit is True
 
     def test_opt_use_416_settable(self, dictfile):
         # we can tell to use the diceware416.txt list.
@@ -462,7 +462,6 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert "\nbar\n" in out
         assert "\nfoo\n" in out
 
     def test_main_length(self, monkeypatch, tmpdir, capfd):
@@ -476,17 +475,17 @@ class TestMain(object):
         assert out.count("\n") == 2
 
     def test_main_no_kit(self, monkeypatch, dictfile, capfd):
-        # we do not include the diceware kit if told so.
+        # we do not include the diceware kit by default.
         monkeypatch.setattr(
             sys, "argv", ["scriptname", str(dictfile)])  # no '-k'
         main()
         out, err = capfd.readouterr()
-        assert "!" in out
+        assert "!" not in out
         monkeypatch.setattr(
             sys, "argv", ["scriptname", "-k", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert "!" not in out
+        assert "!" in out
 
     def test_main_use_416(self, monkeypatch, dictfile, capfd):
         # we include the dieceware416.txt list if told.
@@ -513,13 +512,13 @@ class TestMain(object):
         # we can tell to discard non-ASCII chars
         dictfile.write_text(u"aa\naä\nba\n", "utf-8")
         monkeypatch.setattr(
-            sys, "argv", ["scriptname", "-l", "3", "-k", str(dictfile)])
+            sys, "argv", ["scriptname", "-l", "3", str(dictfile)])
         main()
         out, err = capfd.readouterr()
         assert out == u"aa\naä\nba\n"
         monkeypatch.setattr(
             sys, "argv",
-            ["scriptname", "-l", "2", "-k", "--ascii", str(dictfile)])
+            ["scriptname", "-l", "2", "--ascii", str(dictfile)])
         main()
         out, err = capfd.readouterr()
         assert out == u"aa\nba\n"
@@ -547,7 +546,7 @@ class TestMain(object):
         dictfile.write_text(alphabet, "utf-8")
         monkeypatch.setattr(
             sys, "argv", [   # no "-s"
-                "scriptname", "-n", "-l", "26", "-k", str(dictfile)
+                "scriptname", "-n", "-l", "26", str(dictfile)
                 ])
         main()
         out, err = capfd.readouterr()
@@ -555,7 +554,7 @@ class TestMain(object):
         assert "211 z" not in out
         monkeypatch.setattr(
             sys, "argv", [
-                "scriptname", "-n", "-s", "5", "-l", "26", "-k", str(dictfile)
+                "scriptname", "-n", "-l", "26", "-s" , "5", str(dictfile)
                 ])
         main()
         out, err = capfd.readouterr()
