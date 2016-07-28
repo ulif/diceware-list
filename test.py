@@ -152,6 +152,8 @@ class TestWordlistGen(object):
         assert base10_to_n(35, 6) == [5, 5]
         assert base10_to_n(37, 6) == [1, 0, 1]
         assert base10_to_n(38, 6) == [1, 0, 2]
+        assert base10_to_n(255, 16) == [15, 15]
+        assert base10_to_n(256, 16) == [1, 0, 0]
 
     def test_dicenums(self):
         # we can get dice numbers from list indexes
