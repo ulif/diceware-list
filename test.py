@@ -157,14 +157,14 @@ class TestWordlistGen(object):
 
     def test_dicenums(self):
         # we can get dice numbers from list indexes
-        assert idx_to_dicenums(0, 5) == "11111"
-        assert idx_to_dicenums(1, 5) == "11112"
-        assert idx_to_dicenums(7774, 5) == "66665"
-        assert idx_to_dicenums(7775, 5) == "66666"
+        assert idx_to_dicenums(0, 5) == "1-1-1-1-1"
+        assert idx_to_dicenums(1, 5) == "1-1-1-1-2"
+        assert idx_to_dicenums(7774, 5) == "6-6-6-6-5"
+        assert idx_to_dicenums(7775, 5) == "6-6-6-6-6"
         # different dice sides, different results
-        assert idx_to_dicenums(0, 4, 4) == "1111"
-        assert idx_to_dicenums(255, 4, 4) == "4444"
-        assert idx_to_dicenums(255, 4) == "2214"
+        assert idx_to_dicenums(0, 4, 4) == "1-1-1-1"
+        assert idx_to_dicenums(255, 4, 4) == "4-4-4-4"
+        assert idx_to_dicenums(255, 4) == "2-2-1-4"
 
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators
@@ -417,10 +417,10 @@ class TestGenerateWordlist(object):
             dice_sides=3))
         default_list = list(generate_wordlist(
             terms, length=7, use_kit=False, use_416=False, numbered=True))
-        assert sides_2_list == ['111 a', '112 b', '121 c', '122 d', '211 e']
-        assert sides_3_list == ['11 a', '12 b', '13 c', '21 d', '22 e', '23 f']
+        assert sides_2_list == ['1-1-1 a', '1-1-2 b', '1-2-1 c', '1-2-2 d', '2-1-1 e']
+        assert sides_3_list == ['1-1 a', '1-2 b', '1-3 c', '2-1 d', '2-2 e', '2-3 f']
         assert default_list == [
-            '11 a', '12 b', '13 c', '14 d', '15 e', '16 f', '21 g']
+            '1-1 a', '1-2 b', '1-3 c', '1-4 d', '1-5 e', '1-6 f', '2-1 g']
 
     def test_result_sorted(self):
         # result iterators are sorted
@@ -508,7 +508,7 @@ class TestMain(object):
             sys, "argv", ["scriptname", "-n", "-l", "7776", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert out.startswith("11111 ")
+        assert out.startswith("1-1-1-1-1 ")
 
     def test_main_ascii_only(self, monkeypatch, dictfile, capfd):
         # we can tell to discard non-ASCII chars
@@ -552,13 +552,13 @@ class TestMain(object):
                 ])
         main()
         out, err = capfd.readouterr()
-        assert "52 z" in out
-        assert "211 z" not in out
+        assert "5-2 z" in out
+        assert "2-1-1 z" not in out
         monkeypatch.setattr(
             sys, "argv", [
                 "scriptname", "-n", "-l", "26", "-s", "5", str(dictfile)
                 ])
         main()
         out, err = capfd.readouterr()
-        assert "52 z" not in out
-        assert "211 z" in out
+        assert "5-2 z" not in out
+        assert "2-1-1 z" in out

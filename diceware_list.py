@@ -127,10 +127,10 @@ def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES):
         '6'
 
         >>> idx_to_dicenums(0, 3)
-        '111'
+        '1-1-1'
 
         >>> idx_to_dicenums(5, 3)
-        '116'
+        '1-1-6'
 
     We are not restricted to (6-sided) dice. If we throw a (2-sided)
     coin 3 times, we have an index range from ``0`` to ``2^3 = 8``
@@ -138,12 +138,12 @@ def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES):
     then computes to::
 
         >>> idx_to_dicenums(5, 3, 2)
-        '212'
+        '2-1-2'
 
     """
     nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
     padded = [1, ] * dice_num + nums
-    return "".join(["%s" % x for x in padded[-dice_num:]])
+    return "-".join(["%s" % x for x in padded[-dice_num:]])
 
 
 def min_width_iter(iterator, num, shuffle_max_width=True):
