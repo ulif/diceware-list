@@ -417,8 +417,10 @@ class TestGenerateWordlist(object):
             dice_sides=3))
         default_list = list(generate_wordlist(
             terms, length=7, use_kit=False, use_416=False, numbered=True))
-        assert sides_2_list == ['1-1-1 a', '1-1-2 b', '1-2-1 c', '1-2-2 d', '2-1-1 e']
-        assert sides_3_list == ['1-1 a', '1-2 b', '1-3 c', '2-1 d', '2-2 e', '2-3 f']
+        assert sides_2_list == [
+            '1-1-1 a', '1-1-2 b', '1-2-1 c', '1-2-2 d', '2-1-1 e']
+        assert sides_3_list == [
+            '1-1 a', '1-2 b', '1-3 c', '2-1 d', '2-2 e', '2-3 f']
         assert default_list == [
             '1-1 a', '1-2 b', '1-3 c', '1-4 d', '1-5 e', '1-6 f', '2-1 g']
 
