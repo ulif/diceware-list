@@ -10,17 +10,17 @@ diceware-list
 Create wordlists for `diceware`_ in a reproducible and easy manner::
 
   $ python diceware_list.py -n -l 7776 /usr/share/dict/words
-  11111 a
-  11112 a's
+  1-1-1-1-1 a
+  1-1-1-1-2 a's
   ...
-  12353 capt
-  12354 cara
-  12355 carl
+  1-2-3-5-3 capt
+  1-2-3-5-4 cara
+  1-2-3-5-5 carl
   ...
-  66663 zoos
-  66664 éclat
-  66665 élan
-  66666 épée
+  6-6-6-6-3 zoos
+  6-6-6-6-4 éclat
+  6-6-6-6-5 élan
+  6-6-6-6-6 épée
 
 This is not a `diceware`_ implementation, but only a helper to create
 appropriate wordlists.
@@ -109,15 +109,15 @@ representing dice throws [#]_ ::
 
 
   $ python diceware_list.py -n -l 7776 /usr/share/dict/words
-  11111 !
-  11112 !!
+  1-1-1-1-1 !
+  1-1-1-1-2 !!
   ...
-  12353 alan
-  12354 alana
-  12355 alar
+  1-2-3-5-3 alan
+  1-2-3-5-4 alana
+  1-2-3-5-5 alar
   ...
-  66665 zzz
-  66666 zzzz
+  6-6-6-6-5 zzz
+  6-6-6-6-6 zzzz
 
 The `--ascii` option filters terms out, that contain non-ASCII
 characters. This can help in generating non-english word lists that
