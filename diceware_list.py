@@ -101,13 +101,15 @@ def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES, separator='-'):
 
     Turn an index number of a list item into a number of dice numbers
     representing this index. The dicenums are returned as a string like
-    ``"122625"``.
+    ``"1-2-2-6-2-5"``.
 
     `item_index` is the index number of some item.
 
     `dice_num` is the number of (n-sided) dice used.
 
     `dice_sides` is the number of sides per die.
+
+    `separator` is the string to separate the result numbers.
 
     Example: we have two dice resulting in 36 possible combinations. If
     first possible combination is "1-1", second one "1-2" and so on,
@@ -136,6 +138,12 @@ def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES, separator='-'):
 
         >>> idx_to_dicenums(5, 3, 2)
         '2-1-2'
+
+    If `dice_sides` < 10, you can generate compressed output by leaving
+    the separator out::
+
+        >>> idx_to_dicenums(5, 3, 2, separator="")
+        '212'
 
     """
     nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
