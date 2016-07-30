@@ -96,7 +96,7 @@ def base10_to_n(num, base):
     return result
 
 
-def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES):
+def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES, separator='-'):
     """Get a set of dicenums for list item numbers.
 
     Turn an index number of a list item into a number of dice numbers
@@ -122,13 +122,10 @@ def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES):
 
         >>> idx_to_dicenums(0, 1)
         '1'
-
         >>> idx_to_dicenums(5, 1)
         '6'
-
         >>> idx_to_dicenums(0, 3)
         '1-1-1'
-
         >>> idx_to_dicenums(5, 3)
         '1-1-6'
 
@@ -143,7 +140,7 @@ def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES):
     """
     nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
     padded = [1, ] * dice_num + nums
-    return "-".join(["%s" % x for x in padded[-dice_num:]])
+    return separator.join(["%s" % x for x in padded[-dice_num:]])
 
 
 def min_width_iter(iterator, num, shuffle_max_width=True):

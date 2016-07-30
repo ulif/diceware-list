@@ -165,6 +165,9 @@ class TestWordlistGen(object):
         assert idx_to_dicenums(0, 4, 4) == "1-1-1-1"
         assert idx_to_dicenums(255, 4, 4) == "4-4-4-4"
         assert idx_to_dicenums(255, 4) == "2-2-1-4"
+        # we can change the separator string
+        assert idx_to_dicenums(0, 3) == "1-1-1"  # default
+        assert idx_to_dicenums(0, 3, separator="sep") == "1sep1sep1"
 
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators
