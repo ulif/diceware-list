@@ -96,7 +96,8 @@ def base10_to_n(num, base):
     return result
 
 
-def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES, separator='-'):
+def idx_to_dicenums(
+        item_index, dice_num, dice_sides=DICE_SIDES, separator='-'):
     """Get a set of dicenums for list item numbers.
 
     Turn an index number of a list item into a number of dice numbers
