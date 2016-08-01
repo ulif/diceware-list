@@ -12,6 +12,8 @@ Changes
   with more than one digit. Needed at least when generating wordlists
   for dice with more than 9 sides.
 
+- Rename `-s` option to `-d` (as in ``dice-sides``).
+
 
 0.3 (2016-07-25)
 ================
