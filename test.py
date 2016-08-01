@@ -108,9 +108,9 @@ class TestArgParser(object):
         result = get_cmdline_args(["--ascii", str(dictfile)])
         assert result.ascii_only is True
 
-    def test_opt_sides_settable(self, dictfile):
-        # we can set the ``sides`` option
-        result = get_cmdline_args(["-s 3", str(dictfile)])
+    def test_opt_dice_sides_settable(self, dictfile):
+        # we can set the ``dice-sides`` option
+        result = get_cmdline_args(["-d 3", str(dictfile)])
         assert result.sides == 3
         result = get_cmdline_args(["--sides=10", str(dictfile)])
         assert result.sides == 10
@@ -553,7 +553,7 @@ class TestMain(object):
             [u"%s\n" % x for x in u"ABCDEDFGHIJKLMNOPQRSTUVWXYZ"])
         dictfile.write_text(alphabet, "utf-8")
         monkeypatch.setattr(
-            sys, "argv", [   # no "-s"
+            sys, "argv", [   # no "-d"
                 "scriptname", "-n", "-l", "26", str(dictfile)
                 ])
         main()
@@ -562,7 +562,7 @@ class TestMain(object):
         assert "2-1-1 z" not in out
         monkeypatch.setattr(
             sys, "argv", [
-                "scriptname", "-n", "-l", "26", "-s", "5", str(dictfile)
+                "scriptname", "-n", "-l", "26", "-d", "5", str(dictfile)
                 ])
         main()
         out, err = capfd.readouterr()

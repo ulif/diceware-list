@@ -46,7 +46,7 @@ def get_cmdline_args(args=None):
         '--ascii', action='store_true', dest='ascii_only',
         help='allow only words that contain only ASCII chars.')
     parser.add_argument(
-        '-s', '--sides', default=6, type=int,
+        '-d', '--sides', default=6, type=int,
         help='assume used dice have SIDES sides. Default: 6')
     parser.add_argument(
         '-k', '--use-kit', action='store_true', dest='use_kit',
