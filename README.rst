@@ -70,13 +70,15 @@ In an active virtualenv you can install an executable script of
 
   (venv) $ python setup.py install
   (venv) $ diceware-list --help
-  usage: diceware-list [-h] [-l LENGTH] [-n] [--ascii] [-k] [--use-416] [-v]
+  usage: diceware-list [-h] [-l LENGTH] [-n] [--ascii] [-d SIDES] [-k]
+                       [--use-416] [-v]
                        DICTFILE [DICTFILE ...]
 
 But you can also run the one and only script directly::
 
   $ python diceware_list.py --help
-  usage: diceware_list.py [-h] [-l LENGTH] [-n] [--ascii] [-k] [--use-416] [-v]
+  usage: diceware_list.py [-h] [-l LENGTH] [-n] [--ascii] [-d SIDES] [-k]
+                          [--use-416] [-v]
                           DICTFILE [DICTFILE ...]
 
 
