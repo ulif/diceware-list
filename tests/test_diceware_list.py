@@ -233,7 +233,7 @@ class TestWordlistGen(object):
     def test_main_script_runnable(self, capfd):
         # we can run the main script as simple python script.
         script_loc = os.path.join(
-            os.path.dirname(__file__), 'diceware_list.py')
+            os.path.dirname(os.path.dirname(__file__)), 'diceware_list.py')
         python_exe = sys.executable
         status = os.system("%s %s --help" % (python_exe, script_loc))
         out, err = capfd.readouterr()
