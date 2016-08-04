@@ -134,6 +134,7 @@ Tests require `py.test`_ being installed. In an activated `virtualenv`
 it can be installed with `pip`_::
 
   (venv)$ pip install pytest
+  (venv)$ pip install -e .
 
 Afterwards, you can run tests like so::
 
