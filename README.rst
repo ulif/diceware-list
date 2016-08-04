@@ -7,9 +7,9 @@ diceware-list
     :target: https://travis-ci.org/ulif/diceware-list
     :alt: Build Status
 
-Create wordlists for `diceware`_ in a reproducible and easy manner::
+Create wordlists for `diceware`_::
 
-  $ python diceware_list.py -n -l 7776 /usr/share/dict/words
+  $ diceware-list -n -l 7776 /usr/share/dict/words
   1-1-1-1-1 a
   1-1-1-1-2 a's
   ...
@@ -29,7 +29,7 @@ The main target of `diceware-list` is to provide "good"
 wordlists. Wordlists are considered "good" if they
 
 - contain enough terms for use with a certain diceware application
-  (for instance 6^6 = 7776 terms if used with six dice)
+  (for instance 6^6 = 7776 terms if used with six six-sided dice)
 - contain terms as short as possible (to reduce typing)
 - (optionally) contain no words with non-ASCII chars (to enable use
   with non-localized keyboards)
@@ -74,13 +74,6 @@ In an active virtualenv you can install an executable script of
                        [--use-416] [-v]
                        DICTFILE [DICTFILE ...]
 
-But you can also run the one and only script directly::
-
-  $ python diceware_list.py --help
-  usage: diceware_list.py [-h] [-l LENGTH] [-n] [--ascii] [-d SIDES] [-k]
-                          [--use-416] [-v]
-                          DICTFILE [DICTFILE ...]
-
 
 Usage
 -----
@@ -91,7 +84,7 @@ systems such files can be found in ``/usr/share/dicts/``.
 This file can then be fed to `diceware-list` to create a wordlist
 suitable for use with diceware.::
 
-  $ python diceware_list.py /usr/share/dict/words
+  $ diceware-list /usr/share/dict/words
   !
   !!
   !!!
@@ -110,7 +103,7 @@ With `-n` you can tell `diceware-list` to put numbers into each line,
 representing dice throws [#]_ ::
 
 
-  $ python diceware_list.py -n -l 7776 /usr/share/dict/words
+  $ diceware_list -n -l 7776 /usr/share/dict/words
   1-1-1-1-1 !
   1-1-1-1-2 !!
   ...
