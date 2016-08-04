@@ -29,7 +29,7 @@ setup(
     keywords="diceware wordlist passphrase",
     url="https://github.com/ulif/diceware-list",
     py_modules=['diceware_list', ],
-    packages=[],
+    packages=['wordlistlib', ],
     namespace_packages=[],
     long_description=read('README.rst') + '\n\n\n' + read('CHANGES.rst'),
     classifiers=[
