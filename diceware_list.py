@@ -126,20 +126,6 @@ def shuffle_max_width_items(word_list, max_width=None):
         yield entry
 
 
-def normalize(text):
-    """Normalize text.
-    """
-    TRANSFORMS = {
-        u'ä': u'ae', u'Ä': u'AE', u"æ": u'ae', u"Æ": u'AE',
-        u'ö': u'oe', u'Ö': u'OE', u"ø": u'oe', u"Ø": u'OE',
-        u"ü": u'UE', u"Ü": u'UE',
-        u'ß': u'ss'
-    }
-    transformed = u"".join([TRANSFORMS.get(x, x) for x in text])
-    nfkd_form = unicodedata.normalize("NFKD", transformed)
-    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
-
-
 def filter_chars(iter, allowed=None):
     """Yield strings from `iter` that contain only chars from `allowed`.
 

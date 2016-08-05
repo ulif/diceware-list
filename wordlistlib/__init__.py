@@ -17,7 +17,23 @@
 
 """wordlistlib -- a library for wordlist-related operations.
 """
+import unicodedata
+
 DICE_SIDES = 6  # we normally handle 6-sided dice.
+
+
+def normalize(text):
+    """Normalize text.
+    """
+    TRANSFORMS = {
+        u'ä': u'ae', u'Ä': u'AE', u"æ": u'ae', u"Æ": u'AE',
+        u'ö': u'oe', u'Ö': u'OE', u"ø": u'oe', u"Ø": u'OE',
+        u"ü": u'UE', u"Ü": u'UE',
+        u'ß': u'ss'
+    }
+    transformed = u"".join([TRANSFORMS.get(x, x) for x in text])
+    nfkd_form = unicodedata.normalize("NFKD", transformed)
+    return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
 def base10_to_n(num, base):
