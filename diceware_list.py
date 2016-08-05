@@ -23,7 +23,7 @@ import os
 import random
 import string
 import unicodedata
-from wordlistlib import base10_to_n
+from wordlistlib import DICE_SIDES, base10_to_n, idx_to_dicenums
 
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
@@ -66,62 +66,6 @@ def get_cmdline_args(args=None):
         '-v', '--verbose', action='count',
         help='be verbose.')
     return parser.parse_args(args)
-
-
-def idx_to_dicenums(
-        item_index, dice_num, dice_sides=DICE_SIDES, separator='-'):
-    """Get a set of dicenums for list item numbers.
-
-    Turn an index number of a list item into a number of dice numbers
-    representing this index. The dicenums are returned as a string like
-    ``"1-2-2-6-2-5"``.
-
-    `item_index` is the index number of some item.
-
-    `dice_num` is the number of (n-sided) dice used.
-
-    `dice_sides` is the number of sides per die.
-
-    `separator` is the string to separate the result numbers.
-
-    Example: we have two dice resulting in 36 possible combinations. If
-    first possible combination is "1-1", second one "1-2" and so on,
-    then we have a mapping from indexes 1..36 to dice combinations (from
-    "1-1" up to "6-6").
-
-    For a reasonable result, we expect
-
-      0 <= `item_index` < `dice_num` ** `dice_sides`.
-
-    Some examples::
-
-        >>> idx_to_dicenums(0, 1)
-        '1'
-        >>> idx_to_dicenums(5, 1)
-        '6'
-        >>> idx_to_dicenums(0, 3)
-        '1-1-1'
-        >>> idx_to_dicenums(5, 3)
-        '1-1-6'
-
-    We are not restricted to (6-sided) dice. If we throw a (2-sided)
-    coin 3 times, we have an index range from ``0`` to ``2^3 = 8``
-    (there are 8 possible combinations of coin throws). Index ``5``
-    then computes to::
-
-        >>> idx_to_dicenums(5, 3, 2)
-        '2-1-2'
-
-    If `dice_sides` < 10, you can generate compressed output by leaving
-    the separator out::
-
-        >>> idx_to_dicenums(5, 3, 2, separator="")
-        '212'
-
-    """
-    nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
-    padded = [1, ] * dice_num + nums
-    return separator.join(["%s" % x for x in padded[-dice_num:]])
 
 
 def min_width_iter(iterator, num, shuffle_max_width=True):
