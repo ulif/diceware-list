@@ -55,6 +55,7 @@ def test_idx_to_dicenums():
 
 
 def test_normalize():
+    # we can normalize texts.
     assert normalize(u"ªºÀÁÂÃÄÅÆ") == "aoAAAAAEAAE"
     assert normalize(u"ÇÈÉÊËÌÍÎÏ") == "CEEEEIIII"
     assert normalize(u"ÒÓÔÕÖØÙÚÛÜ") == "OOOOOEOEUUUUE"
