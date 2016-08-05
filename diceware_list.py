@@ -23,6 +23,8 @@ import os
 import random
 import string
 import unicodedata
+from wordlistlib import base10_to_n
+
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
@@ -64,36 +66,6 @@ def get_cmdline_args(args=None):
         '-v', '--verbose', action='count',
         help='be verbose.')
     return parser.parse_args(args)
-
-
-def base10_to_n(num, base):
-    """Turn base-10 integer `num` into base-`base` form.
-
-    Returns a list of numbers representing digits in `base`.
-
-    For instance in base-2 we have only the digits ``0`` and
-    ``1``. Turning the base-10 integer ``5`` into a base-2 number
-    results in ``101`` or, as a list, in::
-
-        >>> base10_to_n(5, base=2)
-        [1, 0, 1]
-
-    The result list represents the single "digits" of a differently
-    based number. This holds also for 'digits' >= 10::
-
-        >>> base10_to_n(127, base=16)
-        [7, 15]
-
-    which in hexadecimal notation would normally read ``0x7F``.
-    """
-    result = []
-    curr = num
-    while curr >= base:
-        curr, digit = divmod(curr, base)
-        result.append(digit)
-    result.append(curr)
-    result.reverse()
-    return result
 
 
 def idx_to_dicenums(
