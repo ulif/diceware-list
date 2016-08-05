@@ -19,6 +19,7 @@
 
 from wordlistlib import base10_to_n
 
+
 def test_base10_to_n():
     # we can turn integers into n-based numbers
     assert base10_to_n(0, 2) == [0]
