@@ -23,10 +23,9 @@ import os
 import random
 import string
 import unicodedata
-from wordlistlib import DICE_SIDES, base10_to_n, idx_to_dicenums
+from wordlistlib import DICE_SIDES, idx_to_dicenums
 
 
-DICE_SIDES = 6  # we normally handle 6-sided dice.
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
 
 #: A logger for use with diceware-list related messages.
