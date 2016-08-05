@@ -22,7 +22,6 @@ import math
 import os
 import random
 import string
-import unicodedata
 from wordlistlib import DICE_SIDES, idx_to_dicenums
 
 
