@@ -17,7 +17,7 @@
 
 # Tests for wordlistlib module
 
-from wordlistlib import base10_to_n, idx_to_dicenums
+from wordlistlib import base10_to_n, idx_to_dicenums, normalize
 
 
 def test_base10_to_n():
@@ -52,3 +52,15 @@ def test_idx_to_dicenums():
     assert idx_to_dicenums(0, 3) == "1-1-1"  # default
     assert idx_to_dicenums(0, 3, separator="sep") == "1sep1sep1"
     assert idx_to_dicenums(0, 3, separator="") == "111"
+
+
+def test_normalize():
+    assert normalize(u"ªºÀÁÂÃÄÅÆ") == "aoAAAAAEAAE"
+    assert normalize(u"ÇÈÉÊËÌÍÎÏ") == "CEEEEIIII"
+    assert normalize(u"ÒÓÔÕÖØÙÚÛÜ") == "OOOOOEOEUUUUE"
+    # "ÐÑÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüý"
+    # "þÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİ"
+    # "ıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţ"
+    # "ŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƀƁƂƃƄƅƆƇƈƉƊƋƌƍ"
+    assert normalize(u"mäßig") == u"maessig"
+
