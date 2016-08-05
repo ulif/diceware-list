@@ -23,8 +23,7 @@ import random
 from diceware_list import (
     DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
-    base_terms_iterator, idx_to_dicenums, filter_chars,
-    shuffle_max_width_items, normalize
+    base_terms_iterator, filter_chars, shuffle_max_width_items, normalize
     )
 
 

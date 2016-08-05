@@ -37,6 +37,7 @@ def test_base10_to_n():
     assert base10_to_n(255, 16) == [15, 15]
     assert base10_to_n(256, 16) == [1, 0, 0]
 
+
 def test_idx_to_dicenums():
     # we can get dice numbers from list indexes
     assert idx_to_dicenums(0, 5) == "1-1-1-1-1"
