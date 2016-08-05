@@ -23,7 +23,7 @@ import random
 from diceware_list import (
     DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
-    base_terms_iterator, base10_to_n, idx_to_dicenums, filter_chars,
+    base_terms_iterator, idx_to_dicenums, filter_chars,
     shuffle_max_width_items, normalize
     )
 
@@ -137,23 +137,6 @@ class TestArgParser(object):
 
 class TestWordlistGen(object):
     # Minor components are grouped here
-
-    def test_base10_to_n(self):
-        # we can turn integers into n-based numbers
-        assert base10_to_n(0, 2) == [0]
-        assert base10_to_n(1, 2) == [1]
-        assert base10_to_n(2, 2) == [1, 0]
-        assert base10_to_n(3, 2) == [1, 1]
-        assert base10_to_n(7775, 6) == [5, 5, 5, 5, 5]
-        assert base10_to_n(0, 6) == [0, ]
-        assert base10_to_n(1, 6) == [1, ]
-        assert base10_to_n(6, 6) == [1, 0]
-        assert base10_to_n(34, 6) == [5, 4]
-        assert base10_to_n(35, 6) == [5, 5]
-        assert base10_to_n(37, 6) == [1, 0, 1]
-        assert base10_to_n(38, 6) == [1, 0, 2]
-        assert base10_to_n(255, 16) == [15, 15]
-        assert base10_to_n(256, 16) == [1, 0, 0]
 
     def test_dicenums(self):
         # we can get dice numbers from list indexes
