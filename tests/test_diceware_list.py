@@ -138,21 +138,6 @@ class TestArgParser(object):
 class TestWordlistGen(object):
     # Minor components are grouped here
 
-    def test_dicenums(self):
-        # we can get dice numbers from list indexes
-        assert idx_to_dicenums(0, 5) == "1-1-1-1-1"
-        assert idx_to_dicenums(1, 5) == "1-1-1-1-2"
-        assert idx_to_dicenums(7774, 5) == "6-6-6-6-5"
-        assert idx_to_dicenums(7775, 5) == "6-6-6-6-6"
-        # different dice sides, different results
-        assert idx_to_dicenums(0, 4, 4) == "1-1-1-1"
-        assert idx_to_dicenums(255, 4, 4) == "4-4-4-4"
-        assert idx_to_dicenums(255, 4) == "2-2-1-4"
-        # we can change the separator string (or leave it out)
-        assert idx_to_dicenums(0, 3) == "1-1-1"  # default
-        assert idx_to_dicenums(0, 3, separator="sep") == "1sep1sep1"
-        assert idx_to_dicenums(0, 3, separator="") == "111"
-
     def test_term_iterator(self, tmpdir):
         # the term_iterator really returns iterators
         wlist = tmpdir.join("wlist.txt")
