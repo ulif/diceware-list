@@ -84,26 +84,15 @@ def test_normalize_gives_text():
 def test_shuffle_max_width_items(monkeypatch):
         # we can shuffle the max width items of a list
         # install a pseudo-shuffler that generates predictable orders
+        # so that last elements are returned in reverse order.
         monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        in_list = ["a", "aa", "bb", "cc"]
-        result = list(shuffle_max_width_items(in_list))
-        # last elements are returned in reverse order.
+        # an ordered list
+        result = list(shuffle_max_width_items(["a", "aa", "bb", "cc"]))
         assert result == ["a", "cc", "bb", "aa"]
-
-
-def test_shuffle_max_width_items_unsorted_input(monkeypatch):
-        # we can shuffle the max width items of an unsorted list
-        # install a pseudo-shuffler that generates predictable orders
-        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        in_list = ["aa", "d", "bb", "a", "cc"]
-        result = list(shuffle_max_width_items(in_list))
-        # last elements are returned in reverse order.
+        # an unordered list
+        result = list(shuffle_max_width_items(["aa", "d", "bb", "a", "cc"]))
         assert result == ["d", "a", "cc", "bb", "aa"]
-
-
-def test_shuffle_max_width_items_drop_over_max_width(monkeypatch):
-        # with a given max_width we drop words that are longer
-        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        in_list = ["eeee", "bb", "ccc", "aa", "ddd"]
-        result = list(shuffle_max_width_items(in_list, max_width=3))
+        # a list of which the longes item should not be part of
+        result = list(shuffle_max_width_items(
+                ["eeee", "bb", "ccc", "aa", "ddd"], max_width=3))
         assert "eeee" not in result
