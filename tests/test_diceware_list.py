@@ -23,7 +23,7 @@ import random
 from diceware_list import (
     DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main, min_width_iter,
-    base_terms_iterator, filter_chars, shuffle_max_width_items
+    base_terms_iterator, filter_chars
     )
 
 
@@ -237,31 +237,6 @@ class TestWordlistGen(object):
     def test_filter_chars_all_allowed(self):
         # if `allowed` is None, no filtering will be done
         assert list(filter_chars(['ä'], None)) == ['ä']
-
-    def test_shuffle_max_width_items(self, monkeypatch):
-        # we can shuffle the max width items of a list
-        # install a pseudo-shuffler that generates predictable orders
-        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        in_list = ["a", "aa", "bb", "cc"]
-        result = list(shuffle_max_width_items(in_list))
-        # last elements are returned in reverse order.
-        assert result == ["a", "cc", "bb", "aa"]
-
-    def test_shuffle_max_width_items_unsorted_input(self, monkeypatch):
-        # we can shuffle the max width items of an unsorted list
-        # install a pseudo-shuffler that generates predictable orders
-        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        in_list = ["aa", "d", "bb", "a", "cc"]
-        result = list(shuffle_max_width_items(in_list))
-        # last elements are returned in reverse order.
-        assert result == ["d", "a", "cc", "bb", "aa"]
-
-    def test_shuffle_max_width_items_drop_over_max_width(self, monkeypatch):
-        # with a given max_width we drop words that are longer
-        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        in_list = ["eeee", "bb", "ccc", "aa", "ddd"]
-        result = list(shuffle_max_width_items(in_list, max_width=3))
-        assert "eeee" not in result
 
 
 class TestGenerateWordlist(object):

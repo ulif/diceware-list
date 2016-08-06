@@ -17,7 +17,9 @@
 
 # Tests for wordlistlib module
 from __future__ import unicode_literals
-from wordlistlib import base10_to_n, idx_to_dicenums, normalize
+import random
+from wordlistlib import (
+    base10_to_n, idx_to_dicenums, normalize, shuffle_max_width_items)
 
 
 def test_base10_to_n():
@@ -77,3 +79,31 @@ def test_normalize_gives_text():
     assert isinstance(normalize("far"), type("text"))
     assert isinstance(normalize("fär"), type("text"))
     assert isinstance(normalize(str("far")), type("text"))
+
+
+def test_shuffle_max_width_items(monkeypatch):
+        # we can shuffle the max width items of a list
+        # install a pseudo-shuffler that generates predictable orders
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
+        in_list = ["a", "aa", "bb", "cc"]
+        result = list(shuffle_max_width_items(in_list))
+        # last elements are returned in reverse order.
+        assert result == ["a", "cc", "bb", "aa"]
+
+
+def test_shuffle_max_width_items_unsorted_input(monkeypatch):
+        # we can shuffle the max width items of an unsorted list
+        # install a pseudo-shuffler that generates predictable orders
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
+        in_list = ["aa", "d", "bb", "a", "cc"]
+        result = list(shuffle_max_width_items(in_list))
+        # last elements are returned in reverse order.
+        assert result == ["d", "a", "cc", "bb", "aa"]
+
+
+def test_shuffle_max_width_items_drop_over_max_width(monkeypatch):
+        # with a given max_width we drop words that are longer
+        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
+        in_list = ["eeee", "bb", "ccc", "aa", "ddd"]
+        result = list(shuffle_max_width_items(in_list, max_width=3))
+        assert "eeee" not in result
