@@ -17,6 +17,7 @@
 
 """wordlistlib -- a library for wordlist-related operations.
 """
+from __future__ import unicode_literals
 import unicodedata
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
@@ -93,28 +94,28 @@ def idx_to_dicenums(
 
     Some examples::
 
-        >>> idx_to_dicenums(0, 1)
-        '1'
-        >>> idx_to_dicenums(5, 1)
-        '6'
-        >>> idx_to_dicenums(0, 3)
-        '1-1-1'
-        >>> idx_to_dicenums(5, 3)
-        '1-1-6'
+        >>> print(idx_to_dicenums(0, 1))
+        1
+        >>> print(idx_to_dicenums(5, 1))
+        6
+        >>> print(idx_to_dicenums(0, 3))
+        1-1-1
+        >>> print(idx_to_dicenums(5, 3))
+        1-1-6
 
     We are not restricted to (6-sided) dice. If we throw a (2-sided)
     coin 3 times, we have an index range from ``0`` to ``2^3 = 8``
     (there are 8 possible combinations of coin throws). Index ``5``
     then computes to::
 
-        >>> idx_to_dicenums(5, 3, 2)
-        '2-1-2'
+        >>> print(idx_to_dicenums(5, 3, 2))
+        2-1-2
 
     If `dice_sides` < 10, you can generate compressed output by leaving
     the separator out::
 
-        >>> idx_to_dicenums(5, 3, 2, separator="")
-        '212'
+        >>> print(idx_to_dicenums(5, 3, 2, separator=""))
+        212
 
     """
     nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
