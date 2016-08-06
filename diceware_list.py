@@ -20,9 +20,8 @@ import argparse
 import logging
 import math
 import os
-import random
 import string
-from wordlistlib import DICE_SIDES, idx_to_dicenums
+from wordlistlib import DICE_SIDES, idx_to_dicenums, shuffle_max_width_items
 
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
@@ -92,37 +91,6 @@ def min_width_iter(iterator, num, shuffle_max_width=True):
         all_terms = list(shuffle_max_width_items(all_terms, max_width))
     for term in all_terms[:num]:
         yield term
-
-
-def shuffle_max_width_items(word_list, max_width=None):
-    """Shuffle entries of `word_list` that have max width.
-
-    Yields items in `word_list` in preserved order, but with maximum
-    width entries shuffled. This helps to create lists, that have only
-    entries with minimal width but a random set of maximum width
-    entries.
-
-    For instance::
-
-      ["a", "b", "aa", "bb", "aaa", "bbb", "ccc"]
-
-    could end up::
-
-      ["a", "b", "aa", "bb", "ccc", "aaa", "bbb"]
-
-
-    That means the three maximum-width elements at the end are returned
-    in different order.
-    """
-    if max_width is None:
-        max_width = len(max(word_list, key=len))
-    for entry in filter(lambda x: len(x) < max_width, word_list):
-        yield entry
-    max_width_entries = list(
-        filter(lambda x: len(x) == max_width, word_list))
-    random.shuffle(max_width_entries)
-    for entry in max_width_entries:
-        yield entry
 
 
 def filter_chars(iter, allowed=None):

@@ -18,6 +18,7 @@
 """wordlistlib -- a library for wordlist-related operations.
 """
 from __future__ import unicode_literals
+import random
 import unicodedata
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
@@ -121,3 +122,34 @@ def idx_to_dicenums(
     nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
     padded = [1, ] * dice_num + nums
     return separator.join(["%s" % x for x in padded[-dice_num:]])
+
+
+def shuffle_max_width_items(word_list, max_width=None):
+    """Shuffle entries of `word_list` that have max width.
+
+    Yields items in `word_list` in preserved order, but with maximum
+    width entries shuffled. This helps to create lists, that have only
+    entries with minimal width but a random set of maximum width
+    entries.
+
+    For instance::
+
+      ["a", "b", "aa", "bb", "aaa", "bbb", "ccc"]
+
+    could end up::
+
+      ["a", "b", "aa", "bb", "ccc", "aaa", "bbb"]
+
+
+    That means the three maximum-width elements at the end are returned
+    in different order.
+    """
+    if max_width is None:
+        max_width = len(max(word_list, key=len))
+    for entry in filter(lambda x: len(x) < max_width, word_list):
+        yield entry
+    max_width_entries = list(
+        filter(lambda x: len(x) == max_width, word_list))
+    random.shuffle(max_width_entries)
+    for entry in max_width_entries:
+        yield entry
