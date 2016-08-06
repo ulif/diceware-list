@@ -21,7 +21,9 @@ import logging
 import math
 import os
 import string
-from wordlistlib import DICE_SIDES, idx_to_dicenums, shuffle_max_width_items
+from wordlistlib import (
+    DICE_SIDES, idx_to_dicenums, shuffle_max_width_items, min_width_iter,
+)
 
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
@@ -63,34 +65,6 @@ def get_cmdline_args(args=None):
         '-v', '--verbose', action='count',
         help='be verbose.')
     return parser.parse_args(args)
-
-
-def min_width_iter(iterator, num, shuffle_max_width=True):
-    """Get an iterable with `num` elements and minimal 'list width' from
-    items in `iterator`.
-
-    If 'list width' is the sum of length of all items contained in a
-    list or iterable, then `min_list_width` generates an iterator over
-    `num` elements in this list/iterable, which results in a list with
-    minimal 'list width'.
-
-    For instance, for a list ['a', 'bb', 'ccc'] the list width would be
-    1 + 2 + 3 = 6. For ['a', 'bbb'] this would be 1 + 3 = 4. If we want
-    to build a minimum width version from the former list with two
-    elements, these elements had to be 'a' and 'bb' (resulting in a list
-    width of 3). All other combinations of two elements of the list
-    would result in list widths > 3.
-
-    Please note that the iterator returned, delivers elements sorted by
-    length first and terms of same length sorted alphabetically.
-
-    """
-    all_terms = sorted(iterator, key=lambda x: (len(x), x))
-    if shuffle_max_width:
-        max_width = len(all_terms[num - 1])
-        all_terms = list(shuffle_max_width_items(all_terms, max_width))
-    for term in all_terms[:num]:
-        yield term
 
 
 def filter_chars(iter, allowed=None):
