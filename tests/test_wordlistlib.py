@@ -16,7 +16,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Tests for wordlistlib module
-
+from __future__ import unicode_literals
 from wordlistlib import base10_to_n, idx_to_dicenums, normalize
 
 
@@ -57,16 +57,23 @@ def test_idx_to_dicenums():
 def test_idx_to_dicenums_gives_text():
     # we get text from this function, i.e. unicode under py2.
     result = idx_to_dicenums(0, 5)
-    assert isinstance(result, type(u'text'))
+    assert isinstance(result, type('text'))
 
 
 def test_normalize():
     # we can normalize texts.
-    assert normalize(u"ªºÀÁÂÃÄÅÆ") == "aoAAAAAEAAE"
-    assert normalize(u"ÇÈÉÊËÌÍÎÏ") == "CEEEEIIII"
-    assert normalize(u"ÒÓÔÕÖØÙÚÛÜ") == "OOOOOEOEUUUUE"
+    assert normalize("ªºÀÁÂÃÄÅÆ") == "aoAAAAAEAAE"
+    assert normalize("ÇÈÉÊËÌÍÎÏ") == "CEEEEIIII"
+    assert normalize("ÒÓÔÕÖØÙÚÛÜ") == "OOOOOEOEUUUUE"
     # "ÐÑÝßàáâãäåæçèéêëìíîïñòóôõöøùúûüý"
     # "þÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİ"
     # "ıĲĳĴĵĶķĸĹĺĻļĽľĿŀŁłŃńŅņŇňŉŊŋŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţ"
     # "ŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžſƀƁƂƃƄƅƆƇƈƉƊƋƌƍ"
-    assert normalize(u"mäßig") == u"maessig"
+    assert normalize("mäßig") == "maessig"
+
+
+def test_normalize_gives_text():
+    # we get unicode/text strings back
+    assert isinstance(normalize("far"), type("text"))
+    assert isinstance(normalize("fär"), type("text"))
+    assert isinstance(normalize(str("far")), type("text"))
