@@ -172,31 +172,6 @@ class TestWordlistGen(object):
             result = list(term_iterator([fd, ]))
         assert result == ["foo", "bar"]
 
-    def test_min_width_iter(self, monkeypatch):
-        # we can get iterators with minimal list width.
-        monkeypatch.setattr(random, "shuffle", lambda x: x)
-        assert list(min_width_iter(["bb", "a", "ccc", "dd"], 3)) == [
-            "a", "bb", "dd"]
-        assert list(min_width_iter(["c", "a", "b"], 2)) == ["a", "b"]
-        assert list(min_width_iter(["c", "a", "b"], 3)) == ["a", "b", "c"]
-        assert list(min_width_iter(["a", "c", "bb"], 2)) == ["a", "c"]
-        assert list(min_width_iter(["a", "cc", "b"], 2)) == ["a", "b"]
-        assert list(min_width_iter(["aa", "c", "bb"], 2)) == ["c", "aa"]
-
-    def test_min_width_iter_shuffle_max_widths_values(self, monkeypatch):
-        # words with maximum width are shuffled
-        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        assert list(min_width_iter(
-            ["a", "aa", "bb"], 2, shuffle_max_width=True)) == ["a", "bb"]
-
-    def test_min_width_iter_shuffling_ignores_too_longs(self, monkeypatch):
-        # we determine the max_width correctly
-        monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        assert list(min_width_iter(
-            ["bbb", "aa", "a"], 2, shuffle_max_width=True)) == ["a", "aa"]
-        assert list(min_width_iter(
-            ["aa", "a"], 2, shuffle_max_width=True)) == ["a", "aa"]
-
     def test_main_script_runnable(self, capfd):
         # we can run the main script as simple python script.
         script_loc = os.path.join(
