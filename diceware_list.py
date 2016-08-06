@@ -21,9 +21,7 @@ import logging
 import math
 import os
 import string
-from wordlistlib import (
-    DICE_SIDES, idx_to_dicenums, shuffle_max_width_items, min_width_iter,
-)
+from wordlistlib import DICE_SIDES, idx_to_dicenums, min_width_iter
 
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
