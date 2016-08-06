@@ -53,10 +53,12 @@ def test_idx_to_dicenums():
     assert idx_to_dicenums(0, 3, separator="sep") == "1sep1sep1"
     assert idx_to_dicenums(0, 3, separator="") == "111"
 
+
 def test_idx_to_dicenums_gives_text():
     # we get text from this function, i.e. unicode under py2.
     result = idx_to_dicenums(0, 5)
     assert type(result) == type(u'text')
+
 
 def test_normalize():
     # we can normalize texts.
