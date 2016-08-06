@@ -57,7 +57,7 @@ def test_idx_to_dicenums():
 def test_idx_to_dicenums_gives_text():
     # we get text from this function, i.e. unicode under py2.
     result = idx_to_dicenums(0, 5)
-    assert type(result) == type(u'text')
+    assert isinstance(result, type(u'text'))
 
 
 def test_normalize():
