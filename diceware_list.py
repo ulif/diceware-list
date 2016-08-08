@@ -21,8 +21,9 @@ import logging
 import math
 import os
 import string
-from wordlistlib import DICE_SIDES, idx_to_dicenums, logger, min_width_iter
-
+from wordlistlib import (
+    DICE_SIDES, filter_chars, idx_to_dicenums, logger, min_width_iter,
+)
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
 
@@ -59,24 +60,6 @@ def get_cmdline_args(args=None):
         '-v', '--verbose', action='count',
         help='be verbose.')
     return parser.parse_args(args)
-
-
-def filter_chars(iter, allowed=None):
-    """Yield strings from `iter` that contain only chars from `allowed`.
-
-    If `allowed` is `None`, no filtering is done at all.
-    """
-    if allowed is None:
-        for elem in iter:
-            yield elem
-    else:
-        logger.info("Filtering out chars not in: %s" % allowed)
-        for elem in iter:
-            stripped = [x for x in elem if x in allowed]
-            if len(stripped) >= len(elem):
-                yield elem
-            else:
-                logger.debug("  Contains not allowed chars: %s" % elem)
 
 
 def generate_wordlist(

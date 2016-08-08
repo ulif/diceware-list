@@ -74,6 +74,24 @@ def base10_to_n(num, base):
     return result
 
 
+def filter_chars(iter, allowed=None):
+    """Yield strings from `iter` that contain only chars from `allowed`.
+
+    If `allowed` is `None`, no filtering is done at all.
+    """
+    if allowed is None:
+        for elem in iter:
+            yield elem
+    else:
+        logger.info("Filtering out chars not in: %s" % allowed)
+        for elem in iter:
+            stripped = [x for x in elem if x in allowed]
+            if len(stripped) >= len(elem):
+                yield elem
+            else:
+                logger.debug("  Contains not allowed chars: %s" % elem)
+
+
 def idx_to_dicenums(
         item_index, dice_num, dice_sides=DICE_SIDES, separator='-'):
     """Get a set of dicenums for list item numbers.
