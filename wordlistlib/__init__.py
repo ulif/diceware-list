@@ -26,7 +26,7 @@ DICE_SIDES = 6  # we normally handle 6-sided dice.
 
 
 #: A logger for use with diceware-list related messages.
-logger = logging.getLogger("ulif.diceware-list")
+logger = logging.getLogger("wordlistlib")
 logger.addHandler(logging.NullHandler())
 
 
