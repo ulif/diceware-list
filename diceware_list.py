@@ -21,15 +21,10 @@ import logging
 import math
 import os
 import string
-from wordlistlib import DICE_SIDES, idx_to_dicenums, min_width_iter
+from wordlistlib import DICE_SIDES, idx_to_dicenums, logger, min_width_iter
 
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
-
-#: A logger for use with diceware-list related messages.
-logger = logging.getLogger("ulif.diceware-list")
-logger.addHandler(logging.NullHandler())
-
 
 def get_cmdline_args(args=None):
     """Handle commandline options.

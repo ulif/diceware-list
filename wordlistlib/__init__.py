@@ -18,10 +18,16 @@
 """wordlistlib -- a library for wordlist-related operations.
 """
 from __future__ import unicode_literals
+import logging
 import random
 import unicodedata
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
+
+
+#: A logger for use with diceware-list related messages.
+logger = logging.getLogger("ulif.diceware-list")
+logger.addHandler(logging.NullHandler())
 
 
 def normalize(text):
