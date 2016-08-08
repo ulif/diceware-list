@@ -26,6 +26,7 @@ from wordlistlib import DICE_SIDES, idx_to_dicenums, logger, min_width_iter
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
 
+
 def get_cmdline_args(args=None):
     """Handle commandline options.
     """
