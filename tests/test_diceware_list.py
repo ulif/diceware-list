@@ -23,7 +23,7 @@ import random
 from diceware_list import (
     DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main,
-    base_terms_iterator, filter_chars
+    base_terms_iterator,
     )
 
 
@@ -197,21 +197,6 @@ class TestWordlistGen(object):
         assert "a2" in list(base_terms_iterator(use_kit=False))
         assert "yyyy" in list(base_terms_iterator(use_kit=True))
         assert "a2" in list(base_terms_iterator(use_kit=True))
-
-    def test_filter_chars(self):
-        # we can detect words with unwanted chars
-        assert list(filter_chars([], DEFAULT_CHARS)) == []
-        assert list(filter_chars(["a", "b"], DEFAULT_CHARS)) == ["a", "b"]
-        assert list(filter_chars(["ä"], DEFAULT_CHARS)) == []
-        assert list(filter_chars(["a", "ä"], DEFAULT_CHARS)) == ["a"]
-        assert list(filter_chars(["ä", "a"], DEFAULT_CHARS)) == ["a"]
-        assert list(filter_chars(["a", "ä", "b"], DEFAULT_CHARS)) == ["a", "b"]
-        assert list(filter_chars(["a", "aä", "bö"], DEFAULT_CHARS)) == ["a"]
-        assert list(filter_chars([u"a", u"ä"], DEFAULT_CHARS)) == [u"a"]
-
-    def test_filter_chars_all_allowed(self):
-        # if `allowed` is None, no filtering will be done
-        assert list(filter_chars(['ä'], None)) == ['ä']
 
 
 class TestGenerateWordlist(object):

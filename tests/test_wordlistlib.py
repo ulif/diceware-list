@@ -18,8 +18,9 @@
 # Tests for wordlistlib module
 from __future__ import unicode_literals
 import random
+from diceware_list import DEFAULT_CHARS
 from wordlistlib import (
-    base10_to_n, idx_to_dicenums, min_width_iter, normalize,
+    base10_to_n, filter_chars, idx_to_dicenums, min_width_iter, normalize,
     shuffle_max_width_items
 )
 
@@ -40,6 +41,23 @@ def test_base10_to_n():
     assert base10_to_n(38, 6) == [1, 0, 2]
     assert base10_to_n(255, 16) == [15, 15]
     assert base10_to_n(256, 16) == [1, 0, 0]
+
+
+def test_filter_chars():
+    # we can detect words with unwanted chars
+    assert list(filter_chars([], DEFAULT_CHARS)) == []
+    assert list(filter_chars(["a", "b"], DEFAULT_CHARS)) == ["a", "b"]
+    assert list(filter_chars(["ä"], DEFAULT_CHARS)) == []
+    assert list(filter_chars(["a", "ä"], DEFAULT_CHARS)) == ["a"]
+    assert list(filter_chars(["ä", "a"], DEFAULT_CHARS)) == ["a"]
+    assert list(filter_chars(["a", "ä", "b"], DEFAULT_CHARS)) == ["a", "b"]
+    assert list(filter_chars(["a", "aä", "bö"], DEFAULT_CHARS)) == ["a"]
+    assert list(filter_chars([u"a", u"ä"], DEFAULT_CHARS)) == [u"a"]
+
+
+def test_filter_chars_all_allowed():
+    # if `allowed` is None, no filtering will be done
+    assert list(filter_chars(['ä'], None)) == ['ä']
 
 
 def test_idx_to_dicenums():
