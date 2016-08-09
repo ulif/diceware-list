@@ -83,13 +83,16 @@ def filter_chars(iter, allowed=None):
         for elem in iter:
             yield elem
     else:
-        logger.info("Filtering out chars not in: %s" % allowed)
+        logger.info("Filtering out chars.")
+        logger.debug("  Allowed chars: %r" % allowed)
+        line = 0
         for elem in iter:
+            line += 1
             stripped = [x for x in elem if x in allowed]
             if len(stripped) >= len(elem):
                 yield elem
             else:
-                logger.debug("  Contains not allowed chars: %s" % elem)
+                logger.debug("  Not allowed char in line %d" % line)
 
 
 def idx_to_dicenums(
