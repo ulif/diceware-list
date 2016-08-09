@@ -208,5 +208,3 @@ def min_width_iter(iterator, num, shuffle_max_width=True):
         all_terms = list(shuffle_max_width_items(all_terms, max_width))
     for term in all_terms[:num]:
         yield term
-
-
