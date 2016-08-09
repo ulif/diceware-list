@@ -21,7 +21,6 @@ import sys
 import pytest
 import random
 from diceware_list import (
-    DEFAULT_CHARS,
     get_cmdline_args, generate_wordlist, term_iterator, main,
     base_terms_iterator,
     )
