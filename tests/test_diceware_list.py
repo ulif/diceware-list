@@ -21,7 +21,7 @@ import sys
 import pytest
 import random
 from diceware_list import (
-    get_cmdline_args, generate_wordlist, term_iterator, main,
+    get_cmdline_args, generate_wordlist, main,
     base_terms_iterator,
     )
 
@@ -135,41 +135,6 @@ class TestArgParser(object):
 
 class TestWordlistGen(object):
     # Minor components are grouped here
-
-    def test_term_iterator(self, tmpdir):
-        # the term_iterator really returns iterators
-        wlist = tmpdir.join("wlist.txt")
-        wlist.write(b"\n".join([b"a", b"b", b"c"]))
-        with open(str(wlist), "rb") as fd:
-            result = list(term_iterator([fd, ]))
-        assert result == [b"a", b"b", b"c"]
-
-    def test_term_iterator_multiple_files(self, tmpdir):
-        # we can feed multiple input files to term_iterator
-        wlist1 = tmpdir.join("wlist1.txt")
-        wlist2 = tmpdir.join("wlist2.txt")
-        wlist1.write(b"\n".join([b"a1", b"b1", b"c1"]))
-        wlist2.write(b"\n".join([b"a2", b"b2", b"c2"]))
-        with open(str(wlist1), "rb") as fd1:
-            with open(str(wlist2), "rb") as fd2:
-                result = list(term_iterator([fd1, fd2]))
-        assert result == [b"a1", b"b1", b"c1", b"a2", b"b2", b"c2"]
-
-    def test_term_iterator_handles_umlauts(self, tmpdir):
-        # we can feed term iterators with umlauts
-        wlist = tmpdir.join("wlist.txt")
-        wlist.write_text(u"ä\nö\n", "utf-8")
-        with open(str(wlist), "r") as fd:
-            result = list(term_iterator([fd, ]))
-        assert result == ["ä", "ö"]
-
-    def test_term_iterator_ignores_empty_lines(self, tmpdir):
-        # empty lines will be ignored
-        wlist = tmpdir.join("wlist.txt")
-        wlist.write("foo\n\nbar\n\n")
-        with open(str(wlist), "r") as fd:
-            result = list(term_iterator([fd, ]))
-        assert result == ["foo", "bar"]
 
     def test_main_script_runnable(self, capfd):
         # we can run the main script as simple python script.
