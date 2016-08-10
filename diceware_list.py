@@ -23,7 +23,7 @@ import os
 import string
 from wordlistlib import (
     DICE_SIDES, filter_chars, idx_to_dicenums, logger, min_width_iter,
-    pyterm_iterator,
+    term_iterator,
 )
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
