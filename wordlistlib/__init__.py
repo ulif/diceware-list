@@ -122,28 +122,28 @@ def idx_to_dicenums(
 
     Some examples::
 
-        >>> print(idx_to_dicenums(0, 1))
-        1
-        >>> print(idx_to_dicenums(5, 1))
-        6
-        >>> print(idx_to_dicenums(0, 3))
-        1-1-1
-        >>> print(idx_to_dicenums(5, 3))
-        1-1-6
+        >>> idx_to_dicenums(0, 1)
+        '1'
+        >>> idx_to_dicenums(5, 1)
+        '6'
+        >>> idx_to_dicenums(0, 3)
+        '1-1-1'
+        >>> idx_to_dicenums(5, 3)
+        '1-1-6'
 
     We are not restricted to (6-sided) dice. If we throw a (2-sided)
     coin 3 times, we have an index range from ``0`` to ``2^3 = 8``
     (there are 8 possible combinations of coin throws). Index ``5``
     then computes to::
 
-        >>> print(idx_to_dicenums(5, 3, 2))
-        2-1-2
+        >>> idx_to_dicenums(5, 3, 2)
+        '2-1-2'
 
     If `dice_sides` < 10, you can generate compressed output by leaving
     the separator out::
 
-        >>> print(idx_to_dicenums(5, 3, 2, separator=""))
-        212
+        >>> idx_to_dicenums(5, 3, 2, separator="")
+        '212'
 
     """
     nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
