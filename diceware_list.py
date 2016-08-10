@@ -22,7 +22,7 @@ import math
 import os
 import string
 from wordlistlib import (
-    DICE_SIDES, filter_chars, idx_to_dicenums, logger, min_width_iter,
+    DICE_SIDES, filter_chars, idx_to_dicenums, logger, min_width_iter, term_iterator,
 )
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
@@ -116,20 +116,6 @@ def generate_wordlist(
         if numbered:
             prefix = idx_to_dicenums(num, dicenum, dice_sides) + " "
         yield "%s%s" % (prefix, term)
-
-
-def term_iterator(file_descriptors):
-    """Yield terms from files in `file_descriptors`.
-
-    Empty lines are ignored.
-
-    `file_descriptors` must be open for reading.
-    """
-    for fd in file_descriptors:
-        for term in fd:
-            term = term.strip()
-            if term:
-                yield term
 
 
 def base_terms_iterator(use_kit=True, use_416=True):

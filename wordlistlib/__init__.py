@@ -182,6 +182,20 @@ def shuffle_max_width_items(word_list, max_width=None):
         yield entry
 
 
+def term_iterator(file_descriptors):
+    """Yield terms from files in `file_descriptors`.
+
+    Empty lines are ignored.
+
+    `file_descriptors` must be open for reading.
+    """
+    for fd in file_descriptors:
+        for term in fd:
+            term = term.strip()
+            if term:
+                yield term
+
+
 def min_width_iter(iterator, num, shuffle_max_width=True):
     """Get an iterable with `num` elements and minimal 'list width' from
     items in `iterator`.
