@@ -198,6 +198,9 @@ def min_width_iter(iterator, num, shuffle_max_width=True):
     width of 3). All other combinations of two elements of the list
     would result in list widths > 3.
 
+       >>> list(min_width_iter(["a", "ccc", "bb"], 2, False))
+       ['a', 'bb']
+
     Please note that the iterator returned, delivers elements sorted by
     length first and terms of same length sorted alphabetically.
 
