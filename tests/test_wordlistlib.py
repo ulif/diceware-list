@@ -17,6 +17,7 @@
 
 # Tests for wordlistlib module
 from __future__ import unicode_literals
+import codecs
 import random
 from diceware_list import DEFAULT_CHARS
 from wordlistlib import (
@@ -169,7 +170,7 @@ class TestTermIterator(object):
         # we can feed term iterators with umlauts
         wlist = tmpdir.join("wlist.txt")
         wlist.write_text(u"ä\nö\n", "utf-8")
-        with open(str(wlist), "r") as fd:
+        with codecs.open(str(wlist), "r", "utf-8") as fd:
             result = list(term_iterator([fd, ]))
         assert result == ["ä", "ö"]
 
