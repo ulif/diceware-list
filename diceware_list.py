@@ -22,8 +22,8 @@ import math
 import os
 import string
 from wordlistlib import (
-    DICE_SIDES, filter_chars, idx_to_dicenums, logger, min_width_iter,
-    term_iterator,
+    DICE_SIDES, base_terms_iterator, filter_chars, idx_to_dicenums, logger,
+    min_width_iter, term_iterator,
 )
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
