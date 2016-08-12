@@ -19,6 +19,7 @@
 """
 from __future__ import unicode_literals
 import logging
+import os
 import random
 import unicodedata
 
@@ -215,7 +216,7 @@ def base_terms_iterator(use_kit=True, use_416=True):
     if use_416:
         logger.debug("Adding source list: diceware416.txt")
         names += ["diceware416.txt"]
-    dir_path = os.path.join(os.path.dirname(__file__), 'wordlistlib')
+    dir_path = os.path.join(os.path.dirname(__file__))
     fd_list = [open(os.path.join(dir_path, name), "r") for name in names]
     for term in term_iterator(fd_list):
         yield term
