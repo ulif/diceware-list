@@ -20,10 +20,7 @@ import os
 import sys
 import pytest
 import random
-from diceware_list import (
-    get_cmdline_args, generate_wordlist, main,
-    base_terms_iterator,
-    )
+from diceware_list import get_cmdline_args, generate_wordlist, main
 
 
 @pytest.fixture
@@ -145,23 +142,6 @@ class TestWordlistGen(object):
         out, err = capfd.readouterr()
         assert out.startswith("usage: diceware_list.py")
         assert status == 0
-
-    def test_base_terms_iterator(self):
-        # we can get an iterator over base terms
-        base_iter = base_terms_iterator()
-        base_list = list(base_iter)
-        assert "a2" in base_list
-        assert "9z" in base_list
-        assert "0" in base_list
-        assert "zzzz" in base_list
-
-    def test_base_terms_iterator_option_use_kit(self):
-        # we can tell whether to use dicewarekit, diceware416 lists.
-        assert "yyyy" not in list(base_terms_iterator(use_kit=False))
-        assert "a2" in list(base_terms_iterator(use_kit=False))
-        assert "yyyy" in list(base_terms_iterator(use_kit=True))
-        assert "a2" in list(base_terms_iterator(use_kit=True))
-
 
 class TestGenerateWordlist(object):
 

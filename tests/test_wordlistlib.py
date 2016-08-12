@@ -21,8 +21,8 @@ import codecs
 import random
 from diceware_list import DEFAULT_CHARS
 from wordlistlib import (
-    base10_to_n, filter_chars, idx_to_dicenums, min_width_iter, normalize,
-    shuffle_max_width_items, term_iterator
+    base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums, min_width_iter,
+    normalize, shuffle_max_width_items, term_iterator
 )
 
 
@@ -143,6 +143,24 @@ def test_shuffle_max_width_items(monkeypatch):
     # a list with one length only
     result = list(shuffle_max_width_items(["aa", "bb", "cc"]))
     assert result == ["cc", "bb", "aa"]
+
+
+def test_base_terms_iterator():
+    # we can get an iterator over base terms
+    base_iter = base_terms_iterator()
+    base_list = list(base_iter)
+    assert "a2" in base_list
+    assert "9z" in base_list
+    assert "0" in base_list
+    assert "zzzz" in base_list
+
+
+def test_base_terms_iterator_option_use_kit():
+    # we can tell whether to use dicewarekit, diceware416 lists.
+    assert "yyyy" not in list(base_terms_iterator(use_kit=False))
+    assert "a2" in list(base_terms_iterator(use_kit=False))
+    assert "yyyy" in list(base_terms_iterator(use_kit=True))
+    assert "a2" in list(base_terms_iterator(use_kit=True))
 
 
 class TestTermIterator(object):
