@@ -119,31 +119,6 @@ def generate_wordlist(
         yield "%s%s" % (prefix, term)
 
 
-def base_terms_iterator(use_kit=True, use_416=True):
-    """Iterator over all base terms.
-
-    Base terms are those conained in the diceware416 and dicewarekit
-    lists.
-
-    With `use_kit` and `use_416` you can tell whether these files should
-    be used for generating lists or not.
-
-    Terms are delivered encoded. This way we make sure, they have the
-    same binary format as oter terms read from files by `argparse`.
-    """
-    names = []
-    if use_kit:
-        logger.debug("Adding source list: dicewarekit.txt")
-        names += ["dicewarekit.txt", ]
-    if use_416:
-        logger.debug("Adding source list: diceware416.txt")
-        names += ["diceware416.txt"]
-    dir_path = os.path.join(os.path.dirname(__file__), 'wordlistlib')
-    fd_list = [open(os.path.join(dir_path, name), "r") for name in names]
-    for term in term_iterator(fd_list):
-        yield term
-
-
 def main():
     """Main function of script.
 
