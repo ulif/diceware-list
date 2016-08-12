@@ -21,8 +21,8 @@ import codecs
 import random
 from diceware_list import DEFAULT_CHARS
 from wordlistlib import (
-    base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums, min_width_iter,
-    normalize, shuffle_max_width_items, term_iterator
+    base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
+    min_width_iter, normalize, shuffle_max_width_items, term_iterator
 )
 
 

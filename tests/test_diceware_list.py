@@ -143,6 +143,7 @@ class TestWordlistGen(object):
         assert out.startswith("usage: diceware_list.py")
         assert status == 0
 
+
 class TestGenerateWordlist(object):
 
     def test_arg_length_is_respected(self, monkeypatch):
