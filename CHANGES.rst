@@ -14,7 +14,7 @@ Changes
 
 - Rename `-s` option to `-d` (as in ``dice-sides``).
 
-- Logging output now registered under name `wordlistlib`.
+- Logging output now registered under name `libwordlist`.
 
 
 0.3 (2016-07-25)
