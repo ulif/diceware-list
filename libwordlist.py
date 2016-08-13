@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#  wordlistlib -- tools for generating wordlists
+#  libwordlist -- tools for generating wordlists
 #  Copyright (C) 2016  Uli Fouquet
 #
 #  This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-"""wordlistlib -- a library for wordlist-related operations.
+"""libwordlist -- a library for wordlist-related operations.
 """
 from __future__ import unicode_literals
 import logging
