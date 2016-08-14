@@ -2,3 +2,4 @@ include *.py
 include *.rst
 include LICENSE
 include tox.ini dicewarekit.txt diceware416.txt
+recursive-include tests *.py
