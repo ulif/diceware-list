@@ -145,6 +145,16 @@ def test_shuffle_max_width_items(monkeypatch):
     assert result == ["cc", "bb", "aa"]
 
 
+def test_shuffle_max_width_items_copes_with_files(monkeypatch, tmpdir):
+    # when shuffling max width entries we accept file input
+    monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
+    wlist = tmpdir.join("wlist.txt")
+    wlist.write(b"\n".join([b"a", b"bb", b"cc"]))
+    with open(str(wlist), "rb") as fd:
+        result = list(shuffle_max_width_items(fd))
+    assert result == ["a", "cc", "bb"]
+
+
 def test_base_terms_iterator():
     # we can get an iterator over base terms
     base_iter = base_terms_iterator()
