@@ -152,7 +152,7 @@ def test_shuffle_max_width_items_copes_with_files(monkeypatch, tmpdir):
     wlist.write(b"\n".join([b"a", b"bb", b"cc"]))
     with open(str(wlist), "rb") as fd:
         result = list(shuffle_max_width_items(fd))
-    assert result == ["a", "cc", "bb"]
+    assert result == [b"a", b"cc", b"bb"]
 
 
 def test_base_terms_iterator():
