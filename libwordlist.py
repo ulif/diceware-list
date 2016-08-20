@@ -172,6 +172,7 @@ def shuffle_max_width_items(word_list, max_width=None):
     That means the three maximum-width elements at the end are returned
     in different order.
     """
+    word_list = [x.strip() for x in word_list]
     if max_width is None:
         max_width = len(max(word_list, key=len))
     for entry in filter(lambda x: len(x) < max_width, word_list):
