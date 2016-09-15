@@ -5,6 +5,10 @@ from setuptools import setup
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
+setup_requires = [
+    'pytest_runner',
+    ]
+
 install_requires = [
     'setuptools',
     ]
@@ -52,10 +56,10 @@ setup(
     ],
     include_package_data=True,
     zip_safe=False,
+    setup_requires=setup_requires,
     install_requires=install_requires,
     tests_require=tests_require,
     extras_require=dict(
-        tests=tests_require,
         docs=docs_require,
         ),
     entry_points={
