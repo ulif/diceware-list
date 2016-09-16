@@ -161,7 +161,7 @@ Coverage
 To get a coverage report, you can use the respective py.test plugin::
 
   (venv)$ pip install pytest-cov
-  (venv)$ py.test --cov=diceware_list.py --cov-report=html
+  (venv)$ py.test --cov=diceware_list.py --cov=libwordlist.py --cov-report=html
 
 Skip the `--cov-report` option (or use `term` or `term-missing`
 instead of `html`) to get a report on commandline.
