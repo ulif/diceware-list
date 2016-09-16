@@ -130,13 +130,19 @@ http://diceware.com/ by Mr. Reinhold.
 Testing
 -------
 
-Tests require `py.test`_ being installed. In an activated `virtualenv`
-it can be installed with `pip`_::
+In a clone of the sources, you can run tests like this::
+
+  (venv) $ python setup.py test
+
+This command will download all required packages, especially
+`py.test`_.
+
+You can also install `py.test`_ manually with `pip`_::
 
   (venv)$ pip install pytest
   (venv)$ pip install -e .
 
-Afterwards, you can run tests like so::
+and afterwards, run tests like so::
 
   (venv)$ py.test
 
