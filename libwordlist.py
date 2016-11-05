@@ -252,3 +252,18 @@ def min_width_iter(iterator, num, shuffle_max_width=True):
         all_terms = list(shuffle_max_width_items(all_terms, max_width))
     for term in all_terms[:num]:
         yield term
+
+
+def is_prefix_code(iterator):
+    """
+        >>> is_prefix_code(["a", "b", "c", "d"])
+        True
+
+    """
+    sorted_list = sorted([x for x in iterator])
+    last_elem = None
+    for elem in sorted_list:
+        if last_elem and elem.startswith(last_elem):
+            return False
+        last_elem = elem
+    return True
