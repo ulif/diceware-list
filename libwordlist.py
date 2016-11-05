@@ -255,9 +255,15 @@ def min_width_iter(iterator, num, shuffle_max_width=True):
 
 
 def is_prefix_code(iterator):
-    """
-        >>> is_prefix_code(["a", "b", "c", "d"])
-        True
+    """Tell whether a given list, identified by `iterator` is a prefix code.
+
+    The prefix code is an attribute of lists, for which no element is
+    prefix of another element in the list.
+
+    We expect the elements of the list to be text/strings.
+
+       >>> is_prefix_code(["a", "b", "c", "d"])
+       True
 
     """
     sorted_list = sorted([x for x in iterator])
