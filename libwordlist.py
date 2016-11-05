@@ -260,10 +260,13 @@ def is_prefix_code(iterator):
     The prefix code is an attribute of lists, for which no element is
     prefix of another element in the list.
 
-    We expect the elements of the list to be text/strings.
+    We expect the elements of the list to be text/strings::
 
        >>> is_prefix_code(["a", "b", "c", "d"])
        True
+
+       >>> is_prefix_code(["air", "airborn", "foo"])
+       False
 
     """
     sorted_list = sorted([x for x in iterator])
