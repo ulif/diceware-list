@@ -22,7 +22,7 @@ import random
 from diceware_list import DEFAULT_CHARS
 from libwordlist import (
     base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
-    min_width_iter, normalize, shuffle_max_width_items, term_iterator
+    min_width_iter, normalize, shuffle_max_width_items, term_iterator, is_prefix_code,
 )
 
 
@@ -209,3 +209,7 @@ class TestTermIterator(object):
         with open(str(wlist), "r") as fd:
             result = list(term_iterator([fd, ]))
         assert result == ["foo", "bar"]
+
+    def test_is_prefix_code(self):
+        # we can really tell whether some list is a prefix code.
+        assert is_prefix_code(["aa", "ab", "ac"]) is True
