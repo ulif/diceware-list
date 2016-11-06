@@ -214,3 +214,6 @@ class TestTermIterator(object):
     def test_is_prefix_code(self):
         # we can really tell whether some list is a prefix code.
         assert is_prefix_code(["aa", "ab", "ac"]) is True
+        assert is_prefix_code([]) is True
+        assert is_prefix_code(["a", "ab", "c"]) is False
+        assert is_prefix_code(["a", "c", "ab"]) is False
