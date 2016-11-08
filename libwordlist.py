@@ -269,7 +269,7 @@ def is_prefix_code(iterator):
        False
 
     """
-    sorted_list = sorted([x for x in iterator])
+    sorted_list = sorted(iterator)
     last_elem = None
     for elem in sorted_list:
         if last_elem and elem.startswith(last_elem):
