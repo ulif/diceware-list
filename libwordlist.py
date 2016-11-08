@@ -280,6 +280,6 @@ def is_prefix_code(iterator):
 def find_matching_prefix(iterator):
     last = None
     for elem in sorted(iterator):
-        if last_elem and elem.startswith(last_elem):
+        if last and elem.startswith(last):
             return last_elem, elem
-        
+
