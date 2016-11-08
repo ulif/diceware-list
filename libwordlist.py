@@ -269,10 +269,17 @@ def is_prefix_code(iterator):
        False
 
     """
-    sorted_list = sorted(iterator)
     last_elem = None
-    for elem in sorted_list:
+    for elem in sorted(iterator):
         if last_elem and elem.startswith(last_elem):
             return False
         last_elem = elem
     return True
+
+
+def find_matching_prefix(iterator):
+    last = None
+    for elem in sorted(iterator):
+        if last_elem and elem.startswith(last_elem):
+            return last_elem, elem
+        
