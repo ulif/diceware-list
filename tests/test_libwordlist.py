@@ -217,3 +217,8 @@ class TestTermIterator(object):
         assert is_prefix_code([]) is True
         assert is_prefix_code(["a", "ab", "c"]) is False
         assert is_prefix_code(["a", "c", "ab"]) is False
+
+    def test_is_prefix_code_accepts_iter(self):
+        # is_prefix_code really copes with iterators (not only iterables)
+        assert is_prefix_code(iter(["a", "b", "c"])) is True
+        assert is_prefix_code(iter(["aa", "a"])) is False
