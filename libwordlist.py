@@ -278,8 +278,12 @@ def is_prefix_code(iterator):
 
 
 def find_matching_prefix(iterator):
-    last = None
-    for elem in sorted(iterator):
-        if last and elem.startswith(last):
-            return last_elem, elem
-
+    elems = sorted(iterator)
+    while len(elems) > 1:
+        idx = 1
+        while elems[0] and elems[idx].startswith(elems[0]):
+            yield elems[0], elems[idx]
+            idx +=1
+            if idx == len(elems):
+                break
+        elems.pop(0)
