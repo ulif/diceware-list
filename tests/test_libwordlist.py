@@ -228,3 +228,4 @@ class TestTermIterator(object):
     def test_find_matching_prefix(self):
         assert list(find_matching_prefix(["a", "aa", "ab", "b", "x"])) == [
             ("a", "aa"), ("a", "ab")]
+        assert list(find_matching_prefix(["a", "aa"])) == [("a", "aa")]
