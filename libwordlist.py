@@ -277,7 +277,7 @@ def is_prefix_code(iterator):
     return True
 
 
-def find_matching_prefix(iterator):
+def get_matching_prefixes(iterator):
     elems = sorted(iterator)
     while len(elems) > 1:
         idx = 1
