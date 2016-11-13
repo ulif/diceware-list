@@ -278,6 +278,14 @@ def is_prefix_code(iterator):
 
 
 def get_matching_prefixes(iterator):
+    """Get tuples of terms from `iterator` where one term is prefix of
+    another term.
+
+    The tuples will contain the prefix and exactly one prefixed term.
+
+    For terms that prefix more than one other terms, one tuple is
+    returned for each of the prefixed terms.
+    """
     elems = sorted(iterator)
     while len(elems) > 1:
         idx = 1
