@@ -277,19 +277,23 @@ def is_prefix_code(iterator):
     return True
 
 
-def get_matching_prefixes(iterator):
-    """Get tuples of terms from `iterator` where one term is prefix of
+def get_matching_prefixes(iterable):
+    """Get tuples of terms from `iterable` where one term is prefix of
     another term.
 
-    The tuples will contain the prefix and exactly one prefixed term.
+    The tuples will contain the prefix and exactly one prefixed term::
 
        >>> list(get_matching_prefixes(["a", "b", "aa"]))
        [('a', 'aa')]
 
     For terms that prefix more than one other terms, one tuple is
-    returned for each of the prefixed terms.
+    returned for each of the prefixed terms::
+
+       >>> list(get_matching_prefixes(["a", "aa", "ab"]))
+       [('a', 'aa'), ('a', 'ab')]
+
     """
-    elems = sorted(iterator)
+    elems = sorted(iterable)
     while len(elems) > 1:
         idx = 1
         while elems[0] and elems[idx].startswith(elems[0]):
