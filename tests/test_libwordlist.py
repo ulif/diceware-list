@@ -220,6 +220,13 @@ class TestTermIterator(object):
         assert is_prefix_code(["aa", "b", "a"]) is False  # order
         assert is_prefix_code(["a", "a"]) is False        # identity
 
+    def test_is_prefix_code_sorted_input(self):
+        # we do not sort already sorted input
+        assert is_prefix_code(["a", "aa", "b"], is_sorted=True) is False
+        assert is_prefix_code(["b", "c", "d"], is_sorted=True) is True
+        assert is_prefix_code(["b", "a"], is_sorted=False) is True
+        # we do not define behavior for unsorted lists, if `is_sorted` is True
+
     def test_is_prefix_code_accepts_iter(self):
         # is_prefix_code really copes with iterators (not only iterables)
         assert is_prefix_code(iter(["a", "b", "c"])) is True
