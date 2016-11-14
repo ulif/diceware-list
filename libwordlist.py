@@ -291,7 +291,7 @@ def get_matching_prefixes(iterator):
         idx = 1
         while elems[0] and elems[idx].startswith(elems[0]):
             yield elems[0], elems[idx]
-            idx +=1
+            idx += 1
             if idx == len(elems):
                 break
         elems.pop(0)
