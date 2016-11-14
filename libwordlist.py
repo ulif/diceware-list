@@ -254,7 +254,7 @@ def min_width_iter(iterator, num, shuffle_max_width=True):
         yield term
 
 
-def is_prefix_code(iterable):
+def is_prefix_code(iterable, is_sorted=False):
     """Tell whether a given list, identified by `iterable` is a prefix code.
 
     The prefix code is an attribute of lists, for which no element is
@@ -270,7 +270,10 @@ def is_prefix_code(iterable):
 
     """
     last_elem = None
-    for elem in sorted(iterable):
+    elems = iterable
+    if not is_sorted:
+        elems = sorted(iterable)
+    for elem in elems:
         if last_elem and elem.startswith(last_elem):
             return False
         last_elem = elem
