@@ -283,6 +283,9 @@ def get_matching_prefixes(iterator):
 
     The tuples will contain the prefix and exactly one prefixed term.
 
+       >>> list(get_matching_prefixes(["a", "b", "aa"]))
+       [('a', 'aa')]
+
     For terms that prefix more than one other terms, one tuple is
     returned for each of the prefixed terms.
     """
