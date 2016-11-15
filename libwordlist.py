@@ -268,6 +268,10 @@ def is_prefix_code(iterable, is_sorted=False):
        >>> is_prefix_code(["air", "airborn", "foo"])
        False
 
+    If `is_sorted` is ``True``, we expect the iterable to be already
+    sorted. If not, we will sort the list. Results are undefined for
+    lists that are given as sorted, but are in fact not.
+
     """
     last_elem = None
     elems = iterable
