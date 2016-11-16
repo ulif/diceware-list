@@ -284,7 +284,7 @@ def is_prefix_code(iterable, is_sorted=False):
     return True
 
 
-def get_matching_prefixes(iterable):
+def get_matching_prefixes(iterable, is_sorted=False):
     """Get tuples of terms from `iterable` where one term is prefix of
     another term.
 
@@ -300,7 +300,9 @@ def get_matching_prefixes(iterable):
        [('a', 'aa'), ('a', 'ab')]
 
     """
-    elems = sorted(iterable)
+    elems = iterable[:]
+    if not is_sorted:
+        elems.sort()
     while len(elems) > 1:
         idx = 1
         while elems[0] and elems[idx].startswith(elems[0]):
