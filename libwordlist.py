@@ -293,12 +293,18 @@ def get_matching_prefixes(iterable, is_sorted=False):
        >>> list(get_matching_prefixes(["a", "b", "aa"]))
        [('a', 'aa')]
 
-    For terms that prefix more than one other terms, one tuple is
+    For terms that prefix more than one other term, one tuple is
     returned for each of the prefixed terms::
 
-       >>> list(get_matching_prefixes(["a", "aa", "ab"]))
-       [('a', 'aa'), ('a', 'ab')]
+       >>> list(get_matching_prefixes(["a", "aa", "ab"])) [('a',
+       'aa'), ('a', 'ab')]
 
+    The `is_sorted` parameter is a hint telling, whether the given
+    `iterable` is already sorted or not. If it is, we do not resort
+    the iterable and can compute results much faster.
+
+    Results are undefined - and most probably broken -, if `is_sorted`
+    is ``True`` while in fact the `iterable` is unsorted.
     """
     elems = iterable[:]
     if not is_sorted:
