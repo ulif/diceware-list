@@ -232,6 +232,15 @@ class TestTermIterator(object):
         assert is_prefix_code(iter(["a", "b", "c"])) is True
         assert is_prefix_code(iter(["aa", "a"])) is False
 
+    def test_is_prefix_code_non_destructive(self):
+        # is_prefix_code is a non-destructive function.
+        iterable = ["d", "b", "c"]
+        is_prefix_code(iterable, is_sorted=False)
+        assert iterable == ["d", "b", "c"]
+        iterable = ["a", "b", "c"]
+        is_prefix_code(iterable, is_sorted=True)
+        assert iterable == ["a", "b", "c"]
+
     def test_get_matching_prefixes(self):
         assert list(get_matching_prefixes([])) == []
         assert list(get_matching_prefixes(["a", "aa", "ab", "b", "x"])) == [
