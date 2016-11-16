@@ -250,7 +250,8 @@ class TestTermIterator(object):
 
     def test_get_matching_prefixes_sorted_input(self):
         # we can presort input lists
-        assert list(get_matching_prefixes(["a", "aa", "ab"], is_sorted=True)) == [
+        assert list(
+            get_matching_prefixes(["a", "aa", "ab"], is_sorted=True)) == [
             ("a", "aa"), ("a", "ab")]
         assert list(get_matching_prefixes(["aa", "a"], is_sorted=False)) == [
             ("a", "aa")]
