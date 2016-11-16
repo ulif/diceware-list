@@ -305,6 +305,10 @@ def get_matching_prefixes(iterable, is_sorted=False):
 
     Results are undefined - and most probably broken -, if `is_sorted`
     is ``True`` while in fact the `iterable` is unsorted.
+
+    This function is not destructive, which means that iterables
+    passed-in will not be changed.
+
     """
     elems = iterable[:]
     if not is_sorted:
