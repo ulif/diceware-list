@@ -241,6 +241,11 @@ class TestTermIterator(object):
         is_prefix_code(iterable, is_sorted=True)
         assert iterable == ["a", "b", "c"]
 
+    def test_is_prefix_code_non_ascii(self):
+        # is_prefix_code copes with umlauts etc.
+        assert is_prefix_code(["z", "ä", "y", "äh"]) is False
+        assert is_prefix_code(["a", "äh"]) is True
+
     def test_get_matching_prefixes(self):
         assert list(get_matching_prefixes([])) == []
         assert list(get_matching_prefixes(["a", "aa", "ab", "b", "x"])) == [
