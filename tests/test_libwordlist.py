@@ -268,3 +268,9 @@ class TestTermIterator(object):
         assert iterable == ["a", "aa", "c"]
         list(get_matching_prefixes(iterable, is_sorted=True))
         assert iterable == ["a", "aa", "c"]
+
+    def test_get_matching_prefixes_non_ascii(self):
+        # get_matching_prefixes copes with umlauts etc.
+        get_matching_prefixes(["a", "ä", "ö"], is_sorted=False) == []
+        get_matching_prefixes(["a", "ä", "äh"], is_sorted=False) == [
+            ("ä", "äh")]
