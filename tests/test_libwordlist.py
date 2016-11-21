@@ -23,7 +23,7 @@ from diceware_list import DEFAULT_CHARS
 from libwordlist import (
     base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
-    is_prefix_code, get_matching_prefixes
+    is_prefix_code, get_matching_prefixes, strip_matching_prefixes,
 )
 
 
@@ -277,5 +277,5 @@ class TestTermIterator(object):
 
     def test_strip_matching_prefixes(self):
         # we can get prefix code from any input
-        assert list(strip_matching_prefixeS(
+        assert list(strip_matching_prefixes(
             ["a", "aa", "b"], is_sorted=True)) == ["a", "b"]
