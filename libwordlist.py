@@ -321,3 +321,8 @@ def get_matching_prefixes(iterable, is_sorted=False):
             if idx == len(elems):
                 break
         elems.pop(0)
+
+
+def strip_matching_prefixes(iterable, is_sorted=False):
+    pass
+
