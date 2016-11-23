@@ -324,5 +324,6 @@ def get_matching_prefixes(iterable, is_sorted=False):
 
 
 def strip_matching_prefixes(iterable, is_sorted=False):
-    pass
+    for item in iterable:
+        yield item
 
