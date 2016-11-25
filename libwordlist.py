@@ -327,10 +327,9 @@ def strip_matching_prefixes(iterable, is_sorted=False):
     elems = iterable[:]
     if not is_sorted:
         elems.sort()
-    last = elems[0]
-    yield last
-    for item in elems[1:]:
-        if item.startswith(last):
+    last = None
+    for item in elems:
+        if last and item.startswith(last):
             continue
         last = item
         yield item
