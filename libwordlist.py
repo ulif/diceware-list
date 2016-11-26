@@ -329,7 +329,7 @@ def strip_matching_prefixes(iterable, is_sorted=False):
     Makes list in `iterable` a ``prefix code``. The returned iterator
     will be sorted.
 
-    This is a non-destructive operation. The passed-in iterabe will
+    This is a non-destructive operation. The passed-in iterable will
     not be changed.
     """
     elems = iterable[:]
