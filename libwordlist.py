@@ -324,6 +324,14 @@ def get_matching_prefixes(iterable, is_sorted=False):
 
 
 def strip_matching_prefixes(iterable, is_sorted=False):
+    """Strip matching prefixes from `iterable`.
+
+    Makes list in `iterable` a ``prefix code``. The returned iterator
+    will be sorted.
+
+    This is a non-destructive operation. The passed-in iterabe will
+    not be changed.
+    """
     elems = iterable[:]
     if not is_sorted:
         elems.sort()
