@@ -283,3 +283,10 @@ class TestTermIterator(object):
     def test_strip_matching_prefixes_empty(self):
         # we cope with empty iterables
         assert list(strip_matching_prefixes([], is_sorted=True)) == []
+
+    def test_strip_matching_prefixes_non_destructive(self):
+        # given input will not be modified
+        in_list = ["b", "a", "aa"]
+        result = list(strip_matching_prefixes(in_list, is_sorted=False))
+        assert in_list == ["b", "a", "aa"]  # unchanged
+        assert result == ["a", "b"]
