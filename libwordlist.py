@@ -329,6 +329,10 @@ def strip_matching_prefixes(iterable, is_sorted=False):
     Makes list in `iterable` a ``prefix code``. The returned iterator
     will be sorted.
 
+    From pairs that share a prefix the alphabetically preceding one will
+    remain in the result while the alphabetically "bigger" item will be
+    discarded.
+
     This is a non-destructive operation. The passed-in iterable will
     not be changed.
     """
