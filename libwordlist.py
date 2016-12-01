@@ -341,7 +341,8 @@ def strip_matching_prefixes(iterable, is_sorted=False):
         elems.sort()
     last = None
     for item in elems:
-        if last and item.startswith(last):
-            continue
+        if last is None:
+            yield item
+        if last and not item.startswith(last):
+            yield item
         last = item
-        yield item
