@@ -290,3 +290,10 @@ class TestTermIterator(object):
         result = list(strip_matching_prefixes(in_list, is_sorted=False))
         assert in_list == ["b", "a", "aa"]  # unchanged
         assert result == ["a", "b"]
+
+    def test_strip_matching_prefixes_prefer_short(self):
+        # we can tell to prefer shorter prefixes
+        in_list = ["a", "aa", "b"]
+        result = list(strip_matching_prefixes(
+            in_list, is_sorted=False, prefer_short=True))
+        assert result == ["a", "b"]
