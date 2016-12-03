@@ -294,6 +294,9 @@ class TestTermIterator(object):
     def test_strip_matching_prefixes_prefer_short(self):
         # we can tell to prefer shorter prefixes
         in_list = ["a", "aa", "b"]
-        result = list(strip_matching_prefixes(
+        result1 = list(strip_matching_prefixes(
             in_list, is_sorted=False, prefer_short=True))
-        assert result == ["a", "b"]
+        assert result1 == ["a", "b"]
+        result2 = list(strip_matching_prefixes(
+            in_list, is_sorted=False, prefer_short=False))
+        assert result2 == ["aa", "b"]
