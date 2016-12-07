@@ -278,9 +278,11 @@ class TestTermIterator(object):
     def test_strip_matching_prefixes(self):
         # we can get prefix code from any input
         assert list(strip_matching_prefixes(
-            ["a", "aa", "b"], is_sorted=False, prefer_short=True)) == ["a", "b"]
+            ["a", "aa", "b"], is_sorted=False, prefer_short=True)
+            ) == ["a", "b"]
         assert list(strip_matching_prefixes(
-            ["aa", "a", "b"], is_sorted=False, prefer_short=True)) == ["a", "b"]
+            ["aa", "a", "b"], is_sorted=False, prefer_short=True)
+            ) == ["a", "b"]
         assert list(strip_matching_prefixes(
             ["a", "aa"], is_sorted=False, prefer_short=True)) == ["a"]
         assert list(strip_matching_prefixes(
