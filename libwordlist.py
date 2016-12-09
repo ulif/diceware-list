@@ -342,9 +342,7 @@ def strip_matching_prefixes(iterable, is_sorted=False, prefer_short=True):
     last = None
     for item in elems:
         if prefer_short:
-            if last is None:
-                yield item
-            elif not item.startswith(last):
+            if last is None or not item.startswith(last):
                 yield item
         else:
             if last and not item.startswith(last):
