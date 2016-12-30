@@ -296,3 +296,8 @@ class TestTermIterator(object):
         # unique prefxes only
         sample = sorted(["a", "b"])
         assert get_prefixes(sample) == [["a"], ["b"]]
+
+    def test_get_prefixes_single(self):
+        # we can find shared prefixes
+        sample = sorted(["a", "aa"])
+        assert get_prefixes(sample) == [["a", "aa"]]
