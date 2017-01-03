@@ -347,7 +347,38 @@ def strip_matching_prefixes(iterable, is_sorted=False):
         yield item
 
 def get_prefixes(lst):
-    """
+    """Get prefixes in sorted `lst`.
+
+    The `lst` is expected to be a sorted wordlist.
+
+    Return nested lists representing prefix structure of word list in `lst`. In
+    this list all terms are put into lists of which the first one is the prefix
+    of the following terms:
+
+        ["a", "b", "c"]
+        --> [["a"], ["b"], ["c"]]
+
+        ["a", "aa", "ab"]
+        --> [["a", ["aa"], ["ab"]]]
+
+        ["a", "aa", "b", "ba", "baa", "c"]
+        --> [["a", ["aa"]], ["b", ["ba", ["baa"]]], ["c"]]
+
+    Apparently "a" is a prefix of "aa" and "ab" but "aa" and "ab" are not
+    prefixes of some other word themselves.
+
+    The nested lists can be read as binary trees:
+
+     a          a      a
+      \        /      / \
+       b      aa     aa  b
+        \      \        / \
+         c     ab      ba  c
+                       /
+                     baa
+
+    where left children of nodes are prefixed by the node itself, while right
+    children are not.
     """
     stack = [[]]
     for item in lst + [""]:
