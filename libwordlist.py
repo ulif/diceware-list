@@ -323,7 +323,7 @@ def get_matching_prefixes(iterable, is_sorted=False):
         elems.pop(0)
 
 
-def strip_matching_prefixes(iterable, is_sorted=False):
+def strip_matching_prefixes(iterable, is_sorted=False, prefer_short=True):
     """Strip matching prefixes from `iterable`.
 
     Makes list in `iterable` a ``prefix code``. The returned iterator
@@ -341,10 +341,16 @@ def strip_matching_prefixes(iterable, is_sorted=False):
         elems.sort()
     last = None
     for item in elems:
-        if last and item.startswith(last):
-            continue
+        if prefer_short:
+            if last is None or not item.startswith(last):
+                yield item
+        else:
+            if last and not item.startswith(last):
+                yield last
         last = item
-        yield item
+    if last and not prefer_short:
+        yield last
+
 
 def get_prefixes(lst):
     """Get prefixes in sorted `lst`.

@@ -279,7 +279,15 @@ class TestTermIterator(object):
     def test_strip_matching_prefixes(self):
         # we can get prefix code from any input
         assert list(strip_matching_prefixes(
-            ["a", "aa", "b"], is_sorted=True)) == ["a", "b"]
+            ["a", "aa", "b"], is_sorted=False, prefer_short=True)
+            ) == ["a", "b"]
+        assert list(strip_matching_prefixes(
+            ["aa", "a", "b"], is_sorted=False, prefer_short=True)
+            ) == ["a", "b"]
+        assert list(strip_matching_prefixes(
+            ["a", "aa"], is_sorted=False, prefer_short=True)) == ["a"]
+        assert list(strip_matching_prefixes(
+            ["aa", "a"], is_sorted=False, prefer_short=True)) == ["a"]
 
     def test_strip_matching_prefixes_empty(self):
         # we cope with empty iterables
@@ -291,6 +299,16 @@ class TestTermIterator(object):
         result = list(strip_matching_prefixes(in_list, is_sorted=False))
         assert in_list == ["b", "a", "aa"]  # unchanged
         assert result == ["a", "b"]
+
+    def test_strip_matching_prefixes_prefer_short(self):
+        # we can tell to prefer shorter prefixes
+        in_list = ["a", "aa", "b"]
+        result1 = list(strip_matching_prefixes(
+            in_list, is_sorted=False, prefer_short=True))
+        assert result1 == ["a", "b"]
+        result2 = list(strip_matching_prefixes(
+            in_list, is_sorted=False, prefer_short=False))
+        assert result2 == ["aa", "b"]
 
     def test_get_prefixes(self):
         # we can create tree-like nested lists of prefixed lists of strings
