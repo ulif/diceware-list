@@ -345,3 +345,19 @@ def strip_matching_prefixes(iterable, is_sorted=False):
             continue
         last = item
         yield item
+
+def get_prefixes(lst):
+    """
+    """
+    stack = [[]]
+    for item in lst + [""]:
+        last = None
+        while len(stack) > 1:
+            last = stack.pop()
+            if item.startswith(last[0]):
+                stack.append(last)
+                break
+            else:
+                stack[-1].append(last)
+        stack.append([item, ])
+    return stack[0]
