@@ -292,12 +292,8 @@ class TestTermIterator(object):
         assert in_list == ["b", "a", "aa"]  # unchanged
         assert result == ["a", "b"]
 
-    def test_get_prefixes_simple(self):
-        # unique prefxes only
-        sample = sorted(["a", "b"])
-        assert get_prefixes(sample) == [["a"], ["b"]]
-
-    def test_get_prefixes_single(self):
-        # we can find shared prefixes
-        sample = sorted(["a", "aa"])
-        assert get_prefixes(sample) == [["a", "aa"]]
+    def test_get_prefixes(self):
+        # we can create tree-like nested lists of prefixed lists of strings
+        assert get_prefixes(["a", "b"]) ==[["a"], ["b"]]
+        assert get_prefixes(["a", "aa"]) == [["a", ["ab"]]]
+        assert get_prefixes(["a", "aa", "b"]) == [["a", ["aa"]], "b"]
