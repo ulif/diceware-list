@@ -312,6 +312,8 @@ class TestTermIterator(object):
 
     def test_get_prefixes(self):
         # we can create tree-like nested lists of prefixed lists of strings
+        assert get_prefixes([]) == []
+        assert get_prefixes(["a"]) == [["a"]]
         assert get_prefixes(["a", "b"]) == [["a"], ["b"]]
         assert get_prefixes(["a", "ab"]) == [["a", ["ab"]]]
         assert get_prefixes(["a", "aa", "b"]) == [["a", ["aa"]], ["b"]]
