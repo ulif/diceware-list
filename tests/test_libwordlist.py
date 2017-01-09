@@ -265,8 +265,8 @@ class TestTermIterator(object):
             get_matching_prefixes(["a", "aa", "aaa"], is_sorted=True)) == [
                 ("a", "aa"), ("a", "aaa"), ("aa", "aaa")]
         assert list(
-            get_matching_prefixes(["a", "aa", "aaa", "aaaa"],
-                is_sorted=True)) == [
+            get_matching_prefixes(["a", "aa", "aaa", "aaaa"], is_sorted=True)
+            ) == [
                     ("a", "aa"), ("a", "aaa"), ("a", "aaaa"), ("aa", "aaa"),
                     ("aa", "aaaa"), ("aaa", "aaaa")]
 
