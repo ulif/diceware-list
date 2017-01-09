@@ -264,6 +264,11 @@ class TestTermIterator(object):
         assert list(
             get_matching_prefixes(["a", "aa", "aaa"], is_sorted=True)) == [
                 ("a", "aa"), ("a", "aaa"), ("aa", "aaa")]
+        assert list(
+            get_matching_prefixes(["a", "aa", "aaa", "aaaa"],
+                is_sorted=True)) == [
+                    ("a", "aa"), ("a", "aaa"), ("a", "aaaa"), ("aa", "aaa"),
+                    ("aa", "aaaa"), ("aaa", "aaaa")]
 
     def test_get_matching_prefixes_non_destructive(self):
         # the given input will not be changed.
