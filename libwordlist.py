@@ -388,7 +388,6 @@ def get_prefixes(lst):
     """
     stack = [[]]
     for item in lst + [""]:
-        last = None
         while len(stack) > 1:
             last = stack.pop()
             if item.startswith(last[0]):
