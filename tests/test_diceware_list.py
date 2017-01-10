@@ -16,6 +16,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """diceware_list -- wordlists for diceware.
 """
+import imp
 import os
 import sys
 import pytest
@@ -133,15 +134,16 @@ class TestArgParser(object):
 class TestWordlistGen(object):
     # Minor components are grouped here
 
-    def test_main_script_runnable(self, capfd):
+    def test_main_script_runnable(self, capfd, monkeypatch):
         # we can run the main script as simple python script.
+        monkeypatch.setattr(sys, "argv", ["diceware_list.py", "--help"])
         script_loc = os.path.join(
             os.path.dirname(os.path.dirname(__file__)), 'diceware_list.py')
-        python_exe = sys.executable
-        status = os.system("%s %s --help" % (python_exe, script_loc))
+        with pytest.raises(SystemExit) as exc_info:
+            runpy = imp.load_source('__main__', script_loc)
         out, err = capfd.readouterr()
         assert out.startswith("usage: diceware_list.py")
-        assert status == 0
+        assert exc_info.value.code == 0
 
 
 class TestGenerateWordlist(object):
