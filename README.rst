@@ -158,13 +158,16 @@ then you can run all tests for all supported platforms at once::
 Coverage
 --------
 
-To get a coverage report, you can use the respective py.test plugin::
+To get a coverage report, you can use the respective `tox` target::
 
-  (venv)$ pip install pytest-cov
-  (venv)$ py.test --cov=diceware_list.py --cov=libwordlist.py --cov-report=html
+  (venv)$ tox -e cov
 
-Skip the `--cov-report` option (or use `term` or `term-missing`
-instead of `html`) to get a report on commandline.
+Or you use the common `coverage` tool::
+
+  (venv)$ pip install coverage
+  (venv)$ coverage run setup.py test
+  (venv)$ coverage report --include="diceware_list.py,libwordlist.py"
+
 
 .. [#] The wordlist length in this case should be
        ``(number-of-sides-per-dice)`` powered to
