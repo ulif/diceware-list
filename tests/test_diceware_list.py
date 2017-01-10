@@ -140,7 +140,7 @@ class TestWordlistGen(object):
         script_loc = os.path.join(
             os.path.dirname(os.path.dirname(__file__)), 'diceware_list.py')
         with pytest.raises(SystemExit) as exc_info:
-            runpy = imp.load_source('__main__', script_loc)
+            imp.load_source('__main__', script_loc)
         out, err = capfd.readouterr()
         assert out.startswith("usage: diceware_list.py")
         assert exc_info.value.code == 0
