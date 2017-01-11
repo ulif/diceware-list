@@ -16,6 +16,8 @@ Changes
 
 - Logging output now registered under name `libwordlist`.
 
+- Added new module `libwordlist` containing the API parts of `diceware-list`.
+
 
 0.3 (2016-07-25)
 ================
