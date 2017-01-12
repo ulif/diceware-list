@@ -17,3 +17,12 @@
 """wlflakes -- CLI to find flakes in diceware wordlists.
 """
 from __future__ import unicode_literals
+import argparse
+
+
+def get_cmdline_args(args=None):
+    """Handle commandline options for `wlflakes`.
+    """
+    parser = argparse.ArgumentParser(
+            description="Find flakes in diceware wordlists")
+    return parser.parse_args(args)

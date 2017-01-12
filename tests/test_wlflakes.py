@@ -14,5 +14,16 @@
 #
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""tests for wlflakes module.
+"""Tests for wlflakes module.
 """
+import sys
+from wlflakes import get_cmdline_args
+
+class TestArgParser(object):
+
+    def test_sys_argv_as_fallback(self, monkeypatch, capfd):
+        # if we deliver no args, `sys.argv` is used.
+        monkeypatch.setattr(sys, "argv", ["scriptname"])
+        get_cmdline_args()
+        out, err = capfd.readouterr()
+        assert err == ""
