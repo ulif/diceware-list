@@ -28,3 +28,13 @@ def get_cmdline_args(args=None):
     parser.add_argument(
         '-v', '--verbose', action='count', help='be verbose.')
     return parser.parse_args(args)
+
+
+def main():
+    """Main function for `wlflakes` script.
+    """
+    args = get_cmdline_args()
+
+
+if __name__ == '__main__':
+    main()
