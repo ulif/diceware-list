@@ -24,5 +24,7 @@ def get_cmdline_args(args=None):
     """Handle commandline options for `wlflakes`.
     """
     parser = argparse.ArgumentParser(
-            description="Find flakes in diceware wordlists")
+        description="Find flakes in diceware wordlists")
+    parser.add_argument(
+        '-v', '--verbose', action='count', help='be verbose.')
     return parser.parse_args(args)
