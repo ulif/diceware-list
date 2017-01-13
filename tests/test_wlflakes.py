@@ -34,6 +34,7 @@ def test_main_script_runnable(capfd, monkeypatch):
     assert out.startswith("usage: ")
     assert exc_info.value.code == 0
 
+
 class TestArgParser(object):
 
     def test_sys_argv_as_fallback(self, monkeypatch, capfd):
