@@ -55,7 +55,7 @@ def get_cmdline_args(args=None):
         '--use-416', action='store_true',
         help='use terms from diceware416.txt list.')
     parser.add_argument(
-        'dictfile', nargs='*', metavar='DICTFILE', default=None,
+        'dictfile', nargs='+', metavar='DICTFILE', default=None,
         type=argparse.FileType('r'),
         help=("Dictionary file to read possible terms from. "
               "Multiple allowed. `-' will read from stdin."),
@@ -64,7 +64,7 @@ def get_cmdline_args(args=None):
         '-v', '--verbose', action='count',
         help='be verbose.')
     parser.add_argument(
-        '--version', action='store_true',
+        '--version', action='version', version=__version__,
         help='output version information and exit.')
     return parser.parse_args(args)
 
@@ -131,10 +131,6 @@ def main():
     Output the wordlist determined by commandline args.
     """
     args = get_cmdline_args()
-    if args.version:
-        print(__version__)
-        raise SystemExit(0)
-
     all_terms = term_iterator(args.dictfile)
     if args.verbose:
         logger.setLevel(logging.INFO)
