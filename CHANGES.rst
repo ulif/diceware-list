@@ -1,6 +1,7 @@
 Changes
 *******
 
+
 1.0.dev0 (unreleased)
 =======================
 
@@ -17,6 +18,8 @@ Changes
 - Logging output now registered under name `libwordlist`.
 
 - Added new module `libwordlist` containing the API parts of `diceware-list`.
+
+- Claim support for Python 3.6.
 
 
 0.3 (2016-07-25)
