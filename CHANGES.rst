@@ -19,6 +19,8 @@ Changes
 
 - Added new module `libwordlist` containing the API parts of `diceware-list`.
 
+- New `--version` option.
+
 - Claim support for Python 3.6.
 
 
