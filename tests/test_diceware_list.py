@@ -21,7 +21,9 @@ import os
 import sys
 import pytest
 import random
-from diceware_list import get_cmdline_args, generate_wordlist, main, __version__
+from diceware_list import (
+        get_cmdline_args, generate_wordlist, main, __version__
+        )
 
 
 @pytest.fixture
