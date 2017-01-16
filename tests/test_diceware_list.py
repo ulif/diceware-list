@@ -68,7 +68,7 @@ class TestArgParser(object):
         with pytest.raises(SystemExit):
             get_cmdline_args(["--version", ])
         out, err = capfd.readouterr()
-        assert out.startswith(__version__)
+        assert __version__ in (out + err)
 
     def test_options_defaults(self, dictfile):
         # options provide sensible defaults.
