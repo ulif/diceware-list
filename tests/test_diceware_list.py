@@ -36,6 +36,12 @@ def dictfile(request, tmpdir):
     return dictfile
 
 
+class TestHelpers(object):
+
+    def test_version(self):
+        assert __version__ is not None
+
+
 class TestArgParser(object):
 
     def test_sys_argv_as_fallback(self, monkeypatch, capfd, dictfile):
