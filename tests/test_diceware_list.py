@@ -21,7 +21,7 @@ import os
 import sys
 import pytest
 import random
-from diceware_list import get_cmdline_args, generate_wordlist, main
+from diceware_list import get_cmdline_args, generate_wordlist, main, __version__
 
 
 @pytest.fixture
@@ -62,6 +62,13 @@ class TestArgParser(object):
             get_cmdline_args(["foobar", ])
         out, err = capfd.readouterr()
         assert "No such file or directory: 'foobar'" in err
+
+    def test_version(self, monkeypatch, capfd):
+        # we can output current version.
+        with pytest.raises(SystemExit):
+            get_cmdline_args(["--version", ])
+        out, err = capfd.readouterr()
+        assert out.startswith(__version__)
 
     def test_options_defaults(self, dictfile):
         # options provide sensible defaults.
