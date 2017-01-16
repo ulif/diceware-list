@@ -311,6 +311,14 @@ class TestMain(object):
         out, err = capfd.readouterr()
         assert "positional arguments" in out
 
+    def test_main_version(self, monkeypatch, capfd):
+        # we can get --version
+        monkeypatch.setattr(sys, "argv", ["scriptname", "--version"])
+        with pytest.raises(SystemExit):
+            main()
+        out, err = capfd.readouterr()
+        assert __version__ in out + err
+
     def test_main_output(self, monkeypatch, capfd, dictfile):
         # we can output simple lists
         monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
