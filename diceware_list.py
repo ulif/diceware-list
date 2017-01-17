@@ -115,14 +115,14 @@ def generate_wordlist(
             "Wordlist too short: at least %s unique terms required." % length)
     if length and numbered:
         dicenum = int(math.ceil(math.log(length) / math.log(dice_sides)))
-    prefix = ""
+    all_dice = ""
     for num, term in enumerate(sorted(min_width_iter(
             terms, length, shuffle_max))):
         if lowercase:
             term = term.lower()
         if numbered:
-            prefix = idx_to_dicenums(num, dicenum, dice_sides) + " "
-        yield "%s%s" % (prefix, term)
+            all_dice = idx_to_dicenums(num, dicenum, dice_sides) + " "
+        yield "%s%s" % (all_dice, term)
 
 
 def main():
