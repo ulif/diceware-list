@@ -282,6 +282,14 @@ class TestGenerateWordlist(object):
         assert default_list == [
             '1-1 a', '1-2 b', '1-3 c', '1-4 d', '1-5 e', '1-6 f', '2-1 g']
 
+    def test_arg_delimiter_default(self, monkeypatch):
+        # we can choose how numbered output separates numbers.
+        monkeypatch.setattr(random, "shuffle", lambda x: x)
+        terms = ['w%s' % x for x in range(7)]  # ['w0'..'w6']
+        default_list = list(generate_wordlist(
+            terms, length=7, use_kit=False, use_416=False, numbered=True))
+        assert default_list[:3] == ['1-1 w0', '1-2 w1', '1-3 w2']
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
