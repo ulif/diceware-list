@@ -291,6 +291,15 @@ class TestGenerateWordlist(object):
         assert default_list == [
             '11 w0', '12 w1', '13 w2', '14 w3', '15 w4', '16 w5', '21 w6']
 
+    def test_arg_delimiter_more_than_9_sides(self, monkeypatch):
+        # with more than 9 sides, we output dashes in numbered output
+        monkeypatch.setattr(random, "shuffle", lambda x: x)
+        terms = ['w%02d' % x for x in range(11)]  # ['w00'..'w10']
+        d10_list = list(generate_wordlist(
+            terms, length=11, use_kit=False, use_416=False, numbered=True, dice_sides=10))
+        assert d10_list == [
+            '1-1 w00', '1-2 w01', '1-3 w02', '1-4 w03', '1-5 w04', '1-6 w05', '1-7 w06', '1-8 w07', '1-9 w08', '1-10 w09', '2-1 w10']
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
