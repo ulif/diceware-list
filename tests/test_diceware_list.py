@@ -288,7 +288,8 @@ class TestGenerateWordlist(object):
         terms = ['w%s' % x for x in range(7)]  # ['w0'..'w6']
         default_list = list(generate_wordlist(
             terms, length=7, use_kit=False, use_416=False, numbered=True))
-        assert default_list[:3] == ['1-1 w0', '1-2 w1', '1-3 w2']
+        assert default_list == [
+            '11 w0', '12 w1', '13 w2', '14 w3', '15 w4', '16 w5', '21 w6']
 
     def test_result_sorted(self):
         # result iterators are sorted
