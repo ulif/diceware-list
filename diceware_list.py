@@ -107,6 +107,7 @@ def generate_wordlist(
     """
     if ascii_only:
         input_terms = filter_chars(input_terms, allowed=DEFAULT_CHARS)
+    separator = '-'
     base_terms = list(base_terms_iterator(use_kit=use_kit, use_416=use_416))
     terms = list(set(list(input_terms) + list(base_terms)))
     terms.sort()
@@ -115,13 +116,15 @@ def generate_wordlist(
             "Wordlist too short: at least %s unique terms required." % length)
     if length and numbered:
         dicenum = int(math.ceil(math.log(length) / math.log(dice_sides)))
+    if dice_sides < 10:
+        separator = ''
     all_dice = ""
     for num, term in enumerate(sorted(min_width_iter(
             terms, length, shuffle_max))):
         if lowercase:
             term = term.lower()
         if numbered:
-            all_dice = idx_to_dicenums(num, dicenum, dice_sides) + " "
+            all_dice = idx_to_dicenums(num, dicenum, dice_sides, separator=separator) + " "
         yield "%s%s" % (all_dice, term)
 
 
