@@ -276,11 +276,11 @@ class TestGenerateWordlist(object):
         default_list = list(generate_wordlist(
             terms, length=7, use_kit=False, use_416=False, numbered=True))
         assert sides_2_list == [
-            '1-1-1 a', '1-1-2 b', '1-2-1 c', '1-2-2 d', '2-1-1 e']
+            '111 a', '112 b', '121 c', '122 d', '211 e']
         assert sides_3_list == [
-            '1-1 a', '1-2 b', '1-3 c', '2-1 d', '2-2 e', '2-3 f']
+            '11 a', '12 b', '13 c', '21 d', '22 e', '23 f']
         assert default_list == [
-            '1-1 a', '1-2 b', '1-3 c', '1-4 d', '1-5 e', '1-6 f', '2-1 g']
+            '11 a', '12 b', '13 c', '14 d', '15 e', '16 f', '21 g']
 
     def test_arg_delimiter_default(self, monkeypatch):
         # we can choose how numbered output separates numbers.
@@ -385,7 +385,7 @@ class TestMain(object):
             sys, "argv", ["scriptname", "-n", "-l", "7776", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert out.startswith("1-1-1-1-1 ")
+        assert out.startswith("11111 ")
 
     def test_main_ascii_only(self, monkeypatch, dictfile, capfd):
         # we can tell to discard non-ASCII chars
@@ -429,13 +429,13 @@ class TestMain(object):
                 ])
         main()
         out, err = capfd.readouterr()
-        assert "5-2 z" in out
-        assert "2-1-1 z" not in out
+        assert "52 z" in out
+        assert "211 z" not in out
         monkeypatch.setattr(
             sys, "argv", [
                 "scriptname", "-n", "-l", "26", "-d", "5", str(dictfile)
                 ])
         main()
         out, err = capfd.readouterr()
-        assert "5-2 z" not in out
-        assert "2-1-1 z" in out
+        assert "52 z" not in out
+        assert "211 z" in out
