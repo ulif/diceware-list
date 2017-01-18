@@ -296,9 +296,11 @@ class TestGenerateWordlist(object):
         monkeypatch.setattr(random, "shuffle", lambda x: x)
         terms = ['w%02d' % x for x in range(11)]  # ['w00'..'w10']
         d10_list = list(generate_wordlist(
-            terms, length=11, use_kit=False, use_416=False, numbered=True, dice_sides=10))
+            terms, length=11, use_kit=False, use_416=False,
+            numbered=True, dice_sides=10))
         assert d10_list == [
-            '1-1 w00', '1-2 w01', '1-3 w02', '1-4 w03', '1-5 w04', '1-6 w05', '1-7 w06', '1-8 w07', '1-9 w08', '1-10 w09', '2-1 w10']
+            '1-1 w00', '1-2 w01', '1-3 w02', '1-4 w03', '1-5 w04', '1-6 w05',
+            '1-7 w06', '1-8 w07', '1-9 w08', '1-10 w09', '2-1 w10']
 
     def test_result_sorted(self):
         # result iterators are sorted

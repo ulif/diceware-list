@@ -124,7 +124,8 @@ def generate_wordlist(
         if lowercase:
             term = term.lower()
         if numbered:
-            all_dice = idx_to_dicenums(num, dicenum, dice_sides, separator=separator) + " "
+            all_dice = idx_to_dicenums(
+                num, dicenum, dice_sides, separator=separator) + " "
         yield "%s%s" % (all_dice, term)
 
 
