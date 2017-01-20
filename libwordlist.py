@@ -397,3 +397,10 @@ def get_prefixes(lst):
                 stack[-1].append(last)
         stack.append([item, ])
     return stack[0]
+
+
+def flatten_prefix_tree(lst):
+    result = []
+    for elem in lst:
+        result += elem
+    return result

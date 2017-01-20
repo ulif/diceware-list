@@ -24,7 +24,7 @@ from libwordlist import (
     base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
     is_prefix_code, get_matching_prefixes, get_prefixes,
-    strip_matching_prefixes,
+    strip_matching_prefixes, flatten_prefix_tree
 )
 
 
@@ -340,3 +340,7 @@ class TestTermIterator(object):
         assert get_prefixes(["a", "b", "ba"]) == [["a"], ["b", ["ba"]]]
         assert get_prefixes(["a", "aa", "ab", "aaa"]) == [
             ['a', ['aa'], ['ab'], ['aaa']]]
+
+    def test_flatten_prefix_tree(self):
+        # we can flatten prefix trees
+        assert flatten_prefix_tree([["a"], ["b"]]) == ["a", "b"]
