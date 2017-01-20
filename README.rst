@@ -10,17 +10,17 @@ diceware-list
 Create wordlists for `diceware`_::
 
   $ diceware-list -n -l 7776 /usr/share/dict/words
-  1-1-1-1-1 a
-  1-1-1-1-2 a's
+  11111 a
+  11112 a's
   ...
-  1-2-3-5-3 capt
-  1-2-3-5-4 cara
-  1-2-3-5-5 carl
+  12353 capt
+  12354 cara
+  12355 carl
   ...
-  6-6-6-6-3 zoos
-  6-6-6-6-4 éclat
-  6-6-6-6-5 élan
-  6-6-6-6-6 épée
+  66663 zoos
+  66664 éclat
+  66665 élan
+  66666 épée
 
 This is not a `diceware`_ implementation, but only a helper to create
 appropriate wordlists.
@@ -104,15 +104,15 @@ representing dice throws [#]_ ::
 
 
   $ diceware_list -n -l 7776 /usr/share/dict/words
-  1-1-1-1-1 !
-  1-1-1-1-2 !!
+  11111 !
+  11112 !!
   ...
-  1-2-3-5-3 alan
-  1-2-3-5-4 alana
-  1-2-3-5-5 alar
+  12353 alan
+  12354 alana
+  12355 alar
   ...
-  6-6-6-6-5 zzz
-  6-6-6-6-6 zzzz
+  66665 zzz
+  66666 zzzz
 
 The `--ascii` option filters terms out, that contain non-ASCII
 characters. This can help in generating non-english word lists that
