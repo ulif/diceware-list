@@ -23,7 +23,7 @@ import pkg_resources
 import string
 from libwordlist import (
     DICE_SIDES, base_terms_iterator, filter_chars, idx_to_dicenums, logger,
-    min_width_iter, term_iterator,
+    min_width_iter, term_iterator, strip_matching_prefixes,
 )
 
 __version__ = pkg_resources.get_distribution('diceware-list').version
@@ -72,7 +72,7 @@ def get_cmdline_args(args=None):
 def generate_wordlist(
         input_terms, length=8192, lowercase=True, use_kit=False,
         use_416=False, numbered=False, ascii_only=False,
-        shuffle_max=True, dice_sides=DICE_SIDES):
+        shuffle_max=True, prefix_code=False, dice_sides=DICE_SIDES):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -111,6 +111,8 @@ def generate_wordlist(
     base_terms = list(base_terms_iterator(use_kit=use_kit, use_416=use_416))
     terms = list(set(list(input_terms) + list(base_terms)))
     terms.sort()
+    if prefix_code:
+        terms = list(strip_matching_prefixes(terms, is_sorted=True))
     if len(terms) < length:
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)
