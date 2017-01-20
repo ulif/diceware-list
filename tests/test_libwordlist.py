@@ -317,6 +317,9 @@ class TestTermIterator(object):
         result2 = list(strip_matching_prefixes(
             in_list, is_sorted=False, prefer_short=False))
         assert result2 == ["aa", "b"]
+        result3 = list(strip_matching_prefixes(
+            ["a", "aa", "ab", "c"], is_sorted=True, prefer_short=True))
+        assert result3 == ["a", "c"]
 
     def test_strip_matching_prefixes_third_nesting_level(self):
         #  we cope with highly nested prefixes
