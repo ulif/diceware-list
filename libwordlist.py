@@ -400,7 +400,4 @@ def get_prefixes(lst):
 
 
 def flatten_prefix_tree(lst):
-    result = []
-    for elem in lst:
-        result += elem
-    return result
+    return [x[0] for x in lst]
