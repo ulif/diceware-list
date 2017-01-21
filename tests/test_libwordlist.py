@@ -348,3 +348,6 @@ class TestTermIterator(object):
         assert flatten_prefix_tree([["a"], ["b"]]) == ["a", "b"]
         assert flatten_prefix_tree([["a", ["ab"]]]) == ["a"]
         assert flatten_prefix_tree([["a", ["ab"]]], prefer_short=False) == ["ab"]
+        assert flatten_prefix_tree(
+            [['a', ['aa', ['aaa']], ['ab'], ['ac']]], prefer_short=False) == [
+                'aaa', 'ab', 'ac']
