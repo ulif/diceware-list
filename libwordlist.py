@@ -413,11 +413,19 @@ def flatten_prefix_tree(prefix_tree, prefer_short=True):
     the longer one discarded.
 
     Example::
+
        >>> flatten_prefix_tree([['a'], ['b'], ['c']])
        ['a', 'b', 'c']
 
+    Normally, we pick the shorter one of two matching words::
+
        >>> flatten_prefix_tree([['a', ['ab']]])
        ['a']
+
+    But we can tell to use the longer ones:
+
+       >>> flatten_prefix_tree([['a', ['ab']]], prefer_short=False)
+       ['ab']
 
     """
     if prefer_short:
