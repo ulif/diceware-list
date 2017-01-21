@@ -399,18 +399,18 @@ def get_prefixes(lst):
     return stack[0]
 
 
-def flatten_prefix_tree(prefix_tree):
+def flatten_prefix_tree(prefix_tree, prefer_short=True):
     """Turn a prefix tree into a simple list.
 
-    Prefix trees are in fact nested lists as returned be
+    Prefix trees are in fact nested lists as returned by
     `get_prefixes()`.
 
     The returned list will be prefix code, i.e. contain no term which is
     prefix of another.
 
-    The current strategy is 'prefer_short'. If of two terms one is the
-    prefix of the other, the shorter one will be taken and the longer
-    one discarded.
+    If 'prefer_short' is ``True`` and of two terms in the prefix tree
+    one is the prefix of the other, the shorter one will be taken and
+    the longer one discarded.
 
     Example::
        >>> flatten_prefix_tree([['a'], ['b'], ['c']])
