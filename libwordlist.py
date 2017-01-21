@@ -399,7 +399,7 @@ def get_prefixes(lst):
     return stack[0]
 
 
-def flatten_prefix_tree(lst):
+def flatten_prefix_tree(prefix_tree):
     """Turn a prefix tree into a simple list.
 
     Prefix trees are in fact nested lists as returned be
@@ -420,4 +420,4 @@ def flatten_prefix_tree(lst):
        ['a']
 
     """
-    return [x[0] for x in lst]
+    return [x[0] for x in prefix_tree]
