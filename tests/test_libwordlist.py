@@ -340,6 +340,8 @@ class TestTermIterator(object):
         assert get_prefixes(["a", "b", "ba"]) == [["a"], ["b", ["ba"]]]
         assert get_prefixes(["a", "aa", "aaa", "ab"]) == [
             ['a', ['aa', ['aaa']], ['ab']]]
+        assert get_prefixes(["a", "aa", "aaa", "ab", "ac"]) == [
+            ['a', ['aa', ['aaa']], ['ab'], ['ac']]]
 
     def test_flatten_prefix_tree(self):
         # we can flatten prefix trees
