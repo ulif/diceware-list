@@ -428,11 +428,9 @@ def flatten_prefix_tree(prefix_tree, prefer_short=True):
        ['ab']
 
     """
-    if prefer_short:
-        return [x[0] for x in prefix_tree]
     result = []
     for elem in prefix_tree:
-        if len(elem) == 1:
+        if prefer_short or (len(elem) == 1):
             result.append(elem[0])
         else:
             result.extend(flatten_prefix_tree(elem[1:], prefer_short=False))
