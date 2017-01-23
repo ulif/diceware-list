@@ -339,17 +339,9 @@ def strip_matching_prefixes(iterable, is_sorted=False, prefer_short=True):
     elems = iterable[:]
     if not is_sorted:
         elems.sort()
-    last = None
-    for item in elems:
-        if prefer_short:
-            if last is None or not item.startswith(last):
-                yield item
-        else:
-            if last and not item.startswith(last):
-                yield last
-        last = item
-    if last and not prefer_short:
-        yield last
+    for elem in flatten_prefix_tree(
+            get_prefixes(elems), prefer_short=prefer_short):
+        yield elem
 
 
 def get_prefixes(lst):
