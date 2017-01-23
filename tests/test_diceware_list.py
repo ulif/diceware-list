@@ -302,6 +302,17 @@ class TestGenerateWordlist(object):
             '1-1 w00', '1-2 w01', '1-3 w02', '1-4 w03', '1-5 w04', '1-6 w05',
             '1-7 w06', '1-8 w07', '1-9 w08', '1-10 w09', '2-1 w10']
 
+    def test_arg_prefix_code_is_respected(self, monkeypatch):
+        # we can tell whether prefix code should be generated
+        monkeypatch.setattr(random, "shuffle", lambda x: x)
+        terms = ['a', 'aa', 'ba', 'ca']
+        result1 = list(generate_wordlist(
+            terms, length=3, use_kit=False, use_416=False, prefix_code=False))
+        result2 = list(generate_wordlist(
+            terms, length=3, use_kit=False, use_416=False, prefix_code=True))
+        assert result1 == ['a', 'aa', 'ba']
+        assert result2 == ['a', 'ba', 'ca']
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
