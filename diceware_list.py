@@ -26,7 +26,7 @@ from libwordlist import (
     min_width_iter, term_iterator, strip_matching_prefixes,
 )
 
-__version__ = pkg_resources.get_distribution('diceware-list').version
+__version__ = '1.0.dev0'
 
 
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
