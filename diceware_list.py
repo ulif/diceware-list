@@ -19,7 +19,6 @@
 import argparse
 import logging
 import math
-import pkg_resources
 import string
 from libwordlist import (
     DICE_SIDES, base_terms_iterator, filter_chars, idx_to_dicenums, logger,
