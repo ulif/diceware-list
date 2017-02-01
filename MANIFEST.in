@@ -1,5 +1,7 @@
 include *.py
 include *.rst
 include LICENSE
-include tox.ini dicewarekit.txt diceware416.txt
+include tox.ini
 recursive-include tests *.py
+recursive-include diceware_list *.py
+recursive-include diceware_list *.txt
