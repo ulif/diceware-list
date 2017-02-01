@@ -23,6 +23,8 @@ Changes
 
 - Claim support for Python 3.6.
 
+- Restructure package: all single scripts are now part of a package.
+
 
 0.3 (2016-07-25)
 ================
