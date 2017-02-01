@@ -33,7 +33,7 @@ def get_cmdline_args(args=None):
 def main():
     """Main function for `wlflakes` script.
     """
-    args = get_cmdline_args()
+    get_cmdline_args()
 
 
 if __name__ == '__main__':

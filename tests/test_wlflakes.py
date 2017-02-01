@@ -16,9 +16,6 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Tests for wlflakes module.
 """
-import imp
-import os
-import pytest
 import sys
 from diceware_list.wlflakes import get_cmdline_args
 

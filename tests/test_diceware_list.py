@@ -16,8 +16,6 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """diceware_list -- wordlists for diceware.
 """
-import imp
-import os
 import sys
 import pytest
 import random
