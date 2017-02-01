@@ -20,19 +20,7 @@ import imp
 import os
 import pytest
 import sys
-from wlflakes import get_cmdline_args
-
-
-def test_main_script_runnable(capfd, monkeypatch):
-    # we can really run the wlflakes script
-    monkeypatch.setattr(sys, "argv", ["scriptname", "--help"])
-    script_loc = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), 'wlflakes.py')
-    with pytest.raises(SystemExit) as exc_info:
-        imp.load_source('__main__', script_loc)
-    out, err = capfd.readouterr()
-    assert out.startswith("usage: ")
-    assert exc_info.value.code == 0
+from diceware_list.wlflakes import get_cmdline_args
 
 
 class TestArgParser(object):

@@ -146,21 +146,6 @@ class TestArgParser(object):
         assert result.numbered is True
 
 
-class TestWordlistGen(object):
-    # Minor components are grouped here
-
-    def test_main_script_runnable(self, capfd, monkeypatch):
-        # we can run the main script as simple python script.
-        monkeypatch.setattr(sys, "argv", ["diceware_list.py", "--help"])
-        script_loc = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), 'diceware_list.py')
-        with pytest.raises(SystemExit) as exc_info:
-            imp.load_source('__main__', script_loc)
-        out, err = capfd.readouterr()
-        assert out.startswith("usage: diceware_list.py")
-        assert exc_info.value.code == 0
-
-
 class TestGenerateWordlist(object):
 
     def test_arg_length_is_respected(self, monkeypatch):

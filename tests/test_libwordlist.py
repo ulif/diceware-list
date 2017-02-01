@@ -20,7 +20,7 @@ from __future__ import unicode_literals
 import codecs
 import random
 from diceware_list import DEFAULT_CHARS
-from libwordlist import (
+from diceware_list.libwordlist import (
     base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
     is_prefix_code, get_matching_prefixes, get_prefixes,

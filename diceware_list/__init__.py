@@ -20,7 +20,7 @@ import argparse
 import logging
 import math
 import string
-from libwordlist import (
+from diceware_list.libwordlist import (
     DICE_SIDES, base_terms_iterator, filter_chars, idx_to_dicenums, logger,
     min_width_iter, term_iterator, strip_matching_prefixes,
 )
