@@ -33,6 +33,8 @@ wordlists. Wordlists are considered "good" if they
 - contain terms as short as possible (to reduce typing)
 - (optionally) contain no words with non-ASCII chars (to enable use
   with non-localized keyboards)
+- (optionally) are a `prefix code`_, i.e. no complete word in the list is
+  prefix of another word in the list.
 - contain no offending terms
 
 The last topic is hard to solve technically (hints welcome!), but
@@ -176,6 +178,7 @@ Or you use the common `coverage` tool::
 
 .. _diceware: http://diceware.com/
 .. _pip: https://pip.pypa.io/en/latest/
+.. _`prefix code`: https://en.wikipedia.org/wiki/Prefix_code
 .. _py.test: https://pytest.org/
 .. _pypi: https://pypi.python.org/
 .. _virtualenv: https://virtualenv.pypa.io/
