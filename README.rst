@@ -132,7 +132,7 @@ http://diceware.com/ by Mr. Reinhold.
 Testing
 -------
 
-In a clone of the sources, you can run tests like this::
+In a clone of the sources you can run tests like this::
 
   (venv) $ python setup.py test
 
