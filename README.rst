@@ -144,7 +144,7 @@ You can also install `py.test`_ manually with `pip`_::
   (venv)$ pip install pytest
   (venv)$ pip install -e .
 
-and afterwards, run tests like so::
+and afterwards run tests like so::
 
   (venv)$ py.test
 
