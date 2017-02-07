@@ -28,13 +28,14 @@ from diceware_list.libwordlist import (
 __version__ = '1.0.dev0'
 
 
+PREFIX_OPTIONS = ('none', 'shortest', 'longest')
+DEFAULT_PREFIX = PREFIX_OPTIONS[0]
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
 
 
 def get_cmdline_args(args=None):
     """Handle commandline options.
     """
-    prefix_options = ('shortest', 'longest', 'none')
     parser = argparse.ArgumentParser(description="Create a wordlist")
     parser.add_argument(
         '-l', '--length', default=8192, type=int, dest='length',
@@ -55,7 +56,7 @@ def get_cmdline_args(args=None):
         '--use-416', action='store_true',
         help='use terms from diceware416.txt list.')
     parser.add_argument(
-        '-p', '--prefix', default='none', choices=prefix_options,
+        '-p', '--prefix', default=DEFAULT_PREFIX, choices=PREFIX_OPTIONS,
         help=("create prefix code, i.e. discard terms that are "
               "prefixes of other terms. `short' keeps shorter terms "
               "(the prefixes of other terms) while `long' picks the "
