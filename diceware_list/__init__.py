@@ -79,7 +79,7 @@ def get_cmdline_args(args=None):
 def generate_wordlist(
         input_terms, length=8192, lowercase=True, use_kit=False,
         use_416=False, numbered=False, ascii_only=False,
-        shuffle_max=True, prefix_code=False, dice_sides=DICE_SIDES):
+        shuffle_max=True, prefix_code='none', dice_sides=DICE_SIDES):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -118,8 +118,9 @@ def generate_wordlist(
     base_terms = list(base_terms_iterator(use_kit=use_kit, use_416=use_416))
     terms = list(set(list(input_terms) + list(base_terms)))
     terms.sort()
-    if prefix_code:
-        terms = list(strip_matching_prefixes(terms, is_sorted=True))
+    if prefix_code in ('short', 'long'):
+        prefer_short = (prefix_code == 'short')
+        terms = list(strip_matching_prefixes(terms, is_sorted=True, prefer_short=prefer_short))
     if len(terms) < length:
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)
