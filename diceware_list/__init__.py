@@ -34,6 +34,7 @@ DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
 def get_cmdline_args(args=None):
     """Handle commandline options.
     """
+    prefix_options = ('shortest', 'longest', 'none')
     parser = argparse.ArgumentParser(description="Create a wordlist")
     parser.add_argument(
         '-l', '--length', default=8192, type=int, dest='length',
@@ -53,6 +54,13 @@ def get_cmdline_args(args=None):
     parser.add_argument(
         '--use-416', action='store_true',
         help='use terms from diceware416.txt list.')
+    parser.add_argument(
+        '-p', '--prefixcode', default='none', choices=prefix_options,
+        help=("create prefix code, i.e. discard terms that are "
+              "prefixes of other terms. `short' keeps shorter terms "
+              "(the prefixes of other terms) while `long' picks the "
+              "longer terms (discarding prefixes). `none' disables "
+              "prefix checking. Default: `none' "))
     parser.add_argument(
         'dictfile', nargs='+', metavar='DICTFILE', default=None,
         type=argparse.FileType('r'),
