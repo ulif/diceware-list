@@ -110,6 +110,13 @@ def generate_wordlist(
                result list. This is important only if the output list is
                numbered. By default we expect six sides.
 
+    `prefix_code`: kind of prefix code to generate. One of `PREFIX_OPTIONS`. If
+               set to `long` all terms are discarded that are prefixes of any
+               other term. If set to `short` all terms are discarded which
+               start with another term. With `none` nothing is discarded but
+               the result list might contain terms that are prefixes of other
+               list terms.
+
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
     """
