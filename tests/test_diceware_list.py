@@ -429,6 +429,14 @@ class TestMain(object):
         assert "Creating wordlist" in err
         assert "Verbose logging" in err
 
+    def test_main_prefix_unset(self, monkeypatch, dictfile, capfd):
+        # we can require very verbose output
+        monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert "zzz1" in out
+        assert "zzz10" in out
+
     def test_main_sides(self, monkeypatch, dictfile, capfd):
         # we support unusual dice
         alphabet = "".join(
