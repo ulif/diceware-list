@@ -290,11 +290,14 @@ class TestGenerateWordlist(object):
         monkeypatch.setattr(random, "shuffle", lambda x: x)
         terms = ['a', 'aa', 'ba', 'ca']
         result1 = list(generate_wordlist(
-            terms, length=3, use_kit=False, use_416=False, prefix_code='none'))
+            terms, length=3, use_kit=False, use_416=False,
+            prefix_code='none'))
         result2 = list(generate_wordlist(
-            terms, length=3, use_kit=False, use_416=False, prefix_code='short'))
+            terms, length=3, use_kit=False, use_416=False,
+            prefix_code='short'))
         result3 = list(generate_wordlist(
-            terms, length=3, use_kit=False, use_416=False, prefix_code='long'))
+            terms, length=3, use_kit=False, use_416=False,
+            prefix_code='long'))
         assert result1 == ['a', 'aa', 'ba']
         assert result2 == ['a', 'ba', 'ca']
         assert result3 == ['aa', 'ba', 'ca']
