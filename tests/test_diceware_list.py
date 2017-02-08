@@ -93,6 +93,13 @@ class TestArgParser(object):
         out, err = capfd.readouterr()
         assert __version__ in (out + err)
 
+    def test_prefix_options_req_certain_keywords(self, monkeypatch, capfd):
+        # we require one of 'short', 'long', 'short' as ``--prefix``.
+        with pytest.raises(SystemExit):
+            get_cmdline_args(["--prefix", "invalid-keyword", ])
+        out, err = capfd.readouterr()
+        assert "--prefix: invalid choice" in (out + err)
+
     def test_options_defaults(self, dictfile):
         # options provide sensible defaults.
         result = get_cmdline_args([str(dictfile), ])
