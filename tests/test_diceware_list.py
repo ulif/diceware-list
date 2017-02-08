@@ -103,6 +103,7 @@ class TestArgParser(object):
         assert result.sides == 6
         assert result.use_kit is False
         assert result.use_416 is False
+        assert result.prefix == 'none'
         assert isinstance(result.dictfile, list)
 
     def test_arg_dictfile_gives_file_objs(self, tmpdir):
