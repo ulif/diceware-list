@@ -161,6 +161,21 @@ class TestArgParser(object):
         result = get_cmdline_args(["--numbered", str(dictfile)])
         assert result.numbered is True
 
+    def test_opt_prefix_settable(self, dictfile):
+        # we can tell whether we want prefix code (and which one)
+        result = get_cmdline_args(["-p", "none", str(dictfile)])
+        assert result.prefix == 'none'
+        result = get_cmdline_args(["--prefix", "none", str(dictfile)])
+        assert result.prefix == 'none'
+        result = get_cmdline_args(["-p", "short", str(dictfile)])
+        assert result.prefix == 'short'
+        result = get_cmdline_args(["--prefix", "short", str(dictfile)])
+        assert result.prefix == 'short'
+        result = get_cmdline_args(["-p", "long", str(dictfile)])
+        assert result.prefix == 'long'
+        result = get_cmdline_args(["--prefix", "long", str(dictfile)])
+        assert result.prefix == 'long'
+
 
 class TestGenerateWordlist(object):
 
