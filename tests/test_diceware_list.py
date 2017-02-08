@@ -29,10 +29,27 @@ def dictfile(request, tmpdir):
     """py.test fixture providing a dictfile.
 
     The returned file is a py.local instance.
+
+    The entries in here are mainy like ``zzz0``...``zzz8192``.
+    This is not a prefix code.
     """
     dictfile = tmpdir / "dictfile.txt"
     contents = "\n".join(["zzz%s" % x for x in range(8192)])
     dictfile.write("foo\nbar\n" + contents)
+    return dictfile
+
+
+@pytest.fixture
+def dictfile_ext(request, tmpdir):
+    """py.test fixture providing a dictfile which is prefix code.
+
+    The returned file is a py.local instance. Different from the other
+    `dictfile`, this one is nearly a prefix code, except the both entries
+    ``zzz0000`` and ``zzz00000``.
+    """
+    dictfile = tmpdir / "dictfile.txt"
+    contents = "\n".join(["zzz%04d" % x for x in range(8192)])
+    dictfile.write("foo\nbar\nzzz00000\n" + contents)
     return dictfile
 
 
