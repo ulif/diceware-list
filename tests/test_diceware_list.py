@@ -49,7 +49,7 @@ def dictfile_ext(request, tmpdir):
     """
     dictfile = tmpdir / "dictfile.txt"
     contents = "\n".join(["zzz%04d" % x for x in range(8192)])
-    dictfile.write("foo\nbar\nzzz00000\n" + contents)
+    dictfile.write("a\nbb\nbbb\nc\n" + contents)
     return dictfile
 
 
@@ -446,31 +446,38 @@ class TestMain(object):
         assert "Creating wordlist" in err
         assert "Verbose logging" in err
 
-    def test_main_prefix_unset(self, monkeypatch, dictfile, capfd):
+    def test_main_prefix_unset(self, monkeypatch, dictfile_ext, capfd):
         # unset `prefix` option means no prefix filtering at all
-        monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
+        monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile_ext)])
         main()
         out, err = capfd.readouterr()
-        assert "zzz1" in out
-        assert "zzz10" in out
+        assert "bb\nbbb\n" in out
 
-    def test_main_prefix_none(self, monkeypatch, dictfile, capfd):
+    def test_main_prefix_none(self, monkeypatch, dictfile_ext, capfd):
         # we can turn off prefix filtering
-        monkeypatch.setattr(
-                sys, "argv", ["scriptname", "--prefix=none", str(dictfile)])
+        monkeypatch.setattr(sys, "argv", [
+            "scriptname", "--prefix=none", str(dictfile_ext)])
         main()
         out, err = capfd.readouterr()
-        assert "zzz1" in out
-        assert "zzz10" in out
+        assert "bb\nbbb\n" in out
 
     def test_main_prefix_short(self, monkeypatch, dictfile_ext, capfd):
         # we can ask for prefix filtering with short prefixes kept
-        monkeypatch.setattr(
-                sys, "argv", ["scriptname", "--prefix=short", str(dictfile_ext)])
+        monkeypatch.setattr(sys, "argv", [
+            "scriptname", "--prefix=short", str(dictfile_ext)])
         main()
         out, err = capfd.readouterr()
-        assert "zzz0000" in out
-        assert "zzz00000" not in out
+        assert "a\nbb\nc" in out
+        assert "bbb" not in out
+
+    def test_main_prefix_long(self, monkeypatch, dictfile_ext, capfd):
+        # we can ask for prefix filtering with long prefixes kept
+        monkeypatch.setattr(sys, "argv", [
+            "scriptname", "--prefix=long", str(dictfile_ext)])
+        main()
+        out, err = capfd.readouterr()
+        assert "a\nbb\nc" not in out
+        assert "bbb" in out
 
     def test_main_sides(self, monkeypatch, dictfile, capfd):
         # we support unusual dice
