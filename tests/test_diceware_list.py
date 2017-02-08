@@ -463,6 +463,15 @@ class TestMain(object):
         assert "zzz1" in out
         assert "zzz10" in out
 
+    def test_main_prefix_short(self, monkeypatch, dictfile_ext, capfd):
+        # we can ask for prefix filtering with short prefixes kept
+        monkeypatch.setattr(
+                sys, "argv", ["scriptname", "--prefix=short", str(dictfile_ext)])
+        main()
+        out, err = capfd.readouterr()
+        assert "zzz0000" in out
+        assert "zzz00000" not in out
+
     def test_main_sides(self, monkeypatch, dictfile, capfd):
         # we support unusual dice
         alphabet = "".join(

@@ -28,7 +28,7 @@ from diceware_list.libwordlist import (
 __version__ = '1.0.dev0'
 
 
-PREFIX_OPTIONS = ('none', 'shortest', 'longest')
+PREFIX_OPTIONS = ('none', 'short', 'long')
 DEFAULT_PREFIX = PREFIX_OPTIONS[0]
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
 
@@ -165,7 +165,8 @@ def main():
     for term in generate_wordlist(
             all_terms, args.length, use_kit=args.use_kit,
             use_416=args.use_416, numbered=args.numbered,
-            ascii_only=args.ascii_only, dice_sides=args.sides):
+            ascii_only=args.ascii_only, dice_sides=args.sides,
+            prefix_code=args.prefix):
         print(term)
 
 
