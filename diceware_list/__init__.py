@@ -128,7 +128,8 @@ def generate_wordlist(
     terms.sort()
     if prefix_code in ('short', 'long'):
         prefer_short = (prefix_code == 'short')
-        terms = list(strip_matching_prefixes(terms, is_sorted=True, prefer_short=prefer_short))
+        terms = list(strip_matching_prefixes(
+            terms, is_sorted=True, prefer_short=prefer_short))
     if len(terms) < length:
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)
