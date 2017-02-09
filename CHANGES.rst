@@ -21,6 +21,9 @@ Changes
 
 - New `--version` option.
 
+- New `--prefix` option. If set prefix code is generated, i.e. lists that
+  contain no item which is prefix of another list item.
+
 - Claim support for Python 3.6.
 
 - Restructure package: all single scripts are now part of a package.
