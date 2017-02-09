@@ -2,8 +2,8 @@ Changes
 *******
 
 
-1.0.dev0 (unreleased)
-=======================
+1.0 (2017-02-09)
+================
 
 - The ``dicewarekit.txt`` list is not included in generated lists by
   default from now on. You can request inclusion with new option
