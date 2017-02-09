@@ -25,7 +25,7 @@ docs_require = [
 
 setup(
     name="diceware_list",
-    version="1.0",  # also set version in __init__.py.
+    version="1.1.dev0",  # also set version in __init__.py.
     author="Uli Fouquet",
     author_email="uli@gnufix.de",
     description=(
