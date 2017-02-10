@@ -18,6 +18,7 @@
 """
 import pytest
 import sys
+from diceware_list import __version__
 from diceware_list.wlflakes import get_cmdline_args
 
 
@@ -47,3 +48,10 @@ class TestArgParser(object):
             get_cmdline_args(["foobar", ])
         out, err = capfd.readouterr()
         assert "No such file or directory: 'foobar'" in err
+
+    def test_version(self, monkeypatch, capfd):
+        # we can output current version.
+        with pytest.raises(SystemExit):
+            get_cmdline_args(["--version", ])
+        out, err = capfd.readouterr()
+        assert __version__ in (out + err)

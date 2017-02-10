@@ -18,6 +18,7 @@
 """
 from __future__ import unicode_literals
 import argparse
+from diceware_list import __version__
 
 
 def get_cmdline_args(args=None):
@@ -33,6 +34,9 @@ def get_cmdline_args(args=None):
     )
     parser.add_argument(
         '-v', '--verbose', action='count', help='be verbose.')
+    parser.add_argument(
+        '--version', action='version', version=__version__,
+        help='output version information and exit.')
     return parser.parse_args(args)
 
 
