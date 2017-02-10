@@ -68,6 +68,7 @@ setup(
     entry_points={
         'console_scripts': [
             'diceware-list = diceware_list:main',
+            'wlflakes = diceware_list.wlflakes:main',
         ],
     },
 )
