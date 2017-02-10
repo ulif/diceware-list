@@ -1,10 +1,11 @@
 Changes
 *******
 
-1.1 (unreleased)
-================
+1.1.dev0 (unreleased)
+=====================
 
-- no changes yet
+- Add new `wlflakes` command. This is a tool for checking existing
+  wordlists for consistency, cryptoflakes, etc.
 
 
 1.0 (2017-02-09)
