@@ -22,9 +22,9 @@ from diceware_list.wlflakes import get_cmdline_args
 
 class TestArgParser(object):
 
-    def test_sys_argv_as_fallback(self, monkeypatch, capfd):
+    def test_sys_argv_as_fallback(self, monkeypatch, capfd, dictfile):
         # if we deliver no args, `sys.argv` is used.
-        monkeypatch.setattr(sys, "argv", ["scriptname"])
+        monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
         get_cmdline_args()
         out, err = capfd.readouterr()
         assert err == ""
