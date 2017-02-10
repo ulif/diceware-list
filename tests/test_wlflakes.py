@@ -16,6 +16,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Tests for wlflakes module.
 """
+import pytest
 import sys
 from diceware_list.wlflakes import get_cmdline_args
 
@@ -28,3 +29,15 @@ class TestArgParser(object):
         get_cmdline_args()
         out, err = capfd.readouterr()
         assert err == ""
+
+    def test_dict_file_required(self, capfd):
+        # we require at least one argument, a dictionary file
+        with pytest.raises(SystemExit) as why:
+            get_cmdline_args(None)
+        assert why.value.args[0] == 2
+        out, err = capfd.readouterr()
+        if sys.version_info < (3, 0):
+            assert "too few arguments" in err
+        else:
+            assert "the following arguments are required" in err
+
