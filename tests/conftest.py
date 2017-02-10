@@ -19,6 +19,7 @@
 """
 import pytest
 
+
 @pytest.fixture
 def dictfile(request, tmpdir):
     """py.test fixture providing a dictfile.
