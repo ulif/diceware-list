@@ -27,9 +27,9 @@ def get_cmdline_args(args=None):
     parser = argparse.ArgumentParser(
         description="Find flakes in diceware wordlists")
     parser.add_argument(
-        'dictfile', nargs='+', metavar='DICTFILE', default=None,
+        'wordlistfile', nargs='+', metavar='FILE', default=None,
         type=argparse.FileType('r'),
-        help=("Dictionary file to read possible terms from. "
+        help=("Wordlist file to read possible terms from. "
               "Multiple allowed. `-' will read from stdin."),
     )
     parser.add_argument(

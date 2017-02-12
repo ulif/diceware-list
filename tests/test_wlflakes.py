@@ -32,7 +32,7 @@ class TestArgParser(object):
         assert err == ""
 
     def test_dict_file_required(self, capfd):
-        # we require at least one argument, a dictionary file
+        # we require at least one argument, a wordlist file
         with pytest.raises(SystemExit) as why:
             get_cmdline_args(None)
         assert why.value.args[0] == 2
@@ -42,8 +42,8 @@ class TestArgParser(object):
         else:
             assert "the following arguments are required" in err
 
-    def test_dict_file_must_exist(self, monkeypatch, capfd):
-        # we require at least one argument, a dictionary file
+    def test_wordlist_file_must_exist(self, monkeypatch, capfd):
+        # we require at least one argument, a wordlist file
         with pytest.raises(SystemExit):
             get_cmdline_args(["foobar", ])
         out, err = capfd.readouterr()
