@@ -19,7 +19,7 @@
 import pytest
 import sys
 from diceware_list import __version__
-from diceware_list.wlflakes import get_cmdline_args
+from diceware_list.wlflakes import get_cmdline_args, main
 
 
 class TestArgParser(object):
@@ -55,3 +55,13 @@ class TestArgParser(object):
             get_cmdline_args(["--version", ])
         out, err = capfd.readouterr()
         assert __version__ in (out + err)
+
+
+class TestMain(object):
+
+    def test_main(self, monkeypatch):
+        # we can call the main function (although it will require extra args)
+        monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        with pytest.raises(SystemExit):
+            main()
+
