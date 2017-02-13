@@ -40,7 +40,7 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
-def find_flakes(wordlistfile):
+def find_flakes(wordlistfile, prefixes=True):
     pass
 
 
