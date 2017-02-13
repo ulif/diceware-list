@@ -40,7 +40,7 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
-def main():                                                  # pragma: no cover
+def main():
     """Main function for `wlflakes` script.
     """
     get_cmdline_args()
