@@ -31,7 +31,7 @@ class TestArgParser(object):
         out, err = capfd.readouterr()
         assert err == ""
 
-    def test_dict_file_required(self, capfd):
+    def test_wordlist_file_required(self, capfd):
         # we require at least one argument, a wordlist file
         with pytest.raises(SystemExit) as why:
             get_cmdline_args(None)
