@@ -43,8 +43,9 @@ def get_cmdline_args(args=None):
 def find_flakes(wordlistfile):
     pass
 
+
 def main():
     """Main function for `wlflakes` script.
     """
-    get_cmdline_args()
-    find_flakes(wordlistfile)
+    args = get_cmdline_args()
+    find_flakes(args.wordlistfile)
