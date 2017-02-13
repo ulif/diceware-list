@@ -64,6 +64,12 @@ class TestFindFlakes(object):
         out, err = capfd.readouterr()
         assert err == ''
 
+    def test_can_find_prefixes(self, capfd, dictfile):
+        # we can find prefixes
+        find_flakes(str(dictfile), prefixes=True)
+        out, err = capfd.readouterr()
+        assert 'dictfile:2: E1 "bar" from line 1 is a prefix of "barfoo" ' in err
+
 
 class TestMain(object):
 
