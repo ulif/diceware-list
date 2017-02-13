@@ -40,7 +40,11 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
+def find_flakes(wordlistfile):
+    pass
+
 def main():
     """Main function for `wlflakes` script.
     """
     get_cmdline_args()
+    find_flakes(wordlistfile)
