@@ -64,4 +64,3 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", ])
         with pytest.raises(SystemExit):
             main()
-
