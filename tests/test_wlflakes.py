@@ -59,16 +59,23 @@ class TestArgParser(object):
 
 class TestFindFlakes(object):
 
-    def test_noflakes(self, capfd, dictfile):
-        find_flakes(str(dictfile))
+    def test_noflakes(self, capfd, tmpdir):
+        # a flawless wordlist will produce no output
+        wordlist = tmpdir / "mywordlist.txt"
+        wordlist.write("bar\nbaz\nfoo\n")
+        find_flakes([open(str(wordlist)), ])
         out, err = capfd.readouterr()
+        assert out == ''
         assert err == ''
 
-    def test_can_find_prefixes(self, capfd, dictfile):
+    def test_can_find_prefixes(self, capfd, dictfile, tmpdir):
         # we can find prefixes
-        find_flakes(str(dictfile), prefixes=True)
+        wordlist = tmpdir / "mywordlist.txt"
+        wordlist.write("bar\nbarfoo\nbaz\n")
+        with open(str(wordlist)) as fd:
+            find_flakes([fd, ], prefixes=True)
         out, err = capfd.readouterr()
-        assert 'dictfile:2: E1 "bar" from line 1 is a prefix of "barfoo" ' in err
+        assert 'mywordlist.txt:2: E1 "bar" from line 1 is a prefix of "barfoo"' in out
 
 
 class TestMain(object):
