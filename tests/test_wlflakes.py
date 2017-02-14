@@ -75,7 +75,9 @@ class TestFindFlakes(object):
         with open(str(wordlist)) as fd:
             find_flakes([fd, ], prefixes=True)
         out, err = capfd.readouterr()
-        assert 'mywordlist.txt:2: E1 "bar" from line 1 is a prefix of "barfoo"' in out
+        assert (
+            'mywordlist.txt:2: E1 "bar" from line 1 is a '
+            'prefix of "barfoo"') in out
 
 
 class TestMain(object):
