@@ -19,6 +19,7 @@
 from __future__ import unicode_literals
 import argparse
 from diceware_list import __version__
+from diceware_list.libwordlist import get_matching_prefixes, term_iterator
 
 
 def get_cmdline_args(args=None):
@@ -41,7 +42,14 @@ def get_cmdline_args(args=None):
 
 
 def find_flakes(wordlistfile, prefixes=True):
-    pass
+    for descriptor in wordlistfile:
+        terms = list(term_iterator([descriptor]))
+        double_prefixes = get_matching_prefixes(terms, is_sorted=False)
+        for t1, t2 in double_prefixes:
+            i1, i2 = terms.index(t1), terms.index(t2)
+            print('%s:%d: E1 "%s" from line %d is a prefix of "%s"' % (
+                descriptor.name, i2 + 1, t1, i1 + 1, t2))
+            break
 
 
 def main():
