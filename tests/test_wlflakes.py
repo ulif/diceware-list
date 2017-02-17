@@ -87,3 +87,11 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", ])
         with pytest.raises(SystemExit):
             main()
+
+    def test_can_get_help(self, monkeypatch, capfd):
+        # we can get help
+        monkeypatch.setattr(sys, "argv", ["scriptname", "--help"])
+        with pytest.raises(SystemExit):
+            main()
+        out, err = capfd.readouterr()
+        assert "show this help message" in out
