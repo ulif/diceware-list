@@ -95,3 +95,13 @@ class TestMain(object):
             main()
         out, err = capfd.readouterr()
         assert "show this help message" in out
+
+    def test_can_run(self, monkeypatch, capfd, dictfile, tmpdir):
+        # we can run wlflakes.
+        wordlist = tmpdir / "mywordlist.txt"
+        wordlist.write("bar\nfoo\nbaz\n")
+        monkeypatch.setattr(sys, "argv", ["scriptname", str(wordlist)])
+        main()
+        out, err = capfd.readouterr()
+        assert out == ""
+        assert err == ""
