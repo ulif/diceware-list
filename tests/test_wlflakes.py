@@ -96,7 +96,7 @@ class TestMain(object):
         out, err = capfd.readouterr()
         assert "show this help message" in out
 
-    def test_can_run(self, monkeypatch, capfd, dictfile, tmpdir):
+    def test_can_run_main(self, monkeypatch, capfd, dictfile, tmpdir):
         # we can run wlflakes.
         wordlist = tmpdir / "mywordlist.txt"
         wordlist.write("bar\nfoo\nbaz\n")
