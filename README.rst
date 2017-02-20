@@ -7,7 +7,15 @@ diceware-list
     :target: https://travis-ci.org/ulif/diceware-list
     :alt: Build Status
 
-Create wordlists for `diceware`_::
+This package provides script that help with generating and analyzing wordlists
+for use with `diceware`_.
+
+Currently, we provide two scripts:
+
+  - `diceware-list` created wordlists based on input lists
+  - `wlflakes` checks existing wordlists for flaws
+
+ Create wordlists for `diceware`_::
 
   $ diceware-list -n -l 7776 /usr/share/dict/words
   11111 a
