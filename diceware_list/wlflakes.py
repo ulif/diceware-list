@@ -43,13 +43,19 @@ def get_cmdline_args(args=None):
 
 def find_flakes(wordlistfile, prefixes=True):
     for descriptor in wordlistfile:
+        filename = descriptor.name
         terms = list(term_iterator([descriptor]))
-        double_prefixes = get_matching_prefixes(terms, is_sorted=False)
-        for t1, t2 in double_prefixes:
-            i1, i2 = terms.index(t1), terms.index(t2)
-            print('%s:%d: E1 "%s" from line %d is a prefix of "%s"' % (
-                descriptor.name, i2 + 1, t1, i1 + 1, t2))
-            break
+        for msg in check_E1(terms):
+            print('%s:%s' % (filename, msg))
+
+
+def check_E1(terms):
+    double_prefixes = get_matching_prefixes(terms, is_sorted=False)
+    for t1, t2 in double_prefixes:
+        i1, i2 = terms.index(t1), terms.index(t2)
+        msg = '%d: E1 "%s" from line %d is a prefix of "%s"' % (
+                i2 + 1, t1, i1 + 1, t2)
+        yield msg
 
 
 def main():
