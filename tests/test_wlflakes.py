@@ -19,7 +19,9 @@
 import pytest
 import sys
 from diceware_list import __version__
-from diceware_list.wlflakes import find_flakes, get_cmdline_args, main
+from diceware_list.wlflakes import (
+        find_flakes, get_cmdline_args, main, check_E1
+        )
 
 
 class TestArgParser(object):
@@ -78,6 +80,22 @@ class TestFindFlakes(object):
         assert (
             'mywordlist.txt:2: E1 "bar" from line 1 is a '
             'prefix of "barfoo"') in out
+
+
+class TestCheckers(object):
+
+    def test_E1(self):
+        # we can determine whether a list represents a prefix code
+        assert list(check_E1(["foo", "bar"])) == []
+        assert list(check_E1(["foo", "foobar"])) == [
+                '2: E1 "foo" from line 1 is a prefix of "foobar"']
+
+    def test_E1_counts_lines_correctly(self):
+        # check_E1 can count lines
+        assert list(check_E1(["foo", "bar", "barbaz"])) == [
+                '3: E1 "bar" from line 2 is a prefix of "barbaz"']
+        assert list(check_E1(["foo", "barbaz", "bar"])) == [
+                '2: E1 "bar" from line 3 is a prefix of "barbaz"']
 
 
 class TestMain(object):
