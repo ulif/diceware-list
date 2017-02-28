@@ -50,6 +50,12 @@ def find_flakes(wordlistfile, prefixes=True):
 
 
 def check_E1(terms):
+    """Check if list in `terms` is a prefix code.
+
+    `terms` must be a list of terms.
+
+    Yields messages, each one representing an E1 violation.
+    """
     double_prefixes = get_matching_prefixes(terms, is_sorted=False)
     for t1, t2 in double_prefixes:
         i1, i2 = terms.index(t1), terms.index(t2)
