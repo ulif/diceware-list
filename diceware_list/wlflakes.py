@@ -34,6 +34,9 @@ def get_cmdline_args(args=None):
               "Multiple allowed. `-' will read from stdin."),
     )
     parser.add_argument(
+        '--ignore-prefix', action='store_true',
+        help='Ignore terms being a prefix of other terms'),
+    parser.add_argument(
         '-v', '--verbose', action='count', help='be verbose.')
     parser.add_argument(
         '--version', action='version', version=__version__,
