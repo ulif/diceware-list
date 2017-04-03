@@ -106,8 +106,10 @@ suitable for use with diceware.::
   zzz
   zzzz
 
-By default lists of 8192 (=2**13) words are created. This value can be
-changed with the `-l` option.
+By default all input words are filtered and output. Using the `-l` option you
+can request a certain length of the output wordlist. If an input list provides
+more terms than needed, we will pick a subset. If there are not enough terms in
+the input list, an error is raised.
 
 With `-n` you can tell `diceware-list` to put numbers into each line,
 representing dice throws [#]_ ::
