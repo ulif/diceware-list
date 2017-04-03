@@ -38,8 +38,8 @@ def get_cmdline_args(args=None):
     """
     parser = argparse.ArgumentParser(description="Create a wordlist")
     parser.add_argument(
-        '-l', '--length', default=8192, type=int, dest='length',
-        help='desired length of generated wordlist. Default: 8192')
+        '-l', '--length', default=None, type=int, dest='length',
+        help='desired length of generated wordlist. Default: none')
     parser.add_argument(
         '-n', '--numbered', action='store_true',
         help='show dicenumbers in output.')
@@ -78,7 +78,7 @@ def get_cmdline_args(args=None):
 
 
 def generate_wordlist(
-        input_terms, length=8192, lowercase=True, use_kit=False,
+        input_terms, length=None, lowercase=True, use_kit=False,
         use_416=False, numbered=False, ascii_only=False,
         shuffle_max=True, prefix_code='none', dice_sides=DICE_SIDES):
     """Generate a diceware wordlist from dictionary list.
@@ -130,6 +130,8 @@ def generate_wordlist(
         prefer_short = (prefix_code == 'short')
         terms = list(strip_matching_prefixes(
             terms, is_sorted=True, prefer_short=prefer_short))
+    if length is None:
+        length = len(terms)
     if len(terms) < length:
         raise ValueError(
             "Wordlist too short: at least %s unique terms required." % length)

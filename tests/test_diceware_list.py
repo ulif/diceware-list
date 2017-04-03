@@ -75,7 +75,7 @@ class TestArgParser(object):
         # options provide sensible defaults.
         result = get_cmdline_args([str(dictfile), ])
         assert result.verbose is None
-        assert result.length == 8192
+        assert result.length is None
         assert result.numbered is False
         assert result.ascii_only is False
         assert result.sides == 6
