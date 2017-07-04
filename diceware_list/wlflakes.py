@@ -44,8 +44,12 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
-def find_flakes(wordlistfile, prefixes=True):
-    for descriptor in wordlistfile:
+def find_flakes(file_descriptors, prefixes=True):
+    """Check all `file_descriptors` for problems.
+
+    Each file descriptor must be open for reading.
+    """
+    for descriptor in file_descriptors:
         filename = descriptor.name
         terms = list(term_iterator([descriptor]))
         for msg in check_E1(terms):
