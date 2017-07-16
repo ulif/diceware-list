@@ -7,7 +7,7 @@ diceware-list
     :target: https://travis-ci.org/ulif/diceware-list
     :alt: Build Status
 
-This package provides script that help with generating and analyzing wordlists
+This package provides scripts that help with generating and analyzing wordlists
 for use with `diceware`_.
 
 Currently, we provide two scripts:
