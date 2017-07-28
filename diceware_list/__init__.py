@@ -48,13 +48,14 @@ def get_cmdline_args(args=None):
         help='allow only words that contain only ASCII chars.')
     parser.add_argument(
         '-d', '--sides', default=6, type=int,
-        help='assume used dice have SIDES sides. Default: 6')
+        help="assume used dice have SIDES sides. Default: 6. Use with `-n'.")
     parser.add_argument(
         '-k', '--use-kit', action='store_true', dest='use_kit',
-        help='include the "dicewarekit" list from diceware.com.')
+        help='include the "dicewarekit" list from diceware.com. Disabled by '
+             'default.')
     parser.add_argument(
         '--use-416', action='store_true',
-        help='use terms from diceware416.txt list.')
+        help='use terms from diceware416.txt list. Disabled by default.')
     parser.add_argument(
         '-p', '--prefix', default=DEFAULT_PREFIX, choices=PREFIX_OPTIONS,
         help=("create prefix code, i.e. discard terms that are "
