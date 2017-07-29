@@ -126,6 +126,18 @@ representing dice throws [#]_ ::
   66665 zzz
   66666 zzzz
 
+If you create a wordlist for use with non-standard dice, for instance for
+10-sided dice, then you can tell with `-d` like this::
+
+  $ diceware_list -n -d 10 -l 10000 /usr/share/dict/words
+  1-1-1-1 aol
+  1-1-1-2 aachen
+  1-1-1-3 aaron
+  ...
+  10-10-10-8 zoomed
+  10-10-10-9 zooms
+  10-10-10-10 zoos
+
 The `--ascii` option filters terms out, that contain non-ASCII
 characters. This can help in generating non-english word lists that
 are usable with regular english keyboards.
