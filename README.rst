@@ -7,8 +7,10 @@ diceware-list
     :target: https://travis-ci.org/ulif/diceware-list
     :alt: Build Status
 
-This package provides scripts that help with generating and analyzing wordlists
-for use with `diceware`_.
+Create and check wordlists for use with `diceware`_.
+
+This is not a `diceware`_ implementation, but a helper to create appropriate
+wordlists.
 
 Currently, we provide two scripts:
 
@@ -29,9 +31,6 @@ Currently, we provide two scripts:
   66664 éclat
   66665 élan
   66666 épée
-
-This is not a `diceware`_ implementation, but only a helper to create
-appropriate wordlists.
 
 The main target of `diceware-list` is to provide "good"
 wordlists. Wordlists are considered "good" if they
