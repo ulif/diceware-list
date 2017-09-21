@@ -17,7 +17,9 @@
 #
 """py.test config for `diceware-list` modules.
 """
+import os
 import pytest
+import shutil
 
 
 @pytest.fixture
@@ -46,4 +48,15 @@ def dictfile_ext(request, tmpdir):
     dictfile = tmpdir / "dictfile.txt"
     contents = "\n".join(["zzz%04d" % x for x in range(8192)])
     dictfile.write("a\nbb\nbbb\nc\n" + contents)
+    return dictfile
+
+
+@pytest.fixture
+def dictfile_android_short_de(request, tmpdir):
+    """py.test fixture providing a short (2 terms) android dict.
+    """
+    dictfile = tmpdir / "de_wordlist.combined.gz"
+    src_path = os.path.join(
+            os.path.dirname(__file__), "sample_short_wordlist_de.gz")
+    shutil.copyfile(src_path, str(dictfile))
     return dictfile
