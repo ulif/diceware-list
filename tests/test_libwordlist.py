@@ -18,13 +18,14 @@
 # Tests for libwordlist module
 from __future__ import unicode_literals
 import codecs
+import os
 import random
 from diceware_list import DEFAULT_CHARS
 from diceware_list.libwordlist import (
     base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
     is_prefix_code, get_matching_prefixes, get_prefixes,
-    strip_matching_prefixes, flatten_prefix_tree
+    strip_matching_prefixes, flatten_prefix_tree, download_dict_file,
 )
 
 
@@ -352,3 +353,12 @@ class TestTermIterator(object):
         assert flatten_prefix_tree(
             [['a', ['aa', ['aaa']], ['ab'], ['ac']]], prefer_short=False) == [
                 'aaa', 'ab', 'ac']
+
+    def test_download_dict_file(self, dictfile_android_short_de):
+        # we can download dict files.
+        dict_path = str(dictfile_android_short_de)
+        assert os.path.exists(dict_path)
+        base_path = "file://" + dict_path.rsplit("/", 1)[0]
+        data = download_dict_file(base_path, "de")
+        assert data == dictfile_android_short_de.read_binary()
+

@@ -22,8 +22,12 @@ import logging
 import os
 import random
 import unicodedata
+import urllib.request
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
+BASE_URL_DICT_ANDROID = (
+        "https//android.googlesource.com/platform/packages/inputmethods/"
+        "LatinIME/+/master/dictionaries/")
 
 
 #: A logger for use with diceware-list related messages.
@@ -427,3 +431,11 @@ def flatten_prefix_tree(prefix_tree, prefer_short=True):
         else:
             result.extend(flatten_prefix_tree(elem[1:], prefer_short=False))
     return result
+
+
+def download_dict_file(base_url=BASE_URL_DICT_ANDROID, lang="en"):
+    """Download dict file from given base url.
+    """
+    url = "%s/%s_wordlist.combined.gz" % (base_url, lang)
+    data = urllib.request.urlopen(url).read()
+    return data
