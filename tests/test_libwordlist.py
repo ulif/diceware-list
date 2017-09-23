@@ -360,4 +360,8 @@ class TestTermIterator(object):
         assert os.path.exists(dict_path)
         base_path = "file://" + dict_path.rsplit("/", 1)[0]
         data = download_dict_file(base_path, "de")
-        assert data == dictfile_android_short_de.read_binary()
+        assert data == (
+            b'dictionary=main:de,locale=de,description=Deutsch,'
+            b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
+            b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
+            b'flags=,originalFreq=213\n')
