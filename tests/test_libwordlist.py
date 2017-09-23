@@ -361,4 +361,3 @@ class TestTermIterator(object):
         base_path = "file://" + dict_path.rsplit("/", 1)[0]
         data = download_dict_file(base_path, "de")
         assert data == dictfile_android_short_de.read_binary()
-
