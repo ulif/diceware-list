@@ -18,11 +18,15 @@
 """libwordlist -- a library for wordlist-related operations.
 """
 from __future__ import unicode_literals
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
 import logging
 import os
 import random
 import unicodedata
-import urllib.request
+
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
 BASE_URL_DICT_ANDROID = (
@@ -437,5 +441,5 @@ def download_dict_file(base_url=BASE_URL_DICT_ANDROID, lang="en"):
     """Download dict file from given base url.
     """
     url = "%s/%s_wordlist.combined.gz" % (base_url, lang)
-    data = urllib.request.urlopen(url).read()
+    data = urlopen(url).read()
     return data
