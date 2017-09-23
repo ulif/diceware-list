@@ -26,6 +26,7 @@ import logging
 import os
 import random
 import unicodedata
+import zlib
 
 
 DICE_SIDES = 6  # we normally handle 6-sided dice.
@@ -442,4 +443,6 @@ def download_dict_file(base_url=BASE_URL_DICT_ANDROID, lang="en"):
     """
     url = "%s/%s_wordlist.combined.gz" % (base_url, lang)
     data = urlopen(url).read()
-    return data
+    # this is a dirty substitute for `gzip.decompress()` which
+    # is not available in Python 2.x.
+    return zlib.decompress(data, 16 + zlib.MAX_WBITS)
