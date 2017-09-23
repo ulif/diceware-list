@@ -29,7 +29,9 @@ import unicodedata
 import zlib
 
 
-DICE_SIDES = 6  # we normally handle 6-sided dice.
+DICE_SIDES = 6  #: we normally handle 6-sided dice.
+
+#: The URL where the wordlists for Android are available.
 BASE_URL_DICT_ANDROID = (
         "https//android.googlesource.com/platform/packages/inputmethods/"
         "LatinIME/+/master/dictionaries/")
@@ -440,6 +442,12 @@ def flatten_prefix_tree(prefix_tree, prefer_short=True):
 
 def download_dict_file(base_url=BASE_URL_DICT_ANDROID, lang="en"):
     """Download dict file from given base url.
+
+    Downloads the specified file and decompresses it, assuming it is in
+    gzip-Format. The uncompressed content is returned.
+
+    The `lang` parameter tells, what language to download. There are plenty
+    languages to choose from, represented by two chars.
     """
     url = "%s/%s_wordlist.combined.gz" % (base_url, lang)
     data = urlopen(url).read()
