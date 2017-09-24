@@ -464,3 +464,14 @@ def decompress_gzip_data(data):
     # this is a dirty substitute for `gzip.decompress()` which
     # is not available in Python 2.x.
     return zlib.decompress(data, 16 + zlib.MAX_WBITS)
+
+class AndroidWordList(object):
+
+    #: The URL where the wordlists for Android are available.
+    base_url = (
+        "https//android.googlesource.com/platform/packages/inputmethods/"
+        "LatinIME/+/master/dictionaries/")
+
+    def __init__(self, path=None, lang=None):
+        self.path = path
+        self.lang = lang
