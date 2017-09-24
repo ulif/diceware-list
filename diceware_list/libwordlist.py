@@ -22,6 +22,7 @@ try:
     from urllib.request import urlopen  # python 3.x
 except ImportError:                     # pragma: no cover
     from urllib2 import urlopen         # python 2.x
+import gzip
 import logging
 import os
 import random
@@ -454,3 +455,13 @@ def download_dict_file(base_url=BASE_URL_DICT_ANDROID, lang="en"):
     # this is a dirty substitute for `gzip.decompress()` which
     # is not available in Python 2.x.
     return zlib.decompress(data, 16 + zlib.MAX_WBITS)
+
+
+def read_android_dict_file(path):
+    """Read android wordlist from `path`.
+
+    Read and get data from android wordlist file.
+    """
+    with gzip.open(path) as fp:
+        data = fp.read()
+    return data

@@ -26,6 +26,7 @@ from diceware_list.libwordlist import (
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
     is_prefix_code, get_matching_prefixes, get_prefixes,
     strip_matching_prefixes, flatten_prefix_tree, download_dict_file,
+    read_android_dict_file,
 )
 
 
@@ -361,6 +362,16 @@ class TestTermIterator(object):
         base_path = "file://" + dict_path.rsplit("/", 1)[0]
         data = download_dict_file(base_path, "de")
         assert data == (
+            b'dictionary=main:de,locale=de,description=Deutsch,'
+            b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
+            b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
+            b'flags=,originalFreq=213\n')
+
+    def test_read_android_wordlist(self, dictfile_android_short_de):
+        # we can get content from android wordlists
+        dict_path = str(dictfile_android_short_de)
+        result = read_android_dict_file(dict_path)
+        assert result == (
             b'dictionary=main:de,locale=de,description=Deutsch,'
             b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
