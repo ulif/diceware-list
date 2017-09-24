@@ -458,9 +458,9 @@ def download_dict_file(base_url=BASE_URL_DICT_ANDROID, lang="en"):
 
 
 def read_android_dict_file(data):
-    """Read android wordlist from `path`.
+    """Decompress `data`.
 
-    Read and get data from android wordlist file.
+    `data` is expected to be content frmo gzipped files.
     """
     # this is a dirty substitute for `gzip.decompress()` which
     # is not available in Python 2.x.
