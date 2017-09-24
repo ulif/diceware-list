@@ -22,7 +22,6 @@ try:
     from urllib.request import urlopen  # python 3.x
 except ImportError:                     # pragma: no cover
     from urllib2 import urlopen         # python 2.x
-import gzip
 import logging
 import os
 import random
