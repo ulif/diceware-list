@@ -457,7 +457,7 @@ def download_dict_file(base_url=BASE_URL_DICT_ANDROID, lang="en"):
     return zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
 
-def read_android_dict_file(data):
+def decompress_gzip_data(data):
     """Decompress `data`.
 
     `data` is expected to be content frmo gzipped files.
