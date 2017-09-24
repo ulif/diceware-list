@@ -26,8 +26,8 @@ from diceware_list.libwordlist import (
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
     is_prefix_code, get_matching_prefixes, get_prefixes,
     strip_matching_prefixes, flatten_prefix_tree, download_dict_file,
-    read_android_dict_file,
-)
+    decompress_gzip_file,
+    )
 
 
 def test_base10_to_n():
@@ -370,7 +370,7 @@ class TestTermIterator(object):
     def test_read_android_wordlist(self, dictfile_android_short_de):
         # we can get content from android wordlists
         data = dictfile_android_short_de.read_binary()
-        result = read_android_dict_file(data)
+        result = decompress_gzip_file(data)
         assert result == (
             b'dictionary=main:de,locale=de,description=Deutsch,'
             b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
