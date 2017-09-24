@@ -369,8 +369,8 @@ class TestTermIterator(object):
 
     def test_read_android_wordlist(self, dictfile_android_short_de):
         # we can get content from android wordlists
-        dict_path = str(dictfile_android_short_de)
-        result = read_android_dict_file(dict_path)
+        data = dictfile_android_short_de.read_binary()
+        result = read_android_dict_file(data)
         assert result == (
             b'dictionary=main:de,locale=de,description=Deutsch,'
             b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
