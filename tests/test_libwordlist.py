@@ -391,3 +391,19 @@ class TestTermIterator(object):
         wl = AndroidWordList(str(path))
         assert wl.path == str(path)
         assert wl.lang is None
+
+
+    def test_android_wordlist_download(self, dictfile_android_short_de):
+        # we can download wordfiles
+        dict_path = str(dictfile_android_short_de)
+        base_url = "file://" + dict_path.rsplit("/", 1)[0]
+        wl = AndroidWordList()
+        wl.base_url = base_url
+        wl.lang = "de"
+        result = wl.download()
+        assert wl._data == (
+            b'dictionary=main:de,locale=de,description=Deutsch,'
+            b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
+            b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
+            b'flags=,originalFreq=213\n')
+
