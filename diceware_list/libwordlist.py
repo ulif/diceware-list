@@ -484,3 +484,11 @@ class AndroidWordList(object):
         # this is a dirty substitute for `gzip.decompress()` which
         # is not available in Python 2.x.
         self._data = zlib.decompress(data, 16 + zlib.MAX_WBITS)
+
+    def get_meta_data(self):
+        if self._data is None:
+            return {}
+        line = self._data.split(b'\n')[0]
+        line = line.decode('utf-8')
+        data = [tuple(x.split('=')) for x in line.split(',')]
+        return dict(data)
