@@ -404,3 +404,22 @@ class TestTermIterator(object):
             b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
             b'flags=,originalFreq=213\n')
+
+    def test_android_wordlist_metadata(self, dictfile_android_short_de):
+        # we can extract metadata from android wordfiles
+        data = (
+            b'dictionary=main:de,locale=de,description=Deutsch,'
+            b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
+            b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
+            b'flags=,originalFreq=213\n')
+        wl = AndroidWordList()
+        wl._data = data
+        meta = wl.get_meta_data()
+        assert meta == {
+                'dictionary': 'main:de',
+                'locale': 'de',
+                'description': 'Deutsch',
+                'date': '1414726263',
+                'version': '54',
+                'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'
+        }
