@@ -377,6 +377,9 @@ class TestTermIterator(object):
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
             b'flags=,originalFreq=213\n')
 
+
+class TestAndroidWordlist(object):
+
     def test_android_wordlist_attributes(self):
         # android wordlists objects provide some attributes we expect
         wl = AndroidWordList()
