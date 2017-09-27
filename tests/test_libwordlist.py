@@ -341,50 +341,54 @@ class TestStrinMatchingPrefixes(object):
             ["a", "aa", "aaa"], prefer_short=True))
         assert result == ["a"]
 
-    def test_get_prefixes(self):
-        # we can create tree-like nested lists of prefixed lists of strings
-        assert get_prefixes([]) == []
-        assert get_prefixes(["a"]) == [["a"]]
-        assert get_prefixes(["a", "b"]) == [["a"], ["b"]]
-        assert get_prefixes(["a", "ab"]) == [["a", ["ab"]]]
-        assert get_prefixes(["a", "aa", "b"]) == [["a", ["aa"]], ["b"]]
-        assert get_prefixes(["a", "b", "ba"]) == [["a"], ["b", ["ba"]]]
-        assert get_prefixes(["a", "aa", "aaa", "ab"]) == [
-            ['a', ['aa', ['aaa']], ['ab']]]
-        assert get_prefixes(["a", "aa", "aaa", "ab", "ac"]) == [
-            ['a', ['aa', ['aaa']], ['ab'], ['ac']]]
 
-    def test_flatten_prefix_tree(self):
-        # we can flatten prefix trees
-        assert flatten_prefix_tree([["a"], ["b"]]) == ["a", "b"]
-        assert flatten_prefix_tree([["a", ["ab"]]]) == ["a"]
-        assert flatten_prefix_tree(
-            [["a", ["ab"]]], prefer_short=False) == ["ab"]
-        assert flatten_prefix_tree(
-            [['a', ['aa', ['aaa']], ['ab'], ['ac']]], prefer_short=False) == [
-                'aaa', 'ab', 'ac']
+def test_get_prefixes():
+    # we can create tree-like nested lists of prefixed lists of strings
+    assert get_prefixes([]) == []
+    assert get_prefixes(["a"]) == [["a"]]
+    assert get_prefixes(["a", "b"]) == [["a"], ["b"]]
+    assert get_prefixes(["a", "ab"]) == [["a", ["ab"]]]
+    assert get_prefixes(["a", "aa", "b"]) == [["a", ["aa"]], ["b"]]
+    assert get_prefixes(["a", "b", "ba"]) == [["a"], ["b", ["ba"]]]
+    assert get_prefixes(["a", "aa", "aaa", "ab"]) == [
+        ['a', ['aa', ['aaa']], ['ab']]]
+    assert get_prefixes(["a", "aa", "aaa", "ab", "ac"]) == [
+        ['a', ['aa', ['aaa']], ['ab'], ['ac']]]
 
-    def test_download_dict_file(self, dictfile_android_short_de):
-        # we can download dict files.
-        dict_path = str(dictfile_android_short_de)
-        assert os.path.exists(dict_path)
-        base_path = "file://" + dict_path.rsplit("/", 1)[0]
-        data = download_dict_file(base_path, "de")
-        assert data == (
-            b'dictionary=main:de,locale=de,description=Deutsch,'
-            b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
-            b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
-            b'flags=,originalFreq=213\n')
 
-    def test_read_android_wordlist(self, dictfile_android_short_de):
-        # we can get content from android wordlists
-        data = dictfile_android_short_de.read_binary()
-        result = decompress_gzip_data(data)
-        assert result == (
-            b'dictionary=main:de,locale=de,description=Deutsch,'
-            b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
-            b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
-            b'flags=,originalFreq=213\n')
+def test_flatten_prefix_tree():
+    # we can flatten prefix trees
+    assert flatten_prefix_tree([["a"], ["b"]]) == ["a", "b"]
+    assert flatten_prefix_tree([["a", ["ab"]]]) == ["a"]
+    assert flatten_prefix_tree(
+        [["a", ["ab"]]], prefer_short=False) == ["ab"]
+    assert flatten_prefix_tree(
+        [['a', ['aa', ['aaa']], ['ab'], ['ac']]], prefer_short=False) == [
+            'aaa', 'ab', 'ac']
+
+
+def test_download_dict_file(dictfile_android_short_de):
+    # we can download dict files.
+    dict_path = str(dictfile_android_short_de)
+    assert os.path.exists(dict_path)
+    base_path = "file://" + dict_path.rsplit("/", 1)[0]
+    data = download_dict_file(base_path, "de")
+    assert data == (
+        b'dictionary=main:de,locale=de,description=Deutsch,'
+        b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
+        b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
+        b'flags=,originalFreq=213\n')
+
+
+def test_read_android_wordlist( dictfile_android_short_de):
+    # we can get content from android wordlists
+    data = dictfile_android_short_de.read_binary()
+    result = decompress_gzip_data(data)
+    assert result == (
+        b'dictionary=main:de,locale=de,description=Deutsch,'
+        b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
+        b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
+        b'flags=,originalFreq=213\n')
 
 
 class TestAndroidWordlist(object):
