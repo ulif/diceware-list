@@ -252,6 +252,9 @@ class TestIsPrefixCode(object):
         assert is_prefix_code(["z", "ä", "y", "äh"]) is False
         assert is_prefix_code(["a", "äh"]) is True
 
+
+class TestGetMatchingPrefixes(object):
+
     def test_get_matching_prefixes(self):
         assert list(get_matching_prefixes([])) == []
         assert list(get_matching_prefixes(["a", "aa", "ab", "b", "x"])) == [
