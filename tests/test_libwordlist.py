@@ -380,7 +380,7 @@ def test_download_dict_file(dictfile_android_short_de):
         b'flags=,originalFreq=213\n')
 
 
-def test_read_android_wordlist( dictfile_android_short_de):
+def test_read_android_wordlist(dictfile_android_short_de):
     # we can get content from android wordlists
     data = dictfile_android_short_de.read_binary()
     result = decompress_gzip_data(data)
