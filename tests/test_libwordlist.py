@@ -292,6 +292,9 @@ class TestGetMatchingPrefixes(object):
         get_matching_prefixes(["a", "ä", "äh"], is_sorted=False) == [
             ("ä", "äh")]
 
+
+class TestStrinMatchingPrefixes(object):
+
     def test_strip_matching_prefixes(self):
         # we can get prefix code from any input
         assert list(strip_matching_prefixes(
