@@ -426,3 +426,8 @@ class TestAndroidWordlist(object):
                 'version': '54',
                 'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'
         }
+
+    def test_android_wordlist_metadata_none(self):
+        # we cope wwith situation, when no wordfile was set before.
+        wl = AndroidWordList()
+        assert wl.get_meta_data() == {}
