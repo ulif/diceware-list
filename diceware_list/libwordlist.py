@@ -467,7 +467,16 @@ def decompress_gzip_data(data):
 
 
 class AndroidWordList(object):
+    """A wordlist provided for use in Android devices.
 
+    The Android wordlists come as gzipped files and can be downloaded from
+    internet.  They provide not only words we can use in diceware wordlists but
+    also interesting meta infos about both, single words and whole lists
+    provided.
+
+    `AndroidWordList` objects provide methods to download and parse these
+    lists.
+    """
     #: The URL where the wordlists for Android are available.
     base_url = (
             "https://android.googlesource.com/platform/packages/inputmethods/"
