@@ -488,6 +488,12 @@ class AndroidWordList(object):
         self._data = None
 
     def download(self):
+        """Download an android wordlist from upstream.
+
+        Android wordlists can be retrieved from source. There are different
+        files for different languages, identified by 2-letter countrycodes like
+        "en" fpr english or "de" for german.
+        """
         url = "%s/%s_wordlist.combined.gz" % (self.base_url, self.lang)
         data = urlopen(url).read()
         # this is a dirty substitute for `gzip.decompress()` which
@@ -495,6 +501,12 @@ class AndroidWordList(object):
         self._data = zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
     def get_meta_data(self):
+        """Return metadata for an Android wordlist as dict.
+
+        The metadata is extracted each time, the method ist called. It requires
+        a prior download or registration of a wordlist. Otherwise the empty
+        dict is returned.
+        """
         if self._data is None:
             return {}
         line = self._data.split(b'\n')[0]
