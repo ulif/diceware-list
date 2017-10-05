@@ -516,6 +516,8 @@ class AndroidWordList(object):
 
     def parse_lines(self):
         for line in self._data.split(b'\n'):
+            if not line:
+                continue  # ignore empty lines
             line = line.decode('utf-8')
             data = [tuple(x.split('=')) for x in line.split(',')]
             yield data
