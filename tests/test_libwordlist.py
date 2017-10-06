@@ -469,6 +469,12 @@ class TestAndroidWordlist(object):
             [
                 (' word', 'und'), ('f', '213'), ('flags', ''),
                 ('originalFreq', '213')],
-            [
-                ('',)]
         ]
+
+    def test_parse_lines_ignores_empty_lines(self):
+        # empty lines in wordlist files are ignored by the parser
+        wl = AndroidWordList()
+        wl._data = b'\n\n\n'
+        lines = wl.parse_lines()
+        assert list(lines) == []
+
