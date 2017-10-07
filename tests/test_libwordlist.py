@@ -456,19 +456,19 @@ class TestAndroidWordlist(object):
         wl._data = data
         lines = wl.parse_lines()
         assert [x for x in lines] == [
-            [
-                ('dictionary', 'main:de'),
-                ('locale', 'de'),
-                ('description', 'Deutsch'),
-                ('date', '1414726263'),
-                ('version', '54'),
-                ('REQUIRES_GERMAN_UMLAUT_PROCESSING', '1')],
-            [
-                (' word', 'der'), ('f', '216'), ('flags', ''),
-                ('originalFreq', '216')],
-            [
-                (' word', 'und'), ('f', '213'), ('flags', ''),
-                ('originalFreq', '213')],
+            {
+                'dictionary': 'main:de',
+                'locale': 'de',
+                'description': 'Deutsch',
+                'date': '1414726263',
+                'version': '54',
+                 'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'},
+            {
+                ' word': 'der', 'f': '216', 'flags': '',
+                'originalFreq': '216'},
+            {
+                ' word': 'und', 'f': '213', 'flags': '',
+                'originalFreq': '213'},
         ]
 
     def test_parse_lines_ignores_empty_lines(self):

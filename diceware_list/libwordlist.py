@@ -524,4 +524,4 @@ class AndroidWordList(object):
                 continue  # ignore empty lines
             line = line.decode('utf-8')
             data = [tuple(x.split('=')) for x in line.split(',')]
-            yield data
+            yield dict(data)
