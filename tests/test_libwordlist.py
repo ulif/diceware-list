@@ -462,7 +462,7 @@ class TestAndroidWordlist(object):
                 'description': 'Deutsch',
                 'date': '1414726263',
                 'version': '54',
-                 'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'},
+                'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'},
             {
                 ' word': 'der', 'f': '216', 'flags': '',
                 'originalFreq': '216'},
@@ -477,4 +477,3 @@ class TestAndroidWordlist(object):
         wl._data = b'\n\n\n'
         lines = wl.parse_lines()
         assert list(lines) == []
-
