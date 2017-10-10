@@ -517,7 +517,7 @@ class AndroidWordList(object):
     def parse_lines(self):
         """Get stored data as tuples of key-value pairs.
 
-        Result is given as generator.
+        Result is given as dict.
         """
         for line in self._data.split(b'\n'):
             if not line:
