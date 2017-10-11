@@ -398,14 +398,12 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList()
         assert hasattr(wl, "base_url")
         assert hasattr(wl, "path")
-        assert hasattr(wl, "lang")
 
     def test_android_wordlist_init_path(self, dictfile_android_short_de):
         # we can pass in a path
         path = dictfile_android_short_de
         wl = AndroidWordList(str(path))
         assert wl.path == str(path)
-        assert wl.lang is None
 
     def test_android_wordlist_download(self, dictfile_android_short_de):
         # we can download wordfiles

@@ -482,9 +482,8 @@ class AndroidWordList(object):
             "https://android.googlesource.com/platform/packages/inputmethods/"
             "LatinIME/+/master/dictionaries/")
 
-    def __init__(self, path=None, lang=None):
+    def __init__(self, path=None):
         self.path = path
-        self.lang = lang
         self._data = None
 
     def download(self):
