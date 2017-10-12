@@ -500,3 +500,9 @@ class AndroidWordList(object):
             line = line.decode('utf-8')
             data = [tuple(x.split('=')) for x in line.split(',')]
             yield dict(data)
+
+    def get_words(self, lang="en"):
+        for line in self.parse_lines():
+            if ' word' not in line.keys():
+                continue
+            yield line[' word']

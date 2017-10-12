@@ -449,3 +449,9 @@ class TestAndroidWordlist(object):
         wl._data = b'\n\n\n'
         lines = wl.parse_lines()
         assert list(lines) == []
+
+    def test_get_words(self, dictfile_android_short_de):
+        # we can get plain wordlists from Android lists
+        wl = AndroidWordList("file:////%s" % str(dictfile_android_short_de))
+        wl.download()
+        assert [x for x in wl.get_words()] == [ "der", "und"]
