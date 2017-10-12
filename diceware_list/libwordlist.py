@@ -502,6 +502,17 @@ class AndroidWordList(object):
             yield dict(data)
 
     def get_words(self, lang="en"):
+        """Get the basic words out of an Android word list.
+
+        Android wordlists contain lots of meta data. This method returns only
+        the words contained.
+
+        The language given with `lang` indicates which wordlist to download in
+        case there was no file path given already with the `AndroidWordList`
+        initialization.
+
+        This method returns a generator.
+        """
         for line in self.parse_lines():
             if ' word' not in line.keys():
                 continue
