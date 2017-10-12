@@ -486,14 +486,16 @@ class AndroidWordList(object):
         self.path = path
         self._data = None
 
-    def download(self):
+    def download(self, lang="en"):
         """Download an android wordlist from upstream.
 
         Android wordlists can be retrieved from source. There are different
         files for different languages, identified by 2-letter countrycodes like
         "en" fpr english or "de" for german.
         """
-        url = "%s/%s_wordlist.combined.gz" % (self.base_url, self.lang)
+        url = self.path
+        if self.path is None:
+            url = "%s/%s_wordlist.combined.gz" % (self.base_url, lang)
         data = urlopen(url).read()
         # this is a dirty substitute for `gzip.decompress()` which
         # is not available in Python 2.x.
