@@ -498,7 +498,7 @@ class AndroidWordList(object):
             if not line:
                 continue  # ignore empty lines
             line = line.decode('utf-8')
-            data = [tuple(x.split('=')) for x in line.split(',')]
+            data = [tuple(x.strip().split('=')) for x in line.split(',')]
             yield dict(data)
 
     def get_words(self, lang="en"):
@@ -514,6 +514,6 @@ class AndroidWordList(object):
         This method returns a generator.
         """
         for line in self.parse_lines():
-            if ' word' not in line.keys():
+            if 'word' not in line.keys():
                 continue
-            yield line[' word']
+            yield line['word']

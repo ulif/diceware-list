@@ -435,10 +435,10 @@ class TestAndroidWordlist(object):
                 'version': '54',
                 'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'},
             {
-                ' word': 'der', 'f': '216', 'flags': '',
+                'word': 'der', 'f': '216', 'flags': '',
                 'originalFreq': '216'},
             {
-                ' word': 'und', 'f': '213', 'flags': '',
+                'word': 'und', 'f': '213', 'flags': '',
                 'originalFreq': '213'},
         ]
 
