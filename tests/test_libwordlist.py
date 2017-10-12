@@ -18,7 +18,6 @@
 # Tests for libwordlist module
 from __future__ import unicode_literals
 import codecs
-import os
 import random
 from diceware_list import DEFAULT_CHARS
 from diceware_list.libwordlist import (
@@ -454,4 +453,4 @@ class TestAndroidWordlist(object):
         # we can get plain wordlists from Android lists
         wl = AndroidWordList("file:////%s" % str(dictfile_android_short_de))
         wl.download()
-        assert [x for x in wl.get_words()] == [ "der", "und"]
+        assert [x for x in wl.get_words()] == ["der", "und"]
