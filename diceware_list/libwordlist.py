@@ -440,32 +440,6 @@ def flatten_prefix_tree(prefix_tree, prefer_short=True):
     return result
 
 
-def download_dict_file(base_url=BASE_URL_DICT_ANDROID, lang="en"):
-    """Download dict file from given base url.
-
-    Downloads the specified file and decompresses it, assuming it is in
-    gzip-Format. The uncompressed content is returned.
-
-    The `lang` parameter tells, what language to download. There are plenty
-    languages to choose from, represented by two chars.
-    """
-    url = "%s/%s_wordlist.combined.gz" % (base_url, lang)
-    data = urlopen(url).read()
-    # this is a dirty substitute for `gzip.decompress()` which
-    # is not available in Python 2.x.
-    return zlib.decompress(data, 16 + zlib.MAX_WBITS)
-
-
-def decompress_gzip_data(data):
-    """Decompress `data`.
-
-    `data` is expected to be content frmo gzipped files.
-    """
-    # this is a dirty substitute for `gzip.decompress()` which
-    # is not available in Python 2.x.
-    return zlib.decompress(data, 16 + zlib.MAX_WBITS)
-
-
 class AndroidWordList(object):
     """A wordlist provided for use in Android devices.
 

@@ -25,8 +25,7 @@ from diceware_list.libwordlist import (
     base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
     is_prefix_code, get_matching_prefixes, get_prefixes,
-    strip_matching_prefixes, flatten_prefix_tree, download_dict_file,
-    decompress_gzip_data, AndroidWordList
+    strip_matching_prefixes, flatten_prefix_tree, AndroidWordList
     )
 
 
@@ -365,30 +364,6 @@ def test_flatten_prefix_tree():
     assert flatten_prefix_tree(
         [['a', ['aa', ['aaa']], ['ab'], ['ac']]], prefer_short=False) == [
             'aaa', 'ab', 'ac']
-
-
-def test_download_dict_file(dictfile_android_short_de):
-    # we can download dict files.
-    dict_path = str(dictfile_android_short_de)
-    assert os.path.exists(dict_path)
-    base_path = "file://" + dict_path.rsplit("/", 1)[0]
-    data = download_dict_file(base_path, "de")
-    assert data == (
-        b'dictionary=main:de,locale=de,description=Deutsch,'
-        b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
-        b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
-        b'flags=,originalFreq=213\n')
-
-
-def test_read_android_wordlist(dictfile_android_short_de):
-    # we can get content from android wordlists
-    data = dictfile_android_short_de.read_binary()
-    result = decompress_gzip_data(data)
-    assert result == (
-        b'dictionary=main:de,locale=de,description=Deutsch,'
-        b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
-        b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
-        b'flags=,originalFreq=213\n')
 
 
 class TestAndroidWordlist(object):
