@@ -465,7 +465,7 @@ class AndroidWordList(object):
 
         Android wordlists can be retrieved from source. There are different
         files for different languages, identified by 2-letter countrycodes like
-        "en" fpr english or "de" for german.
+        "en" for english or "de" for german.
         """
         url = self.path
         if self.path is None:
