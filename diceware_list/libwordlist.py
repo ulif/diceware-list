@@ -484,10 +484,9 @@ class AndroidWordList(object):
         """
         if self._data is None:
             return {}
-        line = self._data.split(b'\n')[0]
-        line = line.decode('utf-8')
-        data = [tuple(x.split('=')) for x in line.split(',')]
-        return dict(data)
+        for data_item in self.parse_lines():
+            return data_item
+        return {}
 
     def parse_lines(self):
         """Get stored data as tuples of key-value pairs.
