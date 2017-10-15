@@ -412,7 +412,7 @@ class TestAndroidWordlist(object):
         }
 
     def test_android_wordlist_metadata_none(self):
-        # we cope wwith situation, when no wordfile was set before.
+        # we cope with situation, when no wordfile was set before.
         wl = AndroidWordList()
         assert wl.get_meta_data() == {}
 
