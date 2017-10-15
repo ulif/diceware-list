@@ -416,6 +416,12 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList()
         assert wl.get_meta_data() == {}
 
+    def test_android_wordlist_metadata_empty(self):
+        # we cope with situation, where the wordfile is empty
+        wl = AndroidWordList()
+        wl._data = b''
+        assert wl.get_meta_data() == {}
+
     def test_parse_lines(self, dictfile_android_short_de):
         # we can raw parse simple lists
         data = (
