@@ -22,6 +22,7 @@ try:
     from urllib.request import urlopen  # python 3.x
 except ImportError:                     # pragma: no cover
     from urllib2 import urlopen         # python 2.x
+import base64
 import logging
 import os
 import random
@@ -454,7 +455,8 @@ class AndroidWordList(object):
     #: The URL where the wordlists for Android are available.
     base_url = (
             "https://android.googlesource.com/platform/packages/inputmethods/"
-            "LatinIME/+/master/dictionaries/")
+            "LatinIME/+/master/dictionaries/%s_wordlist.combined.gz"
+            "?format=TEXT")
 
     def __init__(self, path=None):
         self.path = path
@@ -469,8 +471,11 @@ class AndroidWordList(object):
         """
         url = self.path
         if self.path is None:
-            url = "%s/%s_wordlist.combined.gz" % (self.base_url, lang)
-        data = urlopen(url).read()
+            url = self.base_url % lang
+            data = urlopen(url).read()
+            data = base64.b64decode(data)
+        else:
+            data = urlopen(url).read()
         # this is a dirty substitute for `gzip.decompress()` which
         # is not available in Python 2.x.
         self._data = zlib.decompress(data, 16 + zlib.MAX_WBITS)
