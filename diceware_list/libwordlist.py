@@ -219,7 +219,7 @@ def base_terms_iterator(use_kit=True, use_416=True):
     be used for generating lists or not.
 
     Terms are delivered encoded. This way we make sure, they have the
-    same binary format as oter terms read from files by `argparse`.
+    same binary format as other terms read from files by `argparse`.
     """
     names = []
     if use_kit:
