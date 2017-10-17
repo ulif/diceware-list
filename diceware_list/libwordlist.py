@@ -472,10 +472,10 @@ class AndroidWordList(object):
         url = self.path
         if self.path is None:
             url = self.base_url % lang
-            data = urlopen(url).read()
+        data = urlopen(url).read()
+        if self.path is None:
+            # the android `gitiles` repo provides files only base64 encoded.
             data = base64.b64decode(data)
-        else:
-            data = urlopen(url).read()
         # this is a dirty substitute for `gzip.decompress()` which
         # is not available in Python 2.x.
         self._data = zlib.decompress(data, 16 + zlib.MAX_WBITS)
