@@ -17,6 +17,7 @@
 #
 """py.test config for `diceware-list` modules.
 """
+import base64
 import os
 import pytest
 import shutil
@@ -54,9 +55,25 @@ def dictfile_ext(request, tmpdir):
 @pytest.fixture
 def dictfile_android_short_de(request, tmpdir):
     """py.test fixture providing a short (2 terms) android dict.
+
+    The file is gzipped, but not base64 encoded.
     """
     dictfile = tmpdir / "de_wordlist.combined.gz"
     src_path = os.path.join(
             os.path.dirname(__file__), "sample_short_wordlist_de.gz")
     shutil.copyfile(src_path, str(dictfile))
+    return dictfile
+
+
+@pytest.fixture
+def dictfile_android_short_de_b64(request, tmpdir):
+    """py.test fixture providing zipped, base64-encoded file.
+
+    The file is gzipped and base64-encoded. Files downloaded from `gitiles` (as
+    Android sources) come base64-encode. Annoying.
+    """
+    dictfile = tmpdir / "de_wordlist.combined.gz"
+    src_path = os.path.join(
+            os.path.dirname(__file__), "sample_short_wordlist_de.gz")
+    dictfile.write(base64.b64encode(open(src_path, "rb").read()))
     return dictfile
