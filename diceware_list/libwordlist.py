@@ -49,8 +49,8 @@ def normalize(text):
     TRANSFORMS = {
         'ä': 'ae', 'Ä': 'AE', "æ": 'ae', "Æ": 'AE',
         'ö': 'oe', 'Ö': 'OE', "ø": 'oe', "Ø": 'OE',
-        "ü": 'UE', "Ü": 'UE',
-        'ß': 'ss'
+        "ü": 'ue', "Ü": 'UE',
+        'ß': 'ss', "Ð": 'D',
     }
     transformed = "".join([TRANSFORMS.get(x, x) for x in text])
     nfkd_form = unicodedata.normalize("NFKD", transformed)
