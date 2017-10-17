@@ -374,15 +374,15 @@ class TestAndroidWordlist(object):
         assert hasattr(wl, "path")
 
     def test_android_wordlist_init_path(self, dictfile_android_short_de):
-        # we can pass in a path
+        # we can pass in a path to an unencoded file (no base64).
         path = dictfile_android_short_de
         wl = AndroidWordList(str(path))
         assert wl.path == str(path)
 
-    def test_android_wordlist_download(self, dictfile_android_short_de):
-        # we can download wordfiles
-        dict_path = str(dictfile_android_short_de)
-        base_url = "file://" + dict_path.rsplit("/", 1)[0]
+    def test_android_wordlist_download(self, dictfile_android_short_de_b64):
+        # we can download wordfiles that are base64 encoded.
+        dict_path = str(dictfile_android_short_de_b64)
+        base_url = "file://" + dict_path.replace("/de", "/%s")
         wl = AndroidWordList()
         wl.base_url = base_url
         wl.download(lang="de")
