@@ -81,7 +81,7 @@ def dictfile_android_short_de_b64(request, tmpdir):
 
 @pytest.fixture
 def local_android_download(request, monkeypatch, tmpdir):
-    """py.test fixture provideing a AndroidWordList with local wordlist.
+    """py.test fixture providing a AndroidWordList with local wordlist.
     """
     for lang in ['de', 'en']:
         dictfile = tmpdir / ("%s_wordlist.combined.gz" % lang)
