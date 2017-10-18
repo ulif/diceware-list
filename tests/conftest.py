@@ -77,3 +77,18 @@ def dictfile_android_short_de_b64(request, tmpdir):
             os.path.dirname(__file__), "sample_short_wordlist_de.gz")
     dictfile.write(base64.b64encode(open(src_path, "rb").read()))
     return dictfile
+
+
+@pytest.fixture
+def local_android_download(request, monkeypatch, tmpdir):
+    """py.test fixture provideing a AndroidWordList with local wordlist.
+    """
+    dictfile = tmpdir / "de_wordlist.combined.gz"
+    src_path = os.path.join(
+            os.path.dirname(__file__), "sample_short_wordlist_de.gz")
+    dictfile.write(base64.b64encode(open(src_path, "rb").read()))
+    fake_base_url = "file://%s/%%s_wordlist.combined.gz" % str(tmpdir)
+    monkeypatch.setattr(
+            "diceware_list.libwordlist.AndroidWordList.base_url",
+            fake_base_url)
+    return dictfile
