@@ -423,7 +423,7 @@ class TestAndroidWordlist(object):
         wl._data = b''
         assert wl.get_meta_data() == {}
 
-    def test_parse_lines(self, dictfile_android_short_de):
+    def test_parse_lines(self):
         # we can raw parse simple lists
         data = (
             b'dictionary=main:de,locale=de,description=Deutsch,'
