@@ -86,7 +86,7 @@ def local_android_download(request, monkeypatch, tmpdir):
     for lang in ['de', 'en']:
         dictfile = tmpdir / ("%s_wordlist.combined.gz" % lang)
         src_path = os.path.join(
-                os.path.dirname(__file__), "sample_short_wordlist_%s.gz" % lang)
+            os.path.dirname(__file__), "sample_short_wordlist_%s.gz" % lang)
         dictfile.write(base64.b64encode(open(src_path, "rb").read()))
     fake_base_url = "file://%s/%%s_wordlist.combined.gz" % str(tmpdir)
     monkeypatch.setattr(

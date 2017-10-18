@@ -464,9 +464,9 @@ class TestAndroidWordlist(object):
 
     def test_download_de(self, local_android_download):
         # we can download a german wordlist.
-       wl = AndroidWordList()
-       wl.download(lang='de')
-       assert list(wl.get_words()) == ['der', 'und']
+        wl = AndroidWordList()
+        wl.download(lang='de')
+        assert list(wl.get_words()) == ['der', 'und']
 
     def test_download_en(self, local_android_download):
         # we can download an english wordlist.
