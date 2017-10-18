@@ -393,7 +393,7 @@ class TestAndroidWordlist(object):
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
             b'flags=,originalFreq=213\n')
 
-    def test_android_wordlist_metadata(self, dictfile_android_short_de):
+    def test_android_wordlist_metadata(self):
         # we can extract metadata from android wordfiles
         data = (
             b'dictionary=main:de,locale=de,description=Deutsch,'
