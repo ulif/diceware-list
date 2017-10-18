@@ -380,12 +380,9 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList(str(path))
         assert wl.path == str(path)
 
-    def test_android_wordlist_download(self, dictfile_android_short_de_b64):
+    def test_android_wordlist_download(self, local_android_download):
         # we can download wordfiles that are base64 encoded.
-        dict_path = str(dictfile_android_short_de_b64)
-        base_url = "file://" + dict_path.replace("/de", "/%s")
         wl = AndroidWordList()
-        wl.base_url = base_url
         wl.download(lang="de")
         assert wl._data == (
             b'dictionary=main:de,locale=de,description=Deutsch,'
