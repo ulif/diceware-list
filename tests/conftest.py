@@ -92,4 +92,4 @@ def local_android_download(request, monkeypatch, tmpdir):
     monkeypatch.setattr(
             "diceware_list.libwordlist.AndroidWordList.base_url",
             fake_base_url)
-    return dictfile
+    return tmpdir
