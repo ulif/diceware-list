@@ -66,7 +66,7 @@ def dictfile_android_short_de(request, tmpdir):
 
 
 @pytest.fixture
-def local_android_download(request, monkeypatch, tmpdir):
+def local_android_download_b64(request, monkeypatch, tmpdir):
     """py.test fixture providing an AndroidWordList with local wordlists.
 
     Copies all local sample wordlists into a new tmpdir. Then monkeypatches
