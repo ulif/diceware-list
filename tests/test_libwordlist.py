@@ -389,6 +389,19 @@ class TestAndroidWordlist(object):
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
             b'flags=,originalFreq=213\n')
 
+    def test_download_de(self, local_android_download):
+        # we can download a german wordlist.
+        wl = AndroidWordList()
+        wl.download(lang='de')
+        assert list(wl.get_words()) == ['der', 'und']
+
+    def test_download_en(self, local_android_download):
+        # we can download an english wordlist.
+        wl = AndroidWordList()
+        wl.download(lang='en')
+        assert list(wl.get_words()) == [
+                'the', 'to', 'of', 'and', 'hardcore', 'import']
+
     def test_android_wordlist_metadata(self):
         # we can extract metadata from android wordfiles
         data = (
@@ -457,16 +470,3 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList("file:////%s" % str(dictfile_android_short_de))
         wl.download()
         assert [x for x in wl.get_words()] == ["der", "und"]
-
-    def test_download_de(self, local_android_download):
-        # we can download a german wordlist.
-        wl = AndroidWordList()
-        wl.download(lang='de')
-        assert list(wl.get_words()) == ['der', 'und']
-
-    def test_download_en(self, local_android_download):
-        # we can download an english wordlist.
-        wl = AndroidWordList()
-        wl.download(lang='en')
-        assert list(wl.get_words()) == [
-                'the', 'to', 'of', 'and', 'hardcore', 'import']
