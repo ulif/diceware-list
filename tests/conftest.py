@@ -66,20 +66,6 @@ def dictfile_android_short_de(request, tmpdir):
 
 
 @pytest.fixture
-def dictfile_android_short_de_b64(request, tmpdir):
-    """py.test fixture providing zipped, base64-encoded file.
-
-    The file is gzipped and base64-encoded. Files downloaded from `gitiles` (as
-    Android sources) come base64-encode. Annoying.
-    """
-    dictfile = tmpdir / "de_wordlist.combined.gz"
-    src_path = os.path.join(
-            os.path.dirname(__file__), "sample_short_wordlist_de.gz")
-    dictfile.write(base64.b64encode(open(src_path, "rb").read()))
-    return dictfile
-
-
-@pytest.fixture
 def local_android_download(request, monkeypatch, tmpdir):
     """py.test fixture providing an AndroidWordList with local wordlists.
 
