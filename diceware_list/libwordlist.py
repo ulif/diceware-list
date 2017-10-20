@@ -468,6 +468,13 @@ class AndroidWordList(object):
         Android wordlists can be retrieved from source. There are different
         files for different languages, identified by 2-letter countrycodes like
         "en" for english or "de" for german.
+
+        See::
+
+            https://android.googlesource.com/platform/packages/inputmethods/
+                    LatinIME/+/master/dictionaries/
+
+        for a complete list of available lists.
         """
         url = self.path
         if self.path is None:
