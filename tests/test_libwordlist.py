@@ -379,7 +379,7 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList("/path/to/my/wordlist")
         assert wl.path == "/path/to/my/wordlist"
 
-    def test_android_wordlist_download(self, local_android_download):
+    def test_android_wordlist_download(self, local_android_download_b64):
         # we can download wordfiles that are base64 encoded.
         wl = AndroidWordList()
         wl.download(lang="de")
@@ -389,13 +389,13 @@ class TestAndroidWordlist(object):
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
             b'flags=,originalFreq=213\n')
 
-    def test_download_de(self, local_android_download):
+    def test_download_de(self, local_android_download_b64):
         # we can download a german wordlist.
         wl = AndroidWordList()
         wl.download(lang='de')
         assert list(wl.get_words()) == ['der', 'und']
 
-    def test_download_en(self, local_android_download):
+    def test_download_en(self, local_android_download_b64):
         # we can download an english wordlist.
         wl = AndroidWordList()
         wl.download(lang='en')
