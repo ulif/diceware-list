@@ -487,6 +487,11 @@ class AndroidWordList(object):
         # is not available in Python 2.x.
         self._data = zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
+    def decompress(self):
+        # this is a dirty substitute for `gzip.decompress()` which
+        # is not available in Python 2.x.
+        return zlib.decompress(self._data, 16 + zlib.MAX_WBITS)
+
     def get_meta_data(self):
         """Return metadata for an Android wordlist as dict.
 
