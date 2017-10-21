@@ -483,7 +483,7 @@ class AndroidWordList(object):
         if self.path is None:
             # the android `gitiles` repo provides files only base64 encoded.
             data = base64.b64decode(data)
-        self._data = self.decompress(data)
+        return data
 
     def decompress(self, data):
         """Gunzip data in `data`.
