@@ -494,32 +494,32 @@ class AndroidWordList(object):
         # is not available in Python 2.x.
         return zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
-    def get_meta_data(self):
+    def get_meta_data(self, data=None):
         """Return metadata for an Android wordlist as dict.
 
         The metadata is extracted each time, the method ist called. It requires
         a prior download or registration of a wordlist. Otherwise the empty
         dict is returned.
         """
-        if self._data is None:
+        if data is None:
             return {}
-        for data_item in self.parse_lines():
+        for data_item in self.parse_lines(data):
             return data_item
         return {}
 
-    def parse_lines(self):
+    def parse_lines(self, data):
         """Get stored data as tuples of key-value pairs.
 
         Result is given as dict.
         """
-        for line in self._data.split(b'\n'):
+        for line in data.split(b'\n'):
             if not line:
                 continue  # ignore empty lines
             line = line.decode('utf-8')
             data = [tuple(x.strip().split('=')) for x in line.split(',')]
             yield dict(data)
 
-    def get_words(self, lang="en"):
+    def get_words(self, data, lang="en"):
         """Get the basic words out of an Android word list.
 
         Android wordlists contain lots of meta data. This method returns only
@@ -531,7 +531,7 @@ class AndroidWordList(object):
 
         This method returns a generator.
         """
-        for line in self.parse_lines():
+        for line in self.parse_lines(data):
             if 'word' not in line.keys():
                 continue
             yield line['word']

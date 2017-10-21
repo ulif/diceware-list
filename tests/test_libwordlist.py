@@ -382,8 +382,8 @@ class TestAndroidWordlist(object):
     def test_android_wordlist_download(self, local_android_download_b64):
         # we can download wordfiles that are base64 encoded.
         wl = AndroidWordList()
-        wl.download(lang="de")
-        assert wl._data == (
+        dl_data = wl.download(lang="de")
+        assert wl.decompress(dl_data) == (
             b'dictionary=main:de,locale=de,description=Deutsch,'
             b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
@@ -392,15 +392,15 @@ class TestAndroidWordlist(object):
     def test_download_de(self, local_android_download_b64):
         # we can download a german wordlist.
         wl = AndroidWordList()
-        wl.download(lang='de')
-        assert list(wl.get_words()) == ['der', 'und']
+        data = wl.decompress(wl.download(lang='de'))
+        assert list(wl.get_words(data)) == ['der', 'und']
 
     def test_download_en(self, local_android_download_b64):
         # we can download an english wordlist.
         wl = AndroidWordList()
-        wl.download(lang='en')
-        assert list(wl.get_words()) == [
-                'the', 'to', 'of', 'and', 'hardcore', 'import']
+        data = wl.decompress(wl.download(lang='en'))
+        assert list(wl.get_words(data)) == [
+            'the', 'to', 'of', 'and', 'hardcore', 'import']
 
     def test_decompress(self, local_android_dir):
         # we can decompress downloaded stuff.
@@ -417,8 +417,7 @@ class TestAndroidWordlist(object):
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
             b'flags=,originalFreq=213\n')
         wl = AndroidWordList()
-        wl._data = data
-        meta = wl.get_meta_data()
+        meta = wl.get_meta_data(data)
         assert meta == {
                 'dictionary': 'main:de',
                 'locale': 'de',
@@ -447,8 +446,7 @@ class TestAndroidWordlist(object):
             b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
             b'flags=,originalFreq=213\n')
         wl = AndroidWordList()
-        wl._data = data
-        lines = wl.parse_lines()
+        lines = wl.parse_lines(data)
         assert [x for x in lines] == [
             {
                 'dictionary': 'main:de',
@@ -468,12 +466,11 @@ class TestAndroidWordlist(object):
     def test_parse_lines_ignores_empty_lines(self):
         # empty lines in wordlist files are ignored by the parser
         wl = AndroidWordList()
-        wl._data = b'\n\n\n'
-        lines = wl.parse_lines()
+        lines = wl.parse_lines(b'\n\n\n')
         assert list(lines) == []
 
     def test_get_words(self, dictfile_android_short_de):
         # we can get plain wordlists from Android lists
         wl = AndroidWordList("file:////%s" % str(dictfile_android_short_de))
-        wl.download()
-        assert [x for x in wl.get_words()] == ["der", "und"]
+        data = wl.decompress(wl.download())
+        assert [x for x in wl.get_words(data)] == ["der", "und"]
