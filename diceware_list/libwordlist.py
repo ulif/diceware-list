@@ -488,6 +488,10 @@ class AndroidWordList(object):
         self._data = zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
     def decompress(self):
+        """Gunzip data in `_data`.
+
+        Returns the unzipped data.
+        """
         # this is a dirty substitute for `gzip.decompress()` which
         # is not available in Python 2.x.
         return zlib.decompress(self._data, 16 + zlib.MAX_WBITS)
