@@ -402,6 +402,13 @@ class TestAndroidWordlist(object):
         assert list(wl.get_words()) == [
                 'the', 'to', 'of', 'and', 'hardcore', 'import']
 
+    def test_decompress(self, local_android_dir):
+        # we can decompress downloaded stuff.
+        wl = AndroidWordList()
+        path = local_android_dir / "de_wordlist.combined.gz"
+        wl._data = path.read_binary()
+        assert wl.decompress().startswith(b"dictionary=main:de,locale=de")
+
     def test_android_wordlist_metadata(self):
         # we can extract metadata from android wordfiles
         data = (
