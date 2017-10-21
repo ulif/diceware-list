@@ -66,6 +66,27 @@ def dictfile_android_short_de(request, tmpdir):
 
 
 @pytest.fixture
+def local_android_dir(request, tmpdir):
+    """py.test fixture providing an AndroidWordList with local wordlists.
+
+    Copies all local sample wordlists into a new tmpdir and returns the path to
+    this dir.
+
+    The files are not base64 encoded and the `AndroidWordList.base_url` stays
+    untouched.
+
+    For simulating file downloads from repository, use
+    `local_android_download_b64` fixture below.
+    """
+    for lang in ['de', 'en']:
+        dictfile = tmpdir / ("%s_wordlist.combined.gz" % lang)
+        src_path = os.path.join(
+            os.path.dirname(__file__), "sample_short_wordlist_%s.gz" % lang)
+        shutil.copyfile(src_path, str(dictfile))
+    return tmpdir
+
+
+@pytest.fixture
 def local_android_download_b64(request, monkeypatch, tmpdir):
     """py.test fixture providing an AndroidWordList with local wordlists.
 
