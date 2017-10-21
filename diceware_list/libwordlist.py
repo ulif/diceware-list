@@ -483,18 +483,16 @@ class AndroidWordList(object):
         if self.path is None:
             # the android `gitiles` repo provides files only base64 encoded.
             data = base64.b64decode(data)
-        # this is a dirty substitute for `gzip.decompress()` which
-        # is not available in Python 2.x.
-        self._data = zlib.decompress(data, 16 + zlib.MAX_WBITS)
+        self._data = self.decompress(data)
 
-    def decompress(self):
-        """Gunzip data in `_data`.
+    def decompress(self, data):
+        """Gunzip data in `data`.
 
         Returns the unzipped data.
         """
         # this is a dirty substitute for `gzip.decompress()` which
         # is not available in Python 2.x.
-        return zlib.decompress(self._data, 16 + zlib.MAX_WBITS)
+        return zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
     def get_meta_data(self):
         """Return metadata for an Android wordlist as dict.
