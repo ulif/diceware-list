@@ -435,8 +435,7 @@ class TestAndroidWordlist(object):
     def test_android_wordlist_metadata_empty(self):
         # we cope with situation, where the wordfile is empty
         wl = AndroidWordList()
-        wl._data = b''
-        assert wl.get_meta_data() == {}
+        assert wl.get_meta_data(b'') == {}
 
     def test_parse_lines(self):
         # we can raw parse simple lists
