@@ -451,6 +451,9 @@ class AndroidWordList(object):
 
     `AndroidWordList` objects provide methods to download and parse these
     lists.
+
+    By default we use well-know URLs to download wordlists. But we also accept
+    paths given at initialization.
     """
     #: The URL where the wordlists for Android are available.
     base_url = (
@@ -475,6 +478,8 @@ class AndroidWordList(object):
                     LatinIME/+/master/dictionaries/
 
         for a complete list of available lists.
+
+        The downloaded data is returned.
         """
         url = self.path
         if self.path is None:
@@ -497,9 +502,8 @@ class AndroidWordList(object):
     def get_meta_data(self, data=None):
         """Return metadata for an Android wordlist as dict.
 
-        The metadata is extracted each time, the method ist called. It requires
-        a prior download or registration of a wordlist. Otherwise the empty
-        dict is returned.
+        Extracts metadata from regular Android wordlists, given in `data`. If
+        there is no data, the empty dict is returned.
         """
         if data is None:
             return {}
@@ -508,9 +512,13 @@ class AndroidWordList(object):
         return {}
 
     def parse_lines(self, data):
-        """Get stored data as tuples of key-value pairs.
+        """Turn `data` in tuples of key-value pairs.
 
         Result is given as dict.
+
+        Input data should be uncompressed file data from an Android wordlist.
+
+        This method returns a generator.
         """
         for line in data.split(b'\n'):
             if not line:
