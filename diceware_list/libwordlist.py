@@ -487,7 +487,8 @@ class AndroidWordList(object):
 
         for a complete list of available lists.
 
-        The downloaded data is returned.
+        The downloaded data is returned and stored in local `gz_data`
+        attribute.
         """
         url = self.path
         if self.path is None:
@@ -511,15 +512,17 @@ class AndroidWordList(object):
     def get_meta_data(self):
         """Return metadata for an Android wordlist as dict.
 
-        Extracts metadata from regular Android wordlists, given in `data`. If
-        there is no data, the empty dict is returned.
+        Extracts metadata from regular Android wordlists, given in local
+        `gz_data` attribute . If there is no data, the empty dict is returned.
         """
         for data_item in self.parse_lines():
             return data_item
         return {}
 
     def parse_lines(self):
-        """Turn `data` in tuples of key-value pairs.
+        """Turn data from local word file list  in tuples of key-value pairs.
+
+        Extracts data from local `gz_data`.
 
         Result is given as dict.
 
@@ -541,10 +544,6 @@ class AndroidWordList(object):
 
         Android wordlists contain lots of meta data. This method returns only
         the words contained.
-
-        The language given with `lang` indicates which wordlist to download in
-        case there was no file path given already with the `AndroidWordList`
-        initialization.
 
         This method returns a generator.
         """
