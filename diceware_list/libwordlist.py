@@ -459,7 +459,7 @@ class AndroidWordList(object):
     to call `download()` explicitly. Local files are expected to contain lists
     in gzipped format.
 
-    Files once handled are stored in `gz_data` attribute.
+    Files once handled are stored in `gz_data`.
     """
     #: The URL where the wordlists for Android are available.
     base_url = (
@@ -508,19 +508,17 @@ class AndroidWordList(object):
         # is not available in Python 2.x.
         return zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
-    def get_meta_data(self, data=None):
+    def get_meta_data(self):
         """Return metadata for an Android wordlist as dict.
 
         Extracts metadata from regular Android wordlists, given in `data`. If
         there is no data, the empty dict is returned.
         """
-        if data is None:
-            return {}
-        for data_item in self.parse_lines(data):
+        for data_item in self.parse_lines():
             return data_item
         return {}
 
-    def parse_lines(self, data):
+    def parse_lines(self):
         """Turn `data` in tuples of key-value pairs.
 
         Result is given as dict.
@@ -529,14 +527,16 @@ class AndroidWordList(object):
 
         This method returns a generator.
         """
-        for line in data.split(b'\n'):
-            if not line:
-                continue  # ignore empty lines
-            line = line.decode('utf-8')
-            data = [tuple(x.strip().split('=')) for x in line.split(',')]
-            yield dict(data)
+        if self.gz_data is not None:
+            data = self.decompress(self.gz_data)
+            for line in data.split(b'\n'):
+                if not line:
+                    continue  # ignore empty lines
+                line = line.decode('utf-8')
+                data = [tuple(x.strip().split('=')) for x in line.split(',')]
+                yield dict(data)
 
-    def get_words(self, data, lang="en"):
+    def get_words(self, lang="en"):
         """Get the basic words out of an Android word list.
 
         Android wordlists contain lots of meta data. This method returns only
@@ -548,7 +548,7 @@ class AndroidWordList(object):
 
         This method returns a generator.
         """
-        for line in self.parse_lines(data):
+        for line in self.parse_lines():
             if 'word' not in line.keys():
                 continue
             yield line['word']

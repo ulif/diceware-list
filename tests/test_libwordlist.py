@@ -18,6 +18,7 @@
 # Tests for libwordlist module
 from __future__ import unicode_literals
 import codecs
+import gzip
 import random
 from diceware_list import DEFAULT_CHARS
 from diceware_list.libwordlist import (
@@ -26,6 +27,11 @@ from diceware_list.libwordlist import (
     is_prefix_code, get_matching_prefixes, get_prefixes,
     strip_matching_prefixes, flatten_prefix_tree, AndroidWordList
     )
+
+
+EMPTY_GZ_FILE = (
+    b'\x1f\x8b\x08\x08\xea\xc1\xecY\x02\xffsample_emtpy'
+    b'\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00')
 
 
 def test_base10_to_n():
@@ -411,15 +417,12 @@ class TestAndroidWordlist(object):
         data = path.read_binary()
         assert wl.decompress(data).startswith(b"dictionary=main:de,locale=de")
 
-    def test_android_wordlist_metadata(self):
+    def test_android_wordlist_metadata(self, local_android_dir):
         # we can extract metadata from android wordfiles
-        data = (
-            b'dictionary=main:de,locale=de,description=Deutsch,'
-            b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
-            b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
-            b'flags=,originalFreq=213\n')
+        path = local_android_dir / "de_wordlist.combined.gz"
         wl = AndroidWordList()
-        meta = wl.get_meta_data(data)
+        wl.gz_data = path.read_binary()
+        meta = wl.get_meta_data()
         assert meta == {
                 'dictionary': 'main:de',
                 'locale': 'de',
@@ -437,17 +440,14 @@ class TestAndroidWordlist(object):
     def test_android_wordlist_metadata_empty(self):
         # we cope with situation, where the wordfile is empty
         wl = AndroidWordList()
-        assert wl.get_meta_data(b'') == {}
+        wl.gz_data = EMPTY_GZ_FILE
+        assert wl.get_meta_data() == {}
 
-    def test_parse_lines(self):
+    def test_parse_lines(self, local_android_dir):
         # we can raw parse simple lists
-        data = (
-            b'dictionary=main:de,locale=de,description=Deutsch,'
-            b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
-            b'\n word=der,f=216,flags=,originalFreq=216\n word=und,f=213,'
-            b'flags=,originalFreq=213\n')
-        wl = AndroidWordList()
-        lines = wl.parse_lines(data)
+        path = local_android_dir / "de_wordlist.combined.gz"
+        wl = AndroidWordList('file:////%s' % path)
+        lines = wl.parse_lines()
         assert [x for x in lines] == [
             {
                 'dictionary': 'main:de',
@@ -464,10 +464,13 @@ class TestAndroidWordlist(object):
                 'originalFreq': '213'},
         ]
 
-    def test_parse_lines_ignores_empty_lines(self):
+    def test_parse_lines_ignores_empty_lines(self, tmpdir):
         # empty lines in wordlist files are ignored by the parser
-        wl = AndroidWordList()
-        lines = wl.parse_lines(b'\n\n\n')
+        path = tmpdir / 'sample_empty_lines.gz'
+        with gzip.open(str(path), 'wb') as f:
+            f.write(b'\n\n\n')
+        wl = AndroidWordList('file:////%s' % path)
+        lines = wl.parse_lines()
         assert list(lines) == []
 
     def test_get_words(self, dictfile_android_short_de):
