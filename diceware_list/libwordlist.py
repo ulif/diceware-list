@@ -539,7 +539,7 @@ class AndroidWordList(object):
                 data = [tuple(x.strip().split('=')) for x in line.split(',')]
                 yield dict(data)
 
-    def get_words(self, lang="en"):
+    def get_words(self):
         """Get the basic words out of an Android word list.
 
         Android wordlists contain lots of meta data. This method returns only

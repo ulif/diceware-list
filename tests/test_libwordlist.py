@@ -400,14 +400,14 @@ class TestAndroidWordlist(object):
     def test_download_de(self, local_android_download_b64):
         # we can download a german wordlist.
         wl = AndroidWordList()
-        data = wl.decompress(wl.download(lang='de'))
-        assert list(wl.get_words(data)) == ['der', 'und']
+        wl.download(lang='de')
+        assert list(wl.get_words()) == ['der', 'und']
 
     def test_download_en(self, local_android_download_b64):
         # we can download an english wordlist.
         wl = AndroidWordList()
-        data = wl.decompress(wl.download(lang='en'))
-        assert list(wl.get_words(data)) == [
+        wl.download(lang='en')
+        assert list(wl.get_words()) == [
             'the', 'to', 'of', 'and', 'hardcore', 'import']
 
     def test_decompress(self, local_android_dir):
@@ -476,5 +476,4 @@ class TestAndroidWordlist(object):
     def test_get_words(self, dictfile_android_short_de):
         # we can get plain wordlists from Android lists
         wl = AndroidWordList("file:////%s" % str(dictfile_android_short_de))
-        data = wl.decompress(wl.download())
-        assert [x for x in wl.get_words(data)] == ["der", "und"]
+        assert [x for x in wl.get_words()] == ["der", "und"]
