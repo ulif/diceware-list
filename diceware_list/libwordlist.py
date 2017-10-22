@@ -463,6 +463,8 @@ class AndroidWordList(object):
 
     def __init__(self, path=None):
         self.path = path
+        if self.path is not None:
+            self.download()
 
     def download(self, lang="en"):
         """Download an android wordlist from upstream.
