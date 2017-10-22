@@ -454,6 +454,12 @@ class AndroidWordList(object):
 
     By default we use well-know URLs to download wordlists. But we also accept
     paths given at initialization.
+
+    If a `path` is given, we download the file on start-up. Otherwise, you have
+    to call `download()` explicitly. Local files are expected to contain lists
+    in gzipped format.
+
+    Files once handled are stored in `gz_data` attribute.
     """
     #: The URL where the wordlists for Android are available.
     base_url = (
