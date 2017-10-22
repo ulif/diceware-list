@@ -463,6 +463,7 @@ class AndroidWordList(object):
 
     def __init__(self, path=None):
         self.path = path
+        self.gz_data = None
         if self.path is not None:
             self.download()
 
@@ -489,7 +490,8 @@ class AndroidWordList(object):
         if self.path is None:
             # the android `gitiles` repo provides files only base64 encoded.
             data = base64.b64decode(data)
-        return data
+        self.gz_data = data
+        return self.gz_data
 
     def decompress(self, data):
         """Gunzip data in `data`.
