@@ -374,7 +374,7 @@ def test_flatten_prefix_tree():
 
 class TestAndroidWordlist(object):
 
-    def test_android_wordlist_attributes(self):
+    def test_attributes(self):
         # android wordlists objects provide some attributes we expect
         wl = AndroidWordList()
         assert hasattr(wl, "base_url")
@@ -387,7 +387,7 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList('file:////%s' % path)
         assert wl.path == 'file:////%s' % path
 
-    def test_android_wordlist_download(self, local_android_download_b64):
+    def test_download(self, local_android_download_b64):
         # we can download wordfiles that are base64 encoded.
         wl = AndroidWordList()
         dl_data = wl.download(lang="de")
@@ -417,7 +417,7 @@ class TestAndroidWordlist(object):
         data = path.read_binary()
         assert wl.decompress(data).startswith(b"dictionary=main:de,locale=de")
 
-    def test_android_wordlist_metadata(self, local_android_dir):
+    def test_metadata(self, local_android_dir):
         # we can extract metadata from android wordfiles
         path = local_android_dir / "de_wordlist.combined.gz"
         wl = AndroidWordList()
@@ -432,12 +432,12 @@ class TestAndroidWordlist(object):
                 'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'
         }
 
-    def test_android_wordlist_metadata_none(self):
+    def test_metadata_none(self):
         # we cope with situation, when no wordfile was set before.
         wl = AndroidWordList()
         assert wl.get_meta_data() == {}
 
-    def test_android_wordlist_metadata_empty(self):
+    def test_metadata_empty(self):
         # we cope with situation, where the wordfile is empty
         wl = AndroidWordList()
         wl.gz_data = EMPTY_GZ_FILE
