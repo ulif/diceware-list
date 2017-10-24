@@ -509,7 +509,7 @@ class AndroidWordList(object):
         # is not available in Python 2.x.
         return zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
-    def save(self, path, lang="en"):
+    def save(self, path):
         """Save downloaded wordlist to file `path`.
 
         If no wordlist file was downloaded before, nothing happens.

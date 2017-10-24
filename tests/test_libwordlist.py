@@ -426,6 +426,13 @@ class TestAndroidWordlist(object):
         assert path.isfile()
         assert path.size() == 235
 
+    def test_save_no_data(self, local_android_download_b64, tmpdir):
+        # we do not complain when no data was downloaded already
+        wl = AndroidWordList()
+        path = tmpdir / 'mywordlist.gz'
+        wl.save(str(path))
+        assert not path.isfile()
+
     def test_metadata(self, local_android_dir):
         # we can extract metadata from android wordfiles
         path = local_android_dir / "de_wordlist.combined.gz"
