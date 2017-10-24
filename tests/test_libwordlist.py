@@ -417,6 +417,15 @@ class TestAndroidWordlist(object):
         data = path.read_binary()
         assert wl.decompress(data).startswith(b"dictionary=main:de,locale=de")
 
+    def test_save(self, local_android_download_b64, tmpdir):
+        # we can save downloaded wordlists.
+        wl = AndroidWordList()
+        wl.download(lang='en')
+        path = tmpdir / 'mywordlist.gz'
+        wl.save(str(path))
+        assert path.isfile()
+        assert path.size() == 235
+
     def test_metadata(self, local_android_dir):
         # we can extract metadata from android wordfiles
         path = local_android_dir / "de_wordlist.combined.gz"

@@ -509,6 +509,12 @@ class AndroidWordList(object):
         # is not available in Python 2.x.
         return zlib.decompress(data, 16 + zlib.MAX_WBITS)
 
+    def save(self, path):
+        if self.gz_data is None:
+            return
+        with open(path, 'wb') as f:
+            f.write(self.gz_data)
+
     def get_meta_data(self):
         """Return metadata for an Android wordlist as dict.
 
