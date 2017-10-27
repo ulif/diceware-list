@@ -107,3 +107,12 @@ def local_android_download_b64(request, monkeypatch, tmpdir):
             "diceware_list.libwordlist.AndroidWordList.base_url",
             fake_base_url)
     return tmpdir
+
+
+@pytest.fixture(scope="function")
+def home_dir(request, monkeypatch, tmpdir):
+    """This fuxture provides a temporary user home.
+    """
+    tmpdir.mkdir("home")
+    monkeypatch.setenv("HOME", str(tmpdir / "home"))
+    return tmpdir / "home"
