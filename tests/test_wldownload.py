@@ -19,9 +19,20 @@
 from __future__ import unicode_literals
 import pytest
 import sys
+from diceware_list import __version__
 from diceware_list.wldownload import (
         download_wordlist, get_cmdline_args, main
         )
+
+
+class TestArgParser(object):
+
+    def test_version(self, monkeypatch, capfd):
+        # we can output current version.
+        with pytest.raises(SystemExit):
+            get_cmdline_args(["--version", ])
+        out, err = capfd.readouterr()
+        assert __version__ in (out + err)
 
 
 class TestMain(object):
