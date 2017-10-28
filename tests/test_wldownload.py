@@ -26,6 +26,13 @@ from diceware_list.wldownload import (
 
 class TestMain(object):
 
+    def test_main(self, monkeypatch, capfd):
+        # we can call the main function
+        monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        main()
+        out, err = capfd.readouterr()
+        assert out == ""
+
     def test_can_get_help(self, monkeypatch, capfd, home_dir):
         # we can get help
         monkeypatch.setattr(sys, "argv", ["scriptname", "--help"])

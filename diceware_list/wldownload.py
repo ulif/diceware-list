@@ -38,7 +38,7 @@ def get_cmdline_args(args=None):
 def download_wordlist():
     """Download and mangle remote wordlists.
     """
-    pass
+    wl = AndroidWordList()
 
 
 def main():
