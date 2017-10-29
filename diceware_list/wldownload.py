@@ -39,6 +39,8 @@ def download_wordlist():
     """Download and mangle remote wordlists.
     """
     wl = AndroidWordList()
+    wl.download()
+    wl.save(wl.get_basename())
 
 
 def main():
