@@ -37,12 +37,13 @@ class TestArgParser(object):
 
 class TestMain(object):
 
-    def test_main(self, monkeypatch, capfd):
+    def test_main(
+            self, monkeypatch, local_android_download_b64, home_dir):
         # we can call the main function
-        monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        download_path = home_dir / "en_wordlist.combined.gz"
+        monkeypatch.setattr(sys, "argv", ["scriiptname", ])
         main()
-        out, err = capfd.readouterr()
-        assert out == ""
+        assert download_path.exists()
 
     def test_can_get_help(self, monkeypatch, capfd, home_dir):
         # we can get help
