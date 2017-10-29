@@ -433,6 +433,25 @@ class TestAndroidWordlist(object):
         wl.save(str(path))
         assert not path.isfile()
 
+    def test_get_basename(self):
+        # we can get the basename of the file to download
+        wl = AndroidWordList()
+        assert wl.get_basename() == "en_wordlist.combined.gz"
+
+    def test_get_basename_lang(self, local_android_download_b64):
+        # when getting basename, we can select the language
+        wl = AndroidWordList()
+        assert wl.get_basename(lang="de") == "de_wordlist.combined.gz"
+
+    def test_get_basename_path(self, local_android_dir):
+        # we get a correct basename also if path is set manually
+        wl = AndroidWordList()
+        path1 = local_android_dir / "de_wordlist.combined.gz"
+        path2 = local_android_dir / "my_wordlist.gzip"
+        path1.copy(path2)
+        wl = AndroidWordList('file:////%s' % path2)
+        assert wl.get_basename(lang="foo") == "my_wordlist.gzip"
+
     def test_metadata(self, local_android_dir):
         # we can extract metadata from android wordfiles
         path = local_android_dir / "de_wordlist.combined.gz"

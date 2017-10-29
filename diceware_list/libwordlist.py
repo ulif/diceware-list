@@ -22,6 +22,7 @@ try:
     from urllib.request import urlopen  # python 3.x
 except ImportError:                     # pragma: no cover
     from urllib2 import urlopen         # python 2.x
+from urllib.parse import urlparse
 import base64
 import logging
 import os
@@ -521,6 +522,14 @@ class AndroidWordList(object):
             return
         with open(path, 'wb') as f:
             f.write(self.gz_data)
+
+    def get_basename(self, lang="en"):
+        """Get basename of the file to download.
+        """
+        url = self.path
+        if self.path is None:
+            url = self.base_url % lang
+        return os.path.basename(urlparse(url).path)
 
     def get_meta_data(self):
         """Return metadata for an Android wordlist as dict.
