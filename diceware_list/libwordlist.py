@@ -22,7 +22,10 @@ try:
     from urllib.request import urlopen  # python 3.x
 except ImportError:                     # pragma: no cover
     from urllib2 import urlopen         # python 2.x
-from urllib.parse import urlparse
+try:
+    from urllib.parse import urlparse   # python 3.x
+except ImportError:                     # pragma: no cover
+    from urlparse import urlparse       # python 2.x
 import base64
 import logging
 import os
