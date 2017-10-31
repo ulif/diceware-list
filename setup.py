@@ -69,6 +69,7 @@ setup(
         'console_scripts': [
             'diceware-list = diceware_list:main',
             'wlflakes = diceware_list.wlflakes:main',
+            'wldownload = diceware_list.wldownload:main',
         ],
     },
 )
