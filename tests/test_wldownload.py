@@ -25,6 +25,13 @@ from diceware_list.wldownload import (
         )
 
 
+def test_download_wordlist(home_dir, local_android_download_b64):
+    # we can download wordlists
+    download_path = home_dir / "en_wordlist.combined.gz"
+    download_wordlist()
+    assert download_path.exists()
+
+
 class TestArgParser(object):
 
     def test_version(self, monkeypatch, capfd):
