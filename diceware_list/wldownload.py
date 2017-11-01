@@ -35,7 +35,7 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
-def download_wordlist():
+def download_wordlist(verbose=None):
     """Download and mangle remote wordlists.
     """
     wl = AndroidWordList()
@@ -47,4 +47,4 @@ def main():
     """Main function for `wldownload` script.
     """
     args = get_cmdline_args()
-    download_wordlist()
+    download_wordlist(verbose=args.verbose)
