@@ -19,7 +19,7 @@
 from __future__ import unicode_literals
 import argparse
 from diceware_list import __version__
-from diceware_list.libwordlist import AndroidWordList
+from diceware_list.libwordlist import AndroidWordList, logger
 
 
 def get_cmdline_args(args=None):
@@ -39,8 +39,10 @@ def download_wordlist(verbose=None):
     """Download and mangle remote wordlists.
     """
     wl = AndroidWordList()
+    logger.info("Starting download of Android wordlist file.")
     wl.download()
     wl.save(wl.get_basename())
+    logger.info("Done.")
 
 
 def main():
