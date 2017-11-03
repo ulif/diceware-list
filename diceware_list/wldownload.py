@@ -18,6 +18,7 @@
 """
 from __future__ import unicode_literals
 import argparse
+import logging
 from diceware_list import __version__
 from diceware_list.libwordlist import AndroidWordList, logger
 
@@ -49,4 +50,6 @@ def main():
     """Main function for `wldownload` script.
     """
     args = get_cmdline_args()
+    logger.setLevel(logging.INFO)
+    logger.addHandler(logging.StreamHandler())
     download_wordlist(verbose=args.verbose)
