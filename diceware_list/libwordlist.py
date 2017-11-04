@@ -497,6 +497,7 @@ class AndroidWordList(object):
         url = self.path
         if self.path is None:
             url = self.base_url % lang
+        logger.info("Fetching wordlist from %s" % url)
         data = urlopen(url).read()
         if self.path is None:
             # the android `gitiles` repo provides files only base64 encoded.
