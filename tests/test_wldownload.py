@@ -41,6 +41,17 @@ class TestArgParser(object):
         out, err = capfd.readouterr()
         assert __version__ in (out + err)
 
+    def test_verbose(self):
+        # we can require verbosity
+        args = get_cmdline_args([])
+        assert args.verbose is None
+        args = get_cmdline_args(["-v", ])
+        assert args.verbose == 1
+        args = get_cmdline_args(["--verbose", ])
+        assert args.verbose == 1
+        args = get_cmdline_args(["-vv", ])
+        assert args.verbose == 2
+
 
 class TestMain(object):
 
