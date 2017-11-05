@@ -50,6 +50,9 @@ def main():
     """Main function for `wldownload` script.
     """
     args = get_cmdline_args()
-    logger.setLevel(logging.INFO)
-    logger.addHandler(logging.StreamHandler())
+    if args.verbose:
+        logger.setLevel(logging.INFO)
+        if args.verbose > 1:
+            logger.setLevel(logging.DEBUG)
+        logger.addHandler(logging.StreamHandler())
     download_wordlist(verbose=args.verbose)
