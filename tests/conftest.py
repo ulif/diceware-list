@@ -112,7 +112,7 @@ def local_android_download_b64(request, monkeypatch, tmpdir):
 
 @pytest.fixture(scope="function")
 def home_dir(request, monkeypatch, tmpdir):
-    """This fuxture provides a temporary user home.
+    """This fixture provides a temporary user home.
 
     During run the user is changed to the temporary home dir.
     """
