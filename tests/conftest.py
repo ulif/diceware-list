@@ -18,6 +18,7 @@
 """py.test config for `diceware-list` modules.
 """
 import base64
+import logging
 import os
 import pytest
 import shutil
@@ -120,3 +121,16 @@ def home_dir(request, monkeypatch, tmpdir):
     path = tmpdir / "home"
     path.chdir()
     return path
+
+
+@pytest.fixture(scope="function", autouse=True)
+def teardown_loggers():
+    """This fixture will remove any lingering loghandlers after test.
+
+    The `yield` syntax is a shortcut to define setup and teardown code.
+    """
+    yield "will-remove-lingering-loghandlers"
+    logger = logging.getLogger("libwordlist")
+    for handler in logger.handlers:
+        logger.removeHandler(handler)
+        logger.setLevel(logging.NOTSET)
