@@ -70,3 +70,21 @@ class TestMain(object):
             main()
         out, err = capfd.readouterr()
         assert "show this help message" in out
+
+    def test_main_no_verbose(
+            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        # by default we do not output anything
+        monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        main()
+        out, err = capfd.readouterr()
+        assert out == ""
+        assert err == ""
+
+    def test_main_verbose(
+            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        # in verbose mode, we tell at least what we do
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-v"])
+        main()
+        out, err = capfd.readouterr()
+        assert out == ""
+        assert err != ""
