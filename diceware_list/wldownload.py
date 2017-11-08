@@ -42,6 +42,7 @@ def download_wordlist(verbose=None):
     wl = AndroidWordList()
     logger.info("Starting download of Android wordlist file.")
     wl.download()
+    logger.debug("Download finished. Basename: %s" % wl.get_basename())
     wl.save(wl.get_basename())
     logger.info("Done.")
 

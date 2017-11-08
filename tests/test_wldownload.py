@@ -88,3 +88,13 @@ class TestMain(object):
         out, err = capfd.readouterr()
         assert out == ""
         assert err != ""
+        assert "Basename" not in err
+
+    def test_main_verbose_increased(
+            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        # we can be more verbose
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-vv"])
+        main()
+        out, err = capfd.readouterr()
+        assert out == ""
+        assert "Basename" in err
