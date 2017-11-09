@@ -19,6 +19,7 @@
 from __future__ import unicode_literals
 import argparse
 import logging
+import os
 from diceware_list import __version__
 from diceware_list.libwordlist import AndroidWordList, logger
 
@@ -40,6 +41,10 @@ def download_wordlist(verbose=None):
     """Download and mangle remote wordlists.
     """
     wl = AndroidWordList()
+    basename = wl.get_basename()
+    if os.path.exists(basename):
+        logger.error("cannot create '%s': File exists" % basename)
+        return
     logger.info("Starting download of Android wordlist file.")
     wl.download()
     logger.debug("Download finished. Basename: %s" % wl.get_basename())
@@ -51,9 +56,10 @@ def main():
     """Main function for `wldownload` script.
     """
     args = get_cmdline_args()
+    logger.setLevel(logging.WARNING)
     if args.verbose:
         logger.setLevel(logging.INFO)
         if args.verbose > 1:
             logger.setLevel(logging.DEBUG)
-        logger.addHandler(logging.StreamHandler())
+    logger.addHandler(logging.StreamHandler())
     download_wordlist(verbose=args.verbose)
