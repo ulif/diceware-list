@@ -20,6 +20,7 @@ from __future__ import unicode_literals
 import argparse
 import logging
 import os
+import sys
 from diceware_list import __version__
 from diceware_list.libwordlist import AndroidWordList, logger
 
@@ -44,7 +45,7 @@ def download_wordlist(verbose=None):
     basename = wl.get_basename()
     if os.path.exists(basename):
         logger.error("cannot create '%s': File exists" % basename)
-        return
+        sys.exit(73)  # 73 is the EX_CANTCREAT exit code
     logger.info("Starting download of Android wordlist file.")
     wl.download()
     logger.debug("Download finished. Basename: %s" % wl.get_basename())
