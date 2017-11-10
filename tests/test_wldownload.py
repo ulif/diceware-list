@@ -98,3 +98,15 @@ class TestMain(object):
         out, err = capfd.readouterr()
         assert out == ""
         assert "Basename" in err
+
+    def test_main_existing_file_errors(
+            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        # we do not overwrite existing target files
+        monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        download_path = home_dir / "en_wordlist.combined.gz"
+        download_path.write("foo")
+        with pytest.raises(SystemExit):
+            main()
+        out, err = capfd.readouterr()
+        assert "File exists" in err
+        assert download_path.read() == "foo"  # original file unchanged
