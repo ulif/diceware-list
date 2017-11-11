@@ -43,6 +43,8 @@ def get_cmdline_args(args=None):
 def get_save_path(word_list, outfile=None):
     if outfile is None:
         result = os.path.join(os.getcwd(), word_list.get_basename())
+    else:
+        result = os.path.abspath(outfile)
     return result
 
 

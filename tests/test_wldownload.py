@@ -37,6 +37,8 @@ def test_get_save_path(home_dir):
     # we can clearly determine a path to store data
     wl = AndroidWordList()
     assert get_save_path(wl) == str(home_dir / "en_wordlist.combined.gz")
+    wl = AndroidWordList()
+    assert get_save_path(wl, outfile="foo") == str(home_dir / "foo")
 
 
 class TestArgParser(object):
