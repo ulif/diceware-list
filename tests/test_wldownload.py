@@ -52,6 +52,20 @@ class TestArgParser(object):
         args = get_cmdline_args(["-vv", ])
         assert args.verbose == 2
 
+    def test_outfile(self, capfd):
+        # we can set an output path
+        args = get_cmdline_args([])
+        assert args.outfile is None
+        args = get_cmdline_args(["-o", "foo", ])
+        assert args.outfile == "foo"
+        args = get_cmdline_args(["--outfile", "bar", ])
+        assert args.outfile == "bar"
+        with pytest.raises(SystemExit):
+            # the path should not be empty
+            get_cmdline_args(["-o", ])
+        out, err = capfd.readouterr()
+        assert "expected one argument" in err
+
 
 class TestMain(object):
 
