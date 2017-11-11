@@ -40,6 +40,12 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
+def get_save_path(word_list, outfile=None):
+    if outfile is None:
+        result = os.path.join(os.getcwd(), word_list.get_basename())
+    return result
+
+
 def download_wordlist(verbose=None):
     """Download and mangle remote wordlists.
     """
