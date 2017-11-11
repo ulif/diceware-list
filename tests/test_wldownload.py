@@ -20,8 +20,9 @@ from __future__ import unicode_literals
 import pytest
 import sys
 from diceware_list import __version__
+from diceware_list.libwordlist import AndroidWordList
 from diceware_list.wldownload import (
-        download_wordlist, get_cmdline_args, main
+        download_wordlist, get_save_path, get_cmdline_args, main
         )
 
 
@@ -30,6 +31,12 @@ def test_download_wordlist(home_dir, local_android_download_b64):
     download_path = home_dir / "en_wordlist.combined.gz"
     download_wordlist()
     assert download_path.exists()
+
+
+def test_get_save_path(home_dir):
+    # we can clearly determine a path to store data
+    wl = AndroidWordList()
+    assert get_save_path(wl) == str(home_dir / "en_wordlist.combined.gz")
 
 
 class TestArgParser(object):
