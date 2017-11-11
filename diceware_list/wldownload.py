@@ -31,7 +31,7 @@ def get_cmdline_args(args=None):
     parser = argparse.ArgumentParser(
         description="Download and mangle Android wordlists")
     parser.add_argument(
-        '-o', '--outfile', help='file to store output.')
+        '-o', '--outfile', action='store', help='file to store output.')
     parser.add_argument(
         '-v', '--verbose', action='count', help='be verbose.')
     parser.add_argument(
