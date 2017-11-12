@@ -41,6 +41,15 @@ def get_cmdline_args(args=None):
 
 
 def get_save_path(word_list, outfile=None):
+    """Compute a path, where to store wordlist files.
+
+    The `word_list` must be an `AndroidWordList` or something similar, that
+    provides a `get_basename` method.
+
+    The `outfile` is a path or filename normally given by users.
+
+    The returned path will be normalized and all that.
+    """
     if outfile is None:
         result = os.path.join(os.getcwd(), word_list.get_basename())
     else:
