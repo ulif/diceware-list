@@ -111,7 +111,7 @@ class TestMain(object):
         out, err = capfd.readouterr()
         assert out == ""
         assert err != ""
-        assert "Basename" not in err
+        assert "Path" not in err
 
     def test_main_verbose_increased(
             self, monkeypatch, local_android_download_b64, home_dir, capfd):
@@ -120,7 +120,7 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert out == ""
-        assert "Basename" in err
+        assert "Path" in err
 
     def test_main_existing_file_errors(
             self, monkeypatch, local_android_download_b64, home_dir, capfd):
