@@ -82,4 +82,4 @@ def main():
         if args.verbose > 1:
             logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
-    download_wordlist(verbose=args.verbose)
+    download_wordlist(verbose=args.verbose, outfile=args.outfile)
