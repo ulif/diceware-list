@@ -12,12 +12,14 @@ Create and check wordlists for use with `diceware`_.
 This is not a `diceware`_ implementation, but a helper to create appropriate
 wordlists.
 
-Currently, we provide two scripts:
+Currently, we provide three scripts:
 
-  - `diceware-list` created wordlists based on input lists
+  - `diceware-list` create wordlists based on input lists
   - `wlflakes` checks existing wordlists for flaws
+  - `wldownload` downloads Android wordlists
 
- Create wordlists for `diceware`_::
+
+The `diceware-list` script creates new lists out of given ones::
 
   $ diceware-list -n -l 7776 /usr/share/dict/words
   11111 a
