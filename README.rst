@@ -19,6 +19,9 @@ Currently, we provide three scripts:
   - `wldownload` downloads Android wordlists
 
 
+Create Wordlists: `diceware-list`
+---------------------------------
+
 The `diceware-list` script creates new lists out of given ones::
 
   $ diceware-list -n -l 7776 /usr/share/dict/words
