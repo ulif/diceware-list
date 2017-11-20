@@ -75,6 +75,13 @@ class TestArgParser(object):
         out, err = capfd.readouterr()
         assert "expected one argument" in err
 
+    def test_raw(self):
+        # we can request raw output
+        args = get_cmdline_args([])
+        assert args.raw is False
+        args = get_cmdline_args(['--raw', ])
+        assert args.raw is True
+
 
 class TestMain(object):
 
