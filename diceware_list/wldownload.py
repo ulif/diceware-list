@@ -60,7 +60,7 @@ def get_save_path(word_list, outfile=None):
     return result
 
 
-def download_wordlist(verbose=None, outfile=None):
+def download_wordlist(verbose=None, outfile=None, raw=False):
     """Download and mangle remote wordlists.
     """
     wl = AndroidWordList()
@@ -85,4 +85,5 @@ def main():
         if args.verbose > 1:
             logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
-    download_wordlist(verbose=args.verbose, outfile=args.outfile)
+    download_wordlist(
+        verbose=args.verbose, outfile=args.outfile, raw=args.raw)
