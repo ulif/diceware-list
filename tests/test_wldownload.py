@@ -26,11 +26,12 @@ from diceware_list.wldownload import (
         )
 
 
-def test_download_wordlist(home_dir, local_android_download_b64):
+def test_download_wordlist(home_dir, local_android_download_b64, capfd):
     # we can download wordlists
     download_path = home_dir / "en_wordlist.combined.gz"
     download_wordlist()
-    assert download_path.exists()
+    out, err = capfd.readouterr()
+    assert len(out) > 0
 
 
 def test_get_save_path(home_dir):
@@ -86,12 +87,12 @@ class TestArgParser(object):
 class TestMain(object):
 
     def test_main(
-            self, monkeypatch, local_android_download_b64, home_dir):
+            self, monkeypatch, local_android_download_b64, capfd):
         # we can call the main function
-        download_path = home_dir / "en_wordlist.combined.gz"
         monkeypatch.setattr(sys, "argv", ["scriiptname", ])
         main()
-        assert download_path.exists()
+        out, err = capfd.readouterr()
+        assert out.startswith("the\nto\nof\n")
 
     def test_can_get_help(self, monkeypatch, capfd, home_dir):
         # we can get help
@@ -103,12 +104,13 @@ class TestMain(object):
 
     def test_main_no_verbose(
             self, monkeypatch, local_android_download_b64, home_dir, capfd):
-        # by default we do not output anything
+        # by default we do not save any files.
         monkeypatch.setattr(sys, "argv", ["scriptname", ])
         main()
         out, err = capfd.readouterr()
-        assert out == ""
+        assert out != ""
         assert err == ""
+        assert home_dir.listdir() == []
 
     def test_main_verbose(
             self, monkeypatch, local_android_download_b64, home_dir, capfd):
