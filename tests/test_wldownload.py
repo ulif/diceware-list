@@ -118,7 +118,7 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", "-v"])
         main()
         out, err = capfd.readouterr()
-        assert out == ""
+        assert out.startswith("the\nto\nof\n")
         assert err != ""
         assert "Path" not in err
 
@@ -128,13 +128,13 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", "-vv"])
         main()
         out, err = capfd.readouterr()
-        assert out == ""
+        assert out.startswith("the\nto\nof\n")
         assert "Path" in err
 
     def test_main_existing_file_errors(
             self, monkeypatch, local_android_download_b64, home_dir, capfd):
         # we do not overwrite existing target files
-        monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        monkeypatch.setattr(sys, "argv", ["scriptname", "--raw"])
         download_path = home_dir / "en_wordlist.combined.gz"
         download_path.write("foo")
         with pytest.raises(SystemExit):
