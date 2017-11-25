@@ -75,8 +75,14 @@ def download_wordlist(verbose=None, outfile=None, raw=False):
         wl.save(path)
         logger.info("Done.")
     else:
-        for word in wl.get_words():
-            print(word)
+        if outfile:
+            with open(path, "w") as fd:
+                for word in wl.get_words():
+                    fd.write(word)
+                    fd.write("\n")
+        else:
+            for word in wl.get_words():
+                print(word)
 
 
 def main():

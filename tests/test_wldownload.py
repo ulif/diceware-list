@@ -125,10 +125,11 @@ class TestMain(object):
     def test_main_verbose_increased(
             self, monkeypatch, local_android_download_b64, home_dir, capfd):
         # we can be more verbose
-        monkeypatch.setattr(sys, "argv", ["scriptname", "-vv"])
+        # (also use --raw, because only this way we have debug output)
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-vv", "--raw"])
         main()
         out, err = capfd.readouterr()
-        assert out.startswith("the\nto\nof\n")
+        assert out == ""
         assert "Path" in err
 
     def test_main_existing_file_errors(
