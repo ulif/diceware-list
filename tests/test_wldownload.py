@@ -28,7 +28,6 @@ from diceware_list.wldownload import (
 
 def test_download_wordlist(home_dir, local_android_download_b64, capfd):
     # we can download wordlists
-    download_path = home_dir / "en_wordlist.combined.gz"
     download_wordlist()
     out, err = capfd.readouterr()
     assert len(out) > 0
