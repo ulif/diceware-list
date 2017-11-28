@@ -65,7 +65,7 @@ def download_wordlist(verbose=None, outfile=None, raw=False):
     """
     wl = AndroidWordList()
     path = get_save_path(wl, outfile)
-    if os.path.exists(path) and raw:
+    if os.path.exists(path) and (raw or outfile):
         logger.error("cannot create '%s': File exists" % path)
         sys.exit(73)  # 73 is the EX_CANTCREAT exit code
     logger.info("Starting download of Android wordlist file.")
