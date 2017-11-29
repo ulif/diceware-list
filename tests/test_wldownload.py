@@ -43,7 +43,7 @@ def test_get_save_path(home_dir):
 
 class TestArgParser(object):
 
-    def test_version(self, monkeypatch, capfd):
+    def test_version(self, capfd):
         # we can output current version.
         with pytest.raises(SystemExit):
             get_cmdline_args(["--version", ])
