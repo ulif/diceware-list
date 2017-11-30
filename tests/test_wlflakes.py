@@ -44,7 +44,7 @@ class TestArgParser(object):
         else:
             assert "the following arguments are required" in err
 
-    def test_wordlist_file_must_exist(self, monkeypatch, capfd):
+    def test_wordlist_file_must_exist(self, capfd):
         # we require at least one argument, a wordlist file
         with pytest.raises(SystemExit):
             get_cmdline_args(["foobar", ])
