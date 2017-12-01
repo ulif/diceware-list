@@ -51,7 +51,7 @@ class TestArgParser(object):
         out, err = capfd.readouterr()
         assert "No such file or directory: 'foobar'" in err
 
-    def test_version(self, monkeypatch, capfd):
+    def test_version(self, capfd):
         # we can output current version.
         with pytest.raises(SystemExit):
             get_cmdline_args(["--version", ])
