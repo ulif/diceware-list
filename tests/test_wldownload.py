@@ -156,7 +156,7 @@ class TestMain(object):
         assert download_path.read() == "foo"  # original file unchanged
 
     def test_main_outfile(
-            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+            self, monkeypatch, local_android_download_b64, home_dir):
         # we can give a path for outfile
         monkeypatch.setattr(sys, "argv", ["scriptname", "-o", "foo", ])
         download_path = home_dir / "foo"
