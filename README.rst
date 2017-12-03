@@ -155,6 +155,31 @@ See `--help` for other options.
 http://diceware.com/ by Mr. Reinhold.
 
 
+wlflakes
+--------
+
+Find flakes in wordlists.
+
+::
+  $ wlflakes mywordlist.txt
+
+No output means: no problems detected.
+
+Currently, only prefix flakes are checked. I.e., we check, whether any line in
+the given file is the beginning of any other line.
+
+::
+  $ cat wordlist.txt
+  air
+  port
+  airport
+
+  $ wlflakes wordlist.txt
+  wordlist.txt:3: E1 "air" from line 1 is a prefix of "airport"
+
+Also `wlflakes` supports ``--help`` or ``-h`` to list all options supported.
+
+
 Testing
 -------
 
