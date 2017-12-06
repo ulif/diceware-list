@@ -471,9 +471,10 @@ class AndroidWordList(object):
             "LatinIME/+/master/dictionaries/%s_wordlist.combined.gz"
             "?format=TEXT")
 
-    def __init__(self, path=None):
+    def __init__(self, path=None, lang="en"):
         self.path = path
         self.gz_data = None
+        self.lang = lang
         if self.path is not None:
             self.download()
 
