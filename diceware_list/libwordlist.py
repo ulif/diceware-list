@@ -462,6 +462,17 @@ class AndroidWordList(object):
     If language `lang` is set, use the respective language file when
     downloading.
 
+    Android wordlists can be retrieved from source. There are different files
+    for different languages, identified by 2-letter countrycodes like "en" for
+    english or "de" for german.
+
+    See::
+
+        https://android.googlesource.com/platform/packages/inputmethods/
+                LatinIME/+/master/dictionaries/
+
+    for a complete list of available lists.
+
     If a `path` is given, we download the file on start-up. Otherwise, you have
     to call `download()` explicitly. Local files are expected to contain lists
     in gzipped format.
@@ -483,26 +494,15 @@ class AndroidWordList(object):
         if self.path is not None:
             self.download()
 
-    def download(self, lang="en"):
+    def download(self):
         """Download an android wordlist from upstream.
-
-        Android wordlists can be retrieved from source. There are different
-        files for different languages, identified by 2-letter countrycodes like
-        "en" for english or "de" for german.
-
-        See::
-
-            https://android.googlesource.com/platform/packages/inputmethods/
-                    LatinIME/+/master/dictionaries/
-
-        for a complete list of available lists.
 
         The downloaded data is returned and stored in local `gz_data`
         attribute.
         """
         url = self.path
         if self.path is None:
-            url = self.base_url % lang
+            url = self.base_url % self.lang
         logger.info("Fetching wordlist from %s" % url)
         data = urlopen(url).read()
         if self.path is None:

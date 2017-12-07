@@ -390,8 +390,8 @@ class TestAndroidWordlist(object):
 
     def test_download(self, local_android_download_b64):
         # we can download wordfiles that are base64 encoded.
-        wl = AndroidWordList()
-        dl_data = wl.download(lang="de")
+        wl = AndroidWordList(lang="de")
+        dl_data = wl.download()
         assert wl.decompress(dl_data) == (
             b'dictionary=main:de,locale=de,description=Deutsch,'
             b'date=1414726263,version=54,REQUIRES_GERMAN_UMLAUT_PROCESSING=1'
@@ -400,14 +400,14 @@ class TestAndroidWordlist(object):
 
     def test_download_de(self, local_android_download_b64):
         # we can download a german wordlist.
-        wl = AndroidWordList()
-        wl.download(lang='de')
+        wl = AndroidWordList(lang="de")
+        wl.download()
         assert list(wl.get_words()) == ['der', 'und']
 
     def test_download_en(self, local_android_download_b64):
         # we can download an english wordlist.
-        wl = AndroidWordList()
-        wl.download(lang='en')
+        wl = AndroidWordList(lang="en")
+        wl.download()
         assert list(wl.get_words()) == [
             'the', 'to', 'of', 'and', 'hardcore', 'import']
 
@@ -420,8 +420,8 @@ class TestAndroidWordlist(object):
 
     def test_save(self, local_android_download_b64, tmpdir):
         # we can save downloaded wordlists.
-        wl = AndroidWordList()
-        wl.download(lang='en')
+        wl = AndroidWordList(lang="en")
+        wl.download()
         path = tmpdir / 'mywordlist.gz'
         wl.save(str(path))
         assert path.isfile()
