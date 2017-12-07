@@ -380,6 +380,7 @@ class TestAndroidWordlist(object):
         assert hasattr(wl, "base_url")
         assert hasattr(wl, "path")
         assert hasattr(wl, "gz_data")
+        assert hasattr(wl, "lang")
 
     def test_init_path(self, local_android_dir):
         # we can pass in a path to an unencoded file (no base64).
