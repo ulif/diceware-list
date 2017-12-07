@@ -459,9 +459,14 @@ class AndroidWordList(object):
     By default we use well-know URLs to download wordlists. But we also accept
     paths given at initialization.
 
+    If language `lang` is set, use the respective language file when
+    downloading.
+
     If a `path` is given, we download the file on start-up. Otherwise, you have
     to call `download()` explicitly. Local files are expected to contain lists
     in gzipped format.
+
+    If `path` is given, `lang` is ignored.
 
     Files once handled are stored in `gz_data`.
     """
