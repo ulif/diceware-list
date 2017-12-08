@@ -82,6 +82,15 @@ class TestArgParser(object):
         args = get_cmdline_args(['--raw', ])
         assert args.raw is True
 
+    def test_lang(self):
+        # we can request a certain language
+        args = get_cmdline_args([])
+        assert args.lang == 'en'
+        args = get_cmdline_args(['--lang', 'de'])
+        assert args.lang == 'de'
+        args = get_cmdline_args(['-l', 'fr'])
+        assert args.lang == 'fr'
+
 
 class TestMain(object):
 

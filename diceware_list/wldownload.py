@@ -36,6 +36,9 @@ def get_cmdline_args(args=None):
         '--raw', action='store_true',
         help='output raw wordlist. Stores fetched file locally.')
     parser.add_argument(
+        '-l', '--lang', action='store', default='en',
+        help='language to download.')
+    parser.add_argument(
         '-v', '--verbose', action='count', help='be verbose.')
     parser.add_argument(
         '--version', action='version', version=__version__,
