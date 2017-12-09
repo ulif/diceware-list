@@ -33,6 +33,13 @@ def test_download_wordlist(home_dir, local_android_download_b64, capfd):
     assert len(out) > 0
 
 
+def test_download_wordlist_respects_lang(home_dir, local_android_download_b64, capfd):
+    # we respect the given `lang`
+    download_wordlist(lang="de")
+    out, err = capfd.readouterr()
+    assert out == "der\nund\n"
+
+
 def test_get_save_path(home_dir):
     # we can clearly determine a path to store data
     wl = AndroidWordList()
@@ -171,3 +178,12 @@ class TestMain(object):
         download_path = home_dir / "foo"
         main()
         assert download_path.isfile()
+
+    def test_main_lang(
+            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        # we can request a certain language
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-l", "de", ])
+        download_path = home_dir / "de_wordlist.combined.gz"
+        main()
+        out, err = capfd.readouterr()
+        assert out == "der\nund\n"

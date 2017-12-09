@@ -63,10 +63,10 @@ def get_save_path(word_list, outfile=None):
     return result
 
 
-def download_wordlist(verbose=None, outfile=None, raw=False):
+def download_wordlist(verbose=None, outfile=None, raw=False, lang='en'):
     """Download and mangle remote wordlists.
     """
-    wl = AndroidWordList()
+    wl = AndroidWordList(lang=lang)
     path = get_save_path(wl, outfile)
     if os.path.exists(path) and (raw or outfile):
         logger.error("cannot create '%s': File exists" % path)
@@ -99,4 +99,5 @@ def main():
             logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
     download_wordlist(
-        verbose=args.verbose, outfile=args.outfile, raw=args.raw)
+        verbose=args.verbose, outfile=args.outfile, raw=args.raw,
+        lang=args.lang)
