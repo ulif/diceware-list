@@ -33,7 +33,8 @@ def test_download_wordlist(home_dir, local_android_download_b64, capfd):
     assert len(out) > 0
 
 
-def test_download_wordlist_respects_lang(home_dir, local_android_download_b64, capfd):
+def test_download_wordlist_respects_lang(
+        home_dir, local_android_download_b64, capfd):
     # we respect the given `lang`
     download_wordlist(lang="de")
     out, err = capfd.readouterr()
@@ -183,7 +184,6 @@ class TestMain(object):
             self, monkeypatch, local_android_download_b64, home_dir, capfd):
         # we can request a certain language
         monkeypatch.setattr(sys, "argv", ["scriptname", "-l", "de", ])
-        download_path = home_dir / "de_wordlist.combined.gz"
         main()
         out, err = capfd.readouterr()
         assert out == "der\nund\n"
