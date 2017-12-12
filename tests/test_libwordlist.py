@@ -24,7 +24,7 @@ from diceware_list import DEFAULT_CHARS
 from diceware_list.libwordlist import (
     base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
-    is_prefix_code, get_matching_prefixes, get_prefixes,
+    paths_iterator, is_prefix_code, get_matching_prefixes, get_prefixes,
     strip_matching_prefixes, flatten_prefix_tree, AndroidWordList
     )
 
@@ -219,6 +219,15 @@ class TestTermIterator(object):
             result = list(term_iterator([fd, ]))
         assert result == ["foo", "bar"]
 
+
+class TestPathsIterator(object):
+
+    def test_paths_iterator(self, tmpdir):
+        # the paths iterator provides terms from paths
+        wlist = tmpdir.join("wlist.txt")
+        wlist.write(b"\n".join([b"a", b"b", b"c"]))
+        result = list(paths_iterator([str(wlist), ]))
+        assert result == ["a", "b", "c"]
 
 class TestIsPrefixCode(object):
 

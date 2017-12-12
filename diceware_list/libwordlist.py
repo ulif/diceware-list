@@ -27,6 +27,7 @@ try:
 except ImportError:                     # pragma: no cover
     from urlparse import urlparse       # python 2.x
 import base64
+import codecs
 import logging
 import os
 import random
@@ -211,6 +212,18 @@ def term_iterator(file_descriptors):
         for term in fd:
             term = term.strip()
             if term:
+                yield term
+
+
+def paths_iterator(paths):
+    """Yield terms from files in `paths`.
+
+    Each path is expected to be a readable, utf-8 encoded file containing
+    terms, one per line.
+    """
+    for path in paths:
+        with codecs.open(path, 'r', encoding='utf-8') as fd:
+            for term in term_iterator([fd]):
                 yield term
 
 
