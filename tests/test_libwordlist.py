@@ -229,6 +229,16 @@ class TestPathsIterator(object):
         result = list(paths_iterator([str(wlist), ]))
         assert result == ["a", "b", "c"]
 
+    def test_multiple_paths(self, tmpdir):
+        # the paths iterator can cope with several files
+        wlist1 = tmpdir.join("wlist1.txt")
+        wlist2 = tmpdir.join("wlits2.txt")
+        wlist1.write(b"a\nb")
+        wlist2.write(b"c\nd")
+        result = list(paths_iterator([str(wlist1), str(wlist2)]))
+        assert result == ["a", "b", "c", "d"]
+
+
 class TestIsPrefixCode(object):
 
     def test_is_prefix_code(self):
