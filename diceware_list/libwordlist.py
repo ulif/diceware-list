@@ -31,6 +31,7 @@ import codecs
 import logging
 import os
 import random
+import sys
 import unicodedata
 import zlib
 
@@ -222,9 +223,14 @@ def paths_iterator(paths):
     terms, one per line.
     """
     for path in paths:
-        with codecs.open(path, 'r', encoding='utf-8') as fd:
-            for term in term_iterator([fd]):
+        if path == '-':
+            fd = sys.stdin
+            for term in term_iterator([sys.stdin]):
                 yield term
+        else:
+            with codecs.open(path, 'r', encoding='utf-8') as fd:
+                for term in term_iterator([fd]):
+                    yield term
 
 
 def base_terms_iterator(use_kit=True, use_416=True):
