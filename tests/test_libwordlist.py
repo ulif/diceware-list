@@ -17,9 +17,11 @@
 
 # Tests for libwordlist module
 from __future__ import unicode_literals
+from io import StringIO
 import codecs
 import gzip
 import random
+import sys
 from diceware_list import DEFAULT_CHARS
 from diceware_list.libwordlist import (
     base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
@@ -237,6 +239,12 @@ class TestPathsIterator(object):
         wlist2.write(b"c\nd")
         result = list(paths_iterator([str(wlist1), str(wlist2)]))
         assert result == ["a", "b", "c", "d"]
+
+    def test_read_stdin(self, tmpdir, argv_handler):
+        # we can tell to read from stdin (dash as filename)
+        sys.stdin = StringIO('term1\nterm2\n')
+        result = list(paths_iterator('-'))
+        assert result == ['term1', 'term2']
 
 
 class TestIsPrefixCode(object):
