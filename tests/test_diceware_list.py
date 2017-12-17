@@ -77,15 +77,15 @@ class TestArgParser(object):
         assert result.prefix == 'none'
         assert isinstance(result.dictfile, list)
 
-    def test_arg_dictfile_gives_file_objs(self, tmpdir):
+    def test_arg_dictfile_gives_strings(self, tmpdir):
         path1 = tmpdir / "foo.txt"
         path2 = tmpdir / "bar.txt"
         path1.write("foo")
         path2.write("bar")
         result = get_cmdline_args([str(path1), str(path2)])
         assert len(result.dictfile) == 2
-        assert result.dictfile[0].read() == "foo"
-        assert result.dictfile[1].read() == "bar"
+        assert str(path1) in result.dictfile
+        assert str(path2) in result.dictfile
 
     def test_opt_verbose_settable(self, dictfile):
         # we can set the verbose option
