@@ -50,13 +50,6 @@ class TestArgParser(object):
         else:
             assert "the following arguments are required" in err
 
-    def test_dict_file_must_exist(self, monkeypatch, capfd):
-        # we require at least one argument, a dictionary file
-        with pytest.raises(SystemExit):
-            get_cmdline_args(["foobar", ])
-        out, err = capfd.readouterr()
-        assert "No such file or directory: 'foobar'" in err
-
     def test_version(self, monkeypatch, capfd):
         # we can output current version.
         with pytest.raises(SystemExit):
