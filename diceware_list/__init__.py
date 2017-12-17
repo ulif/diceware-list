@@ -22,7 +22,7 @@ import math
 import string
 from diceware_list.libwordlist import (
     DICE_SIDES, base_terms_iterator, filter_chars, idx_to_dicenums, logger,
-    min_width_iter, term_iterator, strip_matching_prefixes,
+    min_width_iter, paths_iterator, strip_matching_prefixes,
 )
 
 __version__ = '1.1.dev0'
@@ -65,7 +65,6 @@ def get_cmdline_args(args=None):
               "prefix checking. Default: `none' "))
     parser.add_argument(
         'dictfile', nargs='+', metavar='DICTFILE', default=None,
-        type=argparse.FileType('r'),
         help=("Dictionary file to read possible terms from. "
               "Multiple allowed. `-' will read from stdin."),
     )
@@ -157,7 +156,7 @@ def main():
     Output the wordlist determined by commandline args.
     """
     args = get_cmdline_args()
-    all_terms = term_iterator(args.dictfile)
+    all_terms = paths_iterator(args.dictfile)
     if args.verbose:
         logger.setLevel(logging.INFO)
         if args.verbose > 1:
