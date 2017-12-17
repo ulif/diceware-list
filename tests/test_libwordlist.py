@@ -242,9 +242,9 @@ class TestPathsIterator(object):
 
     def test_read_stdin(self, tmpdir, argv_handler):
         # we can tell to read from stdin (dash as filename)
-        sys.stdin = StringIO('term1\nterm2\n')
+        sys.stdin = StringIO('term1\nterm2\näöü\n')
         result = list(paths_iterator('-'))
-        assert result == ['term1', 'term2']
+        assert result == ['term1', 'term2', 'äöü']
 
 
 class TestIsPrefixCode(object):
