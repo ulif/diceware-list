@@ -224,7 +224,6 @@ def paths_iterator(paths):
     """
     for path in paths:
         if path == '-':
-            fd = sys.stdin
             for term in term_iterator([sys.stdin]):
                 yield term
         else:
