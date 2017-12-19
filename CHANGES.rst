@@ -4,7 +4,8 @@ Changes
 1.1.dev0 (unreleased)
 =====================
 
-- Add class to handle Android wordlists (download, uncompress, parse).
+- Add new `wldownload` command. This is a tool for handling Android wordlists
+  (download, uncompress, parse).
 
 - Add new `wlflakes` command. This is a tool for checking existing
   wordlists for consistency, cryptoflakes, etc.
