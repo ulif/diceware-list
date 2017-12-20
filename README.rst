@@ -88,7 +88,6 @@ In an active virtualenv you can install an executable script of
                        [--use-416] [-p {none,short,long}] [-v] [--version]
                        DICTFILE [DICTFILE ...]
 
-
 Usage
 -----
 
@@ -155,8 +154,8 @@ See `--help` for other options.
 http://diceware.com/ by Mr. Reinhold.
 
 
-wlflakes
---------
+Check wordlists: wlflakes
+-------------------------
 
 Find flakes in wordlists.
 
@@ -178,6 +177,30 @@ the given file is the beginning of any other line.
   wordlist.txt:3: E1 "air" from line 1 is a prefix of "airport"
 
 Also `wlflakes` supports ``--help`` or ``-h`` to list all options supported.
+
+
+Handle Android wordlists: wldownload
+------------------------------------
+
+Android wordlists are a nice source for wordlist. They can be downloaded from
+public repositories::
+
+  $ wldownload --raw -v
+  Starting download of Android wordlist file.
+  Fetching wordlist from https://android.googlesource.com/platform/pack...
+  Done.
+
+`wldownload` downloads these lists and helps to transform them into lists
+usable for diceware. Be aware, that terms from lists are output on stdout by
+default (and Android wordlists contain easily more than 100,000 terms)::
+
+  $ wldownload > mylist
+  $ cat mylist
+  the
+  to
+  ...
+  yt
+  yuk
 
 
 Testing
