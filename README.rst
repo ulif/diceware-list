@@ -182,7 +182,7 @@ Also `wlflakes` supports ``--help`` or ``-h`` to list all options supported.
 Handle Android wordlists: wldownload
 ------------------------------------
 
-Android wordlists are a nice source for wordlist. They can be downloaded from
+Android wordlists are a nice source for wordlists. They can be downloaded from
 public repositories::
 
   $ wldownload --raw -v
@@ -202,6 +202,8 @@ default (and Android wordlists contain easily more than 100,000 terms)::
   yt
   yuk
 
+Terms are output on stdout by default (use shell redirects or ``--outfile`` to
+change that behaviour).
 
 Testing
 -------
