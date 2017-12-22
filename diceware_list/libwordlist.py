@@ -31,6 +31,7 @@ import codecs
 import logging
 import os
 import random
+import re
 import sys
 import unicodedata
 import zlib
@@ -601,3 +602,12 @@ class AndroidWordList(object):
             if 'word' not in line.keys():
                 continue
             yield line['word']
+
+    def get_valid_lang_codes(self):
+        resp = urlopen(
+            "https://android.googlesource.com/platform/packages/"
+            "inputmethods/LatinIME/+/master/dictionaries/")
+        html = resp.read()
+        codes = [x.group(1).decode('utf-8') for x in
+                re.finditer(b'/([a-zA-Z_]+)_wordlist.combined.gz', html)]
+        return codes
