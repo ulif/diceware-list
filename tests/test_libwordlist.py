@@ -540,3 +540,9 @@ class TestAndroidWordlist(object):
         # we can get plain wordlists from Android lists
         wl = AndroidWordList("file:////%s" % str(dictfile_android_short_de))
         assert [x for x in wl.get_words()] == ["der", "und"]
+
+    def test_get_valid_lang_codes(self):
+        # we can get a list of available language codes.
+        wl = AndroidWordList()
+        result = wl.get_valid_lang_codes()
+        assert result[0:3] == ['cs', 'da', 'de']
