@@ -17,10 +17,15 @@
 
 # Tests for libwordlist module
 from __future__ import unicode_literals
+try:
+    from urllib.request import urlopen, URLError  # python 3.x
+except ImportError:                               # pragma: no cover
+    from urllib2 import urlopen, URLError         # python 2.x
 from io import StringIO
 import codecs
 import gzip
 import random
+import pytest
 import sys
 from diceware_list import DEFAULT_CHARS
 from diceware_list.libwordlist import (
@@ -34,6 +39,18 @@ from diceware_list.libwordlist import (
 EMPTY_GZ_FILE = (
     b'\x1f\x8b\x08\x08\xea\xc1\xecY\x02\xffsample_emtpy'
     b'\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+
+
+def ggsource_unreachable():
+    """Check, whether we can ping android.googlesource.com'.
+
+    Respective tests may be skipped if no network is available.
+    """
+    try:
+        urlopen('https://android.googlesource.com/').read()
+    except URLError:
+        return True
+    return False
 
 
 def test_base10_to_n():
@@ -541,6 +558,7 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList("file:////%s" % str(dictfile_android_short_de))
         assert [x for x in wl.get_words()] == ["der", "und"]
 
+    @pytest.mark.skipif(ggsource_unreachable(), reason="no network available")
     def test_get_valid_lang_codes(self):
         # we can get a list of available language codes.
         wl = AndroidWordList()
