@@ -609,5 +609,5 @@ class AndroidWordList(object):
             "inputmethods/LatinIME/+/master/dictionaries/")
         html = resp.read()
         codes = [x.group(1).decode('utf-8') for x in
-                re.finditer(b'/([a-zA-Z_]+)_wordlist.combined.gz', html)]
+                 re.finditer(b'/([a-zA-Z_]+)_wordlist.combined.gz', html)]
         return sorted(codes)
