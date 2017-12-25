@@ -46,7 +46,7 @@ def get_cmdline_args(args=None):
     return parser.parse_args(args)
 
 
-def get_save_path(word_list, outfile=None):
+def get_save_path(word_list, outfile=None, lang='en'):
     """Compute a path, where to store wordlist files.
 
     The `word_list` must be an `AndroidWordList` or something similar, that
@@ -57,7 +57,7 @@ def get_save_path(word_list, outfile=None):
     The returned path will be normalized and all that.
     """
     if outfile is None:
-        result = os.path.join(os.getcwd(), word_list.get_basename())
+        result = os.path.join(os.getcwd(), word_list.get_basename(lang=lang))
     else:
         result = os.path.abspath(outfile)
     return result
@@ -67,7 +67,7 @@ def download_wordlist(verbose=None, outfile=None, raw=False, lang='en'):
     """Download and mangle remote wordlists.
     """
     wl = AndroidWordList(lang=lang)
-    path = get_save_path(wl, outfile)
+    path = get_save_path(wl, outfile, lang)
     if os.path.exists(path) and (raw or outfile):
         logger.error("cannot create '%s': File exists" % path)
         sys.exit(73)  # 73 is the EX_CANTCREAT exit code
