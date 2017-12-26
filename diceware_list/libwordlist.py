@@ -503,8 +503,10 @@ class AndroidWordList(object):
     #: The URL where the wordlists for Android are available.
     base_url = (
             "https://android.googlesource.com/platform/packages/inputmethods/"
-            "LatinIME/+/master/dictionaries/%s_wordlist.combined.gz"
-            "?format=TEXT")
+            "LatinIME/+/master/dictionaries/")
+
+    #: The full download path to Android wordlists
+    full_url = '%s%%s_wordlist.combined.gz?format=TEXT' % base_url
 
     def __init__(self, path=None, lang="en"):
         self.path = path
@@ -521,7 +523,7 @@ class AndroidWordList(object):
         """
         url = self.path
         if self.path is None:
-            url = self.base_url % self.lang
+            url = self.full_url % self.lang
         logger.info("Fetching wordlist from %s" % url)
         data = urlopen(url).read()
         if self.path is None:
@@ -557,7 +559,7 @@ class AndroidWordList(object):
         """
         url = self.path
         if self.path is None:
-            url = self.base_url % lang
+            url = self.full_url % lang
         return os.path.basename(urlparse(url).path)
 
     def get_meta_data(self):
