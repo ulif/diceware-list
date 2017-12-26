@@ -606,6 +606,10 @@ class AndroidWordList(object):
             yield line['word']
 
     def get_valid_lang_codes(self):
+        """Get list of valid language codes from upstream.
+
+        Fetches list of valid language codes from Android site.
+        """
         resp = urlopen(self.base_url)
         html = resp.read()
         codes = [x.group(1).decode('utf-8') for x in
