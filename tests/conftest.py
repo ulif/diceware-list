@@ -104,7 +104,6 @@ def local_android_download_b64(request, monkeypatch, tmpdir):
         src_path = os.path.join(
             os.path.dirname(__file__), "sample_short_wordlist_%s.gz" % lang)
         dictfile.write(base64.b64encode(open(src_path, "rb").read()))
-    #fake_base_url = "file://%s/%%s_wordlist.combined.gz" % str(tmpdir)
     fake_base_url = "file://%s/" % str(tmpdir)
     monkeypatch.setattr(
             "diceware_list.libwordlist.AndroidWordList.base_url",
