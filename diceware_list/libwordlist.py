@@ -606,9 +606,7 @@ class AndroidWordList(object):
             yield line['word']
 
     def get_valid_lang_codes(self):
-        resp = urlopen(
-            "https://android.googlesource.com/platform/packages/"
-            "inputmethods/LatinIME/+/master/dictionaries/")
+        resp = urlopen(self.base_url)
         html = resp.read()
         codes = [x.group(1).decode('utf-8') for x in
                  re.finditer(b'/([a-zA-Z_]+)_wordlist.combined.gz', html)]
