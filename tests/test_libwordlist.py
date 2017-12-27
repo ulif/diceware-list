@@ -564,3 +564,12 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList()
         result = wl.get_valid_lang_codes()
         assert result[0:3] == ['cs', 'da', 'de']
+
+    def test_get_valid_lang_codes_local(self, local_android_download_b64):
+        # get valid lang codes from local copy of index list.
+        wl = AndroidWordList()
+        result = wl.get_valid_lang_codes()
+        assert result == [
+                'cs', 'da', 'de', 'el', 'en', 'en_GB', 'en_US', 'es',
+                'fi', 'fr', 'hr', 'it', 'iw', 'lt', 'lv', 'nb', 'nl', 'pl',
+                'pt_BR', 'pt_PT', 'ro', 'ru', 'sl', 'sr', 'sv', 'tr']
