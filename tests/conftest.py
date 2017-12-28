@@ -117,6 +117,17 @@ def local_android_download_b64(request, monkeypatch, tmpdir):
     return tmpdir
 
 
+@pytest.fixture
+def local_index(request, monkeypatch, tmpdir):
+    index_html = open(
+        os.path.join(os.path.dirname(__file__), 'sample_index.html')).read()
+    tmpdir.join('index.html').write(index_html)
+    monkeypatch.setattr(
+            "diceware_list.libwordlist.AndroidWordList.base_url",
+            'file://%s/index.html' % str(tmpdir))
+    return tmpdir
+
+
 @pytest.fixture(scope="function")
 def home_dir(request, monkeypatch, tmpdir):
     """This fixture provides a temporary user home.
