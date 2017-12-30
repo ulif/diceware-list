@@ -119,6 +119,11 @@ def local_android_download_b64(request, monkeypatch, tmpdir):
 
 @pytest.fixture
 def local_index(request, monkeypatch, tmpdir):
+    """This fixture provides a local copy of the Android download index
+
+    The index page contains the links to all available language files and is
+    used to compile a list of available labnguages.
+    """
     index_html = open(
         os.path.join(os.path.dirname(__file__), 'sample_index.html')).read()
     tmpdir.join('index.html').write(index_html)
