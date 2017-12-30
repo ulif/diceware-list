@@ -558,6 +558,11 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList("file:////%s" % str(dictfile_android_short_de))
         assert [x for x in wl.get_words()] == ["der", "und"]
 
+    def test_get_words_offensive(self, dictfile_android_short_en):
+        # we can filter out offensive words
+        wl = AndroidWordList("file:////%s" % str(dictfile_android_short_en))
+        assert "hardcore" not in [x for x in wl.get_words(offensive=False)]
+
     @pytest.mark.skipif(ggsource_unreachable(), reason="no network available")
     def test_get_valid_lang_codes(self):
         # we can get a list of available language codes.

@@ -592,7 +592,7 @@ class AndroidWordList(object):
                 data = [tuple(x.strip().split('=')) for x in line.split(',')]
                 yield dict(data)
 
-    def get_words(self):
+    def get_words(self, offensive=None):
         """Get the basic words out of an Android word list.
 
         Android wordlists contain lots of meta data. This method returns only
@@ -602,6 +602,8 @@ class AndroidWordList(object):
         """
         for line in self.parse_lines():
             if 'word' not in line.keys():
+                continue
+            if 'possibly_offensive' in line.keys() and offensive is False:
                 continue
             yield line['word']
 
