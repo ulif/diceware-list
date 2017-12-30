@@ -55,6 +55,19 @@ def dictfile_ext(request, tmpdir):
 
 
 @pytest.fixture
+def dictfile_android_short_en(request, tmpdir):
+    """py.test fixture providing a short english android dict.
+
+    The file is gzipped, but not base64 encoded.
+    """
+    dictfile = tmpdir / "en_wordlist.combined.gz"
+    src_path = os.path.join(
+            os.path.dirname(__file__), "sample_short_wordlist_en.gz")
+    shutil.copyfile(src_path, str(dictfile))
+    return dictfile
+
+
+@pytest.fixture
 def dictfile_android_short_de(request, tmpdir):
     """py.test fixture providing a short (2 terms) android dict.
 
