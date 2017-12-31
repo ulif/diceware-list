@@ -605,6 +605,8 @@ class AndroidWordList(object):
                 continue
             if 'possibly_offensive' in line.keys() and offensive is False:
                 continue
+            if 'possibly_offensive' not in line.keys() and offensive is True:
+                continue
             yield line['word']
 
     def get_valid_lang_codes(self):
