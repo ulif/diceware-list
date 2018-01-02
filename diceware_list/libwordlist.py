@@ -598,6 +598,10 @@ class AndroidWordList(object):
         Android wordlists contain lots of meta data. This method returns only
         the words contained.
 
+        Set `offensive` to `True` or `False` if you want only (`True`) or no
+        (`False`) offensive words in your list. `None` ignores the
+        ``offensive`` flag of words.
+
         This method returns a generator.
         """
         for line in self.parse_lines():
