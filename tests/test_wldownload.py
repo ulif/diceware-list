@@ -26,27 +26,29 @@ from diceware_list.wldownload import (
         )
 
 
-def test_download_wordlist(home_dir, local_android_download_b64, capfd):
-    # we can download wordlists
-    download_wordlist()
-    out, err = capfd.readouterr()
-    assert len(out) > 0
-
-
-def test_download_wordlist_respects_lang(
-        home_dir, local_android_download_b64, capfd):
-    # we respect the given `lang`
-    download_wordlist(lang="de")
-    out, err = capfd.readouterr()
-    assert out == "der\nund\n"
-
-
 def test_get_save_path(home_dir):
     # we can clearly determine a path to store data
     wl = AndroidWordList()
     assert get_save_path(wl) == str(home_dir / "en_wordlist.combined.gz")
     wl = AndroidWordList()
     assert get_save_path(wl, outfile="foo") == str(home_dir / "foo")
+
+
+class TestDowmloadWordlist(object):
+
+    def test_download_wordlist(
+            self, home_dir, local_android_download_b64, capfd):
+        # we can download wordlists
+        download_wordlist()
+        out, err = capfd.readouterr()
+        assert len(out) > 0
+
+    def test_download_wordlist_respects_lang(
+            self, home_dir, local_android_download_b64, capfd):
+        # we respect the given `lang`
+        download_wordlist(lang="de")
+        out, err = capfd.readouterr()
+        assert out == "der\nund\n"
 
 
 class TestArgParser(object):
