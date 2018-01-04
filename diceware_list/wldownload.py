@@ -39,6 +39,9 @@ def get_cmdline_args(args=None):
         '-l', '--lang', action='store', default='en',
         help='language to download.')
     parser.add_argument(
+        '--no-offensive', action='count',
+        help='filter offensive words out.')
+    parser.add_argument(
         '-v', '--verbose', action='count', help='be verbose.')
     parser.add_argument(
         '--version', action='version', version=__version__,
@@ -63,7 +66,9 @@ def get_save_path(word_list, outfile=None, lang='en'):
     return result
 
 
-def download_wordlist(verbose=None, outfile=None, raw=False, lang='en'):
+def download_wordlist(
+        verbose=None, outfile=None, raw=False, lang='en',
+        filter_offensive=False):
     """Download and mangle remote wordlists.
     """
     wl = AndroidWordList(lang=lang)
@@ -78,13 +83,16 @@ def download_wordlist(verbose=None, outfile=None, raw=False, lang='en'):
         wl.save(path)
         logger.info("Done.")
     else:
+        offensive = None
+        if filter_offensive:
+            offensive = False  # no-filtering is signalled by None
         if outfile:
             with open(path, "w") as fd:
-                for word in wl.get_words():
+                for word in wl.get_words(offensive=offensive):
                     fd.write(word)
                     fd.write("\n")
         else:
-            for word in wl.get_words():
+            for word in wl.get_words(offensive=offensive):
                 print(word)
 
 
