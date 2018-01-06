@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #  wldownload -- download and mangle remote wordlists
-#  Copyright (C) 2017  Uli Fouquet
+#  Copyright (C) 2017-2018  Uli Fouquet
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
