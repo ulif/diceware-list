@@ -57,6 +57,20 @@ class TestDowmloadWordlist(object):
         out, err = capfd.readouterr()
         assert "hardcore" not in out
 
+    def test_download_wordlist_respects_filter_offensive_false(
+            self, home_dir, local_android_download_b64, capfd):
+        # we respect the given `filter_offensive` flag if ``False``
+        download_wordlist(filter_offensive=False)
+        out, err = capfd.readouterr()
+        assert "hardcore" in out
+
+    def test_download_wordlist_respects_filter_offensive_none(
+            self, home_dir, local_android_download_b64, capfd):
+        # we respect the given `filter_offensive` flag if ``None``
+        download_wordlist(filter_offensive=None)
+        out, err = capfd.readouterr()
+        assert "hardcore" in out
+
 
 class TestArgParser(object):
 
