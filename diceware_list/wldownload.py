@@ -108,4 +108,4 @@ def main():
     logger.addHandler(logging.StreamHandler())
     download_wordlist(
         verbose=args.verbose, outfile=args.outfile, raw=args.raw,
-        lang=args.lang)
+        lang=args.lang, filter_offensive=args.no_offensive)
