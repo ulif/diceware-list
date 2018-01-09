@@ -132,6 +132,7 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert out.startswith("the\nto\nof\n")
+        assert "hardcore" in out
 
     def test_can_get_help(self, monkeypatch, capfd, home_dir):
         # we can get help
@@ -210,3 +211,11 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert out == "der\nund\n"
+
+    def test_main_offensive(
+            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        # we can request non-offensive lists
+        monkeypatch.setattr(sys, "argv", ["scriptname", "--no-offensive", ])
+        main()
+        out, err = capfd.readouterr()
+        assert "hardcore" not in out
