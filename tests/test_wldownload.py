@@ -122,6 +122,13 @@ class TestArgParser(object):
         args = get_cmdline_args(['-l', 'fr'])
         assert args.lang == 'fr'
 
+    def test_lang_codes(self):
+        # we can ask for a list of valid lang codes
+        args = get_cmdline_args([])
+        assert args.lang_codes is False
+        args = get_cmdline_args(['--lang-codes'])
+        assert args.lang_codes is True
+
 
 class TestMain(object):
 
