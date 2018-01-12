@@ -39,6 +39,9 @@ def get_cmdline_args(args=None):
         '-l', '--lang', action='store', default='en',
         help='language to download.')
     parser.add_argument(
+        '--lang-codes', action='store_true',
+        help='list all valid language codes from download website')
+    parser.add_argument(
         '--no-offensive', action='count',
         help='filter offensive words out.')
     parser.add_argument(
