@@ -109,6 +109,9 @@ def main():
         if args.verbose > 1:
             logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
+    if args.lang_codes:
+        print(" ".join(AndroidWordList().get_valid_lang_codes()))
+        sys.exit(0)
     download_wordlist(
         verbose=args.verbose, outfile=args.outfile, raw=args.raw,
         lang=args.lang, filter_offensive=args.no_offensive)
