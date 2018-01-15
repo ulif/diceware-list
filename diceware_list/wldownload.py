@@ -110,6 +110,7 @@ def main():
             logger.setLevel(logging.DEBUG)
     logger.addHandler(logging.StreamHandler())
     if args.lang_codes:
+        logger.info("The following language codes are available:")
         print(" ".join(AndroidWordList().get_valid_lang_codes()))
         sys.exit(0)
     download_wordlist(

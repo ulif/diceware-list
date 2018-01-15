@@ -229,8 +229,9 @@ class TestMain(object):
 
     def test_main_lang_codes(self, monkeypatch, local_index, capfd):
         # we can ask for a list of available languages
-        monkeypatch.setattr(sys, "argv", ["scriptname", "--lang-codes", ])
+        monkeypatch.setattr(sys, "argv", ["scriptname", "--lang-codes", "-v", ])
         with pytest.raises(SystemExit):
             main()
         out, err = capfd.readouterr()
+        assert err == "The following language codes are available:\n"
         assert out.startswith("cs da de el")
