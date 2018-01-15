@@ -205,7 +205,12 @@ default (and Android wordlists contain easily more than 100,000 terms)::
 Terms are output on stdout by default (use shell redirects or ``--outfile`` to
 change that behaviour).
 
+You can request non-english wordlists using ``--lang`` or ``-l`` with a
+language code like ``cs`` or ``de``. Use ``--lang-codes`` to list all supported
+language codes.
+
 The ``--no-offensive`` flag suppresses terms marked as possibly offensive.
+
 
 
 Testing
