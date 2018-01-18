@@ -10,8 +10,8 @@ Changes
 - Add new `wlflakes` command. This is a tool for checking existing
   wordlists for consistency, cryptoflakes, etc.
 
-- The `-l` option contains no default any more. If the option is not set, all
-  suitable terms are output.
+- The `diceware-list` option `-l` contains no default any more. If the option
+  is not set, all suitable terms are output.
 
 
 1.0 (2017-02-09)
