@@ -19,6 +19,29 @@ Currently, we provide three scripts:
   - `wldownload` downloads Android wordlists
 
 
+Install
+--------
+
+Install latest release from pypi_ ::
+
+  (venv) $ pip install diceware-list
+
+or clone repository from github::
+
+  $ git clone https://github.com/ulif/diceware-list.git
+
+Please consider using `virtualenv`_ for deployment.
+
+In an active `virtualenv` you can install an executable script of
+`diceware-list` running::
+
+  (venv) $ python setup.py install
+  (venv) $ diceware-list --help
+  usage: diceware-list [-h] [-l LENGTH] [-n] [--ascii] [-d SIDES] [-k]
+                       [--use-416] [-p {none,short,long}] [-v] [--version]
+                       DICTFILE [DICTFILE ...]
+
+
 Create Wordlists: `diceware-list`
 ---------------------------------
 
@@ -65,28 +88,6 @@ longer lists are more secure than shorter ones (if really used to full
 extent by your source of randomness with `diceware`_), but hidden
 lists are *not* more secure than public ones.
 
-
-Install
---------
-
-Install latest release from pypi_ ::
-
-  (venv) $ pip install diceware-list
-
-or clone repository from github::
-
-  $ git clone https://github.com/ulif/diceware-list.git
-
-Please consider using `virtualenv`_ for deployment.
-
-In an active virtualenv you can install an executable script of
-`diceware-list` running::
-
-  (venv) $ python setup.py install
-  (venv) $ diceware-list --help
-  usage: diceware-list [-h] [-l LENGTH] [-n] [--ascii] [-d SIDES] [-k]
-                       [--use-416] [-p {none,short,long}] [-v] [--version]
-                       DICTFILE [DICTFILE ...]
 
 Usage
 -----
