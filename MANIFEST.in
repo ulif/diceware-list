@@ -5,5 +5,6 @@ include LICENSE
 include tox.ini
 recursive-include tests *.py
 recursive-include tests *.gz
+recursive-include tests *.html
 recursive-include diceware_list *.py
 recursive-include diceware_list *.txt
