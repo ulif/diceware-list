@@ -1,8 +1,8 @@
 Changes
 *******
 
-1.1.dev0 (unreleased)
-=====================
+2.0 (2018-01-23)
+================
 
 - Add new `wldownload` command. This is a tool for handling Android wordlists
   (download, uncompress, parse).
