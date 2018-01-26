@@ -20,7 +20,7 @@ import pytest
 import sys
 from diceware_list import __version__
 from diceware_list.wlflakes import (
-        find_flakes, get_cmdline_args, main, check_E1
+        find_flakes, get_cmdline_args, main, check_E1, check_E2
         )
 
 
@@ -96,6 +96,12 @@ class TestCheckers(object):
                 '3: E1 "bar" from line 2 is a prefix of "barbaz"']
         assert list(check_E1(["foo", "barbaz", "bar"])) == [
                 '2: E1 "bar" from line 3 is a prefix of "barbaz"']
+
+    def test_E2(sel):
+        # we can check whether a list contains double elements
+        assert list(check_E2(["foo", "bar"])) == []
+        assert list(check_E2(["foo", "foo"])) == [
+                '1: E2 "foo" appears multiple times']
 
 
 class TestMain(object):

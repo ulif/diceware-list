@@ -71,6 +71,23 @@ def check_E1(terms):
         yield msg
 
 
+def check_E2(terms):
+    """Check if terms in `terms` appear two or more times.
+
+    `terms` must be a list of terms.
+
+    Yields messages, each one representing an E1 violation.
+    """
+    last = None
+    for term in sorted(terms):
+        if last is not None:
+            if last == term:
+                msg = '%d: E2 "%s" appears multiple times' % (
+                        terms.index(term) + 1, term)
+                yield msg
+        last = term
+
+
 def main():
     """Main function for `wlflakes` script.
     """
