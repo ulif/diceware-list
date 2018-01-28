@@ -81,6 +81,16 @@ class TestFindFlakes(object):
             'mywordlist.txt:2: E1 "bar" from line 1 is a '
             'prefix of "barfoo"') in out
 
+    def test_can_find_doubles(self, capfd, dictfile, tmpdir):
+        # we can identify double terms
+        wordlist = tmpdir / "wordlist.txt"
+        wordlist.write("bar\nfoo\nbar\n")
+        with open(str(wordlist)) as fd:
+            find_flakes([fd, ], prefixes=False )
+        out, err = capfd.readouterr()
+        assert(
+            'wordlist.txt:1: E2 "bar" appears multiple times' in out)
+
 
 class TestCheckers(object):
 
