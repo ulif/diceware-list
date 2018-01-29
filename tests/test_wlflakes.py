@@ -86,7 +86,7 @@ class TestFindFlakes(object):
         wordlist = tmpdir / "wordlist.txt"
         wordlist.write("bar\nfoo\nbar\n")
         with open(str(wordlist)) as fd:
-            find_flakes([fd, ], prefixes=False )
+            find_flakes([fd, ], prefixes=False)
         out, err = capfd.readouterr()
         assert(
             'wordlist.txt:1: E2 "bar" appears multiple times' in out)
