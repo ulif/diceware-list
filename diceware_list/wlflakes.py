@@ -52,8 +52,9 @@ def find_flakes(file_descriptors, prefixes=True):
     for descriptor in file_descriptors:
         filename = descriptor.name
         terms = list(term_iterator([descriptor]))
-        for msg in check_E1(terms):
-            print('%s:%s' % (filename, msg))
+        for checker in check_E1, check_E2:
+            for msg in checker(terms):
+                print('%s:%s' % (filename, msg))
 
 
 def check_E1(terms):
