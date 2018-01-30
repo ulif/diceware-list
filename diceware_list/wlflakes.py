@@ -88,6 +88,20 @@ def check_E2(terms):
                 yield msg
         last = term
 
+def check_W1(terms):
+    """Check if terms contain non-ASCII chars.
+
+    terms must be a list of terms
+
+    Yields message, wach on representing an W1 violation.
+    """
+    for n, t in enumerate(terms):
+        try:
+            t.decode('ascii')
+        except(UnicodeDecodeError):
+            msg = '%d: W1 "%s" contains non-ASCII chars' % (n + 1, t)
+            yield msg
+
 
 def main():
     """Main function for `wlflakes` script.
