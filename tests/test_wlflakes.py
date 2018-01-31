@@ -107,7 +107,7 @@ class TestCheckers(object):
         assert list(check_E1(["foo", "barbaz", "bar"])) == [
                 '2: E1 "bar" from line 3 is a prefix of "barbaz"']
 
-    def test_E2(sel):
+    def test_E2(self):
         # we can check whether a list contains double elements
         assert list(check_E2(["foo", "bar"])) == []
         assert list(check_E2(["foo", "foo"])) == [
