@@ -16,6 +16,7 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Tests for wlflakes module.
 """
+from __future__ import unicode_literals
 import pytest
 import sys
 from diceware_list import __version__
@@ -49,7 +50,9 @@ class TestArgParser(object):
         with pytest.raises(SystemExit):
             get_cmdline_args(["foobar", ])
         out, err = capfd.readouterr()
-        assert "No such file or directory: 'foobar'" in err
+        assert ("No such file or directory: " in err)
+        assert ("'foobar'" in err)
+
 
     def test_version(self, capfd):
         # we can output current version.
