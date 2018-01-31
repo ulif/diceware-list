@@ -21,7 +21,7 @@ import pytest
 import sys
 from diceware_list import __version__
 from diceware_list.wlflakes import (
-        find_flakes, get_cmdline_args, main, check_E1, check_E2
+        find_flakes, get_cmdline_args, main, check_E1, check_E2, check_W1
         )
 
 
@@ -115,6 +115,14 @@ class TestCheckers(object):
         assert list(check_E2(["foo", "bar"])) == []
         assert list(check_E2(["foo", "foo"])) == [
                 '1: E2 "foo" appears multiple times']
+
+    def test_W1(self):
+        # we can detect terms containing non-ASCII chars
+        assert list(check_W1([b"foo", b"bar"])) == []
+        assert list(
+            check_W1(["für".encode("utf-8"), "bar".encode("utf-8")])) == [
+                    '1: W1 "für" contains non-ASCII chars'
+                ]
 
 
 class TestMain(object):
