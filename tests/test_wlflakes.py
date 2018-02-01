@@ -53,7 +53,6 @@ class TestArgParser(object):
         assert ("No such file or directory: " in err)
         assert ("'foobar'" in err)
 
-
     def test_version(self, capfd):
         # we can output current version.
         with pytest.raises(SystemExit):

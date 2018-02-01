@@ -88,6 +88,7 @@ def check_E2(terms):
                 yield msg
         last = term
 
+
 def check_W1(terms):
     """Check if terms contain non-ASCII chars.
 
