@@ -100,7 +100,8 @@ def check_W1(terms):
         try:
             t.decode('ascii')
         except(UnicodeDecodeError):
-            msg = '%d: W1 "%s" contains non-ASCII chars' % (n + 1, t)
+            msg = '%d: W1 "%s" contains non-ASCII chars' % (
+                    n + 1, t.decode('utf-8'))
             yield msg
 
 
