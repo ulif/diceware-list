@@ -109,11 +109,21 @@ class TestCheckers(object):
         assert list(check_E1(["foo", "barbaz", "bar"])) == [
                 '2: E1 "bar" from line 3 is a prefix of "barbaz"']
 
+    def test_E1_copes_with_umlauts(self):
+        # E1 works with terms containing non-ASCII chars.
+        assert list(check_E1(["foo", "bärbaz", "bär"])) == [
+                '2: E1 "bär" from line 3 is a prefix of "bärbaz"']
+
     def test_E2(self):
         # we can check whether a list contains double elements
         assert list(check_E2(["foo", "bar"])) == []
         assert list(check_E2(["foo", "foo"])) == [
                 '1: E2 "foo" appears multiple times']
+
+    def test_E2_copes_with_umlauts(self):
+        # E2 works with terms containing umlauts
+        assert list(check_E2(["für", "für", "far"])) == [
+                '1: E2 "für" appears multiple times']
 
     def test_W1(self):
         # we can detect terms containing non-ASCII chars
