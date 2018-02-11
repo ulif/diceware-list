@@ -4,7 +4,7 @@ Changes
 2.0.1.dev0 (unreleased)
 =======================
 
-- No changes yet.
+- `wlflakes` checks now for non ASCII chars in lists.
 
 
 2.0 (2018-01-23)
