@@ -165,8 +165,8 @@ Find flakes in wordlists.
 
 No output means: no problems detected.
 
-Currently, only prefix flakes are checked. I.e., we check, whether any line in
-the given file is the beginning of any other line.
+We can look for prefix flakes. I.e., we check, whether any line in the given
+file is the beginning of any other line.
 
 ::
   $ cat wordlist.txt
@@ -177,7 +177,21 @@ the given file is the beginning of any other line.
   $ wlflakes wordlist.txt
   wordlist.txt:3: E1 "air" from line 1 is a prefix of "airport"
 
-Also `wlflakes` supports ``--help`` or ``-h`` to list all options supported.
+
+Double entries are also shown:
+
+::
+  $ cat wordlist.txt
+  air
+  port
+  air
+
+  $ wlflakes wordlist.txt
+  wordlist.txt:1: E1 "air" from line 1 is a prefix of "air"
+  wordlist.txt:1: E2 "air" appears multiple times
+
+
+`wlflakes` supports also ``--help`` or ``-h`` to list all options supported.
 
 
 Handle Android wordlists: wldownload
