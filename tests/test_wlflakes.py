@@ -133,6 +133,14 @@ class TestCheckers(object):
                     '1: W1 "für" contains non-ASCII chars'
                 ]
 
+    def test_W1_bytes(self):
+        # we cope with input str
+        assert list(check_W1([u"foöo", u"bar"])) == []
+        assert list(
+            check_W1(["für", "bar"])) == [
+                    '1: W1 "für" contains non-ASCII chars'
+                ]
+
 
 class TestMain(object):
 
