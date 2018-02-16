@@ -97,11 +97,17 @@ def check_W1(terms):
     Yields message, wach on representing an W1 violation.
     """
     for n, t in enumerate(terms):
+        if hasattr(t, 'encode') and not hasattr(t, "decode"):
+            t = t.encode("utf-8")
         try:
             t.decode('ascii')
         except(UnicodeDecodeError):
             msg = '%d: W1 "%s" contains non-ASCII chars' % (
                     n + 1, t.decode('utf-8'))
+            yield msg
+        except(UnicodeEncodeError):
+            msg = '%d: W1 "%s" contains non-ASCII chars' % (
+                    n + 1, t)
             yield msg
 
 
