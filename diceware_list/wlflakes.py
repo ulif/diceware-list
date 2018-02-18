@@ -105,7 +105,7 @@ def check_W1(terms):
             msg = '%d: W1 "%s" contains non-ASCII chars' % (
                     n + 1, t.decode('utf-8'))
             yield msg
-        except(UnicodeEncodeError):
+        except(UnicodeEncodeError):  # pragma: nocover
             msg = '%d: W1 "%s" contains non-ASCII chars' % (
                     n + 1, t)
             yield msg
