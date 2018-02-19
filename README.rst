@@ -191,6 +191,12 @@ Double entries are also shown:
   wordlist.txt:1: E2 "air" appears multiple times
 
 
+More checks offered by `wlflakes`:
+
+Warnings:
+- show terms containing non-ASCII chars
+
+
 `wlflakes` supports also ``--help`` or ``-h`` to list all options supported.
 
 
