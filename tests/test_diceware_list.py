@@ -466,6 +466,15 @@ class TestMain(object):
         assert "a\nbb\nc" not in out
         assert "bbb" in out
 
+    def test_main_avoid_double_case(self, monkeypatch,  dictfile, capfd):
+        # we cope with words that appear in upper and lower case
+        dictfile.write_text("aa\nbb\nAA\n", "utf-8")
+        monkeypatch.setattr(sys, "argv", [
+            "scriptname", "--prefix=long", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert "aa\nbb\n" == out
+
     def test_main_sides(self, monkeypatch, dictfile, capfd):
         # we support unusual dice
         alphabet = "".join(
