@@ -468,7 +468,7 @@ class TestMain(object):
 
     def test_main_avoid_double_case(self, monkeypatch,  dictfile, capfd):
         # we cope with words that appear in upper and lower case
-        dictfile.write_text("aa\nbb\nAA\n", "utf-8")
+        dictfile.write_text(u"aa\nbb\nAA\n", "utf-8")
         monkeypatch.setattr(sys, "argv", [
             "scriptname", "--prefix=long", str(dictfile)])
         main()
