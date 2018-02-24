@@ -125,6 +125,8 @@ def generate_wordlist(
     separator = '-'
     base_terms = list(base_terms_iterator(use_kit=use_kit, use_416=use_416))
     terms = list(set(list(input_terms) + list(base_terms)))
+    if lowercase:
+        terms = [x.lower() for x in terms]
     terms.sort()
     if prefix_code in ('short', 'long'):
         prefer_short = (prefix_code == 'short')
@@ -142,8 +144,6 @@ def generate_wordlist(
     all_dice = ""
     for num, term in enumerate(sorted(min_width_iter(
             terms, length, shuffle_max))):
-        if lowercase:
-            term = term.lower()
         if numbered:
             all_dice = idx_to_dicenums(
                 num, dicenum, dice_sides, separator=separator) + " "
