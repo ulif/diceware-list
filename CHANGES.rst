@@ -6,6 +6,8 @@ Changes
 
 - `wlflakes` checks now for non ASCII chars in lists.
 
+- Fixed #4: terms differing in only upper/lower case, led to double entries in
+  result list.
 
 2.0 (2018-01-23)
 ================
