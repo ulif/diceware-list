@@ -326,6 +326,20 @@ class TestGenerateWordlist(object):
         with pytest.raises(ValueError):
             list(generate_wordlist(in_list, length=4, use_kit=False))
 
+    def test_upper_case_terms(self):
+        # wordlist with upper case terms are handled properly
+        in_list = ["b", "B"]
+        assert list(
+                generate_wordlist(in_list, prefix_code="long", lowercase=False)
+                ) == ["B", "b"]
+        in_list = ["b", "B"]
+        assert list(
+            generate_wordlist(in_list)) == ["b", "b"]
+        in_list = ["b", "B"]
+        assert list(
+            generate_wordlist(in_list, prefix_code='long')) == ["b"]
+
+
 
 class TestMain(object):
 
