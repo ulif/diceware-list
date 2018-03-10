@@ -340,7 +340,6 @@ class TestGenerateWordlist(object):
             generate_wordlist(in_list, prefix_code='long')) == ["b"]
 
 
-
 class TestMain(object):
 
     def test_main(self, monkeypatch):
