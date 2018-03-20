@@ -54,6 +54,10 @@ def get_cmdline_args(args=None):
         help='include the "dicewarekit" list from diceware.com. Disabled by '
              'default.')
     parser.add_argument(
+        '-u', '--allow-uppercase', action='store_true', dest='uppercase',
+        help='keep uppercase letters in terms untouched. By default all terms '
+             'are turned into lowercase.')
+    parser.add_argument(
         '--use-416', action='store_true',
         help='use terms from diceware416.txt list. Disabled by default.')
     parser.add_argument(
