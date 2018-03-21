@@ -72,6 +72,7 @@ class TestArgParser(object):
         assert result.numbered is False
         assert result.ascii_only is False
         assert result.sides == 6
+        assert result.uppercase is False
         assert result.use_kit is False
         assert result.use_416 is False
         assert result.prefix == 'none'
@@ -146,6 +147,13 @@ class TestArgParser(object):
         assert result.prefix == 'long'
         result = get_cmdline_args(["--prefix", "long", str(dictfile)])
         assert result.prefix == 'long'
+
+    def test_opt_uppercase_settable(self, dictfile):
+        # we can tell whether we want uppercase terms
+        result = get_cmdline_args(["-u", str(dictfile)])
+        assert result.uppercase is True
+        result = get_cmdline_args(["--allow-uppercase", str(dictfile)])
+        assert result.uppercase is True
 
 
 class TestGenerateWordlist(object):
