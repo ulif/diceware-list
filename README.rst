@@ -9,8 +9,8 @@ diceware-list
 
 Create and check wordlists for use with `diceware`_.
 
-This is not a `diceware`_ implementation, but a helper to create appropriate
-wordlists.
+This is not a `diceware`_ implementation, but a helper to create and check
+appropriate wordlists.
 
 Currently, we provide three scripts:
 
