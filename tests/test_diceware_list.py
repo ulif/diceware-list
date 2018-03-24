@@ -314,6 +314,13 @@ class TestGenerateWordlist(object):
         assert result2 == ['a', 'ba', 'ca']
         assert result3 == ['aa', 'ba', 'ca']
 
+    def test_arg_turn_lowercase(self, monkeypatch):
+        # we can tell, whether we allow uppercase terms
+        terms = ['A', 'a']
+        result1 = list(generate_wordlist(
+            terms, length=2))
+        assert result1 == ['a', 'a']
+
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["c", "aa", "a", "b"]
