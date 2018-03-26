@@ -319,7 +319,10 @@ class TestGenerateWordlist(object):
         terms = ['A', 'a']
         result1 = list(generate_wordlist(
             terms, length=2))
+        result2 = list(generate_wordlist(
+            terms, length=2, lowercase=False))
         assert result1 == ['a', 'a']
+        assert result2 == ['A', 'a']
 
     def test_result_sorted(self):
         # result iterators are sorted
