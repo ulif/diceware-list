@@ -527,3 +527,11 @@ class TestMain(object):
         out, err = capfd.readouterr()
         assert "52 z" not in out
         assert "211 z" in out
+
+    def test_main_lowercase(self, monkeypatch, dictfile, capfd):
+        # we turn terms into lowecase by default
+        dictfile.write_text(u"A\nb\nC\n", "utf-8")
+        monkeypatch.setattr(sys, "argv", ["script", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert "a\nb\nc\n" == out
