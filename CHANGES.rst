@@ -4,6 +4,9 @@ Changes
 2.0.1.dev0 (unreleased)
 =======================
 
+- `diceware-list` now allows uppercase chars in terms on request (``-u`` or
+  ``--allow-uppercase``).
+
 - `wlflakes` checks now for non ASCII chars in lists.
 
 - Fixed #4: terms differing in only upper/lower case, led to double entries in
