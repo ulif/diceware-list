@@ -140,7 +140,8 @@ def generate_wordlist(
         length = len(terms)
     if len(terms) < length:
         raise ValueError(
-            "Wordlist too short: at least %s unique terms required." % length)
+            "Wordlist (after filtering) too short: "
+            "at least %s terms required." % length)
     if length and numbered:
         dicenum = int(math.ceil(math.log(length) / math.log(dice_sides)))
     if dice_sides < 10:
