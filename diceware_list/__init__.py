@@ -139,6 +139,7 @@ def generate_wordlist(
     if length is None:
         length = len(terms)
     if len(terms) < length:
+        logger.debug("termlist length (after mangling): %s" % len(terms))
         raise ValueError(
             "Wordlist (after filtering) too short: "
             "at least %s terms required." % length)
