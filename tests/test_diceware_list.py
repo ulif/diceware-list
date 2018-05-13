@@ -155,6 +155,11 @@ class TestArgParser(object):
         result = get_cmdline_args(["--allow-uppercase", str(dictfile)])
         assert result.uppercase is True
 
+    def test_opt_chars_settable(self, dictfile):
+        # we can set a custom list of acceptable chars
+        result = get_cmdline_args(["-c","abc", str(dictfile)])
+        assert result.chars == "abc"
+
 
 class TestGenerateWordlist(object):
 
