@@ -47,7 +47,7 @@ def get_cmdline_args(args=None):
         '--ascii', action='store_true', dest='ascii_only',
         help='allow only words that contain only ASCII chars.')
     parser.add_argument(
-        '--chars', default=None,
+        '-c', '--chars', default=None,
         help='list of chars allowed in result. By default no restrictions '
              'apply')
     parser.add_argument(
