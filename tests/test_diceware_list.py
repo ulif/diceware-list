@@ -76,6 +76,7 @@ class TestArgParser(object):
         assert result.use_kit is False
         assert result.use_416 is False
         assert result.prefix == 'none'
+        assert result.chars is None
         assert isinstance(result.dictfile, list)
 
     def test_arg_dictfile_gives_strings(self, tmpdir):
