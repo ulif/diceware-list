@@ -87,7 +87,7 @@ def get_cmdline_args(args=None):
 
 def generate_wordlist(
         input_terms, length=None, lowercase=True, use_kit=False,
-        use_416=False, numbered=False, ascii_only=False,
+        use_416=False, numbered=False, ascii_only=False, chars=None,
         shuffle_max=True, prefix_code='none', dice_sides=DICE_SIDES):
     """Generate a diceware wordlist from dictionary list.
 
