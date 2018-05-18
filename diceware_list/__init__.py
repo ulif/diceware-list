@@ -106,6 +106,8 @@ def generate_wordlist(
 
     `ascii_only`: only accept words, that exclusively contain ASCII.
 
+    `chars`: a list of allowed chars. All chars allowed if `None`.
+
     `shuffle_max`: shuffle max width entries before cutting and sorting.
                This way a random set of max width entries gets included
                instead of the same fixed set at the beginning of all max width
