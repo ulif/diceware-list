@@ -130,8 +130,11 @@ def generate_wordlist(
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
     """
-    if ascii_only:
-        input_terms = filter_chars(input_terms, allowed=DEFAULT_CHARS)
+    allowed = DEFAULT_CHARS
+    if ascii_only or chars:
+        if chars is not None:
+            allowed = chars
+        input_terms = filter_chars(input_terms, allowed=allowed)
     separator = '-'
     base_terms = list(base_terms_iterator(use_kit=use_kit, use_416=use_416))
     terms = list(set(list(input_terms) + list(base_terms)))
