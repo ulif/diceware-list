@@ -320,6 +320,12 @@ class TestGenerateWordlist(object):
         assert result2 == ['a', 'ba', 'ca']
         assert result3 == ['aa', 'ba', 'ca']
 
+    def test_arg_chars_is_respected(self, monkeypatch):
+        # we can set a list of allowed chars
+        terms = ['ab', 'ba', 'bc']
+        result = list(generate_wordlist(terms, chars="ab"))
+        assert result == ['ab', 'ba']
+
     def test_arg_turn_lowercase(self, monkeypatch):
         # we can tell, whether we allow uppercase terms
         terms = ['A', 'a']
