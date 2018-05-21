@@ -323,8 +323,10 @@ class TestGenerateWordlist(object):
     def test_arg_chars_is_respected(self, monkeypatch):
         # we can set a list of allowed chars
         terms = ['ab', 'ba', 'bc']
-        result = list(generate_wordlist(terms, chars="ab"))
-        assert result == ['ab', 'ba']
+        result1 = list(generate_wordlist(terms, chars=None))
+        result2 = list(generate_wordlist(terms, chars="ab"))
+        assert result1 == ['ab', 'ba', 'bc']
+        assert result2 == ['ab', 'ba']
 
     def test_arg_turn_lowercase(self, monkeypatch):
         # we can tell, whether we allow uppercase terms
