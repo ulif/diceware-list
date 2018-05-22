@@ -371,6 +371,11 @@ class TestGenerateWordlist(object):
         assert list(
             generate_wordlist(in_list, prefix_code='long')) == ["b"]
 
+    def test_chars_precedes_ascii_only(self):
+        # the `chars` option precedes any `ascii`.
+        in_list = ["a", "b"]
+        result = list(generate_wordlist(['a', 'b'], ascii_only=True, chars="acd"))
+        assert result == ["a"]
 
 class TestMain(object):
 
