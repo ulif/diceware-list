@@ -158,7 +158,7 @@ class TestArgParser(object):
 
     def test_opt_chars_settable(self, dictfile):
         # we can set a custom list of acceptable chars
-        result = get_cmdline_args(["-c","abc", str(dictfile)])
+        result = get_cmdline_args(["-c", "abc", str(dictfile)])
         assert result.chars == "abc"
 
 
@@ -374,8 +374,10 @@ class TestGenerateWordlist(object):
     def test_chars_precedes_ascii_only(self):
         # the `chars` option precedes any `ascii`.
         in_list = ["a", "b"]
-        result = list(generate_wordlist(['a', 'b'], ascii_only=True, chars="acd"))
+        result = list(
+            generate_wordlist(in_list, ascii_only=True, chars="acd"))
         assert result == ["a"]
+
 
 class TestMain(object):
 
