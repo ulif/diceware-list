@@ -183,7 +183,8 @@ def main():
             all_terms, args.length, use_kit=args.use_kit,
             use_416=args.use_416, numbered=args.numbered,
             ascii_only=args.ascii_only, dice_sides=args.sides,
-            prefix_code=args.prefix, lowercase=not args.uppercase):
+            prefix_code=args.prefix, lowercase=not args.uppercase,
+            chars=args.chars):
         print(term)
 
 
