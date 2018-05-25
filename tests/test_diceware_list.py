@@ -556,3 +556,12 @@ class TestMain(object):
         main()
         out, err = capfd.readouterr()
         assert "a\nb\nc\n" == out
+
+    def test_main_chars(self, monkeypatch, dictfile, capfd):
+        # we can tell what chars to accept
+        dictfile.write_text(u"abba\nbad\nban\n", "utf-8")
+        monkeypatch.setattr(sys, "argv", [
+            "script", "-c", "abcd", str(dictfile)])
+        main()
+        out, err = capfd.readouterr()
+        assert out == "abba\nbad\n"
