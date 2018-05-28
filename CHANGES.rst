@@ -1,8 +1,8 @@
 Changes
 *******
 
-2.0.1.dev0 (unreleased)
-=======================
+2.1.dev0 (unreleased)
+=====================
 
 - `diceware-list` allows to limit the set set of allowed chars (``-c`` or
   ``--chars``).
