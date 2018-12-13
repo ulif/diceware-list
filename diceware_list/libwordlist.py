@@ -380,7 +380,7 @@ def strip_matching_prefixes(iterable, is_sorted=False, prefer_short=True):
 
 
 def get_prefixes(lst):
-    """Get prefixes in sorted `lst`.
+    r'''Get prefixes in sorted `lst`.
 
     The `lst` is expected to be a sorted wordlist.
 
@@ -412,7 +412,7 @@ def get_prefixes(lst):
 
     where left children of nodes are prefixed by the node itself, while right
     children are not.
-    """
+    '''
     stack = [[]]
     for item in lst + [""]:
         while len(stack) > 1:
