@@ -4,6 +4,8 @@ Changes
 2.1.dev0 (unreleased)
 =====================
 
+- Support also Python 3.6, 3.7 and `pypy3`.
+
 - `diceware-list` allows to limit the set set of allowed chars (``-c`` or
   ``--chars``).
 
