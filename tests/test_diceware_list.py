@@ -20,8 +20,8 @@ import sys
 import pytest
 import random
 from diceware_list import (
-        get_cmdline_args, generate_wordlist, main, __version__
-        )
+    get_cmdline_args, generate_wordlist, main, __version__
+)
 
 
 class TestHelpers(object):
@@ -343,14 +343,14 @@ class TestGenerateWordlist(object):
         in_list = ["c", "aa", "a", "b"]
         assert list(
             generate_wordlist(in_list, length=4, use_kit=False)
-            ) == ["a", "aa", "b", "c"]
+        ) == ["a", "aa", "b", "c"]
 
     def test_unique_entries_only(self):
         # wordlists contain each entry only once
         in_list = ["a", "a", "a", "b", "a"]
         assert list(
             generate_wordlist(in_list, length=2, use_kit=False)
-            ) == ["a", "b"]
+        ) == ["a", "b"]
 
     def test_wordlist_too_short(self):
         # wordlists that are too short raise a special exception
@@ -362,8 +362,8 @@ class TestGenerateWordlist(object):
         # wordlist with upper case terms are handled properly
         in_list = ["b", "B"]
         assert list(
-                generate_wordlist(in_list, prefix_code="long", lowercase=False)
-                ) == ["B", "b"]
+            generate_wordlist(in_list, prefix_code="long", lowercase=False)
+        ) == ["B", "b"]
         in_list = ["b", "B"]
         assert list(
             generate_wordlist(in_list)) == ["b", "b"]
@@ -518,7 +518,7 @@ class TestMain(object):
         assert "a\nbb\nc" not in out
         assert "bbb" in out
 
-    def test_main_avoid_double_case(self, monkeypatch,  dictfile, capfd):
+    def test_main_avoid_double_case(self, monkeypatch, dictfile, capfd):
         # we cope with words that appear in upper and lower case
         dictfile.write_text(u"aa\nbb\nAA\n", "utf-8")
         monkeypatch.setattr(sys, "argv", [
@@ -535,7 +535,8 @@ class TestMain(object):
         monkeypatch.setattr(
             sys, "argv", [   # no "-d"
                 "scriptname", "-n", "-l", "26", str(dictfile)
-                ])
+            ]
+        )
         main()
         out, err = capfd.readouterr()
         assert "52 z" in out
@@ -543,7 +544,8 @@ class TestMain(object):
         monkeypatch.setattr(
             sys, "argv", [
                 "scriptname", "-n", "-l", "26", "-d", "5", str(dictfile)
-                ])
+            ]
+        )
         main()
         out, err = capfd.readouterr()
         assert "52 z" not in out
