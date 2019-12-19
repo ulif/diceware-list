@@ -62,7 +62,7 @@ def dictfile_android_short_en(request, tmpdir):
     """
     dictfile = tmpdir / "en_wordlist.combined.gz"
     src_path = os.path.join(
-            os.path.dirname(__file__), "sample_short_wordlist_en.gz")
+        os.path.dirname(__file__), "sample_short_wordlist_en.gz")
     shutil.copyfile(src_path, str(dictfile))
     return dictfile
 
@@ -75,7 +75,7 @@ def dictfile_android_short_de(request, tmpdir):
     """
     dictfile = tmpdir / "de_wordlist.combined.gz"
     src_path = os.path.join(
-            os.path.dirname(__file__), "sample_short_wordlist_de.gz")
+        os.path.dirname(__file__), "sample_short_wordlist_de.gz")
     shutil.copyfile(src_path, str(dictfile))
     return dictfile
 
@@ -122,11 +122,11 @@ def local_android_download_b64(request, monkeypatch, tmpdir):
         os.path.join(os.path.dirname(__file__), 'sample_index.html')).read()
     tmpdir.join("index.html").write(index_html)
     monkeypatch.setattr(
-            "diceware_list.libwordlist.AndroidWordList.base_url",
-            fake_base_url)
+        "diceware_list.libwordlist.AndroidWordList.base_url",
+        fake_base_url)
     monkeypatch.setattr(
-            "diceware_list.libwordlist.AndroidWordList.full_url",
-            '%s%%s_wordlist.combined.gz' % fake_base_url)
+        "diceware_list.libwordlist.AndroidWordList.full_url",
+        '%s%%s_wordlist.combined.gz' % fake_base_url)
     return tmpdir
 
 
@@ -141,8 +141,8 @@ def local_index(request, monkeypatch, tmpdir):
         os.path.join(os.path.dirname(__file__), 'sample_index.html')).read()
     tmpdir.join('index.html').write(index_html)
     monkeypatch.setattr(
-            "diceware_list.libwordlist.AndroidWordList.base_url",
-            'file://%s/index.html' % str(tmpdir))
+        "diceware_list.libwordlist.AndroidWordList.base_url",
+        'file://%s/index.html' % str(tmpdir))
     return tmpdir
 
 

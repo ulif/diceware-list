@@ -41,8 +41,8 @@ DICE_SIDES = 6  #: we normally handle 6-sided dice.
 
 #: The URL where the wordlists for Android are available.
 BASE_URL_DICT_ANDROID = (
-        "https//android.googlesource.com/platform/packages/inputmethods/"
-        "LatinIME/+/master/dictionaries/")
+    "https//android.googlesource.com/platform/packages/inputmethods/"
+    "LatinIME/+/master/dictionaries/")
 
 
 #: A logger for use with diceware-list related messages.
@@ -166,7 +166,7 @@ def idx_to_dicenums(
         '212'
 
     """
-    nums = [x+1 for x in base10_to_n(item_index, dice_sides)]
+    nums = [x + 1 for x in base10_to_n(item_index, dice_sides)]
     padded = [1, ] * dice_num + nums
     return separator.join(["%s" % x for x in padded[-dice_num:]])
 
@@ -502,8 +502,8 @@ class AndroidWordList(object):
     """
     #: The URL where the wordlists for Android are available.
     base_url = (
-            "https://android.googlesource.com/platform/packages/inputmethods/"
-            "LatinIME/+/master/dictionaries/")
+        "https://android.googlesource.com/platform/packages/inputmethods/"
+        "LatinIME/+/master/dictionaries/")
 
     #: The full download path to Android wordlists
     full_url = '%s%%s_wordlist.combined.gz?format=TEXT' % base_url
