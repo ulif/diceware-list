@@ -68,7 +68,7 @@ def check_E1(terms):
     for t1, t2 in double_prefixes:
         i1, i2 = terms.index(t1), terms.index(t2)
         msg = '%d: E1 "%s" from line %d is a prefix of "%s"' % (
-                i2 + 1, t1, i1 + 1, t2)
+            i2 + 1, t1, i1 + 1, t2)
         yield msg
 
 
@@ -84,7 +84,7 @@ def check_E2(terms):
         if last is not None:
             if last == term:
                 msg = '%d: E2 "%s" appears multiple times' % (
-                        terms.index(term) + 1, term)
+                    terms.index(term) + 1, term)
                 yield msg
         last = term
 
@@ -103,11 +103,11 @@ def check_W1(terms):
             t.decode('ascii')
         except(UnicodeDecodeError):
             msg = '%d: W1 "%s" contains non-ASCII chars' % (
-                    n + 1, t.decode('utf-8'))
+                n + 1, t.decode('utf-8'))
             yield msg
         except(UnicodeEncodeError):  # pragma: nocover
             msg = '%d: W1 "%s" contains non-ASCII chars' % (
-                    n + 1, t)
+                n + 1, t)
             yield msg
 
 
