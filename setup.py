@@ -11,20 +11,20 @@ def read(fname):
 
 setup_requires = [
     'pytest_runner',
-    ]
+]
 
 install_requires = [
     'setuptools',
-    ]
+]
 
 tests_require = [
     # See tox.ini
     'pytest >=2.8.3',
-    ]
+]
 
 docs_require = [
     'Sphinx',
-    ]
+]
 
 setup(
     name="diceware_list",
@@ -68,7 +68,7 @@ setup(
     tests_require=tests_require,
     extras_require=dict(
         docs=docs_require,
-        ),
+    ),
     entry_points={
         'console_scripts': [
             'diceware-list = diceware_list:main',
