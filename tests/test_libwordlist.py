@@ -33,7 +33,7 @@ from diceware_list.libwordlist import (
     min_width_iter, normalize, shuffle_max_width_items, term_iterator,
     paths_iterator, is_prefix_code, get_matching_prefixes, get_prefixes,
     strip_matching_prefixes, flatten_prefix_tree, AndroidWordList
-    )
+)
 
 
 EMPTY_GZ_FILE = (
@@ -323,9 +323,9 @@ class TestGetMatchingPrefixes(object):
                 ("a", "aa"), ("a", "aaa"), ("aa", "aaa")]
         assert list(
             get_matching_prefixes(["a", "aa", "aaa", "aaaa"], is_sorted=True)
-            ) == [
-                    ("a", "aa"), ("a", "aaa"), ("a", "aaaa"), ("aa", "aaa"),
-                    ("aa", "aaaa"), ("aaa", "aaaa")]
+        ) == [
+            ("a", "aa"), ("a", "aaa"), ("a", "aaaa"), ("aa", "aaa"),
+            ("aa", "aaaa"), ("aaa", "aaaa")]
 
     def test_get_matching_prefixes_non_destructive(self):
         # the given input will not be changed.
@@ -348,10 +348,10 @@ class TestStrinMatchingPrefixes(object):
         # we can get prefix code from any input
         assert list(strip_matching_prefixes(
             ["a", "aa", "b"], is_sorted=False, prefer_short=True)
-            ) == ["a", "b"]
+        ) == ["a", "b"]
         assert list(strip_matching_prefixes(
             ["aa", "a", "b"], is_sorted=False, prefer_short=True)
-            ) == ["a", "b"]
+        ) == ["a", "b"]
         assert list(strip_matching_prefixes(
             ["a", "aa"], is_sorted=False, prefer_short=True)) == ["a"]
         assert list(strip_matching_prefixes(
@@ -504,12 +504,12 @@ class TestAndroidWordlist(object):
         wl.gz_data = path.read_binary()
         meta = wl.get_meta_data()
         assert meta == {
-                'dictionary': 'main:de',
-                'locale': 'de',
-                'description': 'Deutsch',
-                'date': '1414726263',
-                'version': '54',
-                'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'
+            'dictionary': 'main:de',
+            'locale': 'de',
+            'description': 'Deutsch',
+            'date': '1414726263',
+            'version': '54',
+            'REQUIRES_GERMAN_UMLAUT_PROCESSING': '1'
         }
 
     def test_metadata_none(self):
@@ -583,6 +583,6 @@ class TestAndroidWordlist(object):
         wl = AndroidWordList()
         result = wl.get_valid_lang_codes()
         assert result == [
-                'cs', 'da', 'de', 'el', 'en', 'en_GB', 'en_US', 'es',
-                'fi', 'fr', 'hr', 'it', 'iw', 'lt', 'lv', 'nb', 'nl', 'pl',
-                'pt_BR', 'pt_PT', 'ro', 'ru', 'sl', 'sr', 'sv', 'tr']
+            'cs', 'da', 'de', 'el', 'en', 'en_GB', 'en_US', 'es',
+            'fi', 'fr', 'hr', 'it', 'iw', 'lt', 'lv', 'nb', 'nl', 'pl',
+            'pt_BR', 'pt_PT', 'ro', 'ru', 'sl', 'sr', 'sv', 'tr']

@@ -22,8 +22,8 @@ import sys
 from diceware_list import __version__
 from diceware_list.libwordlist import AndroidWordList
 from diceware_list.wldownload import (
-        download_wordlist, get_save_path, get_cmdline_args, main
-        )
+    download_wordlist, get_save_path, get_cmdline_args, main
+)
 
 
 def test_get_save_path(home_dir):
@@ -230,7 +230,7 @@ class TestMain(object):
     def test_main_lang_codes(self, monkeypatch, local_index, capfd):
         # we can ask for a list of available languages
         monkeypatch.setattr(
-                sys, "argv", ["scriptname", "--lang-codes", "-v", ])
+            sys, "argv", ["scriptname", "--lang-codes", "-v", ])
         with pytest.raises(SystemExit):
             main()
         out, err = capfd.readouterr()
