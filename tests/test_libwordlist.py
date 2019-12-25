@@ -29,10 +29,11 @@ import pytest
 import sys
 from diceware_list import DEFAULT_CHARS
 from diceware_list.libwordlist import (
-    base10_to_n, filter_chars, base_terms_iterator, idx_to_dicenums,
-    min_width_iter, normalize, shuffle_max_width_items, term_iterator,
-    paths_iterator, is_prefix_code, get_matching_prefixes, get_prefixes,
-    strip_matching_prefixes, flatten_prefix_tree, AndroidWordList
+    alpha_dist, base10_to_n, filter_chars, base_terms_iterator,
+    idx_to_dicenums, min_width_iter, normalize, shuffle_max_width_items,
+    term_iterator, paths_iterator, is_prefix_code, get_matching_prefixes,
+    get_prefixes, strip_matching_prefixes, flatten_prefix_tree,
+    AndroidWordList
 )
 
 
@@ -414,6 +415,13 @@ def test_flatten_prefix_tree():
     assert flatten_prefix_tree(
         [['a', ['aa', ['aaa']], ['ab'], ['ac']]], prefer_short=False) == [
             'aaa', 'ab', 'ac']
+
+
+def test_alpha_dist():
+    # we get proper distributions of alphabets
+    assert alpha_dist([]) == dict()
+    assert alpha_dist(['a', 'b']) == dict(a=1, b=1)
+    assert alpha_dist(['ab', 'b']) == dict(a=1, b=2)
 
 
 class TestAndroidWordlist(object):

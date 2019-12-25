@@ -464,6 +464,16 @@ def flatten_prefix_tree(prefix_tree, prefer_short=True):
     return result
 
 
+def alpha_dist(wordlist):
+    """Get a distribution of chars in wordlist.
+    """
+    dist = {}
+    for word in wordlist:
+        for char in word:
+            dist[char] = dist.get(char, 0) + 1
+    return dist
+
+
 class AndroidWordList(object):
     """A wordlist provided for use in Android devices.
 
