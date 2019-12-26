@@ -29,6 +29,7 @@ except ImportError:                     # pragma: no cover
 import base64
 import codecs
 import logging
+import math
 import os
 import random
 import re
@@ -472,6 +473,27 @@ def alpha_dist(wordlist):
         for char in word:
             dist[char] = dist.get(char, 0) + 1
     return dist
+
+
+def entropy_per_char_bruteforce(wordlist):
+    """Entropy of single chars in a given wordlist.
+
+    Very short words in wordlists might be easier guessed by char-wise
+    bruteforcing than by guessing word by word. For instance the word 'to' in
+    a wordlist of 8192 words might be guessed by guessing one of the 8192
+    items in list or by combining all letters with all letters one time. In
+    the former case you get 8192 possibitlities in the latter only
+    26 x 26 = 676. Therefore you should not use 2-letter words in an 8192
+    terms list.
+
+    This function tells, how much entropy you get per char, given that all
+    chars are equally distributed over the wordlist (which is normally not the
+    case, but reflects the base condition for plain bruteforce attacks).
+
+    Result is given in bits.
+    """
+    dist = alpha_dist(wordlist)
+    return -math.log(1.0 / len(dist.keys()), 2)
 
 
 class AndroidWordList(object):

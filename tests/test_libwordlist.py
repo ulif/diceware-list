@@ -33,7 +33,7 @@ from diceware_list.libwordlist import (
     idx_to_dicenums, min_width_iter, normalize, shuffle_max_width_items,
     term_iterator, paths_iterator, is_prefix_code, get_matching_prefixes,
     get_prefixes, strip_matching_prefixes, flatten_prefix_tree,
-    AndroidWordList
+    AndroidWordList, entropy_per_char_bruteforce
 )
 
 
@@ -422,6 +422,14 @@ def test_alpha_dist():
     assert alpha_dist([]) == dict()
     assert alpha_dist(['a', 'b']) == dict(a=1, b=1)
     assert alpha_dist(['ab', 'b']) == dict(a=1, b=2)
+
+
+def test_entropy_per_char_bruteforce():
+    # we can get the entropy per char for plain bruteforce
+    assert entropy_per_char_bruteforce(['ab', ]) == 1.0        # 2 chars
+    assert entropy_per_char_bruteforce(['a', 'b']) == 1.0      # 2 chars
+    assert entropy_per_char_bruteforce(['aa', 'b']) == 1.0     # 2 chars
+    assert entropy_per_char_bruteforce(['art', 'air']) == 2.0  # 4 chars
 
 
 class TestAndroidWordlist(object):
