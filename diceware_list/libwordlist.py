@@ -496,6 +496,17 @@ def entropy_per_char_bruteforce(wordlist):
     return -math.log(1.0 / len(dist.keys()), 2)
 
 
+def min_len(wordlist):
+    """Compute the minimum wordlength for a wordlist,
+
+    so that it takes more guesses to bruteforce shortest terms than to
+    skillfull guess words.
+    """
+    list_entropy = -math.log(1.0 / len(wordlist))
+    char_entropy = entropy_per_char_bruteforce(wordlist)
+    return math.ceil(list_entropy / char_entropy)
+
+
 class AndroidWordList(object):
     """A wordlist provided for use in Android devices.
 
