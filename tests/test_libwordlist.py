@@ -33,7 +33,7 @@ from diceware_list.libwordlist import (
     idx_to_dicenums, min_width_iter, normalize, shuffle_max_width_items,
     term_iterator, paths_iterator, is_prefix_code, get_matching_prefixes,
     get_prefixes, strip_matching_prefixes, flatten_prefix_tree,
-    AndroidWordList, entropy_per_char_bruteforce, min_len 
+    AndroidWordList, entropy_per_char_bruteforce, min_len
 )
 
 
