@@ -26,8 +26,13 @@ try:
     from urllib.parse import urlparse   # python 3.x
 except ImportError:                     # pragma: no cover
     from urlparse import urlparse       # python 2.x
+try:
+    from itertools import filterfalse                 # python 3.x
+except ImportError:                                   # pragma: no cover
+    from itertools import ifilterfalse as filterfalse # python 2.x
 import base64
 import codecs
+import itertools
 import logging
 import math
 import os
@@ -259,7 +264,7 @@ def base_terms_iterator(use_kit=True, use_416=True):
         yield term
 
 
-def min_width_iter(iterator, num, shuffle_max_width=True):
+def min_width_iter(iterator, num, shuffle_max_width=True, min_len=0):
     """Get an iterable with `num` elements and minimal 'list width' from
     items in `iterator`.
 
@@ -282,7 +287,8 @@ def min_width_iter(iterator, num, shuffle_max_width=True):
     length first and terms of same length sorted alphabetically.
 
     """
-    all_terms = sorted(iterator, key=lambda x: (len(x), x))
+    all_terms = sorted(filterfalse(lambda x: len(x) < min_len, iterator) ,
+        key=lambda x: (len(x), x))
     if shuffle_max_width:
         max_width = len(all_terms[num - 1])
         all_terms = list(shuffle_max_width_items(all_terms, max_width))
