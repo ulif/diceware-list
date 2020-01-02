@@ -469,6 +469,14 @@ def flatten_prefix_tree(prefix_tree, prefer_short=True):
 
 def alpha_dist(wordlist):
     """Get a distribution of chars in wordlist.
+
+    Example::
+        >>> alpha_dist(['a', 'b']) == {'a': 1, 'b': 1}
+        True
+
+        >>> alpha_dist(['a', 'aa', 'c', 'bba']) == {'a': 4, 'b': 2, 'c': 1}
+        True
+
     """
     dist = {}
     for word in wordlist:
