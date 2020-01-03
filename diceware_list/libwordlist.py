@@ -501,9 +501,21 @@ def entropy_per_char_bruteforce(wordlist):
     case, but reflects the base condition for plain bruteforce attacks).
 
     Result is given in bits.
+
+    Sample:
+        >>> entropy_per_char_bruteforce(['a', 'b'])
+        1.0
+
+        >>> entropy_per_char_bruteforce(['aa', 'ab'])
+        1.0
+
+        >>> entropy_per_char_bruteforce(['ab', 'cd'])
+        2.0
+
     """
+    from decimal import Decimal
     dist = alpha_dist(wordlist)
-    return -math.log(1.0 / len(dist.keys()), 2)
+    return -math.log(Decimal("1.0") / len(dist.keys()), 2)
 
 
 def min_len(wordlist):
