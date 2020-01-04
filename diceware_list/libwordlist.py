@@ -28,6 +28,7 @@ except ImportError:                     # pragma: no cover
     from urlparse import urlparse       # python 2.x
 import base64
 import codecs
+import decimal
 import logging
 import math
 import os
@@ -503,19 +504,27 @@ def entropy_per_char_bruteforce(wordlist):
     Result is given in bits.
 
     Sample:
+        >>> decimal.getcontext().prec = 28
         >>> entropy_per_char_bruteforce(['a', 'b'])
-        1.0
+        Decimal('1.0')
 
         >>> entropy_per_char_bruteforce(['aa', 'ab'])
-        1.0
+        Decimal('0.8112781244591328599913282460')
 
         >>> entropy_per_char_bruteforce(['ab', 'cd'])
-        2.0
+        Decimal('2.00')
+
+        >>> entropy_per_char_bruteforce(['abcdefghijklmnopqrstuvwxyz'])
+        Decimal('4.700439718141092626524368820')
 
     """
-    from decimal import Decimal
     dist = alpha_dist(wordlist)
-    return -math.log(Decimal("1.0") / len(dist.keys()), 2)
+    charlen_wordlist = decimal.Decimal(sum(dist.values()))
+    h = 0
+    for char, cnt in dist.items():
+        p = decimal.Decimal(cnt) / charlen_wordlist
+        h = h - p * decimal.Decimal(math.log(p, 2))
+    return h
 
 
 def min_len(wordlist):
@@ -524,7 +533,7 @@ def min_len(wordlist):
     so that it takes more guesses to bruteforce shortest terms than to
     skillfull guess words.
     """
-    list_entropy = -math.log(1.0 / len(wordlist))
+    list_entropy = decimal.Decimal(-math.log(1.0 / len(wordlist)))
     char_entropy = entropy_per_char_bruteforce(wordlist)
     return math.ceil(list_entropy / char_entropy)
 

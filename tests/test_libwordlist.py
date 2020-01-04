@@ -23,6 +23,7 @@ except ImportError:                               # pragma: no cover
     from urllib2 import urlopen, URLError         # python 2.x
 from io import StringIO
 import codecs
+import decimal
 import gzip
 import random
 import pytest
@@ -426,10 +427,15 @@ def test_alpha_dist():
 
 def test_entropy_per_char_bruteforce():
     # we can get the entropy per char for plain bruteforce
-    assert entropy_per_char_bruteforce(['ab', ]) == 1.0        # 2 chars
-    assert entropy_per_char_bruteforce(['a', 'b']) == 1.0      # 2 chars
-    assert entropy_per_char_bruteforce(['aa', 'b']) == 1.0     # 2 chars
-    assert entropy_per_char_bruteforce(['art', 'air']) == 2.0  # 4 chars
+    decimal.getcontext().prec = 3
+    assert entropy_per_char_bruteforce(['ab', ]) == decimal.Decimal(1.0)
+    assert entropy_per_char_bruteforce(['a', 'b']) == decimal.Decimal(1.0)
+    assert entropy_per_char_bruteforce(
+        ['aaa', 'b']) == decimal.Decimal('0.811')
+    assert entropy_per_char_bruteforce(
+        ['ab', 'bc', 'cd', 'da']) == decimal.Decimal('2.0')
+    assert entropy_per_char_bruteforce(
+        ['art', 'air']) == decimal.Decimal('1.92')
 
 
 def test_min_len():
