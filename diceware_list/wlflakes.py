@@ -90,6 +90,7 @@ def check_E2(terms):
                 yield msg
         last = term
 
+
 def check_E3(terms):
     """Check, whether there are too short terms contained.
 
