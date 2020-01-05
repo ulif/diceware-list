@@ -19,7 +19,9 @@
 from __future__ import unicode_literals
 import argparse
 from diceware_list import __version__
-from diceware_list.libwordlist import get_matching_prefixes, term_iterator
+from diceware_list.libwordlist import (
+    get_matching_prefixes, term_iterator, min_len
+)
 
 
 def get_cmdline_args(args=None):
@@ -87,6 +89,21 @@ def check_E2(terms):
                     terms.index(term) + 1, term)
                 yield msg
         last = term
+
+def check_E3(terms):
+    """Check, whether there are too short terms contained.
+
+    `terms` mus be a list of terms.
+
+    Yields a message if the shortest terms can easier be bruteforced than
+    guessed by combining terms.
+    """
+    required_len = min_len(terms)
+    for n, t in enumerate(terms):
+        if len(t) < required_len:
+            msg = '%d: E3 "%s" is too short. Minimum length should be %s.' % (
+                n + 1, t, int(required_len))
+            yield msg
 
 
 def check_W1(terms):

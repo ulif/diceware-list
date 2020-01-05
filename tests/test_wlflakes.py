@@ -21,7 +21,8 @@ import pytest
 import sys
 from diceware_list import __version__
 from diceware_list.wlflakes import (
-    find_flakes, get_cmdline_args, main, check_E1, check_E2, check_W1
+    find_flakes, get_cmdline_args, main, check_E1, check_E2, check_E3,
+    check_W1
 )
 
 
@@ -124,6 +125,11 @@ class TestCheckers(object):
         # E2 works with terms containing umlauts
         assert list(check_E2(["für", "für", "far"])) == [
             '1: E2 "für" appears multiple times']
+
+    def test_E3(self):
+        # we detect too short terms
+        assert list(check_E3(['a', 'bb', 'aaa'])) == [
+            '1: E3 "a" is too short. Minimum length should be 2.']
 
     def test_W1(self):
         # we can detect terms containing non-ASCII chars
