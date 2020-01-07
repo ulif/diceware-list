@@ -94,6 +94,16 @@ class TestFindFlakes(object):
         assert(
             'wordlist.txt:1: E2 "bar" appears multiple times' in out)
 
+    def test_detect_too_short_terms(self, capfd, dictfile, tmpdir):
+        # we can find out if a term is too short
+        wordlist = tmpdir / "wordlist.txt"
+        wordlist.write("a\nbb\naaa\n")
+        with open(str(wordlist)) as fd:
+            find_flakes([fd, ], prefixes=False)
+        out, err = capfd.readouterr()
+        assert(
+            'wordlist.txt:1: E3 "a" is too short.' in out)
+
 
 class TestCheckers(object):
 
