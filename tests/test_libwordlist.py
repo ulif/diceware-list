@@ -440,7 +440,9 @@ def test_entropy_per_char_bruteforce():
 
 def test_min_len():
     # we can compute the minimum length of a word required for a wordlist
-    assert min_len(['abcd'] * 8192) == 5
+    assert min_len(['a', 'b']) == 1
+    assert min_len(['abcd'] * 8192) == 7
+    assert min_len(['abab'] * 16) == 4
 
 
 class TestAndroidWordlist(object):
