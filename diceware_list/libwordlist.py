@@ -535,7 +535,7 @@ def min_len(wordlist):
     """
     list_entropy = decimal.Decimal(-math.log(1.0 / len(wordlist), 2))
     char_entropy = entropy_per_char_bruteforce(wordlist)
-    return math.ceil(list_entropy / char_entropy)
+    return int(math.ceil(list_entropy / char_entropy))
 
 
 class AndroidWordList(object):
