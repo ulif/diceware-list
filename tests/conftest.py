@@ -18,6 +18,7 @@
 """py.test config for `diceware-list` modules.
 """
 import base64
+import decimal
 import logging
 import os
 import pytest
@@ -182,4 +183,15 @@ def argv_handler(request):
     def teardown():
         sys.argv = _argv_stored
         sys.stdin = _stdin_stored
+    request.addfinalizer(teardown)
+
+
+@pytest.fixture(scope="function", autouse=True)
+def preserve_decimal_prec(request):
+    """Preserve decimal precision.
+    """
+    _prec = decimal.getcontext().prec
+
+    def teardown():
+        decimal.getcontext().prec = _prec
     request.addfinalizer(teardown)
