@@ -427,6 +427,7 @@ def test_alpha_dist():
 
 def test_entropy_per_char_bruteforce():
     # we can get the entropy per char for plain bruteforce
+    prec = decimal.getcontext().prec
     decimal.getcontext().prec = 3
     assert entropy_per_char_bruteforce(['ab', ]) == decimal.Decimal(1.0)
     assert entropy_per_char_bruteforce(['a', 'b']) == decimal.Decimal(1.0)
@@ -436,6 +437,7 @@ def test_entropy_per_char_bruteforce():
         ['ab', 'bc', 'cd', 'da']) == decimal.Decimal('2.0')
     assert entropy_per_char_bruteforce(
         ['art', 'air']) == decimal.Decimal('1.92')
+    decimal.getcontext().prec = prec
 
 
 def test_min_len():

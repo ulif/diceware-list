@@ -504,7 +504,6 @@ def entropy_per_char_bruteforce(wordlist):
     Result is given in bits.
 
     Sample:
-        >>> decimal.getcontext().prec = 28
         >>> entropy_per_char_bruteforce(['a', 'b'])
         Decimal('1.0')
 
@@ -520,7 +519,7 @@ def entropy_per_char_bruteforce(wordlist):
     """
     dist = alpha_dist(wordlist)
     charlen_wordlist = decimal.Decimal(sum(dist.values()))
-    h = 0
+    h = decimal.Decimal("0")
     for char, cnt in dist.items():
         p = decimal.Decimal(cnt) / charlen_wordlist
         h = h - p * decimal.Decimal(math.log(p, 2))
