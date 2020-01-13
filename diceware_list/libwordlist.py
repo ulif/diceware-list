@@ -531,6 +531,42 @@ def min_len(wordlist):
 
     so that it takes more guesses to bruteforce shortest terms than to
     skillfull guess words.
+
+    Please note: min_len() will fail if there is no entropy in chars. This is
+    the case for instance with empty wordlists or wordlists containing only a
+    single char (because in that cases there is simply nothing to guess - you
+    know exactly, what char comes next).
+
+    Example: for a wordlist ('a', 'b') we have an entropy of 1 bit. That means
+    the probability to guess the first char of a random passphrase generated
+    with this list would be 0.5 (we assume that the guessing person knows the
+    word list and will therefore guess only chars contained in the word list).
+
+    The list itself has two elements, therefore it also provides an entropy of
+    1 bit per element - if elements are picked really randomly.
+
+    In that case guessing a single char or guessing a certain element out of
+    the list, would give a hit with the same probability 0.5. Therefore a brute
+    forcing adversary would not have an advantage over term-guessing
+    adversaries, even if the shortest terms have only a lenght of 1.
+
+        >>> min_len(['a', 'b'])
+        1
+
+    For longer wordlists, things change. Consider:
+
+        >>> list2 = ['a', 'b', 'aa', 'bb']
+
+    Here we have still only 2 chars, equally distributed over all 4 terms of
+    the list. The char entropy (interesting for brute forcers) is still 1 bit
+    while the list entropy is about 2 bits (which relates to a probability of
+    1/4 = 1/(2^2)). That means guessing a whole term is more difficult than
+    guessing a single char. Therefore we should not include terms with less
+    than 2 chars in the list:
+
+        >>> min_len(list2)
+        2
+
     """
     list_entropy = decimal.Decimal(-math.log(1.0 / len(wordlist), 2))
     char_entropy = entropy_per_char_bruteforce(wordlist)
