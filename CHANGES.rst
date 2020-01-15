@@ -12,10 +12,14 @@ Changes
 - `diceware-list` now allows uppercase chars in terms on request (``-u`` or
   ``--allow-uppercase``).
 
-- `wlflakes` checks now for non ASCII chars in lists.
+- `wlflakes` checks now for non ASCII chars in lists and for terms, that are
+  too short and therefore easy to bruteforce.
+
+- Added functions to compute entropy of wordlists and their alphabet chars.
 
 - Fixed #4: terms differing in only upper/lower case, led to double entries in
   result list.
+
 
 2.0 (2018-01-23)
 ================
