@@ -195,6 +195,7 @@ More checks offered by `wlflakes`:
 
 Warnings:
 - show terms containing non-ASCII chars
+- too short list entries (that are easer to bruteforce than to guess)
 
 
 `wlflakes` supports also ``--help`` or ``-h`` to list all options supported.
