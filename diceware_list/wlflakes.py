@@ -20,7 +20,7 @@ from __future__ import unicode_literals
 import argparse
 from diceware_list import __version__
 from diceware_list.libwordlist import (
-    get_matching_prefixes, term_iterator, min_len
+    get_matching_prefixes, term_iterator, min_word_length
 )
 
 
@@ -99,7 +99,7 @@ def check_E3(terms):
     Yields a message if the shortest terms can easier be bruteforced than
     guessed by combining terms.
     """
-    required_len = min_len(terms)
+    required_len = min_word_length(terms)
     for n, t in enumerate(terms):
         if len(t) < required_len:
             msg = '%d: E3 "%s" is too short. Minimum length should be %s.' % (

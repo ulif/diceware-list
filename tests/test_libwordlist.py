@@ -34,7 +34,7 @@ from diceware_list.libwordlist import (
     idx_to_dicenums, min_width_iter, normalize, shuffle_max_width_items,
     term_iterator, paths_iterator, is_prefix_code, get_matching_prefixes,
     get_prefixes, strip_matching_prefixes, flatten_prefix_tree,
-    AndroidWordList, entropy_per_char_bruteforce, min_len
+    AndroidWordList, entropy_per_char_bruteforce, min_word_length
 )
 
 
@@ -438,13 +438,13 @@ def test_entropy_per_char_bruteforce():
         ['art', 'air']) == decimal.Decimal('1.92')
 
 
-def test_min_len():
+def test_min_word_length():
     # we can compute the minimum length of a word required for a wordlist
-    assert min_len([]) == 1
-    assert min_len(['a', 'aa', 'aaa']) == 1
-    assert min_len(['a', 'b']) == 1
-    assert min_len(['abcd'] * 8192) == 7
-    assert min_len(['abab'] * 16) == 4
+    assert min_word_length([]) == 1
+    assert min_word_length(['a', 'aa', 'aaa']) == 1
+    assert min_word_length(['a', 'b']) == 1
+    assert min_word_length(['abcd'] * 8192) == 7
+    assert min_word_length(['abab'] * 16) == 4
 
 
 class TestAndroidWordlist(object):

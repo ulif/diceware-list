@@ -526,7 +526,7 @@ def entropy_per_char_bruteforce(wordlist):
     return h
 
 
-def min_len(wordlist):
+def min_word_length(wordlist):
     """Compute the minimum wordlength for a wordlist,
 
     so that it takes more guesses to bruteforce shortest terms than to
@@ -545,7 +545,7 @@ def min_len(wordlist):
     forcing adversary would not have an advantage over term-guessing
     adversaries, even if the shortest terms have only a lenght of 1.
 
-        >>> min_len(['a', 'b'])
+        >>> min_word_length(['a', 'b'])
         1
 
     For longer wordlists, things change. Consider:
@@ -559,15 +559,15 @@ def min_len(wordlist):
     guessing a single char. Therefore we should not include terms with less
     than 2 chars in the list:
 
-        >>> min_len(list2)
+        >>> min_word_length(list2)
         2
 
-    If there is no entropy in chars, `min_len()` will return 1. This is the
-    case for instance with empty wordlists or wordlists containing only a
+    If there is no entropy in chars, `min_word_length()` will return 1. This is
+    the case for instance with empty wordlists or wordlists containing only a
     single char (because in that cases there is simply nothing to guess - you
     know exactly, what char comes next).
 
-        >>> min_len(['a', 'aa', 'aaa'])
+        >>> min_word_length(['a', 'aa', 'aaa'])
         1
 
     """
