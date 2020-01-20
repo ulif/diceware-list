@@ -139,10 +139,10 @@ def test_min_width_iter_discards_min_len_values(monkeypatch):
     # too short terms are discarded
     monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
     assert list(min_width_iter(
-        ['a', 'aa', 'b', 'ccc', 'ddd'], 2,
+        ['a', 'aa', 'b', 'ddd', 'ccc'], 2,
         shuffle_max_width=False, min_len=1)) == ['a', 'b']
     assert list(min_width_iter(
-        ['a', 'aa', 'b', 'ccc', 'ddd'], 2,
+        ['a', 'aa', 'b', 'ddd', 'ccc'], 2,
         shuffle_max_width=False, min_len=2)) == ['aa', 'ccc']
 
 
