@@ -144,6 +144,12 @@ def test_min_width_iter_discards_min_len_values(monkeypatch):
     assert list(min_width_iter(
         ['a', 'aa', 'b', 'ddd', 'ccc'], 2,
         shuffle_max_width=False, min_len=2)) == ['aa', 'ccc']
+    assert list(min_width_iter(
+        ['a', 'aa', 'b', 'ddd', 'ccc'], 2,
+        shuffle_max_width=True, min_len=1)) == ['a', 'b']
+    assert list(min_width_iter(
+        ['a', 'aa', 'b', 'ddd', 'ccc'], 2,
+        shuffle_max_width=True, min_len=2)) == ['aa', 'ccc']
 
 
 def test_normalize():
