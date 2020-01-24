@@ -293,6 +293,11 @@ def min_width_iter(iterator, num, shuffle_max_width=True, min_len=0):
         yield term
 
 
+def min_length_iter(iterator, min_len=0):
+    for term in filter(lambda x: len(x) >= min_len, iterator):
+        yield term
+
+
 def is_prefix_code(iterable, is_sorted=False):
     """Tell whether a given list, identified by `iterable` is a prefix code.
 
