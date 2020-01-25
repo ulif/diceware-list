@@ -34,7 +34,8 @@ from diceware_list.libwordlist import (
     idx_to_dicenums, min_width_iter, normalize, shuffle_max_width_items,
     term_iterator, paths_iterator, is_prefix_code, get_matching_prefixes,
     get_prefixes, strip_matching_prefixes, flatten_prefix_tree,
-    AndroidWordList, entropy_per_char_bruteforce, min_word_length
+    AndroidWordList, entropy_per_char_bruteforce, min_word_length,
+    min_length_iter
 )
 
 
@@ -122,6 +123,11 @@ def test_min_width_iter(monkeypatch):
     assert list(min_width_iter(["a", "c", "bb"], 2)) == ["a", "c"]
     assert list(min_width_iter(["a", "cc", "b"], 2)) == ["a", "b"]
     assert list(min_width_iter(["aa", "c", "bb"], 2)) == ["c", "aa"]
+
+
+def test_min_length_iter():
+    assert list(
+        min_length_iter(iter(["a", "bb", "ccc"]), 2)) == ["bb", "ccc"]
 
 
 def test_min_width_iter_shuffle_max_widths_values(monkeypatch):
