@@ -126,6 +126,8 @@ def test_min_width_iter(monkeypatch):
 
 
 def test_min_length_iter():
+    assert list(min_length_iter(iter([]))) == []
+    assert list(min_length_iter(iter([]), 1)) == []
     assert list(
         min_length_iter(iter(["a", "bb", "ccc"]), 2)) == ["bb", "ccc"]
 
