@@ -165,7 +165,7 @@ def test_normalize():
     assert normalize("ªºÀÁÂÃÄÅÆ") == "aoAAAAAEAAE"
     assert normalize("ÇÈÉÊËÌÍÎÏ") == "CEEEEIIII"
     assert normalize("ÒÓÔÕÖØÙÚÛÜ") == "OOOOOEOEUUUUE"
-    assert normalize("ÐÑÝßàáâãäåæçèéêë") == "DNYssaaaaaeaaeceeee"
+    assert normalize("ĐđÐÑÝßàáâãäåæçèéêë") == "DdDNYssaaaaaeaaeceeee"
     assert normalize("ìíîïñòóôõöøùúûüý") == "iiiinoooooeoeuuuuey"
     assert normalize("ÿĀāĂăĄąĆćĈĉĊċČčĎď") == "yAaAaAaCcCcCcCcDd"
     assert normalize("ĒēĔĕĖėĘęĚěĜĝĞğĠġĢģ") == "EeEeEeEeEeGgGgGgGg"
@@ -176,7 +176,7 @@ def test_normalize():
     assert normalize("ŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠš") == "OoOoRrRrRrSsSsSsSs"
     assert normalize("ŢţŤťŨũŪūŬŭŮůŰűŲų") == "TtTtUuUuUuUuUuUu"
     assert normalize("ŴŵŶŷŸŹźŻżŽžſ") == "WwYyYZzZzZzs"
-    # "þĐđĦħĦħıĸŁłŊŋŉŒœŦŧƀƁƂƃƄƅƆƇƈƉƊƋƌƍ""
+    # "þĦħĦħıĸŁłŊŋŉŒœŦŧƀƁƂƃƄƅƆƇƈƉƊƋƌƍ""
     assert normalize("mäßig") == "maessig"
 
 
