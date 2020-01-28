@@ -294,6 +294,13 @@ def min_width_iter(iterator, num, shuffle_max_width=True, min_len=0):
 
 
 def min_length_iter(iterator, min_len=0):
+    """An iterator that filters out too short terms.
+
+       >>> list(min_length_iter(["a", "ccc", "bb"], 2))
+       ['ccc', 'bb']
+
+    The `min_len` parameter tells the minimal length we expect for each term.
+    """
     for term in filter(lambda x: len(x) >= min_len, iterator):
         yield term
 
