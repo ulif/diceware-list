@@ -29,6 +29,7 @@ except ImportError:                     # pragma: no cover
 import base64
 import codecs
 import decimal
+import itertools
 import logging
 import math
 import os
@@ -288,8 +289,8 @@ def min_width_iter(iterator, num, shuffle_max_width=True, min_len=0):
         key=lambda x: (len(x), x))
     if shuffle_max_width:
         max_width = len(all_terms[num - 1])
-        all_terms = list(shuffle_max_width_items(all_terms, max_width))
-    for term in all_terms[:num]:
+        all_terms = shuffle_max_width_items(all_terms, max_width)
+    for term in itertools.islice(all_terms, num):  # yield first num terms...
         yield term
 
 
