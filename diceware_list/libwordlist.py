@@ -506,13 +506,15 @@ def entropy_per_char_bruteforce(wordlist):
     bruteforcing than by guessing word by word. For instance the word 'to' in
     a wordlist of 8192 words might be guessed by guessing one of the 8192
     items in list or by combining all letters with all letters one time. In
-    the former case you get 8192 possibitlities in the latter only
+    the former case you get 8192 possibilities in the latter only
     26 x 26 = 676. Therefore you should not use 2-letter words in an 8192
-    terms list.
+    terms list (assuming the used alphabet contains only 26 different chars).
 
-    This function tells, how much entropy you get per char, given that all
-    chars are equally distributed over the wordlist (which is normally not the
-    case, but reflects the base condition for plain bruteforce attacks).
+    This function tells, how much entropy you get per char, taking into account 
+    the real distribution of chars over all terms. This can make a big
+    difference in entropy. More equal distribution means a higher entropy,
+    while unequal distributions (only one 'x' but hundreds of 'e', for
+    instance) means less entropy.
 
     Result is given in bits.
 
