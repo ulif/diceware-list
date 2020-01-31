@@ -510,7 +510,7 @@ def entropy_per_char_bruteforce(wordlist):
     26 x 26 = 676. Therefore you should not use 2-letter words in an 8192
     terms list (assuming the used alphabet contains only 26 different chars).
 
-    This function tells, how much entropy you get per char, taking into account 
+    This function tells, how much entropy you get per char, taking into account
     the real distribution of chars over all terms. This can make a big
     difference in entropy. More equal distribution means a higher entropy,
     while unequal distributions (only one 'x' but hundreds of 'e', for
