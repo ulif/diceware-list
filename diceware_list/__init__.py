@@ -17,6 +17,7 @@
 """diceware_list -- wordlists for diceware.
 """
 import argparse
+import itertools
 import logging
 import math
 import string
@@ -136,11 +137,11 @@ def generate_wordlist(
             allowed = chars
         input_terms = filter_chars(input_terms, allowed=allowed)
     separator = '-'
-    base_terms = list(base_terms_iterator(use_kit=use_kit, use_416=use_416))
-    terms = list(set(list(input_terms) + list(base_terms)))
+    base_terms = base_terms_iterator(use_kit=use_kit, use_416=use_416)
+    terms = set(itertools.chain(input_terms, base_terms))
     if lowercase:
         terms = [x.lower() for x in terms]
-    terms.sort()
+    terms = sorted(terms)
     if prefix_code in ('short', 'long'):
         prefer_short = (prefix_code == 'short')
         terms = list(strip_matching_prefixes(
