@@ -138,10 +138,11 @@ def generate_wordlist(
         input_terms = filter_chars(input_terms, allowed=allowed)
     separator = '-'
     base_terms = base_terms_iterator(use_kit=use_kit, use_416=use_416)
-    terms = set(itertools.chain(input_terms, base_terms))
+    terms = itertools.chain(input_terms, base_terms)
     if lowercase:
         terms = [x.lower() for x in terms]
-    terms = sorted(terms)
+    terms = sorted(set(terms))
+    # terms = sorted(terms)
     if prefix_code in ('short', 'long'):
         prefer_short = (prefix_code == 'short')
         terms = list(strip_matching_prefixes(

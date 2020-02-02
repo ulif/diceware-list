@@ -332,10 +332,10 @@ class TestGenerateWordlist(object):
         # we can tell, whether we allow uppercase terms
         terms = ['A', 'a']
         result1 = list(generate_wordlist(
-            terms, length=2))
+            terms, ))
         result2 = list(generate_wordlist(
-            terms, length=2, lowercase=False))
-        assert result1 == ['a', 'a']
+            terms, lowercase=False))
+        assert result1 == ['a']
         assert result2 == ['A', 'a']
 
     def test_result_sorted(self):
@@ -366,7 +366,7 @@ class TestGenerateWordlist(object):
         ) == ["B", "b"]
         in_list = ["b", "B"]
         assert list(
-            generate_wordlist(in_list)) == ["b", "b"]
+            generate_wordlist(in_list, lowercase=True)) == ["b"]
         in_list = ["b", "B"]
         assert list(
             generate_wordlist(in_list, prefix_code='long')) == ["b"]
