@@ -1,8 +1,8 @@
 Changes
 *******
 
-2.1.dev0 (unreleased)
-=====================
+2.1 (2020-02-04)
+================
 
 - Support also Python 3.6, 3.7 and `pypy3`.
 
