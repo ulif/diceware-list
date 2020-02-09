@@ -477,6 +477,8 @@ def test_min_word_length():
     assert min_word_length(['a', 'b']) == 1
     assert min_word_length(['abcd'] * 8192) == 7
     assert min_word_length(['abab'] * 16) == 4
+    # we also accept iterators as input
+    assert min_word_length(iter(['a', 'b'])) == 1
 
 
 class TestAndroidWordlist(object):

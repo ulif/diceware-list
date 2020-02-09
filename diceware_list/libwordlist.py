@@ -587,6 +587,7 @@ def min_word_length(wordlist):
 
     """
     char_entropy = entropy_per_char_bruteforce(wordlist)
+    wordlist = list(wordlist)
     if len(wordlist) == 0 or char_entropy <= 0:
         return 1
     list_entropy = decimal.Decimal(-math.log(1.0 / len(wordlist), 2))
