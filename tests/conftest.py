@@ -37,7 +37,7 @@ def dictfile(request, tmpdir):
     """
     dictfile = tmpdir / "dictfile.txt"
     contents = "\n".join(["zzz%s" % x for x in range(8192)])
-    dictfile.write("foo\nbar\n" + contents)
+    dictfile.write("xfoo\nxbar\n" + contents)
     return dictfile
 
 

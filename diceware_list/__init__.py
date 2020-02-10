@@ -23,7 +23,8 @@ import math
 import string
 from diceware_list.libwordlist import (
     DICE_SIDES, base_terms_iterator, filter_chars, idx_to_dicenums, logger,
-    min_width_iter, paths_iterator, strip_matching_prefixes,
+    min_width_iter, paths_iterator, strip_matching_prefixes, min_length_iter,
+    min_word_length
 )
 
 __version__ = '2.1.1.dev0'
@@ -142,6 +143,8 @@ def generate_wordlist(
     if lowercase:
         terms = [x.lower() for x in terms]
     terms = sorted(set(terms))
+    if not use_kit and not use_416:
+        terms = list(min_length_iter(terms, min_word_length(terms)))
     if prefix_code in ('short', 'long'):
         prefer_short = (prefix_code == 'short')
         terms = list(strip_matching_prefixes(

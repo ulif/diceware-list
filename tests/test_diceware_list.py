@@ -306,7 +306,7 @@ class TestGenerateWordlist(object):
     def test_arg_prefix_code_is_respected(self, monkeypatch):
         # we can tell whether prefix code should be generated
         monkeypatch.setattr(random, "shuffle", lambda x: x)
-        terms = ['a', 'aa', 'ba', 'ca']
+        terms = ['XXXXa', 'XXXXaa', 'XXXXba', 'XXXXca']
         result1 = list(generate_wordlist(
             terms, length=3, use_kit=False, use_416=False,
             prefix_code='none'))
@@ -316,9 +316,9 @@ class TestGenerateWordlist(object):
         result3 = list(generate_wordlist(
             terms, length=3, use_kit=False, use_416=False,
             prefix_code='long'))
-        assert result1 == ['a', 'aa', 'ba']
-        assert result2 == ['a', 'ba', 'ca']
-        assert result3 == ['aa', 'ba', 'ca']
+        assert result1 == ['xxxxa', 'xxxxaa', 'xxxxba']
+        assert result2 == ['xxxxa', 'xxxxba', 'xxxxca']
+        assert result3 == ['xxxxaa', 'xxxxba', 'xxxxca']
 
     def test_arg_chars_is_respected(self, monkeypatch):
         # we can set a list of allowed chars
@@ -340,10 +340,10 @@ class TestGenerateWordlist(object):
 
     def test_result_sorted(self):
         # result iterators are sorted
-        in_list = ["c", "aa", "a", "b"]
+        in_list = ["xxxc", "xxxaa", "xxxa", "xxxb"]
         assert list(
             generate_wordlist(in_list, length=4, use_kit=False)
-        ) == ["a", "aa", "b", "c"]
+        ) == ["xxxa", "xxxaa", "xxxb", "xxxc"]
 
     def test_unique_entries_only(self):
         # wordlists contain each entry only once
