@@ -408,7 +408,7 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert "\nxfoo\n" in out
+        assert "\nxxfoo\n" in out
 
     def test_main_length(self, monkeypatch, tmpdir, capfd):
         # we do not output more terms than requested.
@@ -490,7 +490,7 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile_ext)])
         main()
         out, err = capfd.readouterr()
-        assert "bb\nbbb\n" in out
+        assert "bbb\nbbbb\n" in out
 
     def test_main_prefix_none(self, monkeypatch, dictfile_ext, capfd):
         # we can turn off prefix filtering
@@ -498,7 +498,7 @@ class TestMain(object):
             "scriptname", "--prefix=none", str(dictfile_ext)])
         main()
         out, err = capfd.readouterr()
-        assert "bb\nbbb\n" in out
+        assert "bbb\nbbbb\n" in out
 
     def test_main_prefix_short(self, monkeypatch, dictfile_ext, capfd):
         # we can ask for prefix filtering with short prefixes kept
@@ -506,8 +506,8 @@ class TestMain(object):
             "scriptname", "--prefix=short", str(dictfile_ext)])
         main()
         out, err = capfd.readouterr()
-        assert "a\nbb\nc" in out
-        assert "bbb" not in out
+        assert "aaa\nbbb\nccc" in out
+        assert "bbbb" not in out
 
     def test_main_prefix_long(self, monkeypatch, dictfile_ext, capfd):
         # we can ask for prefix filtering with long prefixes kept
@@ -515,8 +515,8 @@ class TestMain(object):
             "scriptname", "--prefix=long", str(dictfile_ext)])
         main()
         out, err = capfd.readouterr()
-        assert "a\nbb\nc" not in out
-        assert "bbb" in out
+        assert "aaa\nbbb\nccc" not in out
+        assert "bbbb" in out
 
     def test_main_avoid_double_case(self, monkeypatch, dictfile, capfd):
         # we cope with words that appear in upper and lower case
@@ -530,7 +530,7 @@ class TestMain(object):
     def test_main_sides(self, monkeypatch, dictfile, capfd):
         # we support unusual dice
         alphabet = "".join(
-            [u"%s\n" % x for x in u"ABCDEDFGHIJKLMNOPQRSTUVWXYZ"])
+            [u"xx%s\n" % x for x in u"ABCDEDFGHIJKLMNOPQRSTUVWXYZ"])
         dictfile.write_text(alphabet, "utf-8")
         monkeypatch.setattr(
             sys, "argv", [   # no "-d"
@@ -539,8 +539,8 @@ class TestMain(object):
         )
         main()
         out, err = capfd.readouterr()
-        assert "52 z" in out
-        assert "211 z" not in out
+        assert "52 xxz" in out
+        assert "211 xxz" not in out
         monkeypatch.setattr(
             sys, "argv", [
                 "scriptname", "-n", "-l", "26", "-d", "5", str(dictfile)
@@ -548,8 +548,8 @@ class TestMain(object):
         )
         main()
         out, err = capfd.readouterr()
-        assert "52 z" not in out
-        assert "211 z" in out
+        assert "52 xxz" not in out
+        assert "211 xxz" in out
 
     def test_main_lowercase(self, monkeypatch, dictfile, capfd):
         # we turn terms into lowecase by default

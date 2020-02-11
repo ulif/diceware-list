@@ -37,7 +37,7 @@ def dictfile(request, tmpdir):
     """
     dictfile = tmpdir / "dictfile.txt"
     contents = "\n".join(["zzz%s" % x for x in range(8192)])
-    dictfile.write("xfoo\nxbar\n" + contents)
+    dictfile.write("xxfoo\nxxbar\n" + contents)
     return dictfile
 
 
@@ -50,8 +50,8 @@ def dictfile_ext(request, tmpdir):
     ``zzz0000`` and ``zzz00000``.
     """
     dictfile = tmpdir / "dictfile.txt"
-    contents = "\n".join(["zzz%04d" % x for x in range(8192)])
-    dictfile.write("a\nbb\nbbb\nc\n" + contents)
+    contents = "\n".join(["zzz%04d" % x for x in range(128)])
+    dictfile.write("aaa\nbbb\nbbbb\nccc\n" + contents)
     return dictfile
 
 
