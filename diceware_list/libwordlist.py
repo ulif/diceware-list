@@ -541,7 +541,7 @@ def entropy_per_char_bruteforce(wordlist):
     return h
 
 
-def min_word_length(wordlist):
+def min_word_length(wordlist, desired_listlen=None):
     """Compute the minimum wordlength for a wordlist,
 
     so that it takes more guesses to bruteforce shortest terms than to
@@ -586,11 +586,14 @@ def min_word_length(wordlist):
         1
 
     """
-    char_entropy = entropy_per_char_bruteforce(wordlist)
     wordlist = list(wordlist)
-    if len(wordlist) == 0 or char_entropy <= 0:
+    list_len = len(wordlist)
+    if desired_listlen is not None:
+        list_len = desired_listlen
+    char_entropy = entropy_per_char_bruteforce(wordlist)
+    if list_len == 0 or char_entropy <= 0:
         return 1
-    list_entropy = decimal.Decimal(-math.log(1.0 / len(wordlist), 2))
+    list_entropy = decimal.Decimal(math.log(list_len, 2))
     return int(math.ceil(list_entropy / char_entropy))
 
 

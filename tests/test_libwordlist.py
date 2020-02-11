@@ -481,6 +481,14 @@ def test_min_word_length():
     assert min_word_length(iter(['a', 'b'])) == 1
 
 
+def test_min_word_length_desired_len():
+    # the desired list length can differ from the current list length
+    # char entropy = 2.0, 16 = 2^4
+    assert min_word_length(['abcd'] * 1024, 16) == 2
+    # char entropy = 2.0, 32 = 2^5
+    assert min_word_length(['abcd'] * 8192, 32) == 3
+
+
 class TestAndroidWordlist(object):
 
     def test_attributes(self):
