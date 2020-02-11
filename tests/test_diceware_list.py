@@ -408,7 +408,7 @@ class TestMain(object):
         monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert "\nfoo\n" in out
+        assert "\nxfoo\n" in out
 
     def test_main_length(self, monkeypatch, tmpdir, capfd):
         # we do not output more terms than requested.
