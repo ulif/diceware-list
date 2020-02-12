@@ -144,7 +144,8 @@ def generate_wordlist(
         terms = [x.lower() for x in terms]
     terms = sorted(set(terms))
     if not use_kit and not use_416:
-        terms = list(min_length_iter(terms, min_word_length(terms)))
+        min_word_len = min_word_length(terms)
+        terms = list(min_length_iter(terms, min_word_len))
     if prefix_code in ('short', 'long'):
         prefer_short = (prefix_code == 'short')
         terms = list(strip_matching_prefixes(
