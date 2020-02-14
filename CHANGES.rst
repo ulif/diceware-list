@@ -4,8 +4,8 @@ Changes
 2.1.1.dev0 (yet unreleased)
 ===========================
 
-- No changes yet
-
+- `diceware-list` requires a minimum word length, based on the entropy of the
+  desired list.
 
 2.1 (2020-02-04)
 ================
