@@ -90,7 +90,8 @@ def get_cmdline_args(args=None):
 def generate_wordlist(
         input_terms, length=None, lowercase=True, use_kit=False,
         use_416=False, numbered=False, ascii_only=False, chars=None,
-        shuffle_max=True, prefix_code='none', dice_sides=DICE_SIDES):
+        shuffle_max=True, prefix_code='none', dice_sides=DICE_SIDES,
+        min_word_len=-1):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -128,6 +129,9 @@ def generate_wordlist(
                start with another term. With `none` nothing is discarded but
                the result list might contain terms that are prefixes of other
                list terms.
+
+     `min_word_len`: minimum length of words in result wordlist. -1 for
+               automatic calculation of thes value.
 
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
