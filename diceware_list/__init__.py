@@ -131,7 +131,7 @@ def generate_wordlist(
                list terms.
 
      `min_word_len`: minimum length of words in result wordlist. -1 for
-               automatic calculation of thes value.
+               automatic calculation of the value.
 
     Returns an iterator that yields at most `length` items. Double
     entries are removed.
