@@ -196,7 +196,7 @@ def main():
             use_416=args.use_416, numbered=args.numbered,
             ascii_only=args.ascii_only, dice_sides=args.sides,
             prefix_code=args.prefix, lowercase=not args.uppercase,
-            chars=args.chars):
+            chars=args.chars, min_word_len=args.min_wordlen):
         print(term)
 
 
