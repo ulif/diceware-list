@@ -94,7 +94,7 @@ def generate_wordlist(
         input_terms, length=None, lowercase=True, use_kit=False,
         use_416=False, numbered=False, ascii_only=False, chars=None,
         shuffle_max=True, prefix_code='none', dice_sides=DICE_SIDES,
-        min_word_len=-1):
+        min_word_len=0):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -151,7 +151,7 @@ def generate_wordlist(
         terms = [x.lower() for x in terms]
     terms = sorted(set(terms))
     if not use_kit and not use_416:
-        min_word_len = min_word_length(terms, length)
+        min_word_len = min_word_len or min_word_length(terms, length)
         terms = list(min_length_iter(terms, min_word_len))
     if prefix_code in ('short', 'long'):
         prefer_short = (prefix_code == 'short')
