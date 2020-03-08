@@ -345,8 +345,11 @@ class TestGenerateWordlist(object):
             terms, min_word_len=1))
         result2 = list(generate_wordlist(
             terms, min_word_len=2))
+        result3 = list(generate_wordlist(
+            terms, min_word_len=3))
         assert result1 == ["a", "ba", "cba"]
         assert result2 == ["ba", "cba"]
+        assert result3 == ["cba"]
 
     def test_result_sorted(self):
         # result iterators are sorted
