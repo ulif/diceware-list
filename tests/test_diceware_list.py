@@ -338,7 +338,7 @@ class TestGenerateWordlist(object):
         assert result1 == ['a']
         assert result2 == ['A', 'a']
 
-    def test_arg_in_wordlen_is_respected(self):
+    def test_arg_min_wordlen_is_respected(self):
         # we can request a minimum word len
         terms = ["a", "ba", "cba"]
         result1 = list(generate_wordlist(
