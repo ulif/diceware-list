@@ -77,6 +77,7 @@ class TestArgParser(object):
         assert result.use_416 is False
         assert result.prefix == 'none'
         assert result.chars is None
+        assert result.min_wordlen == 0
         assert isinstance(result.dictfile, list)
 
     def test_arg_dictfile_gives_strings(self, tmpdir):
@@ -160,6 +161,13 @@ class TestArgParser(object):
         # we can set a custom list of acceptable chars
         result = get_cmdline_args(["-c", "abc", str(dictfile)])
         assert result.chars == "abc"
+
+    def test_opt_min_wordlen_settable(self, dictfile):
+        # we can request a minimum word len
+        result = get_cmdline_args(["-m", "5", str(dictfile)])
+        assert result.min_wordlen == 5
+        result = get_cmdline_args(["--min-wordlen", "4", str(dictfile)])
+        assert result.min_wordlen == 4
 
 
 class TestGenerateWordlist(object):
