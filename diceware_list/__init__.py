@@ -67,8 +67,8 @@ def get_cmdline_args(args=None):
         '--use-416', action='store_true',
         help='use terms from diceware416.txt list. Disabled by default.')
     parser.add_argument(
-        '-m', '--min-wordlen', default=-1, type=int,
-        help="minimum word length required. -1 for auto.")
+        '-m', '--min-wordlen', default=0, type=int,
+        help="minimum word length required. 0 for auto.")
     parser.add_argument(
         '-p', '--prefix', default=DEFAULT_PREFIX, choices=PREFIX_OPTIONS,
         help=("create prefix code, i.e. discard terms that are "
