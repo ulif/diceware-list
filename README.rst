@@ -48,14 +48,14 @@ Create Wordlists: `diceware-list`
 The `diceware-list` script creates new lists out of given ones::
 
   $ diceware-list -n -l 7776 /usr/share/dict/words
-  11111 a
-  11112 a's
+  11111 aaron
+  11112 abase
   ...
-  12353 capt
-  12354 cara
-  12355 carl
+  12353 as's
+  12354 asama
+  12355 ashe
   ...
-  66663 zoos
+  66663 zuni
   66664 éclat
   66665 élan
   66666 épée
@@ -66,6 +66,7 @@ wordlists. Wordlists are considered "good" if they
 - contain enough terms for use with a certain diceware application
   (for instance 6^6 = 7776 terms if used with six six-sided dice)
 - contain terms as short as possible (to reduce typing)
+- contain terms as long as neccessary (to impede brute-force attacks)
 - (optionally) contain no words with non-ASCII chars (to enable use
   with non-localized keyboards)
 - (optionally) are a `prefix code`_, i.e. no complete word in the list is
@@ -99,16 +100,16 @@ This file can then be fed to `diceware-list` to create a wordlist
 suitable for use with diceware.::
 
   $ diceware-list /usr/share/dict/words
-  !
-  !!
-  !!!
+  aaron
+  abaci
+  aback
   ...
   alan
   alana
   alar
   ...
-  zzz
-  zzzz
+  zulus
+  zuni
 
 By default all input words are filtered and output. Using the `-l` option you
 can request a certain length of the output wordlist. If an input list provides
@@ -119,24 +120,24 @@ With `-n` you can tell `diceware-list` to put numbers into each line,
 representing dice throws [#]_ ::
 
 
-  $ diceware_list -n -l 7776 /usr/share/dict/words
-  11111 !
-  11112 !!
+  $ diceware-list -n -l 7776 /usr/share/dict/words
+  11111 abaci
+  11112 aback
   ...
-  12353 alan
-  12354 alana
-  12355 alar
+  11464 alan
+  11465 alana
+  11466 alar
   ...
-  66665 zzz
-  66666 zzzz
+  66665 zulus
+  66666 zuni
 
 If you create a wordlist for use with non-standard dice, for instance for
 10-sided dice, then you can tell with `-d` like this::
 
-  $ diceware_list -n -d 10 -l 10000 /usr/share/dict/words
-  1-1-1-1 aol
-  1-1-1-2 aachen
-  1-1-1-3 aaron
+  $ diceware-list -n -d 10 -l 10000 /usr/share/dict/words
+  1-1-1-1 aaron
+  1-1-1-2 abaci
+  1-1-1-3 aback
   ...
   10-10-10-8 zoomed
   10-10-10-9 zooms
@@ -153,6 +154,14 @@ See `--help` for other options.
 
 `diceware-list` follows loosely the recommendations given on
 http://diceware.com/ by Mr. Reinhold.
+
+It differs in the following respects:
+
+- it does not propose usage of very short terms.
+- it does not encourage use of the `diceware-kit`, as this automatically
+  decreases entropy of the result list: terms are too short and terms that are
+  prefixes of other will be unavoidable.
+
 
 
 Check wordlists: wlflakes
@@ -283,6 +292,7 @@ Or you use the common `coverage` tool::
        six-sided dice or a single six-sided dice thrown five times.
 
 .. _diceware: http://diceware.com/
+.. _diceware-kit: http://world.std.com/%7Ereinhold/dicewarekit.html
 .. _pip: https://pip.pypa.io/en/latest/
 .. _`prefix code`: https://en.wikipedia.org/wiki/Prefix_code
 .. _py.test: https://pytest.org/
