@@ -37,7 +37,7 @@ def get_cmdline_args(args=None):
         help='output raw wordlist. Stores fetched file locally.')
     parser.add_argument(
         '-l', '--lang', action='store', default='en',
-        help='language to download.')
+        help='language to download. Default: en.')
     parser.add_argument(
         '--lang-codes', action='store_true',
         help='list all valid language codes from download website')
