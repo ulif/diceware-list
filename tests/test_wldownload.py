@@ -71,6 +71,23 @@ class TestDowmloadWordlist(object):
         out, err = capfd.readouterr()
         assert "hardcore" in out
 
+    def test_download_wordlist_copes_with_broken_pipe(
+            self, home_dir, local_android_download_b64, capfd, monkeypatch):
+        # broken pipe exceptions are caught
+        def mock_write(text, *args, **kw):
+            if "hardcore" in text:
+                try:
+                    raise BrokenPipeError()  # python 3.x
+                except:
+                    raise IOError()          # python 2.7
+            return sys.stdout._write(text, *args, **kw)
+        sys.stdout._write = sys.stdout.write
+        monkeypatch.setattr(sys.stdout, "write", mock_write)
+        download_wordlist()
+        out, err = capfd.readouterr()
+        assert "hardore" not in out
+        assert "BrokenPipeError caught" in err
+
 
 class TestArgParser(object):
 
