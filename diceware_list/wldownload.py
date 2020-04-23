@@ -16,13 +16,17 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """ wldownload -- CLI to download and mangle remote wordlists.
 """
-from __future__ import unicode_literals
+from __future__ import unicode_literals, print_function
 import argparse
 import logging
 import os
 import sys
 from diceware_list import __version__
 from diceware_list.libwordlist import AndroidWordList, logger
+try:
+    BrokenPipeError is not None   # Python 3.x
+except NameError:                 # pragma: no cover
+    BrokenPipeError = IOError     # Python 2.x
 
 
 def get_cmdline_args(args=None):
@@ -96,7 +100,11 @@ def download_wordlist(
                     fd.write("\n")
         else:
             for word in wl.get_words(offensive=offensive):
-                print(word)
+                try:
+                    print(word)
+                except BrokenPipeError:
+                    print("BrokenPipeError caught", file=sys.stderr)
+                    break
 
 
 def main():
