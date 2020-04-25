@@ -4,6 +4,8 @@ Changes
 2.1.1.dev0 (yet unreleased)
 ===========================
 
+- Catch exceptions when operating with pipes.
+
 - `diceware-list` requires a minimum word length, based on the entropy of the
   desired list.
 
