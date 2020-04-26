@@ -6,6 +6,8 @@ Changes
 
 - Catch exceptions when operating with pipes.
 
+- Tell default language in `wldownload` help.
+
 - `diceware-list` requires a minimum word length, based on the entropy of the
   desired list.
 
