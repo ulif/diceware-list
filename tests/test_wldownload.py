@@ -78,7 +78,7 @@ class TestDowmloadWordlist(object):
             if "hardcore" in text:
                 try:
                     raise BrokenPipeError()  # python 3.x
-                except:
+                except NameError:
                     raise IOError()          # python 2.7
             return sys.stdout._write(text, *args, **kw)
         sys.stdout._write = sys.stdout.write
