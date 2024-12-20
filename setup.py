@@ -32,7 +32,7 @@ setup(
     author="Uli Fouquet",
     author_email="uli@gnufix.de",
     description=(
-        "Generate diceware wordlists."),
+        "Tools for creating diceware wordlists."),
     license="GPL 3.0",
     keywords="diceware wordlist passphrase",
     url="https://github.com/ulif/diceware-list",
