@@ -4,6 +4,8 @@ Changes
 2.1.1.dev0 (yet unreleased)
 ===========================
 
+- Fix wrong module registration in `setup.py`.
+
 - Catch exceptions when operating with pipes.
 
 - Tell default language in `wldownload` help.

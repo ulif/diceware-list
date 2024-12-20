@@ -36,8 +36,8 @@ setup(
     license="GPL 3.0",
     keywords="diceware wordlist passphrase",
     url="https://github.com/ulif/diceware-list",
-    py_modules=['diceware_list', 'libwordlist', 'wlflakes'],
-    packages=[],
+    py_modules=[],
+    packages=['diceware_list'],
     namespace_packages=[],
     long_description=read('README.rst') + '\n\n\n' + read('CHANGES.rst'),
     classifiers=[
