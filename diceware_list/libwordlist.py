@@ -18,14 +18,15 @@
 """libwordlist -- a library for wordlist-related operations.
 """
 from __future__ import unicode_literals
+
 try:
     from urllib.request import urlopen  # python 3.x
-except ImportError:                     # pragma: no cover
-    from urllib2 import urlopen         # python 2.x
+except ImportError:  # pragma: no cover
+    from urllib2 import urlopen  # python 2.x
 try:
-    from urllib.parse import urlparse   # python 3.x
-except ImportError:                     # pragma: no cover
-    from urlparse import urlparse       # python 2.x
+    from urllib.parse import urlparse  # python 3.x
+except ImportError:  # pragma: no cover
+    from urlparse import urlparse  # python 2.x
 import base64
 import codecs
 import decimal
@@ -45,7 +46,8 @@ DICE_SIDES = 6  #: we normally handle 6-sided dice.
 #: The URL where the wordlists for Android are available.
 BASE_URL_DICT_ANDROID = (
     "https//android.googlesource.com/platform/packages/inputmethods/"
-    "LatinIME/+/master/dictionaries/")
+    "LatinIME/+/master/dictionaries/"
+)
 
 
 #: A logger for use with diceware-list related messages.
@@ -54,13 +56,22 @@ logger.addHandler(logging.NullHandler())
 
 
 def normalize(text):
-    """Normalize text.
-    """
+    """Normalize text."""
     TRANSFORMS = {
-        'ä': 'ae', 'Ä': 'AE', "æ": 'ae', "Æ": 'AE',
-        'ö': 'oe', 'Ö': 'OE', "ø": 'oe', "Ø": 'OE',
-        "ü": 'ue', "Ü": 'UE',
-        'ß': 'ss', "Ð": 'D', "Đ": 'D', "đ": 'd',
+        "ä": "ae",
+        "Ä": "AE",
+        "æ": "ae",
+        "Æ": "AE",
+        "ö": "oe",
+        "Ö": "OE",
+        "ø": "oe",
+        "Ø": "OE",
+        "ü": "ue",
+        "Ü": "UE",
+        "ß": "ss",
+        "Ð": "D",
+        "Đ": "D",
+        "đ": "d",
     }
     transformed = "".join([TRANSFORMS.get(x, x) for x in text])
     nfkd_form = unicodedata.normalize("NFKD", transformed)
@@ -118,8 +129,7 @@ def filter_chars(iter, allowed=None):
                 logger.debug("  Not allowed char in line %d" % line)
 
 
-def idx_to_dicenums(
-        item_index, dice_num, dice_sides=DICE_SIDES, separator='-'):
+def idx_to_dicenums(item_index, dice_num, dice_sides=DICE_SIDES, separator="-"):
     """Get a set of dicenums for list item numbers.
 
     Turn an index number of a list item into a number of dice numbers
@@ -170,7 +180,9 @@ def idx_to_dicenums(
 
     """
     nums = [x + 1 for x in base10_to_n(item_index, dice_sides)]
-    padded = [1, ] * dice_num + nums
+    padded = [
+        1,
+    ] * dice_num + nums
     return separator.join(["%s" % x for x in padded[-dice_num:]])
 
 
@@ -199,8 +211,7 @@ def shuffle_max_width_items(word_list, max_width=None):
         max_width = len(max(word_list, key=len))
     for entry in filter(lambda x: len(x) < max_width, word_list):
         yield entry
-    max_width_entries = list(
-        filter(lambda x: len(x) == max_width, word_list))
+    max_width_entries = list(filter(lambda x: len(x) == max_width, word_list))
     random.shuffle(max_width_entries)
     for entry in max_width_entries:
         yield entry
@@ -227,11 +238,11 @@ def paths_iterator(paths):
     terms, one per line.
     """
     for path in paths:
-        if path == '-':
+        if path == "-":
             for term in term_iterator([sys.stdin]):
                 yield term
         else:
-            with codecs.open(path, 'r', encoding='utf-8') as fd:
+            with codecs.open(path, "r", encoding="utf-8") as fd:
                 for term in term_iterator([fd]):
                     yield term
 
@@ -251,7 +262,9 @@ def base_terms_iterator(use_kit=True, use_416=True):
     names = []
     if use_kit:
         logger.debug("Adding source list: dicewarekit.txt")
-        names += ["dicewarekit.txt", ]
+        names += [
+            "dicewarekit.txt",
+        ]
     if use_416:
         logger.debug("Adding source list: diceware416.txt")
         names += ["diceware416.txt"]
@@ -285,8 +298,8 @@ def min_width_iter(iterator, num, shuffle_max_width=True, min_len=0):
 
     """
     all_terms = sorted(
-        filter(lambda x: len(x) >= min_len, iterator),
-        key=lambda x: (len(x), x))
+        filter(lambda x: len(x) >= min_len, iterator), key=lambda x: (len(x), x)
+    )
     if shuffle_max_width:
         max_width = len(all_terms[num - 1])
         all_terms = shuffle_max_width_items(all_terms, max_width)
@@ -391,13 +404,12 @@ def strip_matching_prefixes(iterable, is_sorted=False, prefer_short=True):
     elems = iterable[:]
     if not is_sorted:
         elems.sort()
-    for elem in flatten_prefix_tree(
-            get_prefixes(elems), prefer_short=prefer_short):
+    for elem in flatten_prefix_tree(get_prefixes(elems), prefer_short=prefer_short):
         yield elem
 
 
 def get_prefixes(lst):
-    r'''Get prefixes in sorted `lst`.
+    r"""Get prefixes in sorted `lst`.
 
     The `lst` is expected to be a sorted wordlist.
 
@@ -429,7 +441,7 @@ def get_prefixes(lst):
 
     where left children of nodes are prefixed by the node itself, while right
     children are not.
-    '''
+    """
     stack = [[]]
     for item in lst + [""]:
         while len(stack) > 1:
@@ -439,7 +451,11 @@ def get_prefixes(lst):
                 break
             else:
                 stack[-1].append(last)
-        stack.append([item, ])
+        stack.append(
+            [
+                item,
+            ]
+        )
     return stack[0]
 
 
@@ -633,13 +649,15 @@ class AndroidWordList(object):
 
     Files once handled are stored in `gz_data`.
     """
+
     #: The URL where the wordlists for Android are available.
     base_url = (
         "https://android.googlesource.com/platform/packages/inputmethods/"
-        "LatinIME/+/master/dictionaries/")
+        "LatinIME/+/master/dictionaries/"
+    )
 
     #: The full download path to Android wordlists
-    full_url = '%s%%s_wordlist.combined.gz?format=TEXT' % base_url
+    full_url = "%s%%s_wordlist.combined.gz?format=TEXT" % base_url
 
     def __init__(self, path=None, lang="en"):
         self.path = path
@@ -684,12 +702,11 @@ class AndroidWordList(object):
         """
         if self.gz_data is None:
             return
-        with open(path, 'wb') as f:
+        with open(path, "wb") as f:
             f.write(self.gz_data)
 
     def get_basename(self, lang="en"):
-        """Get basename of the file to download.
-        """
+        """Get basename of the file to download."""
         url = self.path
         if self.path is None:
             url = self.full_url % lang
@@ -718,11 +735,11 @@ class AndroidWordList(object):
         """
         if self.gz_data is not None:
             data = self.decompress(self.gz_data)
-            for line in data.split(b'\n'):
+            for line in data.split(b"\n"):
                 if not line:
                     continue  # ignore empty lines
-                line = line.decode('utf-8')
-                data = [tuple(x.strip().split('=')) for x in line.split(',')]
+                line = line.decode("utf-8")
+                data = [tuple(x.strip().split("=")) for x in line.split(",")]
                 yield dict(data)
 
     def get_words(self, offensive=None):
@@ -738,13 +755,13 @@ class AndroidWordList(object):
         This method returns a generator.
         """
         for line in self.parse_lines():
-            if 'word' not in line.keys():
+            if "word" not in line.keys():
                 continue
-            if 'possibly_offensive' in line.keys() and offensive is False:
+            if "possibly_offensive" in line.keys() and offensive is False:
                 continue
-            if 'possibly_offensive' not in line.keys() and offensive is True:
+            if "possibly_offensive" not in line.keys() and offensive is True:
                 continue
-            yield line['word']
+            yield line["word"]
 
     def get_valid_lang_codes(self):
         """Get list of valid language codes from upstream.
@@ -753,6 +770,8 @@ class AndroidWordList(object):
         """
         resp = urlopen(self.base_url)
         html = resp.read()
-        codes = [x.group(1).decode('utf-8') for x in
-                 re.finditer(b'/([a-zA-Z_]+)_wordlist.combined.gz', html)]
+        codes = [
+            x.group(1).decode("utf-8")
+            for x in re.finditer(b"/([a-zA-Z_]+)_wordlist.combined.gz", html)
+        ]
         return sorted(codes)

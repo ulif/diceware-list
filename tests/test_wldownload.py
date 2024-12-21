@@ -22,7 +22,10 @@ import sys
 from diceware_list import __version__
 from diceware_list.libwordlist import AndroidWordList
 from diceware_list.wldownload import (
-    download_wordlist, get_save_path, get_cmdline_args, main
+    download_wordlist,
+    get_save_path,
+    get_cmdline_args,
+    main,
 )
 
 
@@ -36,51 +39,56 @@ def test_get_save_path(home_dir):
 
 class TestDowmloadWordlist(object):
 
-    def test_download_wordlist(
-            self, home_dir, local_android_download_b64, capfd):
+    def test_download_wordlist(self, home_dir, local_android_download_b64, capfd):
         # we can download wordlists
         download_wordlist()
         out, err = capfd.readouterr()
         assert len(out) > 0
 
     def test_download_wordlist_respects_lang(
-            self, home_dir, local_android_download_b64, capfd):
+        self, home_dir, local_android_download_b64, capfd
+    ):
         # we respect the given `lang`
         download_wordlist(lang="de")
         out, err = capfd.readouterr()
         assert out == "der\nund\n"
 
     def test_download_wordlist_respects_filter_offensive(
-            self, home_dir, local_android_download_b64, capfd):
+        self, home_dir, local_android_download_b64, capfd
+    ):
         # we respect the given `filter_offensive` flag
         download_wordlist(filter_offensive=True)
         out, err = capfd.readouterr()
         assert "hardcore" not in out
 
     def test_download_wordlist_respects_filter_offensive_false(
-            self, home_dir, local_android_download_b64, capfd):
+        self, home_dir, local_android_download_b64, capfd
+    ):
         # we respect the given `filter_offensive` flag if ``False``
         download_wordlist(filter_offensive=False)
         out, err = capfd.readouterr()
         assert "hardcore" in out
 
     def test_download_wordlist_respects_filter_offensive_none(
-            self, home_dir, local_android_download_b64, capfd):
+        self, home_dir, local_android_download_b64, capfd
+    ):
         # we respect the given `filter_offensive` flag if ``None``
         download_wordlist(filter_offensive=None)
         out, err = capfd.readouterr()
         assert "hardcore" in out
 
     def test_download_wordlist_copes_with_broken_pipe(
-            self, home_dir, local_android_download_b64, capfd, monkeypatch):
+        self, home_dir, local_android_download_b64, capfd, monkeypatch
+    ):
         # broken pipe exceptions are caught
         def mock_write(text, *args, **kw):
             if "hardcore" in text:
                 try:
                     raise BrokenPipeError()  # python 3.x
                 except NameError:
-                    raise IOError()          # python 2.7
+                    raise IOError()  # python 2.7
             return sys.stdout._write(text, *args, **kw)
+
         sys.stdout._write = sys.stdout.write
         monkeypatch.setattr(sys.stdout, "write", mock_write)
         download_wordlist()
@@ -94,7 +102,11 @@ class TestArgParser(object):
     def test_version(self, capfd):
         # we can output current version.
         with pytest.raises(SystemExit):
-            get_cmdline_args(["--version", ])
+            get_cmdline_args(
+                [
+                    "--version",
+                ]
+            )
         out, err = capfd.readouterr()
         assert __version__ in (out + err)
 
@@ -102,24 +114,50 @@ class TestArgParser(object):
         # we can require verbosity
         args = get_cmdline_args([])
         assert args.verbose is None
-        args = get_cmdline_args(["-v", ])
+        args = get_cmdline_args(
+            [
+                "-v",
+            ]
+        )
         assert args.verbose == 1
-        args = get_cmdline_args(["--verbose", ])
+        args = get_cmdline_args(
+            [
+                "--verbose",
+            ]
+        )
         assert args.verbose == 1
-        args = get_cmdline_args(["-vv", ])
+        args = get_cmdline_args(
+            [
+                "-vv",
+            ]
+        )
         assert args.verbose == 2
 
     def test_outfile(self, capfd):
         # we can set an output path
         args = get_cmdline_args([])
         assert args.outfile is None
-        args = get_cmdline_args(["-o", "foo", ])
+        args = get_cmdline_args(
+            [
+                "-o",
+                "foo",
+            ]
+        )
         assert args.outfile == "foo"
-        args = get_cmdline_args(["--outfile", "bar", ])
+        args = get_cmdline_args(
+            [
+                "--outfile",
+                "bar",
+            ]
+        )
         assert args.outfile == "bar"
         with pytest.raises(SystemExit):
             # the path should not be empty
-            get_cmdline_args(["-o", ])
+            get_cmdline_args(
+                [
+                    "-o",
+                ]
+            )
         out, err = capfd.readouterr()
         assert "expected one argument" in err
 
@@ -127,32 +165,41 @@ class TestArgParser(object):
         # we can request raw output
         args = get_cmdline_args([])
         assert args.raw is False
-        args = get_cmdline_args(['--raw', ])
+        args = get_cmdline_args(
+            [
+                "--raw",
+            ]
+        )
         assert args.raw is True
 
     def test_lang(self):
         # we can request a certain language
         args = get_cmdline_args([])
-        assert args.lang == 'en'
-        args = get_cmdline_args(['--lang', 'de'])
-        assert args.lang == 'de'
-        args = get_cmdline_args(['-l', 'fr'])
-        assert args.lang == 'fr'
+        assert args.lang == "en"
+        args = get_cmdline_args(["--lang", "de"])
+        assert args.lang == "de"
+        args = get_cmdline_args(["-l", "fr"])
+        assert args.lang == "fr"
 
     def test_lang_codes(self):
         # we can ask for a list of valid lang codes
         args = get_cmdline_args([])
         assert args.lang_codes is False
-        args = get_cmdline_args(['--lang-codes'])
+        args = get_cmdline_args(["--lang-codes"])
         assert args.lang_codes is True
 
 
 class TestMain(object):
 
-    def test_main(
-            self, monkeypatch, local_android_download_b64, capfd):
+    def test_main(self, monkeypatch, local_android_download_b64, capfd):
         # we can call the main function
-        monkeypatch.setattr(sys, "argv", ["scriiptname", ])
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "scriiptname",
+            ],
+        )
         main()
         out, err = capfd.readouterr()
         assert out.startswith("the\nto\nof\n")
@@ -167,9 +214,16 @@ class TestMain(object):
         assert "show this help message" in out
 
     def test_main_no_verbose(
-            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        self, monkeypatch, local_android_download_b64, home_dir, capfd
+    ):
         # by default we do not save any files.
-        monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "scriptname",
+            ],
+        )
         main()
         out, err = capfd.readouterr()
         assert out != ""
@@ -177,7 +231,8 @@ class TestMain(object):
         assert home_dir.listdir() == []
 
     def test_main_verbose(
-            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        self, monkeypatch, local_android_download_b64, home_dir, capfd
+    ):
         # in verbose mode, we tell at least what we do
         monkeypatch.setattr(sys, "argv", ["scriptname", "-v"])
         main()
@@ -187,7 +242,8 @@ class TestMain(object):
         assert "Path" not in err
 
     def test_main_verbose_increased(
-            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        self, monkeypatch, local_android_download_b64, home_dir, capfd
+    ):
         # we can be more verbose
         # (also use --raw, because only this way we have debug output)
         monkeypatch.setattr(sys, "argv", ["scriptname", "-vv", "--raw"])
@@ -197,7 +253,8 @@ class TestMain(object):
         assert "Path" in err
 
     def test_main_existing_file_errors(
-            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        self, monkeypatch, local_android_download_b64, home_dir, capfd
+    ):
         # we do not overwrite existing target files
         monkeypatch.setattr(sys, "argv", ["scriptname", "--outfile", "foo"])
         download_path = home_dir / "foo"
@@ -209,7 +266,8 @@ class TestMain(object):
         assert download_path.read() == "foo"  # original file unchanged
 
     def test_main_existing_file_errors_raw(
-            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        self, monkeypatch, local_android_download_b64, home_dir, capfd
+    ):
         # we do not overwrite existing target files
         monkeypatch.setattr(sys, "argv", ["scriptname", "--raw"])
         download_path = home_dir / "en_wordlist.combined.gz"
@@ -220,26 +278,48 @@ class TestMain(object):
         assert "File exists" in err
         assert download_path.read() == "foo"  # original file unchanged
 
-    def test_main_outfile(
-            self, monkeypatch, local_android_download_b64, home_dir):
+    def test_main_outfile(self, monkeypatch, local_android_download_b64, home_dir):
         # we can give a path for outfile
-        monkeypatch.setattr(sys, "argv", ["scriptname", "-o", "foo", ])
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "scriptname",
+                "-o",
+                "foo",
+            ],
+        )
         download_path = home_dir / "foo"
         main()
         assert download_path.isfile()
 
-    def test_main_lang(
-            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+    def test_main_lang(self, monkeypatch, local_android_download_b64, home_dir, capfd):
         # we can request a certain language
-        monkeypatch.setattr(sys, "argv", ["scriptname", "-l", "de", ])
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "scriptname",
+                "-l",
+                "de",
+            ],
+        )
         main()
         out, err = capfd.readouterr()
         assert out == "der\nund\n"
 
     def test_main_offensive(
-            self, monkeypatch, local_android_download_b64, home_dir, capfd):
+        self, monkeypatch, local_android_download_b64, home_dir, capfd
+    ):
         # we can request non-offensive lists
-        monkeypatch.setattr(sys, "argv", ["scriptname", "--no-offensive", ])
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "scriptname",
+                "--no-offensive",
+            ],
+        )
         main()
         out, err = capfd.readouterr()
         assert "hardcore" not in out
@@ -247,7 +327,14 @@ class TestMain(object):
     def test_main_lang_codes(self, monkeypatch, local_index, capfd):
         # we can ask for a list of available languages
         monkeypatch.setattr(
-            sys, "argv", ["scriptname", "--lang-codes", "-v", ])
+            sys,
+            "argv",
+            [
+                "scriptname",
+                "--lang-codes",
+                "-v",
+            ],
+        )
         with pytest.raises(SystemExit):
             main()
         out, err = capfd.readouterr()

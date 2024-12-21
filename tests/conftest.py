@@ -62,8 +62,7 @@ def dictfile_android_short_en(request, tmpdir):
     The file is gzipped, but not base64 encoded.
     """
     dictfile = tmpdir / "en_wordlist.combined.gz"
-    src_path = os.path.join(
-        os.path.dirname(__file__), "sample_short_wordlist_en.gz")
+    src_path = os.path.join(os.path.dirname(__file__), "sample_short_wordlist_en.gz")
     shutil.copyfile(src_path, str(dictfile))
     return dictfile
 
@@ -75,8 +74,7 @@ def dictfile_android_short_de(request, tmpdir):
     The file is gzipped, but not base64 encoded.
     """
     dictfile = tmpdir / "de_wordlist.combined.gz"
-    src_path = os.path.join(
-        os.path.dirname(__file__), "sample_short_wordlist_de.gz")
+    src_path = os.path.join(os.path.dirname(__file__), "sample_short_wordlist_de.gz")
     shutil.copyfile(src_path, str(dictfile))
     return dictfile
 
@@ -94,10 +92,11 @@ def local_android_dir(request, tmpdir):
     For simulating file downloads from repository, use
     `local_android_download_b64` fixture below.
     """
-    for lang in ['de', 'en']:
+    for lang in ["de", "en"]:
         dictfile = tmpdir / ("%s_wordlist.combined.gz" % lang)
         src_path = os.path.join(
-            os.path.dirname(__file__), "sample_short_wordlist_%s.gz" % lang)
+            os.path.dirname(__file__), "sample_short_wordlist_%s.gz" % lang
+        )
         shutil.copyfile(src_path, str(dictfile))
     return tmpdir
 
@@ -113,21 +112,24 @@ def local_android_download_b64(request, monkeypatch, tmpdir):
     The files are stored base64-encoded, as this is, what the original google
     repos deliver.
     """
-    for lang in ['de', 'en']:
+    for lang in ["de", "en"]:
         dictfile = tmpdir / ("%s_wordlist.combined.gz" % lang)
         src_path = os.path.join(
-            os.path.dirname(__file__), "sample_short_wordlist_%s.gz" % lang)
+            os.path.dirname(__file__), "sample_short_wordlist_%s.gz" % lang
+        )
         dictfile.write(base64.b64encode(open(src_path, "rb").read()))
     fake_base_url = "file://%s/" % str(tmpdir)
     index_html = open(
-        os.path.join(os.path.dirname(__file__), 'sample_index.html')).read()
+        os.path.join(os.path.dirname(__file__), "sample_index.html")
+    ).read()
     tmpdir.join("index.html").write(index_html)
     monkeypatch.setattr(
-        "diceware_list.libwordlist.AndroidWordList.base_url",
-        fake_base_url)
+        "diceware_list.libwordlist.AndroidWordList.base_url", fake_base_url
+    )
     monkeypatch.setattr(
         "diceware_list.libwordlist.AndroidWordList.full_url",
-        '%s%%s_wordlist.combined.gz' % fake_base_url)
+        "%s%%s_wordlist.combined.gz" % fake_base_url,
+    )
     return tmpdir
 
 
@@ -139,11 +141,13 @@ def local_index(request, monkeypatch, tmpdir):
     used to compile a list of available labnguages.
     """
     index_html = open(
-        os.path.join(os.path.dirname(__file__), 'sample_index.html')).read()
-    tmpdir.join('index.html').write(index_html)
+        os.path.join(os.path.dirname(__file__), "sample_index.html")
+    ).read()
+    tmpdir.join("index.html").write(index_html)
     monkeypatch.setattr(
         "diceware_list.libwordlist.AndroidWordList.base_url",
-        'file://%s/index.html' % str(tmpdir))
+        "file://%s/index.html" % str(tmpdir),
+    )
     return tmpdir
 
 
@@ -175,23 +179,23 @@ def teardown_loggers():
 
 @pytest.fixture(scope="function")
 def argv_handler(request):
-    """This fixture restores sys.argv and sys.stdin after tests.
-    """
+    """This fixture restores sys.argv and sys.stdin after tests."""
     _argv_stored = sys.argv
     _stdin_stored = sys.stdin
 
     def teardown():
         sys.argv = _argv_stored
         sys.stdin = _stdin_stored
+
     request.addfinalizer(teardown)
 
 
 @pytest.fixture(scope="function", autouse=True)
 def preserve_decimal_prec(request):
-    """Preserve decimal precision.
-    """
+    """Preserve decimal precision."""
     _prec = decimal.getcontext().prec
 
     def teardown():
         decimal.getcontext().prec = _prec
+
     request.addfinalizer(teardown)

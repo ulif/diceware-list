@@ -19,9 +19,7 @@
 import sys
 import pytest
 import random
-from diceware_list import (
-    get_cmdline_args, generate_wordlist, main, __version__
-)
+from diceware_list import get_cmdline_args, generate_wordlist, main, __version__
 
 
 class TestHelpers(object):
@@ -53,20 +51,33 @@ class TestArgParser(object):
     def test_version(self, monkeypatch, capfd):
         # we can output current version.
         with pytest.raises(SystemExit):
-            get_cmdline_args(["--version", ])
+            get_cmdline_args(
+                [
+                    "--version",
+                ]
+            )
         out, err = capfd.readouterr()
         assert __version__ in (out + err)
 
     def test_prefix_options_req_certain_keywords(self, monkeypatch, capfd):
         # we require one of 'short', 'long', 'short' as ``--prefix``.
         with pytest.raises(SystemExit):
-            get_cmdline_args(["--prefix", "invalid-keyword", ])
+            get_cmdline_args(
+                [
+                    "--prefix",
+                    "invalid-keyword",
+                ]
+            )
         out, err = capfd.readouterr()
         assert "--prefix: invalid choice" in (out + err)
 
     def test_options_defaults(self, dictfile):
         # options provide sensible defaults.
-        result = get_cmdline_args([str(dictfile), ])
+        result = get_cmdline_args(
+            [
+                str(dictfile),
+            ]
+        )
         assert result.verbose is None
         assert result.length is None
         assert result.numbered is False
@@ -75,7 +86,7 @@ class TestArgParser(object):
         assert result.uppercase is False
         assert result.use_kit is False
         assert result.use_416 is False
-        assert result.prefix == 'none'
+        assert result.prefix == "none"
         assert result.chars is None
         assert result.min_wordlen == 0
         assert isinstance(result.dictfile, list)
@@ -138,17 +149,17 @@ class TestArgParser(object):
     def test_opt_prefix_settable(self, dictfile):
         # we can tell whether we want prefix code (and which one)
         result = get_cmdline_args(["-p", "none", str(dictfile)])
-        assert result.prefix == 'none'
+        assert result.prefix == "none"
         result = get_cmdline_args(["--prefix", "none", str(dictfile)])
-        assert result.prefix == 'none'
+        assert result.prefix == "none"
         result = get_cmdline_args(["-p", "short", str(dictfile)])
-        assert result.prefix == 'short'
+        assert result.prefix == "short"
         result = get_cmdline_args(["--prefix", "short", str(dictfile)])
-        assert result.prefix == 'short'
+        assert result.prefix == "short"
         result = get_cmdline_args(["-p", "long", str(dictfile)])
-        assert result.prefix == 'long'
+        assert result.prefix == "long"
         result = get_cmdline_args(["--prefix", "long", str(dictfile)])
-        assert result.prefix == 'long'
+        assert result.prefix == "long"
 
     def test_opt_uppercase_settable(self, dictfile):
         # we can tell whether we want uppercase terms
@@ -177,15 +188,15 @@ class TestGenerateWordlist(object):
         monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
         in_list = ["a", "b", "c"]
         assert list(generate_wordlist(in_list, length=0)) == []
-        assert list(
-            generate_wordlist(
-                in_list, length=1, use_kit=False)) == ["c", ]
-        assert list(
-            generate_wordlist(
-                in_list, length=2, use_kit=False)) == ["b", "c"]
-        assert list(
-            generate_wordlist(
-                in_list, length=3, use_kit=False)) == ["a", "b", "c"]
+        assert list(generate_wordlist(in_list, length=1, use_kit=False)) == [
+            "c",
+        ]
+        assert list(generate_wordlist(in_list, length=2, use_kit=False)) == ["b", "c"]
+        assert list(generate_wordlist(in_list, length=3, use_kit=False)) == [
+            "a",
+            "b",
+            "c",
+        ]
         with pytest.raises(ValueError):
             list(generate_wordlist(in_list, length=4, use_kit=False))
 
@@ -193,11 +204,11 @@ class TestGenerateWordlist(object):
         # we respect the "lowercase" parameter
         in_list = ["a", "B", "C"]
         mixed = list(
-            generate_wordlist(
-                in_list, length=3, lowercase=False, use_kit=False))
+            generate_wordlist(in_list, length=3, lowercase=False, use_kit=False)
+        )
         lower = list(
-            generate_wordlist(
-                in_list, length=3, lowercase=True, use_kit=False))
+            generate_wordlist(in_list, length=3, lowercase=True, use_kit=False)
+        )
         default = list(generate_wordlist(in_list, length=3, use_kit=False))
         assert "a" in mixed
         assert "B" in mixed
@@ -220,13 +231,12 @@ class TestGenerateWordlist(object):
         # we respect the "use_416" parameter
         monkeypatch.setattr(random, "shuffle", lambda x: x)
         result1 = list(
-            generate_wordlist(
-                ["a", "b"], length=3, use_kit=False, use_416=True))
+            generate_wordlist(["a", "b"], length=3, use_kit=False, use_416=True)
+        )
         result2 = list(
-            generate_wordlist(
-                ["a", "b"], length=2, use_kit=False, use_416=False))
-        result_default = list(
-            generate_wordlist(["a", "b"], length=2, use_kit=False))
+            generate_wordlist(["a", "b"], length=2, use_kit=False, use_416=False)
+        )
+        result_default = list(generate_wordlist(["a", "b"], length=2, use_kit=False))
         assert "2a" in result1
         assert "2a" not in result2
         assert "2a" not in result_default
@@ -234,12 +244,19 @@ class TestGenerateWordlist(object):
     def test_arg_numbered_is_respected(self):
         # we consider the 'numbered' parameter
         terms = ["term%s" % x for x in range(7776)]
-        no_num_list = list(generate_wordlist(
-            terms, length=7776, use_kit=False, use_416=False, numbered=False))
-        numbered_list = list(generate_wordlist(
-            terms, length=7776, use_kit=False, use_416=False, numbered=True))
-        default_list = list(generate_wordlist(
-            terms, length=7776, use_kit=False, use_416=False))
+        no_num_list = list(
+            generate_wordlist(
+                terms, length=7776, use_kit=False, use_416=False, numbered=False
+            )
+        )
+        numbered_list = list(
+            generate_wordlist(
+                terms, length=7776, use_kit=False, use_416=False, numbered=True
+            )
+        )
+        default_list = list(
+            generate_wordlist(terms, length=7776, use_kit=False, use_416=False)
+        )
         assert len(no_num_list[0].split()) == 1
         assert len(numbered_list[0].split()) == 2
         assert len(default_list[0].split()) == 1
@@ -247,116 +264,175 @@ class TestGenerateWordlist(object):
     def test_arg_ascii_only_is_respected(self, monkeypatch):
         # we respect ascii_only.
         monkeypatch.setattr(random, "shuffle", lambda x: x)
-        terms = [u"aa", u"aä", u"ba"]
-        unfiltered_list = list(generate_wordlist(
-            terms, length=2, use_kit=False, use_416=False, ascii_only=False))
-        filtered_list = list(generate_wordlist(
-            terms, length=2, use_kit=False, use_416=False, ascii_only=True))
-        default_list = list(generate_wordlist(
-            terms, length=2, use_kit=False, use_416=False))
-        assert unfiltered_list == [u"aa", u"aä"]
-        assert filtered_list == [u"aa", u"ba"]
+        terms = ["aa", "aä", "ba"]
+        unfiltered_list = list(
+            generate_wordlist(
+                terms, length=2, use_kit=False, use_416=False, ascii_only=False
+            )
+        )
+        filtered_list = list(
+            generate_wordlist(
+                terms, length=2, use_kit=False, use_416=False, ascii_only=True
+            )
+        )
+        default_list = list(
+            generate_wordlist(terms, length=2, use_kit=False, use_416=False)
+        )
+        assert unfiltered_list == ["aa", "aä"]
+        assert filtered_list == ["aa", "ba"]
         assert default_list == unfiltered_list
 
     def test_arg_shuffle_max_is_respected(self, monkeypatch):
         # we can switch shuffling on or off.
         monkeypatch.setattr(random, "shuffle", lambda x: x.reverse())
-        terms = ['a', 'b', 'c']
-        unshuffled_list = list(generate_wordlist(
-            terms, length=2, use_kit=False, use_416=False, shuffle_max=False))
-        shuffled_list = list(generate_wordlist(
-            terms, length=2, use_kit=False, use_416=False, shuffle_max=True))
-        default_list = list(generate_wordlist(
-            terms, length=2, use_kit=False, use_416=False))
-        assert unshuffled_list == [u'a', u'b']
-        assert shuffled_list == [u'b', u'c']
+        terms = ["a", "b", "c"]
+        unshuffled_list = list(
+            generate_wordlist(
+                terms, length=2, use_kit=False, use_416=False, shuffle_max=False
+            )
+        )
+        shuffled_list = list(
+            generate_wordlist(
+                terms, length=2, use_kit=False, use_416=False, shuffle_max=True
+            )
+        )
+        default_list = list(
+            generate_wordlist(terms, length=2, use_kit=False, use_416=False)
+        )
+        assert unshuffled_list == ["a", "b"]
+        assert shuffled_list == ["b", "c"]
         assert default_list == shuffled_list
 
     def test_arg_sides_is_respected(self, monkeypatch):
         # we can choose how much sides the used dice have
         monkeypatch.setattr(random, "shuffle", lambda x: x)
-        terms = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-        sides_2_list = list(generate_wordlist(
-            terms, length=5, use_kit=False, use_416=False, numbered=True,
-            dice_sides=2))
-        sides_3_list = list(generate_wordlist(
-            terms, length=6, use_kit=False, use_416=False, numbered=True,
-            dice_sides=3))
-        default_list = list(generate_wordlist(
-            terms, length=7, use_kit=False, use_416=False, numbered=True))
-        assert sides_2_list == [
-            '111 a', '112 b', '121 c', '122 d', '211 e']
-        assert sides_3_list == [
-            '11 a', '12 b', '13 c', '21 d', '22 e', '23 f']
-        assert default_list == [
-            '11 a', '12 b', '13 c', '14 d', '15 e', '16 f', '21 g']
+        terms = ["a", "b", "c", "d", "e", "f", "g"]
+        sides_2_list = list(
+            generate_wordlist(
+                terms,
+                length=5,
+                use_kit=False,
+                use_416=False,
+                numbered=True,
+                dice_sides=2,
+            )
+        )
+        sides_3_list = list(
+            generate_wordlist(
+                terms,
+                length=6,
+                use_kit=False,
+                use_416=False,
+                numbered=True,
+                dice_sides=3,
+            )
+        )
+        default_list = list(
+            generate_wordlist(
+                terms, length=7, use_kit=False, use_416=False, numbered=True
+            )
+        )
+        assert sides_2_list == ["111 a", "112 b", "121 c", "122 d", "211 e"]
+        assert sides_3_list == ["11 a", "12 b", "13 c", "21 d", "22 e", "23 f"]
+        assert default_list == ["11 a", "12 b", "13 c", "14 d", "15 e", "16 f", "21 g"]
 
     def test_arg_delimiter_default(self, monkeypatch):
         # we can choose how numbered output separates numbers.
         monkeypatch.setattr(random, "shuffle", lambda x: x)
-        terms = ['w%s' % x for x in range(7)]  # ['w0'..'w6']
-        default_list = list(generate_wordlist(
-            terms, length=7, use_kit=False, use_416=False, numbered=True))
+        terms = ["w%s" % x for x in range(7)]  # ['w0'..'w6']
+        default_list = list(
+            generate_wordlist(
+                terms, length=7, use_kit=False, use_416=False, numbered=True
+            )
+        )
         assert default_list == [
-            '11 w0', '12 w1', '13 w2', '14 w3', '15 w4', '16 w5', '21 w6']
+            "11 w0",
+            "12 w1",
+            "13 w2",
+            "14 w3",
+            "15 w4",
+            "16 w5",
+            "21 w6",
+        ]
 
     def test_arg_delimiter_more_than_9_sides(self, monkeypatch):
         # with more than 9 sides, we output dashes in numbered output
         monkeypatch.setattr(random, "shuffle", lambda x: x)
-        terms = ['w%02d' % x for x in range(11)]  # ['w00'..'w10']
-        d10_list = list(generate_wordlist(
-            terms, length=11, use_kit=False, use_416=False,
-            numbered=True, dice_sides=10))
+        terms = ["w%02d" % x for x in range(11)]  # ['w00'..'w10']
+        d10_list = list(
+            generate_wordlist(
+                terms,
+                length=11,
+                use_kit=False,
+                use_416=False,
+                numbered=True,
+                dice_sides=10,
+            )
+        )
         assert d10_list == [
-            '1-1 w00', '1-2 w01', '1-3 w02', '1-4 w03', '1-5 w04', '1-6 w05',
-            '1-7 w06', '1-8 w07', '1-9 w08', '1-10 w09', '2-1 w10']
+            "1-1 w00",
+            "1-2 w01",
+            "1-3 w02",
+            "1-4 w03",
+            "1-5 w04",
+            "1-6 w05",
+            "1-7 w06",
+            "1-8 w07",
+            "1-9 w08",
+            "1-10 w09",
+            "2-1 w10",
+        ]
 
     def test_arg_prefix_code_is_respected(self, monkeypatch):
         # we can tell whether prefix code should be generated
         monkeypatch.setattr(random, "shuffle", lambda x: x)
-        terms = ['XXXXa', 'XXXXaa', 'XXXXba', 'XXXXca']
-        result1 = list(generate_wordlist(
-            terms, length=3, use_kit=False, use_416=False,
-            prefix_code='none'))
-        result2 = list(generate_wordlist(
-            terms, length=3, use_kit=False, use_416=False,
-            prefix_code='short'))
-        result3 = list(generate_wordlist(
-            terms, length=3, use_kit=False, use_416=False,
-            prefix_code='long'))
-        assert result1 == ['xxxxa', 'xxxxaa', 'xxxxba']
-        assert result2 == ['xxxxa', 'xxxxba', 'xxxxca']
-        assert result3 == ['xxxxaa', 'xxxxba', 'xxxxca']
+        terms = ["XXXXa", "XXXXaa", "XXXXba", "XXXXca"]
+        result1 = list(
+            generate_wordlist(
+                terms, length=3, use_kit=False, use_416=False, prefix_code="none"
+            )
+        )
+        result2 = list(
+            generate_wordlist(
+                terms, length=3, use_kit=False, use_416=False, prefix_code="short"
+            )
+        )
+        result3 = list(
+            generate_wordlist(
+                terms, length=3, use_kit=False, use_416=False, prefix_code="long"
+            )
+        )
+        assert result1 == ["xxxxa", "xxxxaa", "xxxxba"]
+        assert result2 == ["xxxxa", "xxxxba", "xxxxca"]
+        assert result3 == ["xxxxaa", "xxxxba", "xxxxca"]
 
     def test_arg_chars_is_respected(self, monkeypatch):
         # we can set a list of allowed chars
-        terms = ['ab', 'ba', 'bc']
+        terms = ["ab", "ba", "bc"]
         result1 = list(generate_wordlist(terms, chars=None))
         result2 = list(generate_wordlist(terms, chars="ab"))
-        assert result1 == ['ab', 'ba', 'bc']
-        assert result2 == ['ab', 'ba']
+        assert result1 == ["ab", "ba", "bc"]
+        assert result2 == ["ab", "ba"]
 
     def test_arg_turn_lowercase(self, monkeypatch):
         # we can tell, whether we allow uppercase terms
-        terms = ['A', 'a']
-        result1 = list(generate_wordlist(
-            terms, ))
-        result2 = list(generate_wordlist(
-            terms, lowercase=False))
-        assert result1 == ['a']
-        assert result2 == ['A', 'a']
+        terms = ["A", "a"]
+        result1 = list(
+            generate_wordlist(
+                terms,
+            )
+        )
+        result2 = list(generate_wordlist(terms, lowercase=False))
+        assert result1 == ["a"]
+        assert result2 == ["A", "a"]
 
     def test_arg_min_wordlen_is_respected(self):
         # we can request a minimum word len
         terms = ["a", "ba", "cba"]
-        result1 = list(generate_wordlist(
-            terms, min_word_len=1))
-        result2 = list(generate_wordlist(
-            terms, min_word_len=2))
-        result3 = list(generate_wordlist(
-            terms, min_word_len=3))
-        result_auto = list(generate_wordlist(
-            terms, min_word_len=0))
+        result1 = list(generate_wordlist(terms, min_word_len=1))
+        result2 = list(generate_wordlist(terms, min_word_len=2))
+        result3 = list(generate_wordlist(terms, min_word_len=3))
+        result_auto = list(generate_wordlist(terms, min_word_len=0))
         assert result1 == ["a", "ba", "cba"]
         assert result2 == ["ba", "cba"]
         assert result3 == ["cba"]
@@ -365,16 +441,17 @@ class TestGenerateWordlist(object):
     def test_result_sorted(self):
         # result iterators are sorted
         in_list = ["xxxc", "xxxaa", "xxxa", "xxxb"]
-        assert list(
-            generate_wordlist(in_list, length=4, use_kit=False)
-        ) == ["xxxa", "xxxaa", "xxxb", "xxxc"]
+        assert list(generate_wordlist(in_list, length=4, use_kit=False)) == [
+            "xxxa",
+            "xxxaa",
+            "xxxb",
+            "xxxc",
+        ]
 
     def test_unique_entries_only(self):
         # wordlists contain each entry only once
         in_list = ["a", "a", "a", "b", "a"]
-        assert list(
-            generate_wordlist(in_list, length=2, use_kit=False)
-        ) == ["a", "b"]
+        assert list(generate_wordlist(in_list, length=2, use_kit=False)) == ["a", "b"]
 
     def test_wordlist_too_short(self):
         # wordlists that are too short raise a special exception
@@ -389,17 +466,14 @@ class TestGenerateWordlist(object):
             generate_wordlist(in_list, prefix_code="long", lowercase=False)
         ) == ["B", "b"]
         in_list = ["b", "B"]
-        assert list(
-            generate_wordlist(in_list, lowercase=True)) == ["b"]
+        assert list(generate_wordlist(in_list, lowercase=True)) == ["b"]
         in_list = ["b", "B"]
-        assert list(
-            generate_wordlist(in_list, prefix_code='long')) == ["b"]
+        assert list(generate_wordlist(in_list, prefix_code="long")) == ["b"]
 
     def test_chars_precedes_ascii_only(self):
         # the `chars` option precedes any `ascii`.
         in_list = ["a", "b"]
-        result = list(
-            generate_wordlist(in_list, ascii_only=True, chars="acd"))
+        result = list(generate_wordlist(in_list, ascii_only=True, chars="acd"))
         assert result == ["a"]
 
 
@@ -407,7 +481,13 @@ class TestMain(object):
 
     def test_main(self, monkeypatch):
         # we can call the main function (although it will require extra args)
-        monkeypatch.setattr(sys, "argv", ["scriptname", ])
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "scriptname",
+            ],
+        )
         with pytest.raises(SystemExit):
             main()
 
@@ -438,21 +518,18 @@ class TestMain(object):
         # we do not output more terms than requested.
         wlist_path = tmpdir / "wlist.txt"
         wlist_path.write("1\n2\n3\n")
-        monkeypatch.setattr(
-            sys, "argv", ["scriptname", "-l", "2", str(wlist_path)])
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-l", "2", str(wlist_path)])
         main()
         out, err = capfd.readouterr()
         assert out.count("\n") == 2
 
     def test_main_no_kit(self, monkeypatch, dictfile, capfd):
         # we do not include the diceware kit by default.
-        monkeypatch.setattr(
-            sys, "argv", ["scriptname", str(dictfile)])  # no '-k'
+        monkeypatch.setattr(sys, "argv", ["scriptname", str(dictfile)])  # no '-k'
         main()
         out, err = capfd.readouterr()
         assert "!" not in out
-        monkeypatch.setattr(
-            sys, "argv", ["scriptname", "-k", str(dictfile)])
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-k", str(dictfile)])
         main()
         out, err = capfd.readouterr()
         assert "!" in out
@@ -460,12 +537,12 @@ class TestMain(object):
     def test_main_use_416(self, monkeypatch, dictfile, capfd):
         # we include the dieceware416.txt list if told.
         monkeypatch.setattr(
-            sys, "argv", ["scriptname", str(dictfile)])  # no '--use-416'
+            sys, "argv", ["scriptname", str(dictfile)]
+        )  # no '--use-416'
         main()
         out, err = capfd.readouterr()
         assert "9z" not in out
-        monkeypatch.setattr(
-            sys, "argv", ["scriptname", "--use-416", str(dictfile)])
+        monkeypatch.setattr(sys, "argv", ["scriptname", "--use-416", str(dictfile)])
         main()
         out, err = capfd.readouterr()
         assert "9z" in out
@@ -473,25 +550,25 @@ class TestMain(object):
     def test_main_numbered(self, monkeypatch, dictfile, capfd):
         # we can get dice numbers in output
         monkeypatch.setattr(
-            sys, "argv", ["scriptname", "-n", "-l", "7776", str(dictfile)])
+            sys, "argv", ["scriptname", "-n", "-l", "7776", str(dictfile)]
+        )
         main()
         out, err = capfd.readouterr()
         assert out.startswith("11111 ")
 
     def test_main_ascii_only(self, monkeypatch, dictfile, capfd):
         # we can tell to discard non-ASCII chars
-        dictfile.write_text(u"aa\naä\nba\n", "utf-8")
-        monkeypatch.setattr(
-            sys, "argv", ["scriptname", "-l", "3", str(dictfile)])
+        dictfile.write_text("aa\naä\nba\n", "utf-8")
+        monkeypatch.setattr(sys, "argv", ["scriptname", "-l", "3", str(dictfile)])
         main()
         out, err = capfd.readouterr()
-        assert out == u"aa\naä\nba\n"
+        assert out == "aa\naä\nba\n"
         monkeypatch.setattr(
-            sys, "argv",
-            ["scriptname", "-l", "2", "--ascii", str(dictfile)])
+            sys, "argv", ["scriptname", "-l", "2", "--ascii", str(dictfile)]
+        )
         main()
         out, err = capfd.readouterr()
-        assert out == u"aa\nba\n"
+        assert out == "aa\nba\n"
 
     def test_main_verbose(self, monkeypatch, dictfile, capfd):
         # we can require verbose output
@@ -518,16 +595,18 @@ class TestMain(object):
 
     def test_main_prefix_none(self, monkeypatch, dictfile_ext, capfd):
         # we can turn off prefix filtering
-        monkeypatch.setattr(sys, "argv", [
-            "scriptname", "--prefix=none", str(dictfile_ext)])
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "--prefix=none", str(dictfile_ext)]
+        )
         main()
         out, err = capfd.readouterr()
         assert "bbb\nbbbb\n" in out
 
     def test_main_prefix_short(self, monkeypatch, dictfile_ext, capfd):
         # we can ask for prefix filtering with short prefixes kept
-        monkeypatch.setattr(sys, "argv", [
-            "scriptname", "--prefix=short", str(dictfile_ext)])
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "--prefix=short", str(dictfile_ext)]
+        )
         main()
         out, err = capfd.readouterr()
         assert "aaa\nbbb\nccc" in out
@@ -535,8 +614,9 @@ class TestMain(object):
 
     def test_main_prefix_long(self, monkeypatch, dictfile_ext, capfd):
         # we can ask for prefix filtering with long prefixes kept
-        monkeypatch.setattr(sys, "argv", [
-            "scriptname", "--prefix=long", str(dictfile_ext)])
+        monkeypatch.setattr(
+            sys, "argv", ["scriptname", "--prefix=long", str(dictfile_ext)]
+        )
         main()
         out, err = capfd.readouterr()
         assert "aaa\nbbb\nccc" not in out
@@ -544,31 +624,25 @@ class TestMain(object):
 
     def test_main_avoid_double_case(self, monkeypatch, dictfile, capfd):
         # we cope with words that appear in upper and lower case
-        dictfile.write_text(u"aa\nbb\nAA\n", "utf-8")
-        monkeypatch.setattr(sys, "argv", [
-            "scriptname", "--prefix=long", str(dictfile)])
+        dictfile.write_text("aa\nbb\nAA\n", "utf-8")
+        monkeypatch.setattr(sys, "argv", ["scriptname", "--prefix=long", str(dictfile)])
         main()
         out, err = capfd.readouterr()
         assert "aa\nbb\n" == out
 
     def test_main_sides(self, monkeypatch, dictfile, capfd):
         # we support unusual dice
-        alphabet = "".join(
-            [u"xx%s\n" % x for x in u"ABCDEDFGHIJKLMNOPQRSTUVWXYZ"])
+        alphabet = "".join(["xx%s\n" % x for x in "ABCDEDFGHIJKLMNOPQRSTUVWXYZ"])
         dictfile.write_text(alphabet, "utf-8")
         monkeypatch.setattr(
-            sys, "argv", [   # no "-d"
-                "scriptname", "-n", "-l", "26", str(dictfile)
-            ]
+            sys, "argv", ["scriptname", "-n", "-l", "26", str(dictfile)]  # no "-d"
         )
         main()
         out, err = capfd.readouterr()
         assert "52 xxz" in out
         assert "211 xxz" not in out
         monkeypatch.setattr(
-            sys, "argv", [
-                "scriptname", "-n", "-l", "26", "-d", "5", str(dictfile)
-            ]
+            sys, "argv", ["scriptname", "-n", "-l", "26", "-d", "5", str(dictfile)]
         )
         main()
         out, err = capfd.readouterr()
@@ -577,7 +651,7 @@ class TestMain(object):
 
     def test_main_lowercase(self, monkeypatch, dictfile, capfd):
         # we turn terms into lowecase by default
-        dictfile.write_text(u"A\nb\nC\n", "utf-8")
+        dictfile.write_text("A\nb\nC\n", "utf-8")
         monkeypatch.setattr(sys, "argv", ["script", str(dictfile)])
         main()
         out, err = capfd.readouterr()
@@ -585,9 +659,8 @@ class TestMain(object):
 
     def test_main_chars(self, monkeypatch, dictfile, capfd):
         # we can tell what chars to accept
-        dictfile.write_text(u"abba\nbad\nban\n", "utf-8")
-        monkeypatch.setattr(sys, "argv", [
-            "script", "-c", "abcd", str(dictfile)])
+        dictfile.write_text("abba\nbad\nban\n", "utf-8")
+        monkeypatch.setattr(sys, "argv", ["script", "-c", "abcd", str(dictfile)])
         main()
         out, err = capfd.readouterr()
         assert out == "abba\nbad\n"

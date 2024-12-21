@@ -23,40 +23,50 @@ import os
 import sys
 from diceware_list import __version__
 from diceware_list.libwordlist import AndroidWordList, logger
+
 try:
-    BrokenPipeError is not None   # Python 3.x
-except NameError:                 # pragma: no cover
-    BrokenPipeError = IOError     # Python 2.x
+    BrokenPipeError is not None  # Python 3.x
+except NameError:  # pragma: no cover
+    BrokenPipeError = IOError  # Python 2.x
 
 
 def get_cmdline_args(args=None):
-    """Handle commandline options for `wldownload`.
-    """
+    """Handle commandline options for `wldownload`."""
     parser = argparse.ArgumentParser(
-        description="Download and mangle Android wordlists")
+        description="Download and mangle Android wordlists"
+    )
+    parser.add_argument("-o", "--outfile", action="store", help="file to store output.")
     parser.add_argument(
-        '-o', '--outfile', action='store', help='file to store output.')
+        "--raw",
+        action="store_true",
+        help="output raw wordlist. Stores fetched file locally.",
+    )
     parser.add_argument(
-        '--raw', action='store_true',
-        help='output raw wordlist. Stores fetched file locally.')
+        "-l",
+        "--lang",
+        action="store",
+        default="en",
+        help="language to download. Default: en.",
+    )
     parser.add_argument(
-        '-l', '--lang', action='store', default='en',
-        help='language to download. Default: en.')
+        "--lang-codes",
+        action="store_true",
+        help="list all valid language codes from download website",
+    )
     parser.add_argument(
-        '--lang-codes', action='store_true',
-        help='list all valid language codes from download website')
+        "--no-offensive", action="count", help="filter offensive words out."
+    )
+    parser.add_argument("-v", "--verbose", action="count", help="be verbose.")
     parser.add_argument(
-        '--no-offensive', action='count',
-        help='filter offensive words out.')
-    parser.add_argument(
-        '-v', '--verbose', action='count', help='be verbose.')
-    parser.add_argument(
-        '--version', action='version', version=__version__,
-        help='output version information and exit.')
+        "--version",
+        action="version",
+        version=__version__,
+        help="output version information and exit.",
+    )
     return parser.parse_args(args)
 
 
-def get_save_path(word_list, outfile=None, lang='en'):
+def get_save_path(word_list, outfile=None, lang="en"):
     """Compute a path, where to store wordlist files.
 
     The `word_list` must be an `AndroidWordList` or something similar, that
@@ -74,10 +84,9 @@ def get_save_path(word_list, outfile=None, lang='en'):
 
 
 def download_wordlist(
-        verbose=None, outfile=None, raw=False, lang='en',
-        filter_offensive=False):
-    """Download and mangle remote wordlists.
-    """
+    verbose=None, outfile=None, raw=False, lang="en", filter_offensive=False
+):
+    """Download and mangle remote wordlists."""
     wl = AndroidWordList(lang=lang)
     path = get_save_path(wl, outfile, lang)
     if os.path.exists(path) and (raw or outfile):
@@ -108,8 +117,7 @@ def download_wordlist(
 
 
 def main():
-    """Main function for `wldownload` script.
-    """
+    """Main function for `wldownload` script."""
     args = get_cmdline_args()
     logger.setLevel(logging.WARNING)
     if args.verbose:
@@ -122,5 +130,9 @@ def main():
         print(" ".join(AndroidWordList().get_valid_lang_codes()))
         sys.exit(0)
     download_wordlist(
-        verbose=args.verbose, outfile=args.outfile, raw=args.raw,
-        lang=args.lang, filter_offensive=args.no_offensive)
+        verbose=args.verbose,
+        outfile=args.outfile,
+        raw=args.raw,
+        lang=args.lang,
+        filter_offensive=args.no_offensive,
+    )

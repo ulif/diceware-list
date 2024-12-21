@@ -22,79 +22,134 @@ import logging
 import math
 import string
 from diceware_list.libwordlist import (
-    DICE_SIDES, base_terms_iterator, filter_chars, idx_to_dicenums, logger,
-    min_width_iter, paths_iterator, strip_matching_prefixes, min_length_iter,
-    min_word_length
+    DICE_SIDES,
+    base_terms_iterator,
+    filter_chars,
+    idx_to_dicenums,
+    logger,
+    min_width_iter,
+    paths_iterator,
+    strip_matching_prefixes,
+    min_length_iter,
+    min_word_length,
 )
 
-__version__ = '2.1.1.dev0'
+__version__ = "2.1.1.dev0"
 
 
-PREFIX_OPTIONS = ('none', 'short', 'long')
+PREFIX_OPTIONS = ("none", "short", "long")
 DEFAULT_PREFIX = PREFIX_OPTIONS[0]
 DEFAULT_CHARS = string.ascii_letters + string.digits + string.punctuation
 
 
 def get_cmdline_args(args=None):
-    """Handle commandline options.
-    """
+    """Handle commandline options."""
     parser = argparse.ArgumentParser(description="Create a wordlist")
     parser.add_argument(
-        '-l', '--length', default=None, type=int, dest='length',
-        help='desired length of generated wordlist. Default: none')
-    parser.add_argument(
-        '-n', '--numbered', action='store_true',
-        help='show dicenumbers in output.')
-    parser.add_argument(
-        '--ascii', action='store_true', dest='ascii_only',
-        help='allow only words that contain only ASCII chars.')
-    parser.add_argument(
-        '-c', '--chars', default=None,
-        help='list of chars allowed in result. By default no restrictions '
-             'apply')
-    parser.add_argument(
-        '-d', '--sides', default=6, type=int,
-        help="assume used dice have SIDES sides. Default: 6. Use with `-n'.")
-    parser.add_argument(
-        '-k', '--use-kit', action='store_true', dest='use_kit',
-        help='include the "dicewarekit" list from diceware.com. Disabled by '
-             'default.')
-    parser.add_argument(
-        '-u', '--allow-uppercase', action='store_true', dest='uppercase',
-        help='keep uppercase letters in terms untouched. By default all terms '
-             'are turned into lowercase.')
-    parser.add_argument(
-        '--use-416', action='store_true',
-        help='use terms from diceware416.txt list. Disabled by default.')
-    parser.add_argument(
-        '-m', '--min-wordlen', default=0, type=int,
-        help="minimum word length required. 0 for auto.")
-    parser.add_argument(
-        '-p', '--prefix', default=DEFAULT_PREFIX, choices=PREFIX_OPTIONS,
-        help=("create prefix code, i.e. discard terms that are "
-              "prefixes of other terms. `short' keeps shorter terms "
-              "(the prefixes of other terms) while `long' picks the "
-              "longer terms (discarding prefixes). `none' disables "
-              "prefix checking. Default: `none' "))
-    parser.add_argument(
-        'dictfile', nargs='+', metavar='DICTFILE', default=None,
-        help=("Dictionary file to read possible terms from. "
-              "Multiple allowed. `-' will read from stdin."),
+        "-l",
+        "--length",
+        default=None,
+        type=int,
+        dest="length",
+        help="desired length of generated wordlist. Default: none",
     )
     parser.add_argument(
-        '-v', '--verbose', action='count',
-        help='be verbose.')
+        "-n", "--numbered", action="store_true", help="show dicenumbers in output."
+    )
     parser.add_argument(
-        '--version', action='version', version=__version__,
-        help='output version information and exit.')
+        "--ascii",
+        action="store_true",
+        dest="ascii_only",
+        help="allow only words that contain only ASCII chars.",
+    )
+    parser.add_argument(
+        "-c",
+        "--chars",
+        default=None,
+        help="list of chars allowed in result. By default no restrictions " "apply",
+    )
+    parser.add_argument(
+        "-d",
+        "--sides",
+        default=6,
+        type=int,
+        help="assume used dice have SIDES sides. Default: 6. Use with `-n'.",
+    )
+    parser.add_argument(
+        "-k",
+        "--use-kit",
+        action="store_true",
+        dest="use_kit",
+        help='include the "dicewarekit" list from diceware.com. Disabled by '
+        "default.",
+    )
+    parser.add_argument(
+        "-u",
+        "--allow-uppercase",
+        action="store_true",
+        dest="uppercase",
+        help="keep uppercase letters in terms untouched. By default all terms "
+        "are turned into lowercase.",
+    )
+    parser.add_argument(
+        "--use-416",
+        action="store_true",
+        help="use terms from diceware416.txt list. Disabled by default.",
+    )
+    parser.add_argument(
+        "-m",
+        "--min-wordlen",
+        default=0,
+        type=int,
+        help="minimum word length required. 0 for auto.",
+    )
+    parser.add_argument(
+        "-p",
+        "--prefix",
+        default=DEFAULT_PREFIX,
+        choices=PREFIX_OPTIONS,
+        help=(
+            "create prefix code, i.e. discard terms that are "
+            "prefixes of other terms. `short' keeps shorter terms "
+            "(the prefixes of other terms) while `long' picks the "
+            "longer terms (discarding prefixes). `none' disables "
+            "prefix checking. Default: `none' "
+        ),
+    )
+    parser.add_argument(
+        "dictfile",
+        nargs="+",
+        metavar="DICTFILE",
+        default=None,
+        help=(
+            "Dictionary file to read possible terms from. "
+            "Multiple allowed. `-' will read from stdin."
+        ),
+    )
+    parser.add_argument("-v", "--verbose", action="count", help="be verbose.")
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=__version__,
+        help="output version information and exit.",
+    )
     return parser.parse_args(args)
 
 
 def generate_wordlist(
-        input_terms, length=None, lowercase=True, use_kit=False,
-        use_416=False, numbered=False, ascii_only=False, chars=None,
-        shuffle_max=True, prefix_code='none', dice_sides=DICE_SIDES,
-        min_word_len=0):
+    input_terms,
+    length=None,
+    lowercase=True,
+    use_kit=False,
+    use_416=False,
+    numbered=False,
+    ascii_only=False,
+    chars=None,
+    shuffle_max=True,
+    prefix_code="none",
+    dice_sides=DICE_SIDES,
+    min_word_len=0,
+):
     """Generate a diceware wordlist from dictionary list.
 
     `input_terms`: iterable over all strings to consider as wordlist item.
@@ -144,7 +199,7 @@ def generate_wordlist(
         if chars is not None:
             allowed = chars
         input_terms = filter_chars(input_terms, allowed=allowed)
-    separator = '-'
+    separator = "-"
     base_terms = base_terms_iterator(use_kit=use_kit, use_416=use_416)
     terms = itertools.chain(input_terms, base_terms)
     if lowercase:
@@ -153,27 +208,29 @@ def generate_wordlist(
     if not use_kit and not use_416:
         min_word_len = min_word_len or min_word_length(terms, length)
         terms = list(min_length_iter(terms, min_word_len))
-    if prefix_code in ('short', 'long'):
-        prefer_short = (prefix_code == 'short')
-        terms = list(strip_matching_prefixes(
-            terms, is_sorted=True, prefer_short=prefer_short))
+    if prefix_code in ("short", "long"):
+        prefer_short = prefix_code == "short"
+        terms = list(
+            strip_matching_prefixes(terms, is_sorted=True, prefer_short=prefer_short)
+        )
     if length is None:
         length = len(terms)
     if len(terms) < length:
         logger.debug("termlist length (after mangling): %s" % len(terms))
         raise ValueError(
             "Wordlist (after filtering) too short: "
-            "at least %s terms required." % length)
+            "at least %s terms required." % length
+        )
     if length and numbered:
         dicenum = int(math.ceil(math.log(length) / math.log(dice_sides)))
     if dice_sides < 10:
-        separator = ''
+        separator = ""
     all_dice = ""
-    for num, term in enumerate(sorted(min_width_iter(
-            terms, length, shuffle_max))):
+    for num, term in enumerate(sorted(min_width_iter(terms, length, shuffle_max))):
         if numbered:
-            all_dice = idx_to_dicenums(
-                num, dicenum, dice_sides, separator=separator) + " "
+            all_dice = (
+                idx_to_dicenums(num, dicenum, dice_sides, separator=separator) + " "
+            )
         yield "%s%s" % (all_dice, term)
 
 
@@ -192,13 +249,20 @@ def main():
         logger.debug("Verbose logging enabled")
         logger.info("Creating wordlist...")
     for term in generate_wordlist(
-            all_terms, args.length, use_kit=args.use_kit,
-            use_416=args.use_416, numbered=args.numbered,
-            ascii_only=args.ascii_only, dice_sides=args.sides,
-            prefix_code=args.prefix, lowercase=not args.uppercase,
-            chars=args.chars, min_word_len=args.min_wordlen):
+        all_terms,
+        args.length,
+        use_kit=args.use_kit,
+        use_416=args.use_416,
+        numbered=args.numbered,
+        ascii_only=args.ascii_only,
+        dice_sides=args.sides,
+        prefix_code=args.prefix,
+        lowercase=not args.uppercase,
+        chars=args.chars,
+        min_word_len=args.min_wordlen,
+    ):
         print(term)
 
 
-if __name__ == "__main__":                                   # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     main()
