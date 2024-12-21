@@ -35,9 +35,9 @@ Please consider using `virtualenv`_ for deployment.
 In an active `virtualenv` you can install an executable script of
 `diceware-list` running::
 
-  (venv) $ python setup.py install
+  (venv) $ pip install .
   (venv) $ diceware-list --help
-  usage: diceware-list [-h] [-l LENGTH] [-n] [--ascii] [-d SIDES] [-k]
+  usage: diceware-list [-h] [-l LENGTH] [-n] [--ascii] [-d SIDES] [-k] [-u] [--use-416]
                        [--use-416] [-p {none,short,long}] [-v] [--version]
                        DICTFILE [DICTFILE ...]
 
@@ -249,7 +249,7 @@ Testing
 
 In a clone of the sources you can run tests like this::
 
-  (venv) $ python setup.py test
+  (venv) $ pip install -e ".[test,dev]"
 
 This command will download all required packages, especially
 `py.test`_.
@@ -261,7 +261,7 @@ You can also install `py.test`_ manually with `pip`_::
 
 and afterwards run tests like so::
 
-  (venv)$ py.test
+  (venv)$ pytest
 
 If you also install `tox`::
 
@@ -277,13 +277,14 @@ Coverage
 
 To get a coverage report, you can use the respective `tox` target::
 
-  (venv)$ tox -e cov
+  (venv)$ tox -e clean,py39,result
 
 Or you use the common `coverage` tool::
 
-  (venv)$ pip install coverage
-  (venv)$ coverage run setup.py test
-  (venv)$ coverage report --include="diceware_list.py,libwordlist.py"
+  (venv)$ pip install coverage pytest-cov
+  (venv)$ pytest --cov --cov-report= tests
+  (venv)$ coverage report -m --include="diceware_list/*"
+  (venv)$ coverage html
 
 
 .. [#] The wordlist length in this case should be

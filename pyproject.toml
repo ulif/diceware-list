@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "diceware_list"
+dynamic = ["version", "readme"]
+authors = [
+  { name="Uli Fouquet", email="uli@gnufix.de" },
+]
+description = "Tools for creating diceware wordlists"
+keywords = ["diceware", "wordlist", "passphrase"]
+requires-python = ">=3.7"
+license = { file = "LICENSE" }
+classifiers = [
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: System Administrators",
+    "Topic :: Utilities",
+    "Topic :: Security :: Cryptography",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3 :: only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+
+
+[project.urls]
+"Homepage" = "https://github.com/ulif/diceware-list"
+"Bug Tracker" = "https://github.com/ulif/diceware-list/issues"
+"Documentation" = "https://github.com/ulif/diceware-list"
+
+
+[project.scripts]
+diceware-list = "diceware_list:main"
+wlflakes = "diceware_list.wlflakes:main"
+wldownload = "diceware_list.wldownload:main"
+
+
+[project.optional-dependencies]
+tests = ["pytest>=2.8.3", "pytest-cov", "coverage"]
+dev = ["black", "ruff", "tox"]
+
+
+[tool.setuptools]
+packages = ["diceware_list"]
+
+
+[tool.setuptools.package-data]
+"diceware_list" = ["*.txt", "*.asc"]
+
+
+[tool.setuptools.dynamic]
+version = {attr = "diceware_list.__version__"}
+readme = {file = ["README.rst", "CHANGES.rst"]}
+
