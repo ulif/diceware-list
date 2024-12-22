@@ -1,7 +1,7 @@
 diceware-list
 =============
 
-|bdg-build| `sources <https://github.com/ulif/diceware-list>`_ | `issues <https://github.com/ulif/diceware-list/issues>`_
+`sources <https://github.com/ulif/diceware-list>`_ | `issues <https://github.com/ulif/diceware-list/issues>`_
 
 Create and check wordlists for use with `diceware`_.
 
@@ -11,11 +11,38 @@ appropriate wordlists.
 Currently, we provide three scripts:
 
   - `diceware-list`
-      create wordlists based on input lists
+      create wordlists based on input lists. The lists created here have some
+      cryptographically desirable features.
   - `wlflakes`
-      checks existing wordlists for flaws
+      checks existing wordlists for flaws like non-ASCII chars, too short words
+      and more.
   - `wldownload`
       downloads Android wordlists
+
+Why that? Creating wordlists for use with diceware (or other applications that
+rely on hard to predict collections of words) has some gotchas. Choosing the
+wrong words, diceware lists might become harder to use or generate weaker
+passphrases than they theoretically could.
+
+For example
+
+- words could contain chars that are not available on most (western)
+  keyboards,
+- words could be so short, that actually using them in a diceware
+  passphrase would make brute force attacks easier than dictionary attacks,
+- words could be so long, that people would have to type more without getting
+  any security gain
+- using words that are also part of the beginning (prefix) of another word in
+  the list (like: `air`, `port` and `airport`), reduces the number of possible
+  different combinations of words and therefore decreases the difficulty to
+  guess a respective passphrase.
+
+There are more possible flaws, like rude language or words that sound similar
+which might make handling of the generated passphrases more difficult or at
+least unpleasant than necessary.
+
+`diceware-list` tries to generate lists that avoid some of these flaws and
+provides tools to detect these flaws in already crafted wordlists.
 
 
 Install
