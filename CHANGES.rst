@@ -1,15 +1,13 @@
 Changes
 *******
 
-2.2.dev0 (yet unreleased)
-===========================
+2.2 (2024-12-22)
+================
 
 - Support Python 3.8 to 3.12. Drop support for Python 2 and other older
   versions.
 
 - Switch to `pyproject.toml`-based project layout.
-
-- Fix wrong module registration in `setup.py`.
 
 - Catch exceptions when operating with pipes.
 
