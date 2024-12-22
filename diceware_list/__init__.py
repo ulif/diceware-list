@@ -34,7 +34,7 @@ from diceware_list.libwordlist import (
     min_word_length,
 )
 
-__version__ = "2.2"
+__version__ = "2.2.1.dev0"
 
 
 PREFIX_OPTIONS = ("none", "short", "long")
