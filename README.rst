@@ -3,10 +3,6 @@ diceware-list
 
 |bdg-build| `sources <https://github.com/ulif/diceware-list>`_ | `issues <https://github.com/ulif/diceware-list/issues>`_
 
-.. |bdg-build| image:: https://travis-ci.org/ulif/diceware-list.svg?branch=master
-    :target: https://travis-ci.org/ulif/diceware-list
-    :alt: Build Status
-
 Create and check wordlists for use with `diceware`_.
 
 This is not a `diceware`_ implementation, but a helper to create and check
@@ -14,9 +10,12 @@ appropriate wordlists.
 
 Currently, we provide three scripts:
 
-  - `diceware-list` create wordlists based on input lists
-  - `wlflakes` checks existing wordlists for flaws
-  - `wldownload` downloads Android wordlists
+  - `diceware-list`
+      create wordlists based on input lists
+  - `wlflakes`
+      checks existing wordlists for flaws
+  - `wldownload`
+      downloads Android wordlists
 
 
 Install
