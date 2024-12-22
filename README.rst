@@ -10,13 +10,13 @@ appropriate wordlists.
 
 Currently, we provide three scripts:
 
-  - `diceware-list`
+  - ``diceware-list``
       create wordlists based on input lists. The lists created here have some
       cryptographically desirable features.
-  - `wlflakes`
+  - ``wlflakes``
       checks existing wordlists for flaws like non-ASCII chars, too short words
       and more.
-  - `wldownload`
+  - ``wldownload``
       downloads Android wordlists
 
 Why that? Creating wordlists for use with diceware (or other applications that
@@ -33,7 +33,7 @@ For example
 - words could be so long, that people would have to type more without getting
   any security gain
 - using words that are also part of the beginning (prefix) of another word in
-  the list (like: `air`, `port` and `airport`), reduces the number of possible
+  the list (like: ``air``, ``port`` and ``airport``), reduces the number of possible
   different combinations of words and therefore decreases the difficulty to
   guess a respective passphrase.
 
@@ -137,12 +137,12 @@ suitable for use with diceware.::
   zulus
   zuni
 
-By default all input words are filtered and output. Using the `-l` option you
+By default all input words are filtered and output. Using the ``-l`` option you
 can request a certain length of the output wordlist. If an input list provides
 more terms than needed, we will pick a subset. If there are not enough terms in
 the input list, an error is raised.
 
-With `-n` you can tell `diceware-list` to put numbers into each line,
+With ``-n`` you can tell `diceware-list` to put numbers into each line,
 representing dice throws [#]_ ::
 
 
@@ -158,7 +158,7 @@ representing dice throws [#]_ ::
   66666 zuni
 
 If you create a wordlist for use with non-standard dice, for instance for
-10-sided dice, then you can tell with `-d` like this::
+10-sided dice, then you can tell with ``-d`` like this::
 
   $ diceware-list -n -d 10 -l 10000 /usr/share/dict/words
   1-1-1-1 aaron
@@ -169,14 +169,14 @@ If you create a wordlist for use with non-standard dice, for instance for
   10-10-10-9 zooms
   10-10-10-10 zoos
 
-The `--ascii` option filters terms out, that contain non-ASCII
+The ``--ascii`` option filters terms out, that contain non-ASCII
 characters. This can help in generating non-english word lists that
 are usable with regular english keyboards.
 
-The verbose option `--verbose` can be given multiple times to increase
+The verbose option ``--verbose`` can be given multiple times to increase
 verbosity.
 
-See `--help` for other options.
+See ``--help`` for other options.
 
 `diceware-list` follows loosely the recommendations given on
 http://diceware.com/ by Mr. Reinhold.
@@ -196,6 +196,7 @@ Check wordlists: wlflakes
 Find flakes in wordlists.
 
 ::
+
   $ wlflakes mywordlist.txt
 
 No output means: no problems detected.
@@ -204,6 +205,7 @@ We can look for prefix flakes. I.e., we check, whether any line in the given
 file is the beginning of any other line.
 
 ::
+
   $ cat wordlist.txt
   air
   port
@@ -216,6 +218,7 @@ file is the beginning of any other line.
 Double entries are also shown:
 
 ::
+
   $ cat wordlist.txt
   air
   port
@@ -275,7 +278,7 @@ Testing
 
 In a clone of the sources you can run tests like this::
 
-  (venv) $ pip install -e ".[test,dev]"
+  (venv) $ pip install -e ".[tests,dev]"
 
 This command will download all required packages, especially
 `py.test`_.
